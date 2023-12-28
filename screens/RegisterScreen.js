@@ -596,6 +596,13 @@ const RegisterScreen = props => {
           />
           {/* Next */}
           <Button
+            onPress={() => {
+              try {
+                navigation.navigate('VerificationScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
                 height: 48,

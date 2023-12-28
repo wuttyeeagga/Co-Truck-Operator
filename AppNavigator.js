@@ -140,6 +140,13 @@ function StackNavigator() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{
+          title: 'Register',
+        }}
+      />
+      <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
         options={{
@@ -151,13 +158,6 @@ function StackNavigator() {
         component={ChooseLanguageScreen}
         options={{
           title: 'Choose Language',
-        }}
-      />
-      <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          title: 'Register',
         }}
       />
       <Stack.Screen

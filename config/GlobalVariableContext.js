@@ -4,7 +4,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DeviceVariables = {
+  DLImage: '',
   LOGIN_TOKEN: 'some LOGIN_TOKEN',
+  NRCImage: '',
   certificateURL: 'some certificateURL',
   imageURL: 'some imageURL',
   __env__: 'Development',

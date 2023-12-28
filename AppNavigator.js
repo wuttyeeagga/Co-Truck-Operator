@@ -199,6 +199,13 @@ export default function RootAppNavigator() {
         }}
       >
         <Stack.Screen
+          name="BlankScreen"
+          component={BlankScreen}
+          options={{
+            title: 'Blank',
+          }}
+        />
+        <Stack.Screen
           name="VerificationScreen"
           component={VerificationScreen}
           options={{
@@ -210,13 +217,6 @@ export default function RootAppNavigator() {
           component={ReasonForCancelScreen}
           options={{
             title: 'Reason for cancel',
-          }}
-        />
-        <Stack.Screen
-          name="BlankScreen"
-          component={BlankScreen}
-          options={{
-            title: 'Blank',
           }}
         />
         <Stack.Screen

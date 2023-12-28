@@ -44,6 +44,7 @@ const VerificationScreen = props => {
             backgroundColor: 'rgba(0, 0, 0, 0)',
             justifyContent: 'flex-start',
             margin: 20,
+            marginTop: 0,
           },
           dimensions.width
         )}
@@ -85,7 +86,12 @@ const VerificationScreen = props => {
         </Text>
       </View>
       {/* View 2 */}
-      <View style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}>
+      <View
+        style={StyleSheet.applyWidth(
+          { backgroundColor: theme.colors['Surface'], margin: 20 },
+          dimensions.width
+        )}
+      >
         <PinInput
           autoComplete={'one-time-code'}
           blurOnFull={true}
@@ -113,7 +119,10 @@ const VerificationScreen = props => {
             return null;
           }}
           style={StyleSheet.applyWidth(
-            GlobalStyles.PinInputStyles(theme)['Pin Input'],
+            StyleSheet.compose(
+              GlobalStyles.PinInputStyles(theme)['Pin Input'],
+              { margin: 20 }
+            ),
             dimensions.width
           )}
           value={pinInputValue}
@@ -121,18 +130,29 @@ const VerificationScreen = props => {
         {/* Verify Button */}
         <Button
           style={StyleSheet.applyWidth(
-            GlobalStyles.ButtonStyles(theme)['Button'],
+            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+              margin: 10,
+              marginBottom: 10,
+              marginTop: 20,
+            }),
             dimensions.width
           )}
           title={'Verify'}
         />
       </View>
       {/* View 3 */}
-      <View style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}>
+      <View
+        style={StyleSheet.applyWidth(
+          { backgroundColor: 'rgba(0, 0, 0, 0)', margin: 50 },
+          dimensions.width
+        )}
+      >
         {/* Resend Button */}
         <Button
           style={StyleSheet.applyWidth(
-            GlobalStyles.ButtonStyles(theme)['Button'],
+            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+              marginTop: 30,
+            }),
             dimensions.width
           )}
           title={'Resend'}

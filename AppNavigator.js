@@ -199,6 +199,13 @@ export default function RootAppNavigator() {
         }}
       >
         <Stack.Screen
+          name="VerificationScreen"
+          component={VerificationScreen}
+          options={{
+            title: 'Verification',
+          }}
+        />
+        <Stack.Screen
           name="ReasonForCancelScreen"
           component={ReasonForCancelScreen}
           options={{
@@ -231,13 +238,6 @@ export default function RootAppNavigator() {
           component={RecipientAddressScreen}
           options={{
             title: 'Recipient Address',
-          }}
-        />
-        <Stack.Screen
-          name="VerificationScreen"
-          component={VerificationScreen}
-          options={{
-            title: 'Verification',
           }}
         />
         <Stack.Screen

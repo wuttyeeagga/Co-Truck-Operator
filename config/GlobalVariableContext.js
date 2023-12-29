@@ -8,6 +8,7 @@ export const DeviceVariables = {
   LOGIN_TOKEN: 'some LOGIN_TOKEN',
   NRCImage: '',
   certificateURL: 'some certificateURL',
+  companyCertificate: '',
   imageURL: 'some imageURL',
   __env__: 'Development',
 };

@@ -83,7 +83,7 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('ProfileScreen');
+              navigation.navigate('CompanyInformationScreen');
             } catch (err) {
               console.error(err);
             }

@@ -17,6 +17,8 @@ import BookingDetailsOnPendingScreen from './screens/BookingDetailsOnPendingScre
 import BookingSummaryScreen from './screens/BookingSummaryScreen';
 import ChooseLanguageScreen from './screens/ChooseLanguageScreen';
 import ChooseLocationZoneScreen from './screens/ChooseLocationZoneScreen';
+import CompanyInformationScreen from './screens/CompanyInformationScreen';
+import EditProfileScreen from './screens/EditProfileScreen';
 import FAQsScreen from './screens/FAQsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import HomeScreen from './screens/HomeScreen';
@@ -28,7 +30,6 @@ import LoginScreen from './screens/LoginScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PickUpDropDetailsScreen from './screens/PickUpDropDetailsScreen';
-import ProfileScreen from './screens/ProfileScreen';
 import ReasonForCancelScreen from './screens/ReasonForCancelScreen';
 import RecipientAddressScreen from './screens/RecipientAddressScreen';
 import ReferAFriendScreen from './screens/ReferAFriendScreen';
@@ -194,6 +195,13 @@ export default function RootAppNavigator() {
         }}
       >
         <Stack.Screen
+          name="CompanyInformationScreen"
+          component={CompanyInformationScreen}
+          options={{
+            title: 'Company Information',
+          }}
+        />
+        <Stack.Screen
           name="IdentityProofScreen"
           component={IdentityProofScreen}
           options={{
@@ -264,13 +272,6 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="ProfileScreen"
-          component={ProfileScreen}
-          options={{
-            title: 'Profile',
-          }}
-        />
-        <Stack.Screen
           name="BookingDetailsOnGoingScreen"
           component={BookingDetailsOnGoingScreen}
           options={{
@@ -338,6 +339,13 @@ export default function RootAppNavigator() {
           component={TermsInRegisterScreen}
           options={{
             title: 'Terms in Register',
+          }}
+        />
+        <Stack.Screen
+          name="EditProfileScreen"
+          component={EditProfileScreen}
+          options={{
+            title: 'Edit Profile',
           }}
         />
         <Stack.Screen

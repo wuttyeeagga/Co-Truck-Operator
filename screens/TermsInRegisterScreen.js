@@ -101,8 +101,9 @@ const TermsInRegisterScreen = props => {
         <Surface
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              margin: 10,
               paddingBottom: 10,
+              paddingLeft: 10,
+              paddingRight: 10,
               paddingTop: 10,
             }),
             dimensions.width
@@ -140,11 +141,19 @@ const TermsInRegisterScreen = props => {
             }
           </Text>
         </Surface>
-        {/* Next */}
+        {/* Agree and Submit */}
         <Button
+          onPress={() => {
+            try {
+              navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
+            } catch (err) {
+              console.error(err);
+            }
+          }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
               margin: 20,
+              marginTop: 40,
             }),
             dimensions.width
           )}

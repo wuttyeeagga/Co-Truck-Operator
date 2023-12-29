@@ -6,6 +6,7 @@ import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import showAlertUtil from '../utils/showAlert';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   CheckboxRow,
@@ -14,7 +15,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Image, Text, View, useWindowDimensions } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const LoginScreen = props => {
@@ -273,60 +274,22 @@ const LoginScreen = props => {
           {/* Login */}
           <Button
             onPress={() => {
-              const handler = async () => {
-                console.log('Login ON_PRESS Start');
-                let error = null;
-                try {
-                  console.log('Start ON_PRESS:0 FETCH_REQUEST');
-                  const loginResponse = (
-                    await cotruckLoginPOST.mutateAsync({
-                      email: userEmail,
-                      fcm_token:
-                        'chZPojdxBEU:APA91bE8OtOLFVfCOCYjxj-ItsD89X4Mn98530lUdsph57ssipgi0uZ5ZS1aUfLGL9z1R09N4y7Q2j-IwuTq4e3tOXIEX6hz5x_sygZawRLt1g-bGTJaXuvKsyB4LmhmVNylLpAL81Jv',
-                      password: userPassword,
-                      user_type: 'OWNER',
-                    })
-                  )?.json;
-                  console.log('Complete ON_PRESS:0 FETCH_REQUEST', {
-                    loginResponse,
-                  });
-                  console.log('Start ON_PRESS:1 EXTRACT_KEY');
-                  const token = loginResponse?.data;
-                  console.log('Complete ON_PRESS:1 EXTRACT_KEY', { token });
-                  console.log('Start ON_PRESS:2 EXTRACT_KEY');
-                  const message = loginResponse?.message;
-                  console.log('Complete ON_PRESS:2 EXTRACT_KEY', { message });
-                  console.log('Start ON_PRESS:3 CONSOLE_LOG');
-                  console.log(loginResponse, token);
-                  console.log('Complete ON_PRESS:3 CONSOLE_LOG');
-                  console.log('Start ON_PRESS:4 SET_VARIABLE');
-                  const Token = undefined;
-                  console.log('Complete ON_PRESS:4 SET_VARIABLE', { Token });
-                  console.log('Start ON_PRESS:5 SHOW_ALERT');
-                  showAlertUtil({
-                    title: msg,
-                    message: message,
-                    buttonText: undefined,
-                  });
-                  console.log('Complete ON_PRESS:5 SHOW_ALERT');
-                  console.log('Start ON_PRESS:6 CONDITIONAL_STOP');
-                  if (!token) {
-                    return;
-                  }
-                  console.log('Complete ON_PRESS:6 CONDITIONAL_STOP');
-                  console.log('Start ON_PRESS:7 NAVIGATE');
-                  navigation.navigate('BottomTabNavigator');
-                  console.log('Complete ON_PRESS:7 NAVIGATE');
-                } catch (err) {
-                  console.error(err);
-                  error = err.message ?? err;
-                }
-                console.log(
-                  'Login ON_PRESS Complete',
-                  error ? { error } : 'no error'
-                );
-              };
-              handler();
+              console.log('Login ON_PRESS Start');
+              let error = null;
+              try {
+                console.log('Start ON_PRESS:7 NAVIGATE');
+                navigation.navigate('BottomTabNavigator', {
+                  screen: 'HomeScreen',
+                });
+                console.log('Complete ON_PRESS:7 NAVIGATE');
+              } catch (err) {
+                console.error(err);
+                error = err.message ?? err;
+              }
+              console.log(
+                'Login ON_PRESS Complete',
+                error ? { error } : 'no error'
+              );
             }}
             style={StyleSheet.applyWidth(
               GlobalStyles.ButtonStyles(theme)['Button'],

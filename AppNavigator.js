@@ -135,17 +135,17 @@ function StackNavigator() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          title: 'Register',
-        }}
-      />
-      <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
         options={{
           title: 'Login',
+        }}
+      />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{
+          title: 'Register',
         }}
       />
       <Stack.Screen

@@ -34,6 +34,7 @@ import RecipientAddressScreen from './screens/RecipientAddressScreen';
 import ReferAFriendScreen from './screens/ReferAFriendScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import TermsInRegisterScreen from './screens/TermsInRegisterScreen';
 import Test1Screen from './screens/Test1Screen';
 import TestForMapScreen from './screens/TestForMapScreen';
 import VehicleProofScreen from './screens/VehicleProofScreen';
@@ -330,6 +331,13 @@ export default function RootAppNavigator() {
           component={VehicleProofScreen}
           options={{
             title: 'Vehicle Proof',
+          }}
+        />
+        <Stack.Screen
+          name="TermsInRegisterScreen"
+          component={TermsInRegisterScreen}
+          options={{
+            title: 'Terms in Register',
           }}
         />
         <Stack.Screen

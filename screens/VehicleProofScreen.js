@@ -402,6 +402,13 @@ const VehicleProofScreen = props => {
         </View>
         {/* Next */}
         <Button
+          onPress={() => {
+            try {
+              navigation.navigate('TermsInRegisterScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
               margin: 20,

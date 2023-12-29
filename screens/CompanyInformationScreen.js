@@ -7,6 +7,7 @@ import openImagePickerUtil from '../utils/openImagePicker';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
+  Divider,
   Icon,
   NumberInput,
   ScreenContainer,
@@ -153,173 +154,265 @@ const CompanyInformationScreen = props => {
               </Touchable>
             </View>
           </View>
-          {/* Full name */}
-          <View>
-            <Text
-              style={StyleSheet.applyWidth(
-                {
-                  color: theme.colors.strong,
-                  fontFamily: 'Inter_400Regular',
-                  opacity: 0.85,
-                },
-                dimensions.width
-              )}
-            >
-              {'Company Details'}
-            </Text>
-            <TextInput
-              autoCapitalize={'none'}
-              onChangeText={newTextInputValue => {
-                try {
-                  setCompanyName(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Enter a value...'}
-              style={StyleSheet.applyWidth(
-                {
-                  borderBottomWidth: 1,
-                  borderColor: theme.colors['Light'],
-                  borderLeftWidth: 1,
-                  borderRadius: 8,
-                  borderRightWidth: 1,
-                  borderTopWidth: 1,
-                  fontFamily: 'Inter_400Regular',
-                  height: 48,
-                  marginTop: 8,
-                  paddingBottom: 8,
-                  paddingLeft: 20,
-                  paddingRight: 20,
-                  paddingTop: 8,
-                },
-                dimensions.width
-              )}
-              value={companyName}
-            />
-          </View>
-          {/* Phone Number */}
+          {/* Row */}
           <View
-            style={StyleSheet.applyWidth({ marginTop: 20 }, dimensions.width)}
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
+              dimensions.width
+            )}
           >
             <Text
-              style={StyleSheet.applyWidth(
-                {
-                  color: theme.colors.strong,
-                  fontFamily: 'Inter_400Regular',
-                  opacity: 0.85,
-                },
-                dimensions.width
-              )}
-            >
-              {'Phone Number'}
-            </Text>
-            <TextInput
-              autoCapitalize={'none'}
-              onChangeText={newTextInputValue => {
-                try {
-                  setCompanyPhone(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Enter a value...'}
-              style={StyleSheet.applyWidth(
-                {
-                  borderBottomWidth: 1,
-                  borderColor: theme.colors['Light'],
-                  borderLeftWidth: 1,
-                  borderRadius: 8,
-                  borderRightWidth: 1,
-                  borderTopWidth: 1,
-                  fontFamily: 'Inter_400Regular',
-                  height: 48,
-                  marginTop: 8,
-                  paddingBottom: 8,
-                  paddingLeft: 20,
-                  paddingRight: 20,
-                  paddingTop: 8,
-                },
-                dimensions.width
-              )}
-              value={companyPhone}
-            />
-          </View>
-          {/* Company Registration Number */}
-          <View
-            style={StyleSheet.applyWidth({ marginTop: 20 }, dimensions.width)}
-          >
-            <Text
-              style={StyleSheet.applyWidth(
-                {
-                  color: theme.colors.strong,
-                  fontFamily: 'Inter_400Regular',
-                  opacity: 0.85,
-                },
-                dimensions.width
-              )}
-            >
-              {'Company Registration Number'}
-            </Text>
-            <NumberInput
+              accessible={true}
               allowFontScaling={true}
-              changeTextDelay={500}
-              onChangeText={newNumberInputValue => {
-                try {
-                  setRegisterNumber(newNumberInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Enter a number...'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.NumberInputStyles(theme)['Number Input'],
-                  { marginBottom: 10, marginTop: 10 }
-                ),
+                GlobalStyles.TextStyles(theme)['Text 2'],
                 dimensions.width
               )}
-              value={registerNumber}
-            />
+            >
+              {'Name'}
+            </Text>
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'Toperator comp 1'}
+            </Text>
           </View>
-          {/* Agent License */}
+          <Divider
+            color={theme.colors['CoTruckGrey']}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
+          {/* Row 2 */}
           <View
-            style={StyleSheet.applyWidth({ marginTop: 20 }, dimensions.width)}
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
+              dimensions.width
+            )}
           >
             <Text
+              accessible={true}
+              allowFontScaling={true}
               style={StyleSheet.applyWidth(
-                {
-                  color: theme.colors.strong,
-                  fontFamily: 'Inter_400Regular',
-                  opacity: 0.85,
-                },
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'Mobile Number'}
+            </Text>
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'128641111'}
+            </Text>
+          </View>
+          {/* Divider 3 */}
+          <Divider
+            color={theme.colors['CoTruckGrey']}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
+          {/* Row 3 */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'Registration No.'}
+            </Text>
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'111111'}
+            </Text>
+          </View>
+          {/* Divider 4 */}
+          <Divider
+            color={theme.colors['CoTruckGrey']}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
+          {/* Row 4 */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
                 dimensions.width
               )}
             >
               {'Agent License'}
             </Text>
-            <TextInput
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
               allowFontScaling={true}
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              onChangeText={newTextInputValue => {
-                try {
-                  setAgentLicense(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Enter a value...'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'],
-                  { marginBottom: 10, marginTop: 10 }
-                ),
+                GlobalStyles.TextStyles(theme)['Text 2'],
                 dimensions.width
               )}
-              value={agentLicense}
-            />
+            >
+              {'1111'}
+            </Text>
           </View>
+          {/* Divider 5 */}
+          <Divider
+            color={theme.colors['CoTruckGrey']}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
+          {/* Row 5 */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'Certificate'}
+            </Text>
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'uploads/users/11600864312.jpg'}
+            </Text>
+          </View>
+          {/* Divider 6 */}
+          <Divider
+            color={theme.colors['CoTruckGrey']}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
+          {/* Row 6 */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'Path selected'}
+            </Text>
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {
+                'Asia World Port Terminal (AWPT), Myanmar Industrial Port (MIP), Myanmar International Terminal Thilawa (MITT), Shwe Phi Thar, Hlaing Thar Yar, Mingalar Don, East Dagon, South Dagon, North Dagon, အနောက်ဒဂုံ'
+              }
+            </Text>
+          </View>
+          {/* Divider 2 */}
+          <Divider
+            color={theme.colors['CoTruckGrey']}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
         </View>
         {/* View 2 */}
         <View>
@@ -339,84 +432,134 @@ const CompanyInformationScreen = props => {
           >
             {'Contact Person Details'}
           </Text>
-          {/* Contact Person Name */}
+          {/* sampleRow */}
           <View
             style={StyleSheet.applyWidth(
-              { marginBottom: 10, marginTop: 10 },
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
               dimensions.width
             )}
           >
-            <TextInput
+            <Text
+              accessible={true}
               allowFontScaling={true}
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              onChangeText={newTextInputValue => {
-                try {
-                  setContactPersonName(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Enter a value...'}
               style={StyleSheet.applyWidth(
-                GlobalStyles.TextInputStyles(theme)['Text Input'],
+                GlobalStyles.TextStyles(theme)['Text 2'],
                 dimensions.width
               )}
-              value={contactPersonName}
-            />
+            >
+              {'Name'}
+            </Text>
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'Toperator one'}
+            </Text>
           </View>
-          {/* Contact Person Email */}
+          <Divider
+            color={theme.colors.divider}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
+          {/* sampleRow 2 */}
           <View
             style={StyleSheet.applyWidth(
-              { marginBottom: 10, marginTop: 10 },
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
               dimensions.width
             )}
           >
-            <TextInput
+            <Text
+              accessible={true}
               allowFontScaling={true}
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              onChangeText={newTextInputValue => {
-                try {
-                  setContactPersonEmail(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Enter a value...'}
               style={StyleSheet.applyWidth(
-                GlobalStyles.TextInputStyles(theme)['Text Input'],
+                GlobalStyles.TextStyles(theme)['Text 2'],
                 dimensions.width
               )}
-              value={contactPersonEmail}
-            />
+            >
+              {'Mobile Number'}
+            </Text>
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'09776001177'}
+            </Text>
           </View>
-          {/* Contact Person Phone Number */}
+          {/* Divider 2 */}
+          <Divider
+            color={theme.colors.divider}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
+          {/* sampleRow 3 */}
           <View
             style={StyleSheet.applyWidth(
-              { marginBottom: 10, marginTop: 10 },
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
               dimensions.width
             )}
           >
-            <TextInput
+            <Text
+              accessible={true}
               allowFontScaling={true}
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              onChangeText={newTextInputValue => {
-                try {
-                  setContactPersonPhoneNumber(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Enter a value...'}
               style={StyleSheet.applyWidth(
-                GlobalStyles.TextInputStyles(theme)['Text Input'],
+                GlobalStyles.TextStyles(theme)['Text 2'],
                 dimensions.width
               )}
-              value={contactPersonPhoneNumber}
-            />
+            >
+              {'Email'}
+            </Text>
+            <Icon name={'Entypo/dots-two-vertical'} size={20} />
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.TextStyles(theme)['Text 2'],
+                dimensions.width
+              )}
+            >
+              {'mayur@innogyasia.com'}
+            </Text>
           </View>
+          {/* Divider 3 */}
+          <Divider
+            color={theme.colors.divider}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
         </View>
         {/* Edit Profile */}
         <Button

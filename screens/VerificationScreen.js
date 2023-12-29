@@ -3,11 +3,12 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { Button, PinInput, ScreenContainer, withTheme } from '@draftbit/ui';
-import { Image, Text, View, useWindowDimensions } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 const VerificationScreen = props => {
-  const { theme } = props;
+  const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const [pinInputValue, setPinInputValue] = React.useState('');
   const [codeInputValue, setCodeInputValue] = React.useState(undefined);
@@ -129,6 +130,13 @@ const VerificationScreen = props => {
         />
         {/* Verify Button */}
         <Button
+          onPress={() => {
+            try {
+              /* 'Navigate' action requires configuration: choose a navigation destination */
+            } catch (err) {
+              console.error(err);
+            }
+          }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
               margin: 10,

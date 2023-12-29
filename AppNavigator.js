@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  I18nManager,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import { Icon, Touchable } from '@draftbit/ui';
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,7 +10,6 @@ import LinkingConfiguration from './LinkingConfiguration.js';
 
 import AboutUsScreen from './screens/AboutUsScreen';
 import ActivityScreen from './screens/ActivityScreen';
-import BlankScreen from './screens/BlankScreen';
 import BookingDetailsOnCompletedScreen from './screens/BookingDetailsOnCompletedScreen';
 import BookingDetailsOnConfirmedScreen from './screens/BookingDetailsOnConfirmedScreen';
 import BookingDetailsOnGoingScreen from './screens/BookingDetailsOnGoingScreen';
@@ -29,6 +21,7 @@ import FAQsScreen from './screens/FAQsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import HomeScreen from './screens/HomeScreen';
 import HospitalOnMapScreen from './screens/HospitalOnMapScreen';
+import IdentityProofScreen from './screens/IdentityProofScreen';
 import ImportBookingScreen from './screens/ImportBookingScreen';
 import InvoiceScreen from './screens/InvoiceScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -199,10 +192,10 @@ export default function RootAppNavigator() {
         }}
       >
         <Stack.Screen
-          name="BlankScreen"
-          component={BlankScreen}
+          name="IdentityProofScreen"
+          component={IdentityProofScreen}
           options={{
-            title: 'Blank',
+            title: 'Identity Proof',
           }}
         />
         <Stack.Screen

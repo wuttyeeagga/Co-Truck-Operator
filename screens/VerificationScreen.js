@@ -132,7 +132,7 @@ const VerificationScreen = props => {
         <Button
           onPress={() => {
             try {
-              /* 'Navigate' action requires configuration: choose a navigation destination */
+              navigation.navigate('IdentityProofScreen');
             } catch (err) {
               console.error(err);
             }

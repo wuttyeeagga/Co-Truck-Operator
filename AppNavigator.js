@@ -36,6 +36,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import Test1Screen from './screens/Test1Screen';
 import TestForMapScreen from './screens/TestForMapScreen';
+import VehicleProofScreen from './screens/VehicleProofScreen';
 import VerificationScreen from './screens/VerificationScreen';
 
 const Stack = createStackNavigator();
@@ -322,6 +323,13 @@ export default function RootAppNavigator() {
           component={ChooseLocationZoneScreen}
           options={{
             title: 'Choose Location Zone',
+          }}
+        />
+        <Stack.Screen
+          name="VehicleProofScreen"
+          component={VehicleProofScreen}
+          options={{
+            title: 'Vehicle Proof',
           }}
         />
         <Stack.Screen

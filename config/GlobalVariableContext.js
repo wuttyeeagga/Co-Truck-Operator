@@ -24,6 +24,10 @@ export const AppVariables = {
   productOptions: [{ label: 'some label', value: 123 }],
   test: 'some test',
   testLocation: [{}],
+  vehicleOptions: [
+    { label: '20ft Container', value: 1 },
+    { label: '40ft Container', value: 2 },
+  ],
 };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();

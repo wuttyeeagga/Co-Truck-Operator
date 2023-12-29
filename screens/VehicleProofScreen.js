@@ -8,13 +8,16 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   Icon,
+  Picker,
+  PickerItem,
   ScreenContainer,
+  TextInput,
   Touchable,
   withTheme,
 } from '@draftbit/ui';
 import { Image, Text, View } from 'react-native';
 
-const IdentityProofScreen = props => {
+const VehicleProofScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -22,12 +25,14 @@ const IdentityProofScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
+  const [pickerValue, setPickerValue] = React.useState('');
+  const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      scrollable={false}
+      scrollable={true}
     >
       {/* Header */}
       <View
@@ -96,8 +101,92 @@ const IdentityProofScreen = props => {
               dimensions.width
             )}
           >
-            {'Step 2 of 4 - Identify Proof'}
+            {'Step 3 of 4 - Update Vehicle'}
           </Text>
+        </View>
+        {/* Choose Vehicle */}
+        <Picker
+          autoDismissKeyboard={true}
+          dropDownBackgroundColor={theme.colors.background}
+          dropDownBorderColor={theme.colors.divider}
+          dropDownBorderRadius={8}
+          dropDownBorderWidth={1}
+          dropDownTextColor={theme.colors.strong}
+          iconSize={24}
+          leftIconMode={'inset'}
+          mode={'dropdown'}
+          onValueChange={newChooseVehicleValue => {
+            const pickerValue = newChooseVehicleValue;
+            try {
+              setPickerValue(newChooseVehicleValue);
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+          options={Constants['vehicleOptions']}
+          placeholder={'Choose Vehicle Type'}
+          selectedIconColor={theme.colors.strong}
+          selectedIconName={'Feather/check'}
+          selectedIconSize={20}
+          style={StyleSheet.applyWidth(
+            {
+              borderRadius: 8,
+              margin: 20,
+              paddingBottom: 8,
+              paddingLeft: 8,
+              paddingRight: 8,
+              paddingTop: 8,
+            },
+            dimensions.width
+          )}
+          type={'solid'}
+          value={pickerValue}
+        >
+          <PickerItem />
+        </Picker>
+        {/* Regostration View */}
+        <View>
+          {/* Title */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.TextStyles(theme)['Text 2'],
+              dimensions.width
+            )}
+          >
+            {'Registration Number'}
+          </Text>
+          {/* Registration Number Input */}
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize={'none'}
+            changeTextDelay={500}
+            onChangeText={newRegistrationNumberInputValue => {
+              const textInputValue = newRegistrationNumberInputValue;
+              try {
+                setTextInputValue(newRegistrationNumberInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            placeholder={'Registration Number'}
+            placeholderTextColor={theme.colors['Light']}
+            spellcheck={true}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                {
+                  borderColor: theme.colors['Light'],
+                  height: 48,
+                  margin: 20,
+                  paddingLeft: 12,
+                }
+              ),
+              dimensions.width
+            )}
+            value={textInputValue}
+          />
         </View>
         {/* NRC Container */}
         <View>
@@ -112,7 +201,7 @@ const IdentityProofScreen = props => {
               dimensions.width
             )}
           >
-            {'1.  Upload National Registration Card'}
+            {'Upload Registration Certificate'}
           </Text>
           {/* Image View */}
           <>
@@ -218,7 +307,7 @@ const IdentityProofScreen = props => {
               dimensions.width
             )}
           >
-            {'2.  Upload Driving License'}
+            {'Upload Vehicle Insurance'}
           </Text>
           {/* Image View */}
           <>
@@ -313,13 +402,6 @@ const IdentityProofScreen = props => {
         </View>
         {/* Next */}
         <Button
-          onPress={() => {
-            try {
-              navigation.navigate('VehicleProofScreen');
-            } catch (err) {
-              console.error(err);
-            }
-          }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
               margin: 20,
@@ -333,4 +415,4 @@ const IdentityProofScreen = props => {
   );
 };
 
-export default withTheme(IdentityProofScreen);
+export default withTheme(VehicleProofScreen);

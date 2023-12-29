@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Divider,
   Icon,
@@ -9,7 +10,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Text, View, useWindowDimensions } from 'react-native';
+import { Text, View } from 'react-native';
 
 const SettingsScreen = props => {
   const { theme, navigation } = props;
@@ -78,7 +79,7 @@ const SettingsScreen = props => {
           dimensions.width
         )}
       >
-        {/* Account Settings */}
+        {/* Company Information */}
         <Touchable
           onPress={() => {
             try {
@@ -125,7 +126,7 @@ const SettingsScreen = props => {
                 )}
                 textBreakStrategy={'highQuality'}
               >
-                {'Account Settings'}
+                {'Company Information'}
               </Text>
             </View>
             {/* Right Aligned */}
@@ -148,7 +149,152 @@ const SettingsScreen = props => {
             style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
           />
         </Touchable>
-        {/* Refer a friend */}
+        {/* Identification Proof */}
+        <Touchable
+          onPress={() => {
+            try {
+              navigation.navigate('BottomTabNavigator', {
+                screen: 'ActivityScreen',
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          {/* Row Wrapper */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                flexDirection: 'row',
+                height: 60,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
+          >
+            {/* Left Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flex: 1, flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon
+                color={theme.colors.strong}
+                name={'FontAwesome/calendar'}
+                size={24}
+              />
+              <Text
+                allowFontScaling={true}
+                ellipsizeMode={'tail'}
+                style={StyleSheet.applyWidth(
+                  {
+                    color: theme.colors.strong,
+                    fontFamily: 'System',
+                    fontWeight: '600',
+                    marginLeft: 12,
+                  },
+                  dimensions.width
+                )}
+                textBreakStrategy={'highQuality'}
+              >
+                {'Identification Proof'}
+              </Text>
+            </View>
+            {/* Right Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon
+                color={theme.colors.strong}
+                name={'MaterialIcons/chevron-right'}
+                size={24}
+              />
+            </View>
+          </View>
+          <Divider
+            color={theme.colors.divider}
+            height={1}
+            style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
+          />
+        </Touchable>
+        {/* Manage Vehicle */}
+        <Touchable
+          onPress={() => {
+            try {
+              navigation.navigate('BottomTabNavigator', {
+                screen: 'FAQsScreen',
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          {/* Row Wrapper */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                flexDirection: 'row',
+                height: 60,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
+          >
+            {/* Left Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flex: 1, flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon
+                color={theme.colors.strong}
+                name={'MaterialIcons/chat-bubble'}
+                size={24}
+              />
+              <Text
+                allowFontScaling={true}
+                ellipsizeMode={'tail'}
+                style={StyleSheet.applyWidth(
+                  {
+                    color: theme.colors.strong,
+                    fontFamily: 'System',
+                    fontSize: 14,
+                    fontWeight: '600',
+                    marginLeft: 12,
+                  },
+                  dimensions.width
+                )}
+                textBreakStrategy={'highQuality'}
+              >
+                {'Manage Vehicle'}
+              </Text>
+            </View>
+            {/* Right Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon
+                color={theme.colors.strong}
+                name={'MaterialIcons/chevron-right'}
+                size={24}
+              />
+            </View>
+          </View>
+          <Divider
+            color={theme.colors.divider}
+            height={1}
+            style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
+          />
+        </Touchable>
+        {/* Refer */}
         <Touchable
           onPress={() => {
             try {
@@ -218,6 +364,128 @@ const SettingsScreen = props => {
             style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
           />
         </Touchable>
+        {/* Change Password */}
+        <View
+          style={StyleSheet.applyWidth(
+            { flexDirection: 'column' },
+            dimensions.width
+          )}
+        >
+          {/* Row Container */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                height: 60,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
+          >
+            {/* Left Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon name={'Foundation/map'} size={24} />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    fontFamily: 'System',
+                    fontWeight: '600',
+                    marginLeft: 12,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Change Password'}
+              </Text>
+            </View>
+            {/* Right Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon name={'Entypo/chevron-right'} size={24} />
+            </View>
+          </View>
+          <Divider
+            color={theme.colors.divider}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.DividerStyles(theme)['Divider'],
+              dimensions.width
+            )}
+          />
+        </View>
+        {/* Manage Driver */}
+        <View
+          style={StyleSheet.applyWidth(
+            { flexDirection: 'column' },
+            dimensions.width
+          )}
+        >
+          {/* Row Container */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                height: 60,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
+          >
+            {/* Left Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon name={'Foundation/dollar'} size={24} />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    fontFamily: 'System',
+                    fontWeight: '600',
+                    marginLeft: 12,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Manage Driver'}
+              </Text>
+            </View>
+            {/* Right Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon name={'Entypo/chevron-right'} size={24} />
+            </View>
+          </View>
+          <Divider
+            color={theme.colors.divider}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.DividerStyles(theme)['Divider'], {
+                height: 2,
+              }),
+              dimensions.width
+            )}
+          />
+        </View>
         {/* Language */}
         <Touchable
           onPress={() => {

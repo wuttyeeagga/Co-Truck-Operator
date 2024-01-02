@@ -1,33 +1,21 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
-  Button,
+  AccordionGroup,
   Icon,
-  Picker,
-  PickerItem,
+  IconButton,
   ScreenContainer,
   Switch,
-  TextInput,
-  Touchable,
   withTheme,
 } from '@draftbit/ui';
-import {
-  Image,
-  ScrollView,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 const HomeScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
   const [checkboxRow2Value, setCheckboxRow2Value] = React.useState('');
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
   const [containerWeight, setContainerWeight] = React.useState('');
@@ -44,8 +32,11 @@ const HomeScreen = props => {
   const [showappointment, setShowappointment] = React.useState(false);
   const [switchRow2Value, setSwitchRow2Value] = React.useState(false);
   const [switchRowValue, setSwitchRowValue] = React.useState(false);
+  const [switchRowValue2, setSwitchRowValue2] = React.useState(false);
   const [switchValue, setSwitchValue] = React.useState(false);
   const [switchValue2, setSwitchValue2] = React.useState(false);
+  const [switchValue3, setSwitchValue3] = React.useState(false);
+  const [switchValue4, setSwitchValue4] = React.useState(false);
   const [textInputValue, setTextInputValue] = React.useState('');
   const [textInputValue2, setTextInputValue2] = React.useState('');
 
@@ -56,7 +47,7 @@ const HomeScreen = props => {
       hasTopSafeArea={true}
       scrollable={false}
     >
-      {/* Header */}
+      {/* Tab Header */}
       <View
         style={StyleSheet.applyWidth(
           {
@@ -89,27 +80,55 @@ const HomeScreen = props => {
                 dimensions.width
               )}
             >
-              {'New Booking'}
+              {'New Leads'}
             </Text>
           </View>
         </View>
-
-        <Touchable
-          onPress={() => {
-            try {
-              navigation.navigate('BottomTabNavigator');
-              /* 'Run a Custom Function' action requires configuration: choose a custom function */
-            } catch (err) {
-              console.error(err);
-            }
-          }}
+        {/* View 2 */}
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+            },
+            dimensions.width
+          )}
         >
-          <Icon
-            name={'Ionicons/ios-notifications-outline'}
-            size={24}
-            style={StyleSheet.applyWidth({ opacity: 0.5 }, dimensions.width)}
+          <Switch
+            onValueChange={newSwitchValue => {
+              const switchValue = newSwitchValue;
+              try {
+                setSwitchValue4(newSwitchValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            style={StyleSheet.applyWidth(
+              { marginLeft: 10, marginRight: 10 },
+              dimensions.width
+            )}
+            value={switchValue4}
           />
-        </Touchable>
+          <IconButton
+            color={theme.colors['CoTruckGrey']}
+            icon={'Ionicons/ios-notifications-outline'}
+            onPress={() => {
+              try {
+                navigation.navigate('BottomTabNavigator', {
+                  screen: 'NotificationsScreen',
+                });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            size={32}
+            style={StyleSheet.applyWidth(
+              { marginLeft: 10, marginRight: 10 },
+              dimensions.width
+            )}
+          />
+        </View>
       </View>
 
       <ScrollView
@@ -121,509 +140,1160 @@ const HomeScreen = props => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            },
-            dimensions.width
-          )}
+        {/* scrollAcordian */}
+        <ScrollView
+          bounces={true}
+          showsHorizontalScrollIndicator={true}
+          showsVerticalScrollIndicator={true}
         >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TextStyles(theme)['Text 3'],
-              dimensions.width
-            )}
-          >
-            {'Import'}
-          </Text>
-          <Switch
-            onValueChange={newSwitchValue => {
-              try {
-                setIsImport(newSwitchValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            value={isImport}
-          />
-          {/* Text 2 */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TextStyles(theme)['Text 3'],
-              dimensions.width
-            )}
-          >
-            {'Export'}
-          </Text>
-        </View>
-        {/* PickAndDropContainer */}
-        <View
-          style={StyleSheet.applyWidth(
-            { marginLeft: 10, marginRight: 10 },
-            dimensions.width
-          )}
-        >
-          {/* Material Type Picker */}
-          <Picker
-            autoDismissKeyboard={true}
-            dropDownBackgroundColor={theme.colors.background}
-            dropDownBorderColor={theme.colors.divider}
-            dropDownBorderRadius={8}
-            dropDownBorderWidth={1}
-            dropDownTextColor={theme.colors.strong}
-            iconColor={theme.colors['Custom Color_2']}
-            iconSize={20}
-            leftIconMode={'inset'}
-            mode={'native'}
-            onValueChange={newMaterialTypePickerValue => {
-              try {
-                setMaterialType(newMaterialTypePickerValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            options={Constants['materialOptions']}
-            placeholder={'Type of material'}
-            rightIconName={'AntDesign/caretdown'}
-            selectedIconColor={theme.colors.strong}
-            selectedIconName={'Feather/check'}
-            selectedIconSize={20}
-            style={StyleSheet.applyWidth(
-              { borderRadius: 12, margin: 10 },
-              dimensions.width
-            )}
-            type={'solid'}
-            value={materialType}
-          >
-            <PickerItem />
-          </Picker>
-          {/* Pickup Location Picker */}
-          <Picker
-            autoDismissKeyboard={true}
-            dropDownBackgroundColor={theme.colors.background}
-            dropDownBorderColor={theme.colors.divider}
-            dropDownBorderRadius={8}
-            dropDownBorderWidth={1}
-            dropDownTextColor={theme.colors.strong}
-            iconColor={theme.colors['Custom Color_7']}
-            iconSize={24}
-            leftIconMode={'inset'}
-            leftIconName={'MaterialCommunityIcons/home-city'}
-            mode={'dropdown'}
-            onValueChange={newPickupLocationPickerValue => {
-              try {
-                setPickerValue(newPickupLocationPickerValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            options={Constants['pickUpOptions']}
-            placeholder={'Select Pickup Location'}
-            selectedIconColor={theme.colors.strong}
-            selectedIconName={'Feather/check'}
-            selectedIconSize={20}
-            style={StyleSheet.applyWidth(
-              { borderRadius: 12, margin: 10 },
-              dimensions.width
-            )}
-            type={'solid'}
-            value={pickerValue}
-          >
-            <PickerItem
-              style={StyleSheet.applyWidth(
-                { color: theme.colors['App Green'] },
-                dimensions.width
-              )}
-            />
-          </Picker>
-          {/* Drop Location Picker */}
-          <Picker
-            autoDismissKeyboard={true}
-            dropDownBackgroundColor={theme.colors.background}
-            dropDownBorderColor={theme.colors.divider}
-            dropDownBorderRadius={8}
-            dropDownBorderWidth={1}
-            dropDownTextColor={theme.colors.strong}
-            iconColor={theme.colors['Custom Color_13']}
-            iconSize={24}
-            leftIconMode={'inset'}
-            leftIconName={'MaterialIcons/home-work'}
-            mode={'native'}
-            onValueChange={newDropLocationPickerValue => {
-              try {
-                setDropOffValue(newDropLocationPickerValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            options={Constants['pickUpOptions']}
-            placeholder={'Select Drop Location'}
-            selectedIconColor={theme.colors.strong}
-            selectedIconName={'Feather/check'}
-            selectedIconSize={20}
-            style={StyleSheet.applyWidth(
-              { borderRadius: 12, margin: 10 },
-              dimensions.width
-            )}
-            type={'solid'}
-            value={dropOffValue}
-          >
-            <PickerItem />
-          </Picker>
-          {/* Depot Location Picker */}
-          <Picker
-            autoDismissKeyboard={true}
-            dropDownBackgroundColor={theme.colors['Success']}
-            dropDownBorderColor={theme.colors.divider}
-            dropDownBorderRadius={8}
-            dropDownBorderWidth={1}
-            dropDownTextColor={theme.colors.strong}
-            iconColor={theme.colors['Custom #14495c']}
-            iconSize={24}
-            leftIconMode={'inset'}
-            leftIconName={'FontAwesome/ship'}
-            mode={'dropdown'}
-            onValueChange={newDepotLocationPickerValue => {
-              try {
-                setDepotValue(newDepotLocationPickerValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            options={Constants['pickUpOptions']}
-            placeholder={'Select Depot Location'}
-            selectedIconColor={theme.colors.strong}
-            selectedIconName={'Feather/check'}
-            selectedIconSize={20}
-            style={StyleSheet.applyWidth(
-              { borderRadius: 12, margin: 10 },
-              dimensions.width
-            )}
-            type={'solid'}
-            value={depotValue}
-          >
-            <PickerItem />
-          </Picker>
-          {/* Choose a vehicle */}
+          {/* tripList */}
           <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
-            {/* SubTitle */}
-            <View
-              style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}
-            >
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    color: theme.colors['Medium'],
-                    fontFamily: 'System',
-                    fontWeight: '600',
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Choose a vehicle'}
-              </Text>
-            </View>
-            {/* RowContainer */}
-            <View
+            {/* 24 Dec 23 */}
+            <AccordionGroup
+              caretSize={24}
+              expanded={true}
+              iconSize={24}
+              label={'24 Dec 23'}
               style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  marginBottom: 10,
-                  marginTop: 10,
-                },
+                GlobalStyles.AccordionGroupStyles(theme)['Accordion'],
                 dimensions.width
               )}
             >
-              {/* 20ftTruckContainer */}
+              {/* Booking Component 3 */}
               <View
                 style={StyleSheet.applyWidth(
-                  { alignItems: 'center' },
+                  {
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                  },
                   dimensions.width
                 )}
               >
-                <Touchable
+                {/* Date Container */}
+                <View
                   style={StyleSheet.applyWidth(
-                    { marginBottom: 5, marginTop: 5 },
+                    {
+                      alignItems: 'center',
+                      borderRadius: 7,
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      width: '12%',
+                    },
                     dimensions.width
                   )}
                 >
-                  <Image
-                    resizeMode={'cover'}
-                    source={Images._20ft}
+                  {/* Vehicle Type */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
-                        GlobalStyles.ImageStyles(theme)['Image 2'],
-                        { borderRadius: 30, height: 50, width: 50 }
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 14,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
                       ),
                       dimensions.width
                     )}
-                  />
-                </Touchable>
-
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['Text 2'],
-                      { marginBottom: 5, marginTop: 5, textAlign: 'auto' }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {'20ft Container Truck'}
-                </Text>
-              </View>
-              {/* 40ftTruckContainer */}
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'center' },
-                  dimensions.width
-                )}
-              >
-                <Touchable
-                  style={StyleSheet.applyWidth(
-                    { marginBottom: 5, marginTop: 5 },
-                    dimensions.width
-                  )}
-                >
-                  <Image
-                    resizeMode={'cover'}
-                    source={Images._40ft}
+                  >
+                    {'20ft'}
+                  </Text>
+                  {/* Weight */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
-                        GlobalStyles.ImageStyles(theme)['Image 2'],
-                        { borderRadius: 30, height: 50, width: 50 }
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 18,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
                       ),
                       dimensions.width
                     )}
-                  />
-                </Touchable>
-
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
+                  >
+                    {'3'}
+                  </Text>
+                </View>
+                {/* Started Place */}
+                <View
                   style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['Text 2'],
-                      { marginBottom: 5, marginTop: 5 }
-                    ),
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 5,
+                      width: '35%',
+                    },
                     dimensions.width
                   )}
                 >
-                  {'20ft Container Truck'}
-                </Text>
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Started Text */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Asia World Port Terminal (AWPT)'}
+                    </Text>
+                  </View>
+                  {/* Truck No View */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Truck Number */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Custom #acacac'],
+                            fontSize: 12,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Truck(0)'}
+                    </Text>
+                  </View>
+                  {/* View 2 */}
+                  <View />
+                </View>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 3,
+                      width: '5%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    color={theme.colors['Custom Color_18']}
+                    name={'AntDesign/swap'}
+                    size={24}
+                  />
+                </View>
+                {/* Ended Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      justifyContent: 'flex-start',
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Myanmar Industrial Port (MIP)'}
+                    </Text>
+                  </View>
+                  {/* View 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          { color: theme.colors['Success'] }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Accepted'}
+                    </Text>
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
-        </View>
-        {/* Load Details */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              marginBottom: 10,
-              marginLeft: 20,
-              marginRight: 20,
-              marginTop: 10,
-            },
-            dimensions.width
-          )}
-        >
-          {/* View 4 */}
-          <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
-            <Text
-              accessible={true}
-              allowFontScaling={true}
+            </AccordionGroup>
+            {/* 23 Dec 23 */}
+            <AccordionGroup
+              caretSize={24}
+              expanded={true}
+              iconSize={24}
+              label={'23 Dec 23'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['Medium'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '600',
-                }),
+                GlobalStyles.AccordionGroupStyles(theme)['Accordion'],
                 dimensions.width
               )}
             >
-              {'Load details'}
-            </Text>
-          </View>
-          <View />
-          {/* Container Weight View */}
-          <View
-            style={StyleSheet.applyWidth(
-              { marginBottom: 10, marginTop: 10 },
-              dimensions.width
-            )}
-          >
-            {/* Weight Input */}
-            <TextInput
-              allowFontScaling={true}
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              keyboardType={'numeric'}
-              onChangeText={newWeightInputValue => {
-                try {
-                  setContainerWeight(newWeightInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Average Container Weight(Ton)'}
-              placeholderTextColor={theme.colors['TextPlaceholder']}
-              returnKeyType={'next'}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input 2'],
+              {/* Booking Component 2 */}
+              <View
+                style={StyleSheet.applyWidth(
                   {
-                    borderColor: theme.colors['Medium'],
-                    borderRadius: 12,
-                    paddingBottom: 15,
-                    paddingTop: 15,
-                  }
-                ),
-                dimensions.width
-              )}
-              value={containerWeight}
-            />
-          </View>
-          {/* No of Truck View */}
-          <View
-            style={StyleSheet.applyWidth(
-              { marginBottom: 10, marginTop: 10 },
-              dimensions.width
-            )}
-          >
-            {/* NoOfTruckInput */}
-            <TextInput
-              allowFontScaling={true}
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              keyboardType={'numeric'}
-              onChangeText={newNoOfTruckInputValue => {
-                try {
-                  setNumberOfTruck(newNoOfTruckInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'No. of Truck'}
-              placeholderTextColor={theme.colors['TextPlaceholder']}
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Date Container */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      borderRadius: 7,
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      width: '12%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 14,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'40ft '}
+                  </Text>
+                  {/* Text 2 */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 18,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'6\n'}
+                  </Text>
+                </View>
+                {/* Started Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Asia World Port Terminal (AWPT)'}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Custom #acacac'],
+                            fontSize: 12,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Truck(1)'}
+                    </Text>
+                  </View>
+                  {/* View 2 */}
+                  <View />
+                </View>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      width: '5%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    color={theme.colors['Custom Color_18']}
+                    name={'AntDesign/swap'}
+                    size={24}
+                  />
+                </View>
+                {/* Ended Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      justifyContent: 'flex-start',
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Myanmar Industrial Port (MIP)'}
+                    </Text>
+                  </View>
+                  {/* View 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          { color: theme.colors['Success'] }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Accepted'}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </AccordionGroup>
+            {/* 22 Dec 23 */}
+            <AccordionGroup
+              caretSize={24}
+              expanded={true}
+              iconSize={24}
+              label={'22 Dec 23'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input 2'],
-                  {
-                    borderColor: theme.colors['Medium'],
-                    borderRadius: 12,
-                    paddingBottom: 15,
-                    paddingTop: 15,
-                  }
-                ),
+                GlobalStyles.AccordionGroupStyles(theme)['Accordion'],
                 dimensions.width
               )}
-              value={numberOfTruck}
-            />
-          </View>
-          {/* View 2 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: [
-                  { minWidth: Breakpoints.Mobile, value: 'stretch' },
-                  { minWidth: Breakpoints.Tablet, value: 'stretch' },
-                ],
-                justifyContent: 'center',
-              },
-              dimensions.width
-            )}
-          >
-            {/* Product Category Picker */}
-            <Picker
-              autoDismissKeyboard={true}
-              dropDownBackgroundColor={theme.colors.background}
-              dropDownBorderColor={theme.colors.divider}
-              dropDownBorderRadius={8}
-              dropDownBorderWidth={1}
-              dropDownTextColor={theme.colors.strong}
-              iconColor={theme.colors['Custom Color_2']}
-              iconSize={20}
-              leftIconMode={'inset'}
-              mode={'native'}
-              onValueChange={newProductCategoryPickerValue => {
-                try {
-                  setProductType(newProductCategoryPickerValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              options={Constants['productOptions']}
-              placeholder={'Product Category'}
-              rightIconName={'AntDesign/caretdown'}
-              selectedIconColor={theme.colors.strong}
-              selectedIconName={'Feather/check'}
-              selectedIconSize={20}
-              style={StyleSheet.applyWidth(
-                {
-                  borderRadius: 12,
-                  height: { minWidth: Breakpoints.Tablet, value: 38 },
-                  marginBottom: 10,
-                  marginTop: 10,
-                  paddingBottom: [
-                    { minWidth: Breakpoints.Tablet, value: 0 },
-                    { minWidth: Breakpoints.Mobile, value: 10 },
-                  ],
-                  paddingLeft: 8,
-                  paddingRight: 8,
-                  paddingTop: [
-                    { minWidth: Breakpoints.Tablet, value: 0 },
-                    { minWidth: Breakpoints.Mobile, value: 10 },
-                  ],
-                },
-                dimensions.width
-              )}
-              type={'solid'}
-              value={productType}
             >
-              <PickerItem />
-            </Picker>
+              {/* Booking Component 4 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Date Container */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      borderRadius: 7,
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      width: '12%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 14,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'40ft'}
+                  </Text>
+                  {/* Text 2 */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 18,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'4'}
+                  </Text>
+                </View>
+                {/* Started Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Asia World Port Terminal (AWPT)'}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Custom #acacac'],
+                            fontSize: 12,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Truck(0)'}
+                    </Text>
+                  </View>
+                  {/* View 2 */}
+                  <View />
+                </View>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 3,
+                      width: '5%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    color={theme.colors['Custom Color_18']}
+                    name={'AntDesign/swap'}
+                    size={24}
+                  />
+                </View>
+                {/* Ended Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      justifyContent: 'flex-start',
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Myanmar Industrial Port (MIP)'}
+                    </Text>
+                  </View>
+                  {/* View 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          { color: theme.colors['Error'] }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Canceled'}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </AccordionGroup>
+            {/* 21 Dec 23 */}
+            <AccordionGroup
+              caretSize={24}
+              expanded={true}
+              iconSize={24}
+              label={'21 Dec 23'}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.AccordionGroupStyles(theme)['Accordion'],
+                dimensions.width
+              )}
+            >
+              {/* Booking Component */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Date Container */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      borderRadius: 7,
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      width: '12%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 14,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'20ft'}
+                  </Text>
+                  {/* Text 2 */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 18,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'6\n'}
+                  </Text>
+                </View>
+                {/* Started Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Asia World Port Terminal (AWPT)'}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Custom #acacac'],
+                            fontSize: 12,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Truck(4)'}
+                    </Text>
+                  </View>
+                  {/* View 2 */}
+                  <View />
+                </View>
+                {/* Icon View */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 3,
+                      width: '5%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    color={theme.colors['Custom Color_18']}
+                    name={'AntDesign/swap'}
+                    size={24}
+                  />
+                </View>
+                {/* Ended Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      justifyContent: 'flex-start',
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Myanmar Industrial Port (MIP)'}
+                    </Text>
+                  </View>
+                  {/* Status Container */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          { color: theme.colors['GetFit Orange'] }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Pending'}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              {/* Booking Component 2 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Date Container */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      borderRadius: 7,
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      width: '12%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 14,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'20ft'}
+                  </Text>
+                  {/* Text 2 */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontSize: 18,
+                          margin: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'150'}
+                  </Text>
+                </View>
+                {/* Started Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Asia World Port Terminal (AWPT)'}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            color: theme.colors['Custom #acacac'],
+                            fontSize: 12,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Truck(4)'}
+                    </Text>
+                  </View>
+                  {/* View 2 */}
+                  <View />
+                </View>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      margin: 3,
+                      width: '5%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    color={theme.colors['Custom Color_18']}
+                    name={'AntDesign/swap'}
+                    size={24}
+                  />
+                </View>
+                {/* Ended Place */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      backgroundColor: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'rgba(0, 0, 0, 0)',
+                        },
+                      ],
+                      justifyContent: 'flex-start',
+                      margin: 5,
+                      width: '35%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Myanmar Industrial Port (MIP)'}
+                    </Text>
+                  </View>
+                  {/* Status Container */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 5 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          { color: theme.colors['GetFit Orange'] }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Pending'}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </AccordionGroup>
           </View>
-        </View>
-        {/* Button Container */}
-        <View style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}>
-          <Button
-            onPress={() => {
-              console.log('Button ON_PRESS Start');
-              let error = null;
-              try {
-                console.log('Start ON_PRESS:0 NAVIGATE');
-                navigation.navigate('PickUpDropDetailsScreen');
-                console.log('Complete ON_PRESS:0 NAVIGATE');
-              } catch (err) {
-                console.error(err);
-                error = err.message ?? err;
-              }
-              console.log(
-                'Button ON_PRESS Complete',
-                error ? { error } : 'no error'
-              );
-            }}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.ButtonStyles(theme)['Button'],
-              dimensions.width
-            )}
-            title={'Next'}
-          />
-        </View>
+        </ScrollView>
       </ScrollView>
     </ScreenContainer>
   );

@@ -20,6 +20,7 @@ import BookingSummaryScreen from './screens/BookingSummaryScreen';
 import ChooseLanguageScreen from './screens/ChooseLanguageScreen';
 import ChooseLocationZoneScreen from './screens/ChooseLocationZoneScreen';
 import CompanyInformationScreen from './screens/CompanyInformationScreen';
+import DriverDertailsScreen from './screens/DriverDertailsScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import FAQsScreen from './screens/FAQsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
@@ -402,6 +403,13 @@ export default function RootAppNavigator() {
           component={AddNewDriverScreen}
           options={{
             title: 'Add New Driver',
+          }}
+        />
+        <Stack.Screen
+          name="DriverDertailsScreen"
+          component={DriverDertailsScreen}
+          options={{
+            title: 'Driver Dertails',
           }}
         />
         <Stack.Screen

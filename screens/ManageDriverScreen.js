@@ -75,7 +75,7 @@ const ManageDriverScreen = props => {
         <Button
           onPress={() => {
             try {
-              navigation.navigate('AddNewVehicleScreen');
+              navigation.navigate('AddNewDriverScreen');
             } catch (err) {
               console.error(err);
             }

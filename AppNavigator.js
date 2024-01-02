@@ -17,6 +17,7 @@ import BookingDetailsOnConfirmedScreen from './screens/BookingDetailsOnConfirmed
 import BookingDetailsOnGoingScreen from './screens/BookingDetailsOnGoingScreen';
 import BookingDetailsOnPendingScreen from './screens/BookingDetailsOnPendingScreen';
 import BookingSummaryScreen from './screens/BookingSummaryScreen';
+import ChangePasswordScreen from './screens/ChangePasswordScreen';
 import ChooseLanguageScreen from './screens/ChooseLanguageScreen';
 import ChooseLocationZoneScreen from './screens/ChooseLocationZoneScreen';
 import CompanyInformationScreen from './screens/CompanyInformationScreen';
@@ -144,6 +145,13 @@ function StackNavigator() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
+        name="ForgotPasswordScreen"
+        component={ForgotPasswordScreen}
+        options={{
+          title: 'Forgot Password',
+        }}
+      />
+      <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
         options={{
@@ -169,13 +177,6 @@ function StackNavigator() {
         component={AboutUsScreen}
         options={{
           title: 'About Us',
-        }}
-      />
-      <Stack.Screen
-        name="ForgotPasswordScreen"
-        component={ForgotPasswordScreen}
-        options={{
-          title: 'Forgot Password',
         }}
       />
     </Stack.Navigator>
@@ -410,6 +411,13 @@ export default function RootAppNavigator() {
           component={DriverDetailsScreen}
           options={{
             title: 'Driver Details',
+          }}
+        />
+        <Stack.Screen
+          name="ChangePasswordScreen"
+          component={ChangePasswordScreen}
+          options={{
+            title: 'Change Password',
           }}
         />
         <Stack.Screen

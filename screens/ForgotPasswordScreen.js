@@ -5,6 +5,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import showAlertUtil from '../utils/showAlert';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   Icon,
@@ -13,7 +14,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Text, View, useWindowDimensions } from 'react-native';
+import { Text, View } from 'react-native';
 
 const ForgotPasswordScreen = props => {
   const { theme, navigation } = props;
@@ -131,7 +132,7 @@ const ForgotPasswordScreen = props => {
             {
               backgroundColor: 'rgba(0, 0, 0, 0)',
               borderBottomWidth: 1,
-              borderColor: theme.colors.divider,
+              borderColor: theme.colors['Light'],
               borderLeftWidth: 1,
               borderRadius: 12,
               borderRightWidth: 1,

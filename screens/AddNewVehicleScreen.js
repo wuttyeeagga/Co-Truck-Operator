@@ -25,8 +25,11 @@ const AddNewVehicleScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
+  const [isRCUpload, setIsRCUpload] = React.useState(false);
+  const [isVehicleInsurance, setIsVehicleInsurance] = React.useState(false);
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
 
   return (
     <ScreenContainer
@@ -150,7 +153,7 @@ const AddNewVehicleScreen = props => {
             value={textInputValue}
           />
         </View>
-        {/* NRC Container */}
+        {/* RC Container */}
         <View>
           {/* Sub Title */}
           <Text
@@ -167,7 +170,7 @@ const AddNewVehicleScreen = props => {
           </Text>
           {/* Image View */}
           <>
-            {!isNRCUpload ? null : (
+            {!isRCUpload ? null : (
               <View
                 style={StyleSheet.applyWidth(
                   {
@@ -180,7 +183,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['NRCImage']}` }}
+                  source={{ uri: `${Constants['RCImage']}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -204,10 +207,10 @@ const AddNewVehicleScreen = props => {
                   });
 
                   setGlobalVariableValue({
-                    key: 'NRCImage',
+                    key: 'RCImage',
                     value: results,
                   });
-                  setIsNRCUpload(true);
+                  setIsRCUpload(true);
                 } catch (err) {
                   console.error(err);
                 }
@@ -256,7 +259,7 @@ const AddNewVehicleScreen = props => {
             </View>
           </Touchable>
         </View>
-        {/* Driving License Container */}
+        {/* Vehicle Insurance Container */}
         <View>
           {/* Sub Title */}
           <Text
@@ -273,7 +276,7 @@ const AddNewVehicleScreen = props => {
           </Text>
           {/* Image View */}
           <>
-            {!isDLUpload ? null : (
+            {!isVehicleInsurance ? null : (
               <View
                 style={StyleSheet.applyWidth(
                   {
@@ -286,7 +289,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['DLImage']}` }}
+                  source={{ uri: `${Constants['VehicleInsuranceImage']}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -310,10 +313,10 @@ const AddNewVehicleScreen = props => {
                   });
 
                   setGlobalVariableValue({
-                    key: 'DLImage',
+                    key: 'VehicleInsuranceImage',
                     value: results,
                   });
-                  setIsDLUpload(true);
+                  setIsVehicleInsurance(true);
                 } catch (err) {
                   console.error(err);
                 }
@@ -362,7 +365,7 @@ const AddNewVehicleScreen = props => {
             </View>
           </Touchable>
         </View>
-        {/* Driving License Container 2 */}
+        {/* Vehicle Image Container */}
         <View>
           {/* Sub Title */}
           <Text
@@ -379,7 +382,7 @@ const AddNewVehicleScreen = props => {
           </Text>
           {/* Image View */}
           <>
-            {!isDLUpload ? null : (
+            {!uploadVehicleImage ? null : (
               <View
                 style={StyleSheet.applyWidth(
                   {
@@ -392,7 +395,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['DLImage']}` }}
+                  source={{ uri: `${Constants['VehicleImage']}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -416,10 +419,10 @@ const AddNewVehicleScreen = props => {
                   });
 
                   setGlobalVariableValue({
-                    key: 'DLImage',
+                    key: 'VehicleImage',
                     value: results,
                   });
-                  setIsDLUpload(true);
+                  setUploadVehicleImage(true);
                 } catch (err) {
                   console.error(err);
                 }

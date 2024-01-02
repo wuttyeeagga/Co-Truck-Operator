@@ -10,6 +10,7 @@ import LinkingConfiguration from './LinkingConfiguration.js';
 
 import AboutUsScreen from './screens/AboutUsScreen';
 import ActivityScreen from './screens/ActivityScreen';
+import AddNewDriverScreen from './screens/AddNewDriverScreen';
 import AddNewVehicleScreen from './screens/AddNewVehicleScreen';
 import BookingDetailsOnCompletedScreen from './screens/BookingDetailsOnCompletedScreen';
 import BookingDetailsOnConfirmedScreen from './screens/BookingDetailsOnConfirmedScreen';
@@ -394,6 +395,13 @@ export default function RootAppNavigator() {
           component={ManageDriverScreen}
           options={{
             title: 'Manage Driver',
+          }}
+        />
+        <Stack.Screen
+          name="AddNewDriverScreen"
+          component={AddNewDriverScreen}
+          options={{
+            title: 'Add New Driver',
           }}
         />
         <Stack.Screen

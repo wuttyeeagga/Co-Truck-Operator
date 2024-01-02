@@ -10,6 +10,7 @@ import LinkingConfiguration from './LinkingConfiguration.js';
 
 import AboutUsScreen from './screens/AboutUsScreen';
 import ActivityScreen from './screens/ActivityScreen';
+import BlankScreen from './screens/BlankScreen';
 import BookingDetailsOnCompletedScreen from './screens/BookingDetailsOnCompletedScreen';
 import BookingDetailsOnConfirmedScreen from './screens/BookingDetailsOnConfirmedScreen';
 import BookingDetailsOnGoingScreen from './screens/BookingDetailsOnGoingScreen';
@@ -40,6 +41,7 @@ import SettingsScreen from './screens/SettingsScreen';
 import TermsInRegisterScreen from './screens/TermsInRegisterScreen';
 import Test1Screen from './screens/Test1Screen';
 import TestForMapScreen from './screens/TestForMapScreen';
+import VehicleDetailsScreen from './screens/VehicleDetailsScreen';
 import VehicleProofScreen from './screens/VehicleProofScreen';
 import VerificationScreen from './screens/VerificationScreen';
 
@@ -362,6 +364,20 @@ export default function RootAppNavigator() {
           component={IdentityProofEditScreen}
           options={{
             title: 'Identity Proof Edit',
+          }}
+        />
+        <Stack.Screen
+          name="VehicleDetailsScreen"
+          component={VehicleDetailsScreen}
+          options={{
+            title: 'Vehicle Details',
+          }}
+        />
+        <Stack.Screen
+          name="BlankScreen"
+          component={BlankScreen}
+          options={{
+            title: 'Blank',
           }}
         />
         <Stack.Screen

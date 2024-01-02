@@ -132,7 +132,7 @@ const VerificationScreen = props => {
         <Button
           onPress={() => {
             try {
-              navigation.navigate('IdentityProofScreen');
+              navigation.navigate('IdentityProofSignUpScreen');
             } catch (err) {
               console.error(err);
             }

@@ -23,7 +23,9 @@ import FAQsScreen from './screens/FAQsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import HomeScreen from './screens/HomeScreen';
 import HospitalOnMapScreen from './screens/HospitalOnMapScreen';
-import IdentityProofScreen from './screens/IdentityProofScreen';
+import IdentityProofEditScreen from './screens/IdentityProofEditScreen';
+import IdentityProofSignUpScreen from './screens/IdentityProofSignUpScreen';
+import IdentityProofViewScreen from './screens/IdentityProofViewScreen';
 import ImportBookingScreen from './screens/ImportBookingScreen';
 import InvoiceScreen from './screens/InvoiceScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -195,17 +197,10 @@ export default function RootAppNavigator() {
         }}
       >
         <Stack.Screen
-          name="CompanyInformationScreen"
-          component={CompanyInformationScreen}
+          name="IdentityProofSignUpScreen"
+          component={IdentityProofSignUpScreen}
           options={{
-            title: 'Company Information',
-          }}
-        />
-        <Stack.Screen
-          name="IdentityProofScreen"
-          component={IdentityProofScreen}
-          options={{
-            title: 'Identity Proof',
+            title: 'Identity Proof Sign Up',
           }}
         />
         <Stack.Screen
@@ -213,6 +208,13 @@ export default function RootAppNavigator() {
           component={VerificationScreen}
           options={{
             title: 'Verification',
+          }}
+        />
+        <Stack.Screen
+          name="CompanyInformationScreen"
+          component={CompanyInformationScreen}
+          options={{
+            title: 'Company Information',
           }}
         />
         <Stack.Screen
@@ -346,6 +348,20 @@ export default function RootAppNavigator() {
           component={EditProfileScreen}
           options={{
             title: 'Edit Profile',
+          }}
+        />
+        <Stack.Screen
+          name="IdentityProofViewScreen"
+          component={IdentityProofViewScreen}
+          options={{
+            title: 'Identity Proof View',
+          }}
+        />
+        <Stack.Screen
+          name="IdentityProofEditScreen"
+          component={IdentityProofEditScreen}
+          options={{
+            title: 'Identity Proof Edit',
           }}
         />
         <Stack.Screen

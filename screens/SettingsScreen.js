@@ -153,9 +153,7 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'ActivityScreen',
-              });
+              navigation.navigate('IdentityProofViewScreen');
             } catch (err) {
               console.error(err);
             }

@@ -10,6 +10,7 @@ import LinkingConfiguration from './LinkingConfiguration.js';
 
 import AboutUsScreen from './screens/AboutUsScreen';
 import ActivityScreen from './screens/ActivityScreen';
+import AddNewVehicleScreen from './screens/AddNewVehicleScreen';
 import BookingDetailsOnCompletedScreen from './screens/BookingDetailsOnCompletedScreen';
 import BookingDetailsOnConfirmedScreen from './screens/BookingDetailsOnConfirmedScreen';
 import BookingDetailsOnGoingScreen from './screens/BookingDetailsOnGoingScreen';
@@ -378,6 +379,13 @@ export default function RootAppNavigator() {
           component={ManageVehicleScreen}
           options={{
             title: 'Manage Vehicle',
+          }}
+        />
+        <Stack.Screen
+          name="AddNewVehicleScreen"
+          component={AddNewVehicleScreen}
+          options={{
+            title: 'Add New Vehicle',
           }}
         />
         <Stack.Screen

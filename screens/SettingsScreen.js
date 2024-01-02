@@ -223,9 +223,7 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'FAQsScreen',
-              });
+              navigation.navigate('ManageVehicleScreen');
             } catch (err) {
               console.error(err);
             }

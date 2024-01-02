@@ -4,6 +4,7 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
+  Button,
   IconButton,
   ScreenContainer,
   Surface,
@@ -25,41 +26,69 @@ const ManageVehicleScreen = props => {
       {/* Header */}
       <View
         style={StyleSheet.applyWidth(
-          { alignItems: 'center', flexDirection: 'row' },
+          {
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            marginTop: 10,
+          },
           dimensions.width
         )}
       >
-        {/* Back Button */}
-        <IconButton
-          color={theme.colors['CoTruckBlack']}
-          icon={'MaterialIcons/arrow-back-ios'}
+        <View
+          style={StyleSheet.applyWidth(
+            { alignItems: 'center', flexDirection: 'row' },
+            dimensions.width
+          )}
+        >
+          {/* Back Button */}
+          <IconButton
+            color={theme.colors['CoTruckBlack']}
+            icon={'MaterialIcons/arrow-back-ios'}
+            onPress={() => {
+              try {
+                navigation.goBack();
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            size={32}
+          />
+          {/* Title */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                color: theme.colors['CoTruckBlack'],
+                fontFamily: 'System',
+                fontSize: 20,
+                fontWeight: '400',
+              }),
+              dimensions.width
+            )}
+          >
+            {'Manage Vehicle'}
+          </Text>
+        </View>
+        {/* Add New */}
+        <Button
           onPress={() => {
             try {
-              navigation.goBack();
+              navigation.navigate('AddNewVehicleScreen');
             } catch (err) {
               console.error(err);
             }
           }}
-          size={32}
-          style={StyleSheet.applyWidth({ marginLeft: 30 }, dimensions.width)}
-        />
-        {/* Title */}
-        <Text
-          accessible={true}
-          allowFontScaling={true}
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-              color: theme.colors['CoTruckBlack'],
-              fontFamily: 'System',
-              fontSize: 20,
-              fontWeight: '400',
-              marginLeft: 10,
+            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+              fontSize: 12,
+              textAlign: 'right',
             }),
             dimensions.width
           )}
-        >
-          {'Manage Vehicle'}
-        </Text>
+          title={'Add New'}
+        />
       </View>
 
       <Touchable

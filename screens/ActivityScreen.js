@@ -1499,25 +1499,26 @@ const ActivityScreen = props => {
                             {'Myanmar Industrial Port (MIP)'}
                           </Text>
                         </View>
-                        {/* View 2 */}
+                        {/* Status View */}
                         <View
                           style={StyleSheet.applyWidth(
                             { margin: 5 },
                             dimensions.width
                           )}
                         >
+                          {/* Status Text */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['Text'],
-                                { color: theme.colors['ShopAppBlue'] }
+                                { color: theme.colors['Success'] }
                               ),
                               dimensions.width
                             )}
                           >
-                            {'Accepted'}
+                            {'Completed'}
                           </Text>
                         </View>
                       </View>
@@ -1729,25 +1730,26 @@ const ActivityScreen = props => {
                             {'Myanmar Industrial Port (MIP)'}
                           </Text>
                         </View>
-                        {/* View 2 */}
+                        {/* Status View */}
                         <View
                           style={StyleSheet.applyWidth(
                             { margin: 5 },
                             dimensions.width
                           )}
                         >
+                          {/* Status Text */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['Text'],
-                                { color: theme.colors['Custom Color_11'] }
+                                { color: theme.colors['Success'] }
                               ),
                               dimensions.width
                             )}
                           >
-                            {'On Going'}
+                            {'Completed'}
                           </Text>
                         </View>
                       </View>
@@ -1960,13 +1962,14 @@ const ActivityScreen = props => {
                             {'Myanmar Industrial Port (MIP)'}
                           </Text>
                         </View>
-                        {/* View 2 */}
+                        {/* Status View */}
                         <View
                           style={StyleSheet.applyWidth(
                             { margin: 5 },
                             dimensions.width
                           )}
                         >
+                          {/* Status Text */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
@@ -2017,7 +2020,7 @@ const ActivityScreen = props => {
                             justifyContent: 'center',
                             paddingLeft: 5,
                             paddingRight: 5,
-                            width: '15%',
+                            width: '12%',
                           },
                           dimensions.width
                         )}
@@ -2126,7 +2129,7 @@ const ActivityScreen = props => {
                         {/* View 2 */}
                         <View />
                       </View>
-                      {/* View 3 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
@@ -2191,25 +2194,26 @@ const ActivityScreen = props => {
                             {'Myanmar Industrial Port (MIP)'}
                           </Text>
                         </View>
-                        {/* Status Container */}
+                        {/* Status View */}
                         <View
                           style={StyleSheet.applyWidth(
                             { margin: 5 },
                             dimensions.width
                           )}
                         >
+                          {/* Status Text */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['Text'],
-                                { color: theme.colors['GetFit Orange'] }
+                                { color: theme.colors['Error'] }
                               ),
                               dimensions.width
                             )}
                           >
-                            {'Pending'}
+                            {'Canceled'}
                           </Text>
                         </View>
                       </View>

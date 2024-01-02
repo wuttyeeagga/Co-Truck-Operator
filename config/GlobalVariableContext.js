@@ -12,7 +12,11 @@ export const DeviceVariables = {
   VehicleInsuranceImage: '',
   certificateURL: 'some certificateURL',
   companyCertificate: '',
+  dlBackImage: '',
+  dlFrontImage: '',
   imageURL: 'some imageURL',
+  nrcBackImage: '',
+  nrcFrontImage: '',
   __env__: 'Development',
 };
 export const AppVariables = {

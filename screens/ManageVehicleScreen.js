@@ -94,7 +94,7 @@ const ManageVehicleScreen = props => {
       <Touchable
         onPress={() => {
           try {
-            navigation.navigate('VehicleDetailsScreen');
+            navigation.navigate('DriverDetailsScreen');
           } catch (err) {
             console.error(err);
           }

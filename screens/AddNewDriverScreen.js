@@ -24,7 +24,11 @@ const AddNewDriverScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [isDLBack, setIsDLBack] = React.useState(false);
+  const [isDLFront, setIsDLFront] = React.useState(false);
   const [isDLUpload, setIsDLUpload] = React.useState(false);
+  const [isNRCBack, setIsNRCBack] = React.useState(false);
+  const [isNRCFront, setIsNRCFront] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [isRCUpload, setIsRCUpload] = React.useState(false);
   const [isVehicleInsurance, setIsVehicleInsurance] = React.useState(false);
@@ -175,6 +179,7 @@ const AddNewDriverScreen = props => {
             }}
             placeholder={'Enter Password'}
             placeholderTextColor={theme.colors['CoTruckGrey']}
+            secureTextEntry={true}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextInputStyles(theme)['Text Input 3'],
@@ -233,7 +238,7 @@ const AddNewDriverScreen = props => {
         >
           <PickerItem />
         </Picker>
-        {/* RC Container */}
+        {/* Front Driving License View */}
         <View>
           {/* Sub Title */}
           <Text
@@ -246,11 +251,11 @@ const AddNewDriverScreen = props => {
               dimensions.width
             )}
           >
-            {'1.  Upload Registration Certificate (RC)'}
+            {'1.  Upload Driving License ( Front )'}
           </Text>
           {/* Image View */}
           <>
-            {!isRCUpload ? null : (
+            {!isDLFront ? null : (
               <View
                 style={StyleSheet.applyWidth(
                   {
@@ -263,7 +268,7 @@ const AddNewDriverScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['RCImage']}` }}
+                  source={{ uri: `${Constants['dlFrontImage']}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -287,10 +292,10 @@ const AddNewDriverScreen = props => {
                   });
 
                   setGlobalVariableValue({
-                    key: 'RCImage',
+                    key: 'dlFrontImage',
                     value: results,
                   });
-                  setIsRCUpload(true);
+                  setIsDLFront(true);
                 } catch (err) {
                   console.error(err);
                 }
@@ -339,7 +344,7 @@ const AddNewDriverScreen = props => {
             </View>
           </Touchable>
         </View>
-        {/* Vehicle Insurance Container */}
+        {/* Back Driving License View */}
         <View>
           {/* Sub Title */}
           <Text
@@ -352,11 +357,11 @@ const AddNewDriverScreen = props => {
               dimensions.width
             )}
           >
-            {'2.  Upload Vehicle Insurance'}
+            {'2.  Upload Driving License ( Back )'}
           </Text>
           {/* Image View */}
           <>
-            {!isVehicleInsurance ? null : (
+            {!isDLBack ? null : (
               <View
                 style={StyleSheet.applyWidth(
                   {
@@ -369,7 +374,7 @@ const AddNewDriverScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['VehicleInsuranceImage']}` }}
+                  source={{ uri: `${Constants['dlBackImage']}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -393,10 +398,10 @@ const AddNewDriverScreen = props => {
                   });
 
                   setGlobalVariableValue({
-                    key: 'VehicleInsuranceImage',
+                    key: 'dlBackImage',
                     value: results,
                   });
-                  setIsVehicleInsurance(true);
+                  setIsDLBack(true);
                 } catch (err) {
                   console.error(err);
                 }
@@ -445,7 +450,7 @@ const AddNewDriverScreen = props => {
             </View>
           </Touchable>
         </View>
-        {/* Vehicle Image Container */}
+        {/* Front NRC Card View */}
         <View>
           {/* Sub Title */}
           <Text
@@ -458,11 +463,11 @@ const AddNewDriverScreen = props => {
               dimensions.width
             )}
           >
-            {'3.  Upload Vehicle Image'}
+            {'3. Upload National Registration Card ( Front )'}
           </Text>
           {/* Image View */}
           <>
-            {!uploadVehicleImage ? null : (
+            {!isNRCFront ? null : (
               <View
                 style={StyleSheet.applyWidth(
                   {
@@ -475,7 +480,7 @@ const AddNewDriverScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['VehicleImage']}` }}
+                  source={{ uri: `${Constants['nrcFrontImage']}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -499,10 +504,116 @@ const AddNewDriverScreen = props => {
                   });
 
                   setGlobalVariableValue({
-                    key: 'VehicleImage',
+                    key: 'nrcFrontImage',
                     value: results,
                   });
-                  setUploadVehicleImage(true);
+                  setIsNRCFront(true);
+                } catch (err) {
+                  console.error(err);
+                }
+              };
+              handler();
+            }}
+          >
+            {/* Upload View */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  alignItems: 'center',
+                  borderRadius: 8,
+                  borderStyle: 'dashed',
+                  borderWidth: 1,
+                  justifyContent: 'center',
+                  margin: 20,
+                  padding: 20,
+                },
+                dimensions.width
+              )}
+            >
+              <Icon
+                name={'AntDesign/pluscircle'}
+                size={24}
+                style={StyleSheet.applyWidth(
+                  {
+                    marginBottom: 5,
+                    marginLeft: 5,
+                    marginRight: 5,
+                    marginTop: 5,
+                  },
+                  dimensions.width
+                )}
+              />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  GlobalStyles.TextStyles(theme)['Text 2'],
+                  dimensions.width
+                )}
+              >
+                {'Upload Image'}
+              </Text>
+            </View>
+          </Touchable>
+        </View>
+        {/* Back NRC Card View */}
+        <View>
+          {/* Sub Title */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                margin: 10,
+              }),
+              dimensions.width
+            )}
+          >
+            {'4. Upload National Registration Card ( Back )'}
+          </Text>
+          {/* Image View */}
+          <>
+            {!isNRCBack ? null : (
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: 10,
+                  },
+                  dimensions.width
+                )}
+              >
+                <Image
+                  resizeMode={'cover'}
+                  source={{ uri: `${Constants['nrcBackImage']}` }}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ImageStyles(theme)['Image 3'],
+                      { borderRadius: 8, height: 150, width: 150 }
+                    ),
+                    dimensions.width
+                  )}
+                />
+              </View>
+            )}
+          </>
+          {/* Upload Image Button */}
+          <Touchable
+            onPress={() => {
+              const handler = async () => {
+                try {
+                  const results = await openImagePickerUtil({
+                    mediaTypes: 'All',
+                    allowsEditing: false,
+                    quality: 0.2,
+                  });
+
+                  setGlobalVariableValue({
+                    key: 'nrcBackImage',
+                    value: results,
+                  });
+                  setIsNRCBack(true);
                 } catch (err) {
                   console.error(err);
                 }

@@ -94,7 +94,7 @@ const ManageDriverScreen = props => {
       <Touchable
         onPress={() => {
           try {
-            navigation.navigate('VehicleDetailsScreen');
+            navigation.navigate('DriverDetailsScreen');
           } catch (err) {
             console.error(err);
           }
@@ -172,7 +172,7 @@ const ManageDriverScreen = props => {
       <Touchable
         onPress={() => {
           try {
-            navigation.navigate('VehicleDetailsScreen');
+            navigation.navigate('DriverDetailsScreen');
           } catch (err) {
             console.error(err);
           }
@@ -251,7 +251,7 @@ const ManageDriverScreen = props => {
       <Touchable
         onPress={() => {
           try {
-            navigation.navigate('VehicleDetailsScreen');
+            navigation.navigate('DriverDetailsScreen');
           } catch (err) {
             console.error(err);
           }
@@ -327,7 +327,15 @@ const ManageDriverScreen = props => {
         </Surface>
       </Touchable>
       {/* Touchable 4 */}
-      <Touchable>
+      <Touchable
+        onPress={() => {
+          try {
+            navigation.navigate('DriverDetailsScreen');
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+      >
         <Surface
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
@@ -397,7 +405,15 @@ const ManageDriverScreen = props => {
         </Surface>
       </Touchable>
       {/* Touchable 5 */}
-      <Touchable>
+      <Touchable
+        onPress={() => {
+          try {
+            navigation.navigate('DriverDetailsScreen');
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+      >
         <Surface
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
@@ -467,7 +483,15 @@ const ManageDriverScreen = props => {
         </Surface>
       </Touchable>
       {/* Touchable 6 */}
-      <Touchable>
+      <Touchable
+        onPress={() => {
+          try {
+            navigation.navigate('DriverDetailsScreen');
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+      >
         <Surface
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {

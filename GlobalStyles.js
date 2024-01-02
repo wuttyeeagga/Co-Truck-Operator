@@ -362,3 +362,6 @@ export const CircleStyles = theme =>
       justifyContent: 'center',
     },
   });
+
+export const WebViewStyles = theme =>
+  StyleSheet.create({ 'HTML View': { flex: 1 }, 'Web View': { flex: 1 } });

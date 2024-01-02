@@ -30,6 +30,7 @@ import IdentityProofViewScreen from './screens/IdentityProofViewScreen';
 import ImportBookingScreen from './screens/ImportBookingScreen';
 import InvoiceScreen from './screens/InvoiceScreen';
 import LoginScreen from './screens/LoginScreen';
+import ManageDriverScreen from './screens/ManageDriverScreen';
 import ManageVehicleScreen from './screens/ManageVehicleScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import PaymentScreen from './screens/PaymentScreen';
@@ -386,6 +387,13 @@ export default function RootAppNavigator() {
           component={AddNewVehicleScreen}
           options={{
             title: 'Add New Vehicle',
+          }}
+        />
+        <Stack.Screen
+          name="ManageDriverScreen"
+          component={ManageDriverScreen}
+          options={{
+            title: 'Manage Driver',
           }}
         />
         <Stack.Screen

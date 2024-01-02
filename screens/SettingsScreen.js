@@ -290,6 +290,80 @@ const SettingsScreen = props => {
             style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
           />
         </Touchable>
+        {/* Manage Driver */}
+        <Touchable
+          onPress={() => {
+            try {
+              navigation.navigate('ManageDriverScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          {/* Row Wrapper */}
+          <View
+            style={StyleSheet.applyWidth(
+              { flexDirection: 'column' },
+              dimensions.width
+            )}
+          >
+            {/* Row Container */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  height: 60,
+                  justifyContent: 'space-between',
+                },
+                dimensions.width
+              )}
+            >
+              {/* Left Aligned */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flexDirection: 'row' },
+                  dimensions.width
+                )}
+              >
+                <Icon name={'Foundation/dollar'} size={24} />
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                      fontFamily: 'System',
+                      fontWeight: '600',
+                      marginLeft: 12,
+                    }),
+                    dimensions.width
+                  )}
+                >
+                  {'Manage Driver'}
+                </Text>
+              </View>
+              {/* Right Aligned */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flexDirection: 'row' },
+                  dimensions.width
+                )}
+              >
+                <Icon name={'Entypo/chevron-right'} size={24} />
+              </View>
+            </View>
+            <Divider
+              color={theme.colors.divider}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.DividerStyles(theme)['Divider'],
+                  { height: 2 }
+                ),
+                dimensions.width
+              )}
+            />
+          </View>
+        </Touchable>
         {/* Refer */}
         <Touchable
           onPress={() => {
@@ -416,68 +490,6 @@ const SettingsScreen = props => {
             color={theme.colors.divider}
             style={StyleSheet.applyWidth(
               GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-        </View>
-        {/* Manage Driver */}
-        <View
-          style={StyleSheet.applyWidth(
-            { flexDirection: 'column' },
-            dimensions.width
-          )}
-        >
-          {/* Row Container */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                height: 60,
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            {/* Left Aligned */}
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'center', flexDirection: 'row' },
-                dimensions.width
-              )}
-            >
-              <Icon name={'Foundation/dollar'} size={24} />
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                    fontFamily: 'System',
-                    fontWeight: '600',
-                    marginLeft: 12,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Manage Driver'}
-              </Text>
-            </View>
-            {/* Right Aligned */}
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'center', flexDirection: 'row' },
-                dimensions.width
-              )}
-            >
-              <Icon name={'Entypo/chevron-right'} size={24} />
-            </View>
-          </View>
-          <Divider
-            color={theme.colors.divider}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.DividerStyles(theme)['Divider'], {
-                height: 2,
-              }),
               dimensions.width
             )}
           />
@@ -639,6 +651,8 @@ const SettingsScreen = props => {
             style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
           />
         </Touchable>
+        {/* Touchable 2 */}
+        <Touchable />
       </View>
       {/* Footer Wrapper */}
       <View

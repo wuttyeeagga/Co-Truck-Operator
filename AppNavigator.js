@@ -10,7 +10,6 @@ import LinkingConfiguration from './LinkingConfiguration.js';
 
 import AboutUsScreen from './screens/AboutUsScreen';
 import ActivityScreen from './screens/ActivityScreen';
-import BlankScreen from './screens/BlankScreen';
 import BookingDetailsOnCompletedScreen from './screens/BookingDetailsOnCompletedScreen';
 import BookingDetailsOnConfirmedScreen from './screens/BookingDetailsOnConfirmedScreen';
 import BookingDetailsOnGoingScreen from './screens/BookingDetailsOnGoingScreen';
@@ -30,6 +29,7 @@ import IdentityProofViewScreen from './screens/IdentityProofViewScreen';
 import ImportBookingScreen from './screens/ImportBookingScreen';
 import InvoiceScreen from './screens/InvoiceScreen';
 import LoginScreen from './screens/LoginScreen';
+import ManageVehicleScreen from './screens/ManageVehicleScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PickUpDropDetailsScreen from './screens/PickUpDropDetailsScreen';
@@ -374,10 +374,10 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="BlankScreen"
-          component={BlankScreen}
+          name="ManageVehicleScreen"
+          component={ManageVehicleScreen}
           options={{
-            title: 'Blank',
+            title: 'Manage Vehicle',
           }}
         />
         <Stack.Screen

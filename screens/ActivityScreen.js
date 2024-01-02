@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   AccordionGroup,
   Icon,
@@ -11,7 +12,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { ScrollView, Text, View, useWindowDimensions } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 const ActivityScreen = props => {
   const { theme, navigation } = props;
@@ -662,7 +663,7 @@ const ActivityScreen = props => {
                               },
                             ],
                             margin: 5,
-                            width: '40%',
+                            width: '35%',
                           },
                           dimensions.width
                         )}
@@ -834,7 +835,7 @@ const ActivityScreen = props => {
                             justifyContent: 'center',
                             paddingLeft: 5,
                             paddingRight: 5,
-                            width: '15%',
+                            width: '12%',
                           },
                           dimensions.width
                         )}
@@ -1065,7 +1066,7 @@ const ActivityScreen = props => {
                             justifyContent: 'center',
                             paddingLeft: 5,
                             paddingRight: 5,
-                            width: '15%',
+                            width: '12%',
                           },
                           dimensions.width
                         )}
@@ -1174,7 +1175,7 @@ const ActivityScreen = props => {
                         {/* View 2 */}
                         <View />
                       </View>
-                      {/* View 3 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
@@ -1844,7 +1845,7 @@ const ActivityScreen = props => {
                               },
                             ],
                             margin: 5,
-                            width: '40%',
+                            width: '35%',
                           },
                           dimensions.width
                         )}
@@ -2219,7 +2220,7 @@ const ActivityScreen = props => {
             </TabViewItem>
           )}
         </>
-        {/* Drop Off Tab View */}
+        {/* Paid Tab View */}
         <>
           {!'Completed' ? null : (
             <TabViewItem
@@ -2453,27 +2454,6 @@ const ActivityScreen = props => {
                           {'Myanmar Industrial Port (MIP)'}
                         </Text>
                       </View>
-                      {/* Status Container */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { margin: 5 },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text'],
-                              { color: theme.colors['GetFit Orange'] }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'Pending'}
-                        </Text>
-                      </View>
                     </View>
                   </View>
                   {/* Booking Component 3 */}
@@ -2690,27 +2670,6 @@ const ActivityScreen = props => {
                           )}
                         >
                           {'Myanmar Industrial Port (MIP)'}
-                        </Text>
-                      </View>
-                      {/* View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { margin: 5 },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text'],
-                              { color: theme.colors['ShopAppBlue'] }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'Accepted'}
                         </Text>
                       </View>
                     </View>
@@ -2931,27 +2890,6 @@ const ActivityScreen = props => {
                           {'Myanmar Industrial Port (MIP)'}
                         </Text>
                       </View>
-                      {/* View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { margin: 5 },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text'],
-                              { color: theme.colors['Custom Color_11'] }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'On Going'}
-                        </Text>
-                      </View>
                     </View>
                   </View>
                   {/* Booking Component 4 */}
@@ -3168,27 +3106,6 @@ const ActivityScreen = props => {
                           )}
                         >
                           {'Myanmar Industrial Port (MIP)'}
-                        </Text>
-                      </View>
-                      {/* View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { margin: 5 },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text'],
-                              { color: theme.colors['Error'] }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'Canceled'}
                         </Text>
                       </View>
                     </View>

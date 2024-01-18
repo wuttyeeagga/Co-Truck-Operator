@@ -39,6 +39,7 @@ const BookingDetailsOnGoingScreen = props => {
       hasBottomSafeArea={true}
       hasSafeArea={true}
       scrollable={true}
+      style={StyleSheet.applyWidth({ borderRadius: 12 }, dimensions.width)}
     >
       {/* My Header */}
       <View
@@ -166,6 +167,7 @@ const BookingDetailsOnGoingScreen = props => {
                       <View
                         style={StyleSheet.applyWidth(
                           {
+                            alignItems: 'center',
                             flexDirection: 'row',
                             justifyContent: 'space-between',
                           },
@@ -189,103 +191,99 @@ const BookingDetailsOnGoingScreen = props => {
                             const flashListData = item;
                             return (
                               <>
+                                {/* View 3 */}
                                 <View
                                   style={StyleSheet.applyWidth(
                                     {
                                       alignItems: 'center',
                                       flexDirection: 'row',
+                                      justifyContent: 'space-between',
                                     },
                                     dimensions.width
                                   )}
                                 >
                                   <View
                                     style={StyleSheet.applyWidth(
-                                      { marginLeft: 5, marginRight: 5 },
+                                      {
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    <Image
-                                      resizeMode={'cover'}
-                                      source={Images.Icon}
+                                    <View
                                       style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.ImageStyles(theme)[
-                                            'Image 3'
-                                          ],
-                                          { height: 60, width: 60 }
-                                        ),
+                                        { marginLeft: 5, marginRight: 5 },
                                         dimensions.width
                                       )}
-                                    />
+                                    >
+                                      <Image
+                                        resizeMode={'cover'}
+                                        source={Images.Icon}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.ImageStyles(theme)[
+                                              'Image 3'
+                                            ],
+                                            { height: 60, width: 60 }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      />
+                                    </View>
+                                    {/* View 2 */}
+                                    <View
+                                      style={StyleSheet.applyWidth(
+                                        { marginLeft: 5, marginRight: 5 },
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        style={StyleSheet.applyWidth(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 3'
+                                          ],
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {flashListData?.name}
+                                      </Text>
+                                      {/* Text 2 */}
+                                      <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        style={StyleSheet.applyWidth(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 3'
+                                          ],
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {flashListData?.comp_name}
+                                      </Text>
+                                    </View>
                                   </View>
                                   {/* View 2 */}
                                   <View
                                     style={StyleSheet.applyWidth(
-                                      { marginLeft: 5, marginRight: 5 },
+                                      {
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
+                                    <IconButton
+                                      icon={'Feather/phone'}
+                                      size={32}
                                       style={StyleSheet.applyWidth(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 3'
-                                        ],
+                                        { marginLeft: 5, marginRight: 5 },
                                         dimensions.width
                                       )}
-                                    >
-                                      {flashListData?.name}
-                                    </Text>
-                                    {/* Text 2 */}
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      style={StyleSheet.applyWidth(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 3'
-                                        ],
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {flashListData?.comp_name}
-                                    </Text>
+                                    />
                                   </View>
-                                </View>
-                                {/* View 2 */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      flexDirection: 'row',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  <IconButton
-                                    icon={'Feather/phone'}
-                                    size={32}
-                                    style={StyleSheet.applyWidth(
-                                      { marginLeft: 5, marginRight: 5 },
-                                      dimensions.width
-                                    )}
-                                  />
-                                  <Button
-                                    onPress={() => {
-                                      try {
-                                        navigation.navigate('PaymentScreen');
-                                      } catch (err) {
-                                        console.error(err);
-                                      }
-                                    }}
-                                    style={StyleSheet.applyWidth(
-                                      GlobalStyles.ButtonStyles(theme)[
-                                        'Button'
-                                      ],
-                                      dimensions.width
-                                    )}
-                                    title={'PAY'}
-                                  />
                                 </View>
                               </>
                             );
@@ -298,6 +296,7 @@ const BookingDetailsOnGoingScreen = props => {
                       <View
                         style={StyleSheet.applyWidth(
                           {
+                            alignItems: 'center',
                             flexDirection: 'row',
                             justifyContent: 'space-between',
                           },
@@ -376,12 +375,6 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           />
-                          {/* Icon Button 2 */}
-                          <IconButton
-                            color={theme.colors['Success']}
-                            icon={'Feather/map-pin'}
-                            size={32}
-                          />
                         </View>
                       </View>
                     </View>
@@ -389,17 +382,20 @@ const BookingDetailsOnGoingScreen = props => {
                     <View
                       style={StyleSheet.applyWidth(
                         {
-                          marginBottom: 10,
-                          marginLeft: 20,
-                          marginRight: 20,
-                          marginTop: 10,
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          margin: 20,
                         },
                         dimensions.width
                       )}
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { marginBottom: 10, marginTop: 10 },
+                          {
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '30%',
+                          },
                           dimensions.width
                         )}
                       >
@@ -410,10 +406,10 @@ const BookingDetailsOnGoingScreen = props => {
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
                               {
-                                color: theme.colors['SummaryText'],
                                 fontFamily: 'System',
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: '400',
+                                margin: 5,
                               }
                             ),
                             dimensions.width
@@ -422,141 +418,27 @@ const BookingDetailsOnGoingScreen = props => {
                           {'Pick up to drop location'}
                         </Text>
                       </View>
-                      {/* Booking Card */}
+                      {/* Icon View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['CoTruckGrey']}
+                          name={'AntDesign/swap'}
+                          size={20}
+                        />
+                      </View>
+                      {/* View 3 */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
                             alignItems: 'center',
-                            backgroundColor: 'rgba(0, 0, 0, 0)',
-                            flexDirection: 'row',
-                            justifyContent: 'space-around',
+                            justifyContent: 'center',
+                            width: '30%',
                           },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Pickup Place */}
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              backgroundColor: 'rgba(0, 0, 0, 0)',
-                              width: '40%',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { margin: 5 },
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                GlobalStyles.TextStyles(theme)['Text'],
-                                dimensions.width
-                              )}
-                            >
-                              {flashListData?.pickup_location}
-                            </Text>
-                          </View>
-                          {/* Pickup Location */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { margin: 5 },
-                              dimensions.width
-                            )}
-                          >
-                            {/* Text 2 */}
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['Text'],
-                                  {
-                                    color: theme.colors['Custom #acacac'],
-                                    fontSize: 12,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {
-                                'Q5M8+8QF, Bo Min Yaung St, Yangon, Myanmar (Burma)'
-                              }
-                            </Text>
-                          </View>
-                        </View>
-                        {/* View 3 */}
-                        <View>
-                          <Icon
-                            color={theme.colors['Custom Color_18']}
-                            name={'AntDesign/swap'}
-                            size={28}
-                          />
-                        </View>
-                        {/* Drop Place */}
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              backgroundColor: 'rgba(0, 0, 0, 0)',
-                              justifyContent: 'center',
-                              width: '40%',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { margin: 5 },
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                GlobalStyles.TextStyles(theme)['Text'],
-                                dimensions.width
-                              )}
-                            >
-                              {flashListData?.drop_location}
-                            </Text>
-                          </View>
-                          {/* Drop Location */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { margin: 5 },
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['Text'],
-                                  {
-                                    color: theme.colors['TextPlaceholder'],
-                                    fontSize: 12,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Q4FM+MFG, Yangon, Myanmar (Burma)'}
-                            </Text>
-                          </View>
-                        </View>
-                      </View>
-                      {/* View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { marginBottom: 10, marginTop: 10 },
                           dimensions.width
                         )}
                       >
@@ -567,148 +449,60 @@ const BookingDetailsOnGoingScreen = props => {
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
                               {
-                                color: theme.colors['SummaryText'],
                                 fontFamily: 'System',
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: '400',
+                                margin: 5,
                               }
                             ),
                             dimensions.width
                           )}
                         >
-                          {'Drop to depot location'}
+                          {'Pick up to drop location'}
                         </Text>
                       </View>
-                      {/* Booking Card View Text */}
+                      {/* Icon View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['CoTruckGrey']}
+                          name={'AntDesign/swap'}
+                          size={20}
+                        />
+                      </View>
+                      {/* View 4 */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
                             alignItems: 'center',
-                            backgroundColor: 'rgba(0, 0, 0, 0)',
-                            flexDirection: 'row',
-                            justifyContent: 'space-around',
+                            justifyContent: 'center',
+                            width: '30%',
                           },
                           dimensions.width
                         )}
                       >
-                        {/* Drop Place */}
-                        <View
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
                           style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              backgroundColor: 'rgba(0, 0, 0, 0)',
-                              width: '40%',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { margin: 5 },
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                GlobalStyles.TextStyles(theme)['Text'],
-                                dimensions.width
-                              )}
-                            >
-                              {flashListData?.drop_location}
-                            </Text>
-                          </View>
-                          {/* Pickup Location */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { margin: 5 },
-                              dimensions.width
-                            )}
-                          >
-                            {/* Text 2 */}
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['Text'],
-                                  {
-                                    color: theme.colors['Custom #acacac'],
-                                    fontSize: 12,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Q4FM+MFG, Yangon, Myanmar (Burma)'}
-                            </Text>
-                          </View>
-                        </View>
-                        {/* View 3 */}
-                        <View>
-                          <Icon
-                            color={theme.colors['Custom Color_18']}
-                            name={'AntDesign/swap'}
-                            size={28}
-                          />
-                        </View>
-                        {/* Depot Place */}
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              backgroundColor: 'rgba(0, 0, 0, 0)',
-                              justifyContent: 'center',
-                              width: '40%',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { margin: 5 },
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                GlobalStyles.TextStyles(theme)['Text'],
-                                dimensions.width
-                              )}
-                            >
-                              {flashListData?.depot_location}
-                            </Text>
-                          </View>
-                          {/* Drop Location */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { margin: 5 },
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['Text'],
-                                  {
-                                    color: theme.colors['TextPlaceholder'],
-                                    fontSize: 12,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
                               {
-                                'Q4F5GM+OXB,Ko Kan Yar Street, Yangon, Myanmar (Burma)'
+                                fontFamily: 'System',
+                                fontSize: 12,
+                                fontWeight: '400',
+                                margin: 5,
                               }
-                            </Text>
-                          </View>
-                        </View>
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Pick up to drop location'}
+                        </Text>
                       </View>
                     </View>
                     {/* Invoice */}
@@ -1328,7 +1122,7 @@ const BookingDetailsOnGoingScreen = props => {
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.ButtonStyles(theme)['Button'],
-                            { marginTop: 20 }
+                            { borderRadius: 12, height: 48, margin: 20 }
                           ),
                           dimensions.width
                         )}

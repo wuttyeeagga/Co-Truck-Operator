@@ -189,6 +189,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 <View
                                   style={StyleSheet.applyWidth(
                                     {
+                                      alignItems: 'center',
                                       flexDirection: 'row',
                                       justifyContent: 'space-between',
                                     },
@@ -313,6 +314,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                         <View
                           style={StyleSheet.applyWidth(
                             {
+                              alignItems: 'center',
                               flexDirection: 'row',
                               justifyContent: 'space-between',
                             },

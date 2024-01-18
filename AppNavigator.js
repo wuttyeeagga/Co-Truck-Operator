@@ -35,6 +35,7 @@ import InvoiceScreen from './screens/InvoiceScreen';
 import LoginScreen from './screens/LoginScreen';
 import ManageDriverScreen from './screens/ManageDriverScreen';
 import ManageVehicleScreen from './screens/ManageVehicleScreen';
+import NewTripScreen from './screens/NewTripScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import OTPVerificationScreen from './screens/OTPVerificationScreen';
 import PaymentScreen from './screens/PaymentScreen';
@@ -220,10 +221,17 @@ export default function RootAppNavigator() {
         }}
       >
         <Stack.Screen
-          name="ReasonForCancelScreen"
-          component={ReasonForCancelScreen}
+          name="BookingDetailsOnGoingScreen"
+          component={BookingDetailsOnGoingScreen}
           options={{
-            title: 'Reason for cancel',
+            title: 'Booking Details on Going',
+          }}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnCompletedScreen"
+          component={BookingDetailsOnCompletedScreen}
+          options={{
+            title: 'Booking Details on Completed',
           }}
         />
         <Stack.Screen
@@ -231,6 +239,13 @@ export default function RootAppNavigator() {
           component={BookingDetailsOnConfirmedScreen}
           options={{
             title: 'Booking Details on  Confirmed',
+          }}
+        />
+        <Stack.Screen
+          name="ReasonForCancelScreen"
+          component={ReasonForCancelScreen}
+          options={{
+            title: 'Reason for cancel',
           }}
         />
         <Stack.Screen
@@ -262,13 +277,6 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="BookingDetailsOnGoingScreen"
-          component={BookingDetailsOnGoingScreen}
-          options={{
-            title: 'Booking Details on Going',
-          }}
-        />
-        <Stack.Screen
           name="BookingDetailsOnPendingScreen"
           component={BookingDetailsOnPendingScreen}
           options={{
@@ -280,13 +288,6 @@ export default function RootAppNavigator() {
           component={ChooseLocationZoneScreen}
           options={{
             title: 'Choose Location Zone',
-          }}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnCompletedScreen"
-          component={BookingDetailsOnCompletedScreen}
-          options={{
-            title: 'Booking Details on Completed',
           }}
         />
         <Stack.Screen
@@ -434,6 +435,13 @@ export default function RootAppNavigator() {
           component={ChangePasswordScreen}
           options={{
             title: 'Change Password',
+          }}
+        />
+        <Stack.Screen
+          name="NewTripScreen"
+          component={NewTripScreen}
+          options={{
+            title: 'New Trip',
           }}
         />
         <Stack.Screen

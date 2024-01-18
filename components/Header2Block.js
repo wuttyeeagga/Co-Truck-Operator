@@ -15,7 +15,7 @@ const Header2Block = props => {
   return (
     <View
       style={StyleSheet.applyWidth(
-        { alignItems: 'center', flexDirection: 'row' },
+        { alignItems: 'center', flexDirection: 'row', margin: 20 },
         dimensions.width
       )}
     >
@@ -48,7 +48,7 @@ const Header2Block = props => {
           dimensions.width
         )}
       >
-        {'Vehicle Details'}
+        {props.title ?? ''}
       </Text>
     </View>
   );

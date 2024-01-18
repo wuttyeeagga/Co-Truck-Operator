@@ -1,6 +1,5 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -22,9 +21,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const RegisterScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [agentLicense, setAgentLicense] = React.useState('');
   const [agentName, setAgentName] = React.useState('');
   const [companyName, setCompanyName] = React.useState('');
@@ -254,19 +250,13 @@ const RegisterScreen = props => {
                   console.log('Complete ON_PRESS:0 OPEN_IMAGE_PICKER', {
                     result,
                   });
-                  console.log('Start ON_PRESS:1 SET_VARIABLE');
-                  const uploaded = setGlobalVariableValue({
-                    key: 'certificateURL',
-                    value: result,
-                  });
-                  console.log('Complete ON_PRESS:1 SET_VARIABLE', { uploaded });
                   console.log('Start ON_PRESS:2 SET_VARIABLE');
                   const valuegkXwmERR = true;
                   setIsPhotoUploaded(valuegkXwmERR);
                   const condition = valuegkXwmERR;
                   console.log('Complete ON_PRESS:2 SET_VARIABLE');
                   console.log('Start ON_PRESS:3 CONSOLE_LOG');
-                  console.log(result, uploaded, 'conditon');
+                  console.log(result, 'conditon');
                   console.log('Complete ON_PRESS:3 CONSOLE_LOG');
                 } catch (err) {
                   console.error(err);
@@ -306,7 +296,7 @@ const RegisterScreen = props => {
                 {/* Certificat Image */}
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['certificateURL']}` }}
+                  source={{ uri: '' }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 2'],
@@ -635,7 +625,6 @@ const RegisterScreen = props => {
                   comp_name: companyName,
                   comp_phone: companyPhone,
                   comp_regi: companyiRegisterNumber,
-                  certificate: Constants['certificateURL'],
                   agent_license: agentLicense,
                   agent_name: agentName,
                   prefer_paths: multiSelectPickerValue2,
@@ -643,6 +632,7 @@ const RegisterScreen = props => {
                   mobile: contactPersonPhone,
                   password: contactPersonPassword,
                   refer_code: referCode,
+                  name: contactPersonName,
                 });
               } catch (err) {
                 console.error(err);

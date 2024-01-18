@@ -3,11 +3,13 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import { Icon, Touchable, withTheme } from '@draftbit/ui';
+import { useNavigation } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 
 const TabHeaderBlock = props => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
+  const navigation = useNavigation();
 
   return (
     <View
@@ -17,8 +19,7 @@ const TabHeaderBlock = props => {
           backgroundColor: 'rgba(0, 0, 0, 0)',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginTop: 20,
-          padding: 20,
+          margin: 10,
         },
         dimensions.width
       )}
@@ -32,6 +33,7 @@ const TabHeaderBlock = props => {
         <View
           style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
         >
+          {/* Title */}
           <Text
             style={StyleSheet.applyWidth(
               {
@@ -42,12 +44,23 @@ const TabHeaderBlock = props => {
               dimensions.width
             )}
           >
-            {'Home Screen'}
+            {props.Title ?? ''}
           </Text>
         </View>
       </View>
 
-      <Touchable>
+      <Touchable
+        onPress={() => {
+          try {
+            navigation.navigate('BottomTabNavigator', {
+              screen: 'NotificationsScreen',
+            });
+            console.log('pressed');
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+      >
         <Icon
           name={'Ionicons/ios-notifications-outline'}
           size={24}

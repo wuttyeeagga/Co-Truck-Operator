@@ -69,6 +69,7 @@ const HomeScreen = props => {
             backgroundColor: 'rgba(0, 0, 0, 0)',
             flexDirection: 'row',
             justifyContent: 'space-between',
+            margin: 20,
           },
           dimensions.width
         )}
@@ -82,6 +83,7 @@ const HomeScreen = props => {
           <View
             style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
           >
+            {/* Title */}
             <Text
               style={StyleSheet.applyWidth(
                 {
@@ -96,36 +98,24 @@ const HomeScreen = props => {
             </Text>
           </View>
         </View>
-        {/* View 2 */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-            },
-            dimensions.width
-          )}
+
+        <Touchable
+          onPress={() => {
+            try {
+              navigation.navigate('BottomTabNavigator', {
+                screen: 'NotificationsScreen',
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          }}
         >
-          <IconButton
+          <Icon
             color={theme.colors['CoTruckGrey']}
-            icon={'Ionicons/ios-notifications-outline'}
-            onPress={() => {
-              try {
-                navigation.navigate('BottomTabNavigator', {
-                  screen: 'NotificationsScreen',
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            size={32}
-            style={StyleSheet.applyWidth(
-              { marginLeft: 10, marginRight: 10 },
-              dimensions.width
-            )}
+            name={'Ionicons/ios-notifications-outline'}
+            size={30}
           />
-        </View>
+        </Touchable>
       </View>
 
       <ScrollView

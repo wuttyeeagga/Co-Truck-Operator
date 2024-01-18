@@ -157,20 +157,22 @@ const TermsInRegisterScreen = props => {
                     comp_name: props.route?.params?.comp_name ?? '',
                     comp_phone: props.route?.params?.comp_phone ?? '',
                     comp_reg_no: props.route?.params?.comp_regi ?? '',
-                    driving_license_back: 'file',
-                    driving_license_front: 'file',
+                    driving_license_back:
+                      props.route?.params?.driving_license_back ?? '',
+                    driving_license_front:
+                      props.route?.params?.driving_license ?? '',
                     email: props.route?.params?.email ?? '',
                     first_name: 'sfadl',
                     license_no: props.route?.params?.agent_license ?? '',
                     mobile: props.route?.params?.mobile ?? '',
-                    nrc_back: 'file',
-                    nrc_front: 'file',
+                    nrc_back: props.route?.params?.NRC_back ?? '',
+                    nrc_front: props.route?.params?.NRC ?? '',
                     password: props.route?.params?.password ?? '',
                     referral_code: props.route?.params?.refer_code ?? '',
                     user_type: 'OWNER',
                     vehicle_insurance:
                       props.route?.params?.vehicle_insurance ?? '',
-                    vehicle_reg_certificate: props.route?.params?.regi ?? '',
+                    vehicle_reg_certificate: null,
                     vehicle_reg_no: props.route?.params?.regi_no ?? '',
                     vehicle_type: props.route?.params?.vehicle_type ?? '',
                   })

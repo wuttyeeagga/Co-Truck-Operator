@@ -32,6 +32,7 @@ const SettingsScreen = props => {
             backgroundColor: 'rgba(0, 0, 0, 0)',
             flexDirection: 'row',
             justifyContent: 'space-between',
+            margin: 20,
           },
           dimensions.width
         )}
@@ -66,7 +67,9 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('BottomTabNavigator');
+              navigation.navigate('BottomTabNavigator', {
+                screen: 'NotificationsScreen',
+              });
             } catch (err) {
               console.error(err);
             }
@@ -76,7 +79,7 @@ const SettingsScreen = props => {
           <Icon
             name={'Ionicons/ios-notifications-outline'}
             size={24}
-            style={StyleSheet.applyWidth({ opacity: 0.5 }, dimensions.width)}
+            style={StyleSheet.applyWidth({ opacity: 1 }, dimensions.width)}
           />
         </Touchable>
       </View>

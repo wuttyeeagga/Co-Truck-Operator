@@ -421,24 +421,36 @@ const ChangePasswordScreen = props => {
         onPress={() => {
           const handler = async () => {
             try {
-              if (oldPassword !== confirmPassword) {
-                return;
+              if (oldPassword === confirmPassword) {
+                const changePassword = (
+                  await cotruckChangePwdPOST.mutateAsync({
+                    new_password: confirmPassword,
+                    old_password: oldPassword,
+                    user_id: Constants['AUTH_OWNER_ID'],
+                  })
+                )?.json;
+                const message = changePassword?.message;
+
+                showAlertUtil({
+                  title: 'Message',
+                  message: message,
+                  buttonText: undefined,
+                });
+
+                const data = changePassword?.data;
+                if (!data) {
+                  return;
+                }
+                navigation.navigate('StackNavigator', {
+                  screen: 'LoginScreen',
+                });
+              } else {
+                showAlertUtil({
+                  title: 'Message',
+                  message: 'Confirm Password',
+                  buttonText: undefined,
+                });
               }
-              const changePassword = (
-                await cotruckChangePwdPOST.mutateAsync({
-                  new_password: confirmPassword,
-                  old_password: oldPassword,
-                  user_id: 12,
-                })
-              )?.json;
-
-              showAlertUtil({
-                title: 'Message',
-                message: changePassword?.message,
-                buttonText: undefined,
-              });
-
-              navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
             } catch (err) {
               console.error(err);
             }

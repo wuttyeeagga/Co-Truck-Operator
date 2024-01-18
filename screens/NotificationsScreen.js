@@ -74,38 +74,42 @@ const NotificationsScreen = props => {
           const fetchData = data?.json;
           if (loading) {
             return (
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
-                  dimensions.width
-                )}
-              >
-                <ActivityIndicator
-                  animating={true}
-                  color={theme.colors['Primary']}
-                  hidesWhenStopped={true}
-                  size={'large'}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.ActivityIndicatorStyles(theme)[
-                      'Activity Indicator'
-                    ],
-                    dimensions.width
-                  )}
-                />
-              </View>
-            );
-          }
-
-          if (error || data?.status < 200 || data?.status >= 300) {
-            return (
               <>
-                {/* View 2 */}
+                {/* loading */}
                 <View
                   style={StyleSheet.applyWidth(
                     { alignItems: 'center', flex: 1, justifyContent: 'center' },
                     dimensions.width
                   )}
                 >
+                  <ActivityIndicator
+                    animating={true}
+                    color={theme.colors['Primary']}
+                    hidesWhenStopped={true}
+                    size={'large'}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.ActivityIndicatorStyles(theme)[
+                        'Activity Indicator'
+                      ],
+                      dimensions.width
+                    )}
+                  />
+                </View>
+              </>
+            );
+          }
+
+          if (error || data?.status < 200 || data?.status >= 300) {
+            return (
+              <>
+                {/* error */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                    dimensions.width
+                  )}
+                >
+                  {/* error */}
                   <Text
                     accessible={true}
                     allowFontScaling={true}
@@ -117,7 +121,7 @@ const NotificationsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {'Message not found'}
+                    {fetchData?.message}
                   </Text>
                 </View>
               </>

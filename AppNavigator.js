@@ -9,7 +9,6 @@ import theme from './themes/Draftbit.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
 import AboutUsScreen from './screens/AboutUsScreen';
-import ActivityScreen from './screens/ActivityScreen';
 import AddNewDriverScreen from './screens/AddNewDriverScreen';
 import AddNewVehicleScreen from './screens/AddNewVehicleScreen';
 import BookingDetailsOnCompletedScreen from './screens/BookingDetailsOnCompletedScreen';
@@ -23,12 +22,14 @@ import ChooseLocationZoneScreen from './screens/ChooseLocationZoneScreen';
 import CompanyInformationScreen from './screens/CompanyInformationScreen';
 import DriverDetailsScreen from './screens/DriverDetailsScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
+import ExportActivityScreen from './screens/ExportActivityScreen';
 import FAQsScreen from './screens/FAQsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import HomeScreen from './screens/HomeScreen';
 import HospitalOnMapScreen from './screens/HospitalOnMapScreen';
 import IdentityProofEditScreen from './screens/IdentityProofEditScreen';
 import IdentityProofViewScreen from './screens/IdentityProofViewScreen';
+import ImportActivityScreen from './screens/ImportActivityScreen';
 import ImportBookingScreen from './screens/ImportBookingScreen';
 import InvoiceScreen from './screens/InvoiceScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -80,7 +81,7 @@ function BottomTabNavigator() {
         options={{
           tabBarIcon: ({ focused, color }) => (
             <Icon
-              name="Entypo/home"
+              name="Ionicons/ios-home-outline"
               size={25}
               color={focused ? theme.colors['Primary'] : color}
             />
@@ -90,8 +91,8 @@ function BottomTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="ActivityScreen"
-        component={ActivityScreen}
+        name="ImportActivityScreen"
+        component={ImportActivityScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
             <Icon
@@ -101,7 +102,22 @@ function BottomTabNavigator() {
             />
           ),
           tabBarLabel: 'Activity',
-          title: 'Activity',
+          title: 'Import Activity',
+        }}
+      />
+      <Tab.Screen
+        name="ExportActivityScreen"
+        component={ExportActivityScreen}
+        options={{
+          tabBarIcon: ({ focused, color }) => (
+            <Icon
+              name="MaterialCommunityIcons/calendar-clock"
+              size={25}
+              color={focused ? theme.colors['Primary'] : color}
+            />
+          ),
+          tabBarLabel: 'Export Activity',
+          title: 'Export Activity',
         }}
       />
       <Tab.Screen
@@ -110,7 +126,7 @@ function BottomTabNavigator() {
         options={{
           tabBarIcon: ({ focused, color }) => (
             <Icon
-              name="Ionicons/notifications-outline"
+              name="Ionicons/ios-notifications-outline"
               size={25}
               color={focused ? theme.colors['Primary'] : color}
             />
@@ -125,7 +141,7 @@ function BottomTabNavigator() {
         options={{
           tabBarIcon: ({ focused, color }) => (
             <Icon
-              name="Feather/settings"
+              name="Ionicons/settings-outline"
               size={25}
               color={focused ? theme.colors['Primary'] : color}
             />
@@ -145,6 +161,20 @@ function StackNavigator() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
+        name="ForgotPasswordScreen"
+        component={ForgotPasswordScreen}
+        options={{
+          title: 'Forgot Password',
+        }}
+      />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{
+          title: 'Register',
+        }}
+      />
+      <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
         options={{
@@ -163,20 +193,6 @@ function StackNavigator() {
         component={AboutUsScreen}
         options={{
           title: 'About Us',
-        }}
-      />
-      <Stack.Screen
-        name="ForgotPasswordScreen"
-        component={ForgotPasswordScreen}
-        options={{
-          title: 'Forgot Password',
-        }}
-      />
-      <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          title: 'Register',
         }}
       />
     </Stack.Navigator>

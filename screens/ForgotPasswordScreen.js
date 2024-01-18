@@ -163,8 +163,8 @@ const ForgotPasswordScreen = props => {
                 )?.json;
                 console.log('Complete ON_PRESS:1 FETCH_REQUEST', { response });
                 console.log('Start ON_PRESS:2 EXTRACT_KEY');
-                const status = response?.status;
-                console.log('Complete ON_PRESS:2 EXTRACT_KEY', { status });
+                const data = response?.data;
+                console.log('Complete ON_PRESS:2 EXTRACT_KEY', { data });
                 console.log('Start ON_PRESS:3 EXTRACT_KEY');
                 const message = response?.message;
                 console.log('Complete ON_PRESS:3 EXTRACT_KEY', { message });
@@ -176,7 +176,7 @@ const ForgotPasswordScreen = props => {
                 });
                 console.log('Complete ON_PRESS:4 SHOW_ALERT');
                 console.log('Start ON_PRESS:5 CONDITIONAL_STOP');
-                if (status) {
+                if (!data) {
                   return;
                 }
                 console.log('Complete ON_PRESS:5 CONDITIONAL_STOP');

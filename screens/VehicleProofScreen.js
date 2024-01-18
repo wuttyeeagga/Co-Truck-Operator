@@ -1,6 +1,5 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -20,13 +19,12 @@ import { Image, Text, View } from 'react-native';
 const VehicleProofScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [vehicleInsurance, setVehicleInsurance] = React.useState('');
+  const [vehicleRC, setVehicleRC] = React.useState('');
 
   return (
     <ScreenContainer
@@ -217,7 +215,7 @@ const VehicleProofScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: '' }}
+                  source={{ uri: `${vehicleRC}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -240,10 +238,7 @@ const VehicleProofScreen = props => {
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'RCImage',
-                    value: results,
-                  });
+                  undefined;
                   setIsNRCUpload(true);
                 } catch (err) {
                   console.error(err);
@@ -323,7 +318,7 @@ const VehicleProofScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: '' }}
+                  source={{ uri: `${vehicleInsurance}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -346,10 +341,7 @@ const VehicleProofScreen = props => {
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'VehicleInsuranceImage',
-                    value: results,
-                  });
+                  setVehicleInsurance(results);
                   setIsDLUpload(true);
                 } catch (err) {
                   console.error(err);
@@ -419,9 +411,14 @@ const VehicleProofScreen = props => {
                 driving_license: props.route?.params?.driving_license ?? '',
                 vehicle_type: pickerValue,
                 regi_no: textInputValue,
-                regi: Constants['RCImage'],
-                vehicle_insurance: Constants['VehicleInsuranceImage'],
+                vehicle_insurance: vehicleInsurance,
+                NRC_back: props.route?.params?.NRC_back ?? '',
+                driving_license_back:
+                  props.route?.params?.driving_license_back ?? '',
+                name: props.route?.params?.name ?? '',
+                vehicle_rc: vehicleRC,
               });
+              console.log(vehicleInsurance, vehicleRC);
             } catch (err) {
               console.error(err);
             }

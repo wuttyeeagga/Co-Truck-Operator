@@ -595,6 +595,11 @@ const SignUpIdentityProofScreen = props => {
                   email: props.route?.params?.email ?? '',
                   password: props.route?.params?.password ?? '',
                   refer_code: props.route?.params?.refer_code ?? '',
+                  NRC: nrcFront,
+                  driving_license: dlFront,
+                  NRC_back: nrcBack,
+                  driving_license_back: dlBack,
+                  name: props.route?.params?.name ?? '',
                 });
               } catch (err) {
                 console.error(err);

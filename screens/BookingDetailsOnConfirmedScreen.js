@@ -112,12 +112,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                   const flashListData = item;
                   return (
                     <>
+                      {/* Main View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { marginLeft: 20, marginRight: 20 },
                           dimensions.width
                         )}
                       >
+                        {/* Status View */}
                         <View
                           style={StyleSheet.applyWidth(
                             {
@@ -132,28 +134,32 @@ const BookingDetailsOnConfirmedScreen = props => {
                             dimensions.width
                           )}
                         >
+                          {/* Id */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['Text 3'],
-                                { color: theme.colors['Custom Color_9'] }
+                                {
+                                  color: theme.colors['CoTruckGrey'],
+                                  margin: 5,
+                                }
                               ),
                               dimensions.width
                             )}
                           >
                             {'Booking ID : '}
-                            {flashListData?.id}
+                            {null}
                           </Text>
-                          {/* Text 2 */}
+                          {/* Status */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['Text 3'],
-                                { color: theme.colors['Success'] }
+                                { color: theme.colors['Success'], margin: 5 }
                               ),
                               dimensions.width
                             )}
@@ -162,13 +168,6 @@ const BookingDetailsOnConfirmedScreen = props => {
                             {flashListData?.booking_status}
                           </Text>
                         </View>
-                        <Divider
-                          color={theme.colors.divider}
-                          style={StyleSheet.applyWidth(
-                            GlobalStyles.DividerStyles(theme)['Divider'],
-                            dimensions.width
-                          )}
-                        />
                         <FlashList
                           data={fetchData?.get_booking_customers}
                           estimatedItemSize={50}
@@ -206,7 +205,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                                       dimensions.width
                                     )}
                                   >
+                                    {/* Operator Image View */}
                                     <View>
+                                      {/* Operator Image */}
                                       <Image
                                         resizeMode={'cover'}
                                         source={Images.Icon}
@@ -221,7 +222,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                         )}
                                       />
                                     </View>
-                                    {/* View 2 */}
+                                    {/* Operator Info */}
                                     <View
                                       style={StyleSheet.applyWidth(
                                         {
@@ -231,6 +232,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                         dimensions.width
                                       )}
                                     >
+                                      {/* Operator Name */}
                                       <Text
                                         accessible={true}
                                         allowFontScaling={true}
@@ -239,14 +241,18 @@ const BookingDetailsOnConfirmedScreen = props => {
                                             GlobalStyles.TextStyles(theme)[
                                               'Text 3'
                                             ],
-                                            { marginBottom: 5 }
+                                            {
+                                              color:
+                                                theme.colors['CoTruckBlack'],
+                                              marginBottom: 5,
+                                            }
                                           ),
                                           dimensions.width
                                         )}
                                       >
-                                        {flashListData?.name}
+                                        {fetchData?.get_booking_customers?.name}
                                       </Text>
-                                      {/* Text 2 */}
+                                      {/* Operator Mobile */}
                                       <Text
                                         accessible={true}
                                         allowFontScaling={true}
@@ -255,50 +261,33 @@ const BookingDetailsOnConfirmedScreen = props => {
                                             GlobalStyles.TextStyles(theme)[
                                               'Text 3'
                                             ],
-                                            { fontSize: 12, marginTop: 5 }
+                                            {
+                                              color:
+                                                theme.colors['CoTruckBlack'],
+                                              fontSize: 12,
+                                              marginTop: 5,
+                                            }
                                           ),
                                           dimensions.width
                                         )}
                                       >
-                                        {flashListData?.comp_name}
+                                        {'Operator Mobile'}
                                       </Text>
                                     </View>
                                   </View>
-                                  {/* View 2 */}
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        alignItems: 'center',
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                      },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <View
-                                      style={StyleSheet.applyWidth(
-                                        { marginLeft: 5, marginRight: 5 },
-                                        dimensions.width
-                                      )}
-                                    >
+                                  {/* Action View */}
+                                  <View>
+                                    {/* Call View */}
+                                    <View>
+                                      {/* Call Icon */}
                                       <IconButton
+                                        color={theme.colors['Primary']}
                                         icon={'Feather/phone'}
                                         size={25}
-                                      />
-                                    </View>
-                                    {/* View 2 */}
-                                    <View
-                                      style={StyleSheet.applyWidth(
-                                        { marginLeft: 5, marginRight: 5 },
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {/* Icon Button 2 */}
-                                      <IconButton
-                                        icon={
-                                          'MaterialCommunityIcons/checkbox-marked-circle-outline'
-                                        }
-                                        size={25}
+                                        style={StyleSheet.applyWidth(
+                                          { marginRight: 20 },
+                                          dimensions.width
+                                        )}
                                       />
                                     </View>
                                   </View>
@@ -313,11 +302,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                         <Divider
                           color={theme.colors.divider}
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.DividerStyles(theme)['Divider'],
+                            StyleSheet.compose(
+                              GlobalStyles.DividerStyles(theme)['Divider'],
+                              { marginBottom: 5, marginTop: 5 }
+                            ),
                             dimensions.width
                           )}
                         />
-                        {/* Operator Info Row 3 */}
+                        {/* Driver Info Row */}
                         <View
                           style={StyleSheet.applyWidth(
                             {
@@ -337,20 +329,27 @@ const BookingDetailsOnConfirmedScreen = props => {
                               dimensions.width
                             )}
                           >
-                            <View>
+                            {/* Driver Image View */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { marginLeft: 20 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Driver Image */}
                               <Image
                                 resizeMode={'cover'}
-                                source={Images.Icon}
+                                source={Images._40ft}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.ImageStyles(theme)['Image 3'],
-                                    { height: 60, width: 60 }
+                                    { height: 50, width: 50 }
                                   ),
                                   dimensions.width
                                 )}
                               />
                             </View>
-                            {/* View 2 */}
+                            {/* Driver Info */}
                             <View
                               style={StyleSheet.applyWidth(
                                 {
@@ -360,20 +359,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)['Text 3'],
-                                    { marginBottom: 5 }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Testing Driver'}
-                              </Text>
-                              {/* Text 2 */}
+                              {/* Driver Name */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -381,7 +367,24 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)['Text 3'],
                                     {
-                                      color: theme.colors['Success'],
+                                      color: theme.colors['CoTruckBlack'],
+                                      marginBottom: 5,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Driver Name'}
+                              </Text>
+                              {/* Driver Mobile */}
+                              <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)['Text 3'],
+                                    {
+                                      color: theme.colors['CoTruckBlack'],
                                       fontSize: 12,
                                       marginLeft: 5,
                                       marginTop: 5,
@@ -390,11 +393,11 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Assigned'}
+                                {'Driver Mobile'}
                               </Text>
                             </View>
                           </View>
-                          {/* View 2 */}
+                          {/* Action View */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -405,26 +408,31 @@ const BookingDetailsOnConfirmedScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Edit View */}
                             <View
                               style={StyleSheet.applyWidth(
-                                { marginLeft: 5, marginRight: 5 },
+                                { margin: 10 },
                                 dimensions.width
                               )}
                             >
-                              <IconButton icon={'Feather/phone'} size={25} />
-                            </View>
-                            {/* View 2 */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { marginLeft: 5, marginRight: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Icon Button 2 */}
+                              {/* Edit Icon */}
                               <IconButton
-                                icon={
-                                  'MaterialCommunityIcons/checkbox-marked-circle-outline'
-                                }
+                                color={theme.colors['Primary']}
+                                icon={'Feather/edit'}
+                                size={25}
+                              />
+                            </View>
+                            {/* Call View */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { margin: 10 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Call Icon */}
+                              <IconButton
+                                color={theme.colors['Primary']}
+                                icon={'Feather/phone'}
                                 size={25}
                               />
                             </View>
@@ -434,7 +442,10 @@ const BookingDetailsOnConfirmedScreen = props => {
                         <Divider
                           color={theme.colors.divider}
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.DividerStyles(theme)['Divider'],
+                            StyleSheet.compose(
+                              GlobalStyles.DividerStyles(theme)['Divider'],
+                              { marginBottom: 5, marginTop: 5 }
+                            ),
                             dimensions.width
                           )}
                         />
@@ -443,6 +454,8 @@ const BookingDetailsOnConfirmedScreen = props => {
                       <View
                         style={StyleSheet.applyWidth(
                           {
+                            alignItems: 'center',
+                            flexDirection: 'row',
                             marginBottom: 10,
                             marginLeft: 20,
                             marginRight: 20,
@@ -451,12 +464,20 @@ const BookingDetailsOnConfirmedScreen = props => {
                           dimensions.width
                         )}
                       >
+                        {/* Pickup View */}
                         <View
                           style={StyleSheet.applyWidth(
-                            { marginBottom: 10, marginTop: 10 },
+                            {
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              marginBottom: 10,
+                              marginTop: 10,
+                              width: '30%',
+                            },
                             dimensions.width
                           )}
                         >
+                          {/* Pickup */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
@@ -464,308 +485,103 @@ const BookingDetailsOnConfirmedScreen = props => {
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['Text 3'],
                                 {
-                                  color: theme.colors['SummaryText'],
+                                  color: theme.colors['CoTruckBlack'],
                                   fontFamily: 'System',
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: '400',
                                 }
                               ),
                               dimensions.width
                             )}
                           >
-                            {'Pick up to drop location'}
+                            {flashListData?.pickup_location}
                           </Text>
                         </View>
-                        {/* Booking Card */}
+                        {/* Icon View */}
                         <View
                           style={StyleSheet.applyWidth(
                             {
                               alignItems: 'center',
-                              backgroundColor: 'rgba(0, 0, 0, 0)',
-                              flexDirection: 'row',
-                              justifyContent: 'space-around',
+                              justifyContent: 'center',
+                              width: '5%',
                             },
                             dimensions.width
                           )}
                         >
-                          {/* Pickup Place */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'center',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                width: '40%',
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { margin: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  GlobalStyles.TextStyles(theme)['Text'],
-                                  dimensions.width
-                                )}
-                              >
-                                {flashListData?.pickup_location}
-                              </Text>
-                            </View>
-                            {/* Pickup Location */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { margin: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Text 2 */}
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)['Text'],
-                                    {
-                                      color: theme.colors['Custom #acacac'],
-                                      fontSize: 12,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {
-                                  'Q5M8+8QF, Bo Min Yaung St, Yangon, Myanmar (Burma)'
-                                }
-                              </Text>
-                            </View>
-                          </View>
-                          {/* View 3 */}
-                          <View>
-                            <Icon
-                              color={theme.colors['Custom Color_18']}
-                              name={'AntDesign/swap'}
-                              size={28}
-                            />
-                          </View>
-                          {/* Drop Place */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'center',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                justifyContent: 'center',
-                                width: '40%',
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { margin: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  GlobalStyles.TextStyles(theme)['Text'],
-                                  dimensions.width
-                                )}
-                              >
-                                {flashListData?.drop_location}
-                              </Text>
-                            </View>
-                            {/* Drop Location */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { margin: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)['Text'],
-                                    {
-                                      color: theme.colors['TextPlaceholder'],
-                                      fontSize: 12,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Q4FM+MFG, Yangon, Myanmar (Burma)'}
-                              </Text>
-                            </View>
-                          </View>
+                          <Icon
+                            color={theme.colors['CoTruckGrey']}
+                            name={'AntDesign/swap'}
+                            size={20}
+                          />
                         </View>
-                        {/* View 2 */}
+                        {/* Drop View */}
                         <View
                           style={StyleSheet.applyWidth(
-                            { marginBottom: 10, marginTop: 10 },
+                            {
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: '30%',
+                            },
                             dimensions.width
                           )}
                         >
+                          {/* Drop */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['Text 3'],
-                                {
-                                  color: theme.colors['SummaryText'],
-                                  fontFamily: 'System',
-                                  fontSize: 16,
-                                  fontWeight: '400',
-                                }
+                                GlobalStyles.TextStyles(theme)['Text 2'],
+                                { color: theme.colors['CoTruckBlack'] }
                               ),
                               dimensions.width
                             )}
                           >
-                            {'Drop to depot location'}
+                            {flashListData?.drop_location}
                           </Text>
                         </View>
-                        {/* Booking Card View Text */}
+                        {/* Icon View 2 */}
                         <View
                           style={StyleSheet.applyWidth(
                             {
                               alignItems: 'center',
-                              backgroundColor: 'rgba(0, 0, 0, 0)',
-                              flexDirection: 'row',
-                              justifyContent: 'space-around',
+                              justifyContent: 'center',
+                              width: '5%',
                             },
                             dimensions.width
                           )}
                         >
-                          {/* Pickup Place */}
-                          <View
+                          <Icon
+                            color={theme.colors['CoTruckGrey']}
+                            name={'AntDesign/swap'}
+                            size={20}
+                          />
+                        </View>
+                        {/* Depot View */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: '30%',
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          {/* Depot */}
+                          <Text
+                            accessible={true}
+                            allowFontScaling={true}
                             style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'center',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                width: '40%',
-                              },
+                              GlobalStyles.TextStyles(theme)['Text 2'],
                               dimensions.width
                             )}
                           >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { margin: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  GlobalStyles.TextStyles(theme)['Text'],
-                                  dimensions.width
-                                )}
-                              >
-                                {flashListData?.drop_location}
-                              </Text>
-                            </View>
-                            {/* Pickup Location */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { margin: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Text 2 */}
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)['Text'],
-                                    {
-                                      color: theme.colors['Custom #acacac'],
-                                      fontSize: 12,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Q4FM+MFG, Yangon, Myanmar (Burma)'}
-                              </Text>
-                            </View>
-                          </View>
-                          {/* View 3 */}
-                          <View>
-                            <Icon
-                              color={theme.colors['Custom Color_18']}
-                              name={'AntDesign/swap'}
-                              size={28}
-                            />
-                          </View>
-                          {/* Drop Place */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'center',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                justifyContent: 'center',
-                                width: '40%',
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { margin: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  GlobalStyles.TextStyles(theme)['Text'],
-                                  dimensions.width
-                                )}
-                              >
-                                {flashListData?.depot_location}
-                              </Text>
-                            </View>
-                            {/* Drop Location */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { margin: 5 },
-                                dimensions.width
-                              )}
-                            >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)['Text'],
-                                    {
-                                      color: theme.colors['TextPlaceholder'],
-                                      fontSize: 12,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {
-                                  'Q4F5GM+OXB,Ko Kan Yar Street, Yangon, Myanmar (Burma)'
-                                }
-                              </Text>
-                            </View>
-                          </View>
+                            {flashListData?.depot_point_location}
+                          </Text>
                         </View>
                       </View>
-                      {/* Invoice */}
+                      {/* Booking Info View */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
@@ -778,8 +594,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                           dimensions.width
                         )}
                       >
+                        {/* Truck Type */}
                         <View>
-                          {/* Row View */}
+                          {/* Row Wrapper */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -791,12 +608,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Vehicle Type View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
+                              {/* Vehicle Type */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -814,7 +633,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 {'Truck Type'}
                               </Text>
                             </View>
-                            {/* View 2 */}
+                            {/* Icon View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '5%' },
@@ -827,14 +646,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 size={16}
                               />
                             </View>
-                            {/* View 3 */}
+                            {/* Vehicle Type View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
-                              {/* Text 2 */}
+                              {/* Vehicle Type */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -861,9 +680,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                             )}
                           />
                         </View>
-                        {/* View 2 */}
+                        {/* Material Type */}
                         <View>
-                          {/* Row View */}
+                          {/* Row Wrapper */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -875,12 +694,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Material Type View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
+                              {/* Material Type */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -898,7 +719,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 {'Type of material'}
                               </Text>
                             </View>
-                            {/* View 2 */}
+                            {/* Icon View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '5%' },
@@ -911,14 +732,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 size={16}
                               />
                             </View>
-                            {/* View 3 */}
+                            {/* Material Type View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
-                              {/* Text 2 */}
+                              {/* Material Type */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -945,9 +766,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                             )}
                           />
                         </View>
-                        {/* View 3 */}
+                        {/* Load Weight */}
                         <View>
-                          {/* Row View */}
+                          {/* Row Wrapper */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -959,12 +780,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Load Weight View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
+                              {/* Load Weight */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -979,10 +802,10 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Per Container Weight (Ton)'}
+                                {'Load Weight'}
                               </Text>
                             </View>
-                            {/* View 2 */}
+                            {/* Icon View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '5%' },
@@ -995,14 +818,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 size={16}
                               />
                             </View>
-                            {/* View 3 */}
+                            {/* Load Weight View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
-                              {/* Text 2 */}
+                              {/* Load Weight */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -1029,9 +852,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                             )}
                           />
                         </View>
-                        {/* View 4 */}
+                        {/* No of Container */}
                         <View>
-                          {/* Row View */}
+                          {/* Row Wrapper */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -1043,12 +866,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* No of Container */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
+                              {/* No of Container */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -1066,7 +891,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 {'No of container'}
                               </Text>
                             </View>
-                            {/* View 2 */}
+                            {/* Icon View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '5%' },
@@ -1079,14 +904,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 size={16}
                               />
                             </View>
-                            {/* View 3 */}
+                            {/* No of Container */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
-                              {/* Text 2 */}
+                              {/* No of Container */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -1113,9 +938,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                             )}
                           />
                         </View>
-                        {/* View 5 */}
+                        {/* Product Type */}
                         <View>
-                          {/* Row View */}
+                          {/* Row Wrapper */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -1127,12 +952,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Product Type View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
+                              {/* Product Type */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -1150,7 +977,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 {'Product type'}
                               </Text>
                             </View>
-                            {/* View 2 */}
+                            {/* Icon View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '5%' },
@@ -1163,14 +990,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 size={16}
                               />
                             </View>
-                            {/* View 3 */}
+                            {/* Product Type View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
-                              {/* Text 2 */}
+                              {/* Product Type */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -1197,9 +1024,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                             )}
                           />
                         </View>
-                        {/* View 6 */}
+                        {/* Pickup Date */}
                         <View>
-                          {/* Row View */}
+                          {/* Row Wrapper */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -1211,12 +1038,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Pickup Date View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
+                              {/* Pickup Date */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -1234,7 +1063,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 {'Pickup Date'}
                               </Text>
                             </View>
-                            {/* View 2 */}
+                            {/* Icon View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '5%' },
@@ -1247,14 +1076,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 size={16}
                               />
                             </View>
-                            {/* View 3 */}
+                            {/* Pickup Date View */}
                             <View
                               style={StyleSheet.applyWidth(
                                 { width: '45%' },
                                 dimensions.width
                               )}
                             >
-                              {/* Text 2 */}
+                              {/* Pickup Date */}
                               <Text
                                 accessible={true}
                                 allowFontScaling={true}
@@ -1281,7 +1110,189 @@ const BookingDetailsOnConfirmedScreen = props => {
                             )}
                           />
                         </View>
-                        {/* View 7 */}
+                        {/* Booking Comments */}
+                        <View>
+                          {/* Row Wrapper */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                marginBottom: 10,
+                                marginTop: 10,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {/* Booking Comments View */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: '45%' },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Booking Comments */}
+                              <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)['Text 3'],
+                                    {
+                                      color: theme.colors['TextPlaceholder'],
+                                      fontSize: 16,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Booking Comments'}
+                              </Text>
+                            </View>
+                            {/* Icon View */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: '5%' },
+                                dimensions.width
+                              )}
+                            >
+                              <Icon
+                                color={theme.colors['Light']}
+                                name={'Entypo/dots-two-vertical'}
+                                size={16}
+                              />
+                            </View>
+                            {/* Booking Comments View */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: '45%' },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Booking Comments */}
+                              <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)['Text 3'],
+                                    { fontSize: 16 }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {flashListData?.comment}
+                              </Text>
+                            </View>
+                          </View>
+                          <Divider
+                            color={theme.colors['Tab_Divider']}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.DividerStyles(theme)['Divider'],
+                                { height: 2, marginTop: 5 }
+                              ),
+                              dimensions.width
+                            )}
+                          />
+                        </View>
+                        {/* Load Image */}
+                        <View>
+                          {/* Row Wrapper */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                marginBottom: 10,
+                                marginTop: 10,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {/* Load Image View */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: '45%' },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Load Image */}
+                              <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)['Text 3'],
+                                    {
+                                      color: theme.colors['TextPlaceholder'],
+                                      fontSize: 16,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Load Image'}
+                              </Text>
+                            </View>
+                            {/* Icon View */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: '5%' },
+                                dimensions.width
+                              )}
+                            >
+                              <Icon
+                                color={theme.colors['Light']}
+                                name={'Entypo/dots-two-vertical'}
+                                size={16}
+                              />
+                            </View>
+                            {/* Load Image View */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: '45%' },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Booking Comments */}
+                              <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)['Text 3'],
+                                    { fontSize: 16 }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Load Image'}
+                              </Text>
+                              <Image
+                                resizeMode={'cover'}
+                                source={{
+                                  uri: `${flashListData?.truck_image}`,
+                                }}
+                                style={StyleSheet.applyWidth(
+                                  GlobalStyles.ImageStyles(theme)['Image 3'],
+                                  dimensions.width
+                                )}
+                              />
+                            </View>
+                          </View>
+                          <Divider
+                            color={theme.colors['Tab_Divider']}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.DividerStyles(theme)['Divider'],
+                                { height: 2, marginTop: 5 }
+                              ),
+                              dimensions.width
+                            )}
+                          />
+                        </View>
+                        {/* PerTruck Price */}
                         <View>
                           {/* Row View */}
                           <View
@@ -1363,9 +1374,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {/* View 9 */}
+                          {/* Sub Total */}
                           <View>
-                            {/* Row View */}
+                            {/* Row Wrapper */}
                             <View
                               style={StyleSheet.applyWidth(
                                 {
@@ -1377,12 +1388,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 dimensions.width
                               )}
                             >
+                              {/* Sub Total View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '45%' },
                                   dimensions.width
                                 )}
                               >
+                                {/* Sub Total */}
                                 <Text
                                   accessible={true}
                                   allowFontScaling={true}
@@ -1400,7 +1413,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   {'Sub Total'}
                                 </Text>
                               </View>
-                              {/* View 2 */}
+                              {/* Icon View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '5%' },
@@ -1413,14 +1426,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   size={16}
                                 />
                               </View>
-                              {/* View 3 */}
+                              {/* Sub Total View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '45%' },
                                   dimensions.width
                                 )}
                               >
-                                {/* Text 2 */}
+                                {/* Sub Total */}
                                 <Text
                                   accessible={true}
                                   allowFontScaling={true}
@@ -1438,9 +1451,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                               </View>
                             </View>
                           </View>
-                          {/* View 10 */}
+                          {/* Extra Charges */}
                           <View>
-                            {/* Row View */}
+                            {/* Row Wrapper */}
                             <View
                               style={StyleSheet.applyWidth(
                                 {
@@ -1452,12 +1465,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 dimensions.width
                               )}
                             >
+                              {/* Extra Charges View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '45%' },
                                   dimensions.width
                                 )}
                               >
+                                {/* Extra Charges */}
                                 <Text
                                   accessible={true}
                                   allowFontScaling={true}
@@ -1475,7 +1490,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   {'Extra Charges'}
                                 </Text>
                               </View>
-                              {/* View 2 */}
+                              {/* Icon View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '5%' },
@@ -1488,14 +1503,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   size={16}
                                 />
                               </View>
-                              {/* View 3 */}
+                              {/* Extra Charges View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '45%' },
                                   dimensions.width
                                 )}
                               >
-                                {/* Text 2 */}
+                                {/* Extra Charges */}
                                 <Text
                                   accessible={true}
                                   allowFontScaling={true}
@@ -1513,9 +1528,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                               </View>
                             </View>
                           </View>
-                          {/* View 11 */}
+                          {/* Total Price */}
                           <View>
-                            {/* Row View */}
+                            {/* Row Wrapper */}
                             <View
                               style={StyleSheet.applyWidth(
                                 {
@@ -1527,12 +1542,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                 dimensions.width
                               )}
                             >
+                              {/* Total Price View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '45%' },
                                   dimensions.width
                                 )}
                               >
+                                {/* Total Price */}
                                 <Text
                                   accessible={true}
                                   allowFontScaling={true}
@@ -1550,7 +1567,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   {'Total Price'}
                                 </Text>
                               </View>
-                              {/* View 2 */}
+                              {/* Icon View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '5%' },
@@ -1563,14 +1580,14 @@ const BookingDetailsOnConfirmedScreen = props => {
                                   size={16}
                                 />
                               </View>
-                              {/* View 3 */}
+                              {/* Total Price View */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   { width: '45%' },
                                   dimensions.width
                                 )}
                               >
-                                {/* Text 2 */}
+                                {/* Total Price */}
                                 <Text
                                   accessible={true}
                                   allowFontScaling={true}
@@ -1609,10 +1626,17 @@ const BookingDetailsOnConfirmedScreen = props => {
                 )}
               >
                 <Button
+                  onPress={() => {
+                    try {
+                      navigation.navigate('ReasonForCancelScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ButtonStyles(theme)['Button'],
-                      { marginTop: 20 }
+                      { borderRadius: 12, height: 48, margin: 20 }
                     ),
                     dimensions.width
                   )}

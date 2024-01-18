@@ -621,27 +621,11 @@ const SettingsScreen = props => {
         {/* Sign Out */}
         <Touchable
           onPress={() => {
-            const handler = async () => {
-              try {
-                const Response = (
-                  await cotruckLogOutPOST.mutateAsync({ id: 120 })
-                )?.json;
-                const msg = Response?.message;
-
-                showAlertUtil({
-                  title: 'Message',
-                  message: msg,
-                  buttonText: undefined,
-                });
-
-                navigation.navigate('StackNavigator', {
-                  screen: 'LoginScreen',
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            };
-            handler();
+            try {
+              navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
+            } catch (err) {
+              console.error(err);
+            }
           }}
         >
           {/* Button Wrapper */}

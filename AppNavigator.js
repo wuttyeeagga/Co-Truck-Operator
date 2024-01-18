@@ -101,7 +101,7 @@ function BottomTabNavigator() {
               color={focused ? theme.colors['Primary'] : color}
             />
           ),
-          tabBarLabel: 'Activity',
+          tabBarLabel: 'Import Activity',
           title: 'Import Activity',
         }}
       />
@@ -161,6 +161,13 @@ function StackNavigator() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{
+          title: 'Login',
+        }}
+      />
+      <Stack.Screen
         name="ForgotPasswordScreen"
         component={ForgotPasswordScreen}
         options={{
@@ -172,13 +179,6 @@ function StackNavigator() {
         component={RegisterScreen}
         options={{
           title: 'Register',
-        }}
-      />
-      <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{
-          title: 'Login',
         }}
       />
       <Stack.Screen
@@ -219,6 +219,20 @@ export default function RootAppNavigator() {
           headerTitle: 'Co Truck',
         }}
       >
+        <Stack.Screen
+          name="ReasonForCancelScreen"
+          component={ReasonForCancelScreen}
+          options={{
+            title: 'Reason for cancel',
+          }}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnConfirmedScreen"
+          component={BookingDetailsOnConfirmedScreen}
+          options={{
+            title: 'Booking Details on  Confirmed',
+          }}
+        />
         <Stack.Screen
           name="SignUpIdentityProofScreen"
           component={SignUpIdentityProofScreen}
@@ -318,13 +332,6 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="BookingDetailsOnConfirmedScreen"
-          component={BookingDetailsOnConfirmedScreen}
-          options={{
-            title: 'Booking Details on  Confirmed',
-          }}
-        />
-        <Stack.Screen
           name="TestForMapScreen"
           component={TestForMapScreen}
           options={{
@@ -343,13 +350,6 @@ export default function RootAppNavigator() {
           component={RecipientAddressScreen}
           options={{
             title: 'Recipient Address',
-          }}
-        />
-        <Stack.Screen
-          name="ReasonForCancelScreen"
-          component={ReasonForCancelScreen}
-          options={{
-            title: 'Reason for cancel',
           }}
         />
         <Stack.Screen

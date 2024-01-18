@@ -344,14 +344,10 @@ const LoginScreen = props => {
               let error = null;
               try {
                 console.log('Start ON_CHECK:0 SET_VARIABLE');
-                const valueYyYWxtOb = email;
-                setEmail(valueYyYWxtOb);
-                const e = valueYyYWxtOb;
+                setEmail(email);
                 console.log('Complete ON_CHECK:0 SET_VARIABLE');
                 console.log('Start ON_CHECK:1 SET_VARIABLE');
-                const valueMCIw4va0 = password;
-                setPassword(valueMCIw4va0);
-                const p = valueMCIw4va0;
+                setPassword(password);
                 console.log('Complete ON_CHECK:1 SET_VARIABLE');
               } catch (err) {
                 console.error(err);

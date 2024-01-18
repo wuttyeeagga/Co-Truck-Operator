@@ -28,58 +28,62 @@ const ReasonForCancelScreen = props => {
   const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
-      <KeyboardAvoidingView behavior={'padding'} enabled={true}>
-        {/* Header */}
+    <ScreenContainer
+      hasSafeArea={false}
+      scrollable={false}
+      style={StyleSheet.applyWidth(
+        { backgroundColor: theme.colors['Surface'] },
+        dimensions.width
+      )}
+    >
+      {/* Header */}
+      <View
+        style={StyleSheet.applyWidth(
+          { alignItems: 'center', flexDirection: 'row', margin: 20 },
+          dimensions.width
+        )}
+      >
+        {/* Icon Button */}
         <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginLeft: 20,
-              marginTop: 20,
-            },
-            dimensions.width
-          )}
+          style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
         >
-          {/* Icon Button */}
-          <View
-            style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.goBack();
+              } catch (err) {
+                console.error(err);
+              }
+            }}
           >
-            <Touchable
-              onPress={() => {
-                try {
-                  navigation.goBack();
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-            >
-              <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
-            </Touchable>
-          </View>
-          {/* Title View */}
-          <View
-            style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-                  color: theme.colors['Primary'],
-                  fontFamily: 'System',
-                  fontSize: 20,
-                  fontWeight: '400',
-                }),
-                dimensions.width
-              )}
-            >
-              {'Reason for cancel'}
-            </Text>
-          </View>
+            <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
+          </Touchable>
         </View>
+        {/* Title View */}
+        <View
+          style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
+        >
+          {/* Title */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
+                color: theme.colors['CoTruckBlack'],
+                fontFamily: 'System',
+                fontSize: 20,
+                fontWeight: '400',
+              }),
+              dimensions.width
+            )}
+          >
+            {'Reason for cancel'}
+          </Text>
+        </View>
+      </View>
 
+      <KeyboardAvoidingView behavior={'padding'} enabled={true}>
+        {/* Main View */}
         <View>
           {/* Checkbox Row 6 */}
           <CheckboxRow
@@ -217,7 +221,7 @@ const ReasonForCancelScreen = props => {
           />
         </View>
         {/* Reason Input Container */}
-        <View>
+        <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
           {/* Type Reason */}
           <TextInput
             allowFontScaling={true}
@@ -232,14 +236,20 @@ const ReasonForCancelScreen = props => {
               }
             }}
             placeholder={'Type Reasons....'}
+            placeholderTextColor={theme.colors['TextPlaceholder']}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextInputStyles(theme)['Text Input 3'],
                 {
+                  borderColor: theme.colors['Light'],
+                  borderRadius: 12,
+                  borderWidth: 1,
+                  height: 48,
                   marginBottom: 20,
                   marginLeft: 20,
                   marginRight: 20,
                   marginTop: 20,
+                  paddingLeft: 20,
                 }
               ),
               dimensions.width
@@ -252,29 +262,38 @@ const ReasonForCancelScreen = props => {
           style={StyleSheet.applyWidth(
             {
               backgroundColor: theme.colors['CoTruckLightGrey'],
+              borderRadius: 12,
+              marginBottom: 20,
               marginLeft: 20,
               marginRight: 20,
+              marginTop: 20,
               padding: 10,
             },
             dimensions.width
           )}
         >
+          {/* Warning */}
           <Text
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TextStyles(theme)['Text 3'],
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
+                margin: 10,
+              }),
               dimensions.width
             )}
           >
             {
-              'Warning: On confirming cancellation Rs.500 to be charged from your wallet...'
+              'Warning: On confirming cancellation Rs.600 to be charged from your wallet...'
             }
           </Text>
         </View>
+        {/* Confirm */}
         <Button
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+              borderRadius: 12,
+              height: 48,
               margin: 20,
             }),
             dimensions.width

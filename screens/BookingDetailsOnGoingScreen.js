@@ -111,280 +111,280 @@ const BookingDetailsOnGoingScreen = props => {
                 const flashListData = item;
                 return (
                   <>
-                    <FlashList
-                      data={fetchData?.get_booking_customers}
-                      estimatedItemSize={50}
-                      keyExtractor={flashListData =>
-                        flashListData?.id ||
-                        flashListData?.uuid ||
-                        JSON.stringify(flashListData)
-                      }
-                      listKey={JSON.stringify(fetchData?.get_booking_customers)}
-                      numColumns={1}
-                      onEndReachedThreshold={0.5}
-                      renderItem={({ item }) => {
-                        const flashListData = item;
-                        return (
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { marginLeft: 20, marginRight: 20 },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                {
-                                  alignItems: 'center',
-                                  flexDirection: 'row',
-                                  justifyContent: 'space-between',
-                                  marginBottom: 10,
-                                  marginLeft: 20,
-                                  marginRight: 20,
-                                  marginTop: 10,
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Booking ID */}
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)['Text 3'],
-                                    { color: theme.colors['Custom Color_9'] }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Booking ID : '}
-                                {flashListData?.id}
-                              </Text>
-                              {/* Status */}
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)['Text 3'],
-                                    { color: theme.colors['Success'] }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Status : '}
-                                {flashListData?.booking_status}
-                              </Text>
-                            </View>
-                            {/* Operator Info Row */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                {
-                                  flexDirection: 'row',
-                                  justifyContent: 'space-between',
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                  },
-                                  dimensions.width
-                                )}
-                              >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { marginLeft: 20, marginRight: 20 },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginBottom: 10,
+                            marginLeft: 20,
+                            marginRight: 20,
+                            marginTop: 10,
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Booking ID */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              { color: theme.colors['Custom Color_9'] }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Booking ID : '}
+                          {flashListData?.id}
+                        </Text>
+                        {/* Status */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              { color: theme.colors['Success'] }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Status : '}
+                          {flashListData?.booking_status}
+                        </Text>
+                      </View>
+                      {/* Operator Info Row */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <FlashList
+                          data={fetchData?.get_booking_customers}
+                          estimatedItemSize={50}
+                          keyExtractor={flashListData =>
+                            flashListData?.id ||
+                            flashListData?.uuid ||
+                            JSON.stringify(flashListData)
+                          }
+                          listKey={JSON.stringify(
+                            fetchData?.get_booking_customers
+                          )}
+                          numColumns={1}
+                          onEndReachedThreshold={0.5}
+                          renderItem={({ item }) => {
+                            const flashListData = item;
+                            return (
+                              <>
                                 <View
                                   style={StyleSheet.applyWidth(
-                                    { marginLeft: 5, marginRight: 5 },
+                                    {
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                    },
                                     dimensions.width
                                   )}
                                 >
-                                  <Image
-                                    resizeMode={'cover'}
-                                    source={Images.Icon}
+                                  <View
                                     style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.ImageStyles(theme)[
-                                          'Image 3'
-                                        ],
-                                        { height: 60, width: 60 }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  />
-                                </View>
-                                {/* View 2 */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    { marginLeft: 5, marginRight: 5 },
-                                    dimensions.width
-                                  )}
-                                >
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      GlobalStyles.TextStyles(theme)['Text 3'],
+                                      { marginLeft: 5, marginRight: 5 },
                                       dimensions.width
                                     )}
                                   >
-                                    {flashListData?.name}
-                                  </Text>
-                                  {/* Text 2 */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
+                                    <Image
+                                      resizeMode={'cover'}
+                                      source={Images.Icon}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.ImageStyles(theme)[
+                                            'Image 3'
+                                          ],
+                                          { height: 60, width: 60 }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    />
+                                  </View>
+                                  {/* View 2 */}
+                                  <View
                                     style={StyleSheet.applyWidth(
-                                      GlobalStyles.TextStyles(theme)['Text 3'],
+                                      { marginLeft: 5, marginRight: 5 },
                                       dimensions.width
                                     )}
                                   >
-                                    {flashListData?.comp_name}
-                                  </Text>
-                                </View>
-                              </View>
-                              {/* View 2 */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <IconButton
-                                  icon={'Feather/phone'}
-                                  size={32}
-                                  style={StyleSheet.applyWidth(
-                                    { marginLeft: 5, marginRight: 5 },
-                                    dimensions.width
-                                  )}
-                                />
-                                <Button
-                                  onPress={() => {
-                                    try {
-                                      navigation.navigate('PaymentScreen');
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  style={StyleSheet.applyWidth(
-                                    GlobalStyles.ButtonStyles(theme)['Button'],
-                                    dimensions.width
-                                  )}
-                                  title={'PAY'}
-                                />
-                              </View>
-                            </View>
-                            {/* Operator Info Row 2 */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                {
-                                  flexDirection: 'row',
-                                  justifyContent: 'space-between',
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    { marginLeft: 5, marginRight: 5 },
-                                    dimensions.width
-                                  )}
-                                >
-                                  <Image
-                                    resizeMode={'cover'}
-                                    source={Images.Ellipse21}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.ImageStyles(theme)[
-                                          'Image 3'
-                                        ],
-                                        { height: 50, width: 50 }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  />
-                                </View>
-                                {/* View 2 */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    { marginLeft: 5, marginRight: 5 },
-                                    dimensions.width
-                                  )}
-                                >
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      GlobalStyles.TextStyles(theme)['Text 3'],
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {'driver name'}
-                                  </Text>
-                                  {/* Text 2 */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
                                         GlobalStyles.TextStyles(theme)[
                                           'Text 3'
                                         ],
-                                        { color: theme.colors['Success'] }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {'Trip Started'}
-                                  </Text>
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {flashListData?.name}
+                                    </Text>
+                                    {/* Text 2 */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'Text 3'
+                                        ],
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {flashListData?.comp_name}
+                                    </Text>
+                                  </View>
                                 </View>
-                              </View>
-                              {/* View 2 */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <IconButton
-                                  icon={'Feather/phone'}
-                                  size={32}
+                                {/* View 2 */}
+                                <View
                                   style={StyleSheet.applyWidth(
-                                    { marginLeft: 5, marginRight: 5 },
+                                    {
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                    },
                                     dimensions.width
                                   )}
-                                />
-                                {/* Icon Button 2 */}
-                                <IconButton
-                                  color={theme.colors['Success']}
-                                  icon={'Feather/map-pin'}
-                                  size={32}
-                                />
-                              </View>
-                            </View>
+                                >
+                                  <IconButton
+                                    icon={'Feather/phone'}
+                                    size={32}
+                                    style={StyleSheet.applyWidth(
+                                      { marginLeft: 5, marginRight: 5 },
+                                      dimensions.width
+                                    )}
+                                  />
+                                  <Button
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate('PaymentScreen');
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    style={StyleSheet.applyWidth(
+                                      GlobalStyles.ButtonStyles(theme)[
+                                        'Button'
+                                      ],
+                                      dimensions.width
+                                    )}
+                                    title={'PAY'}
+                                  />
+                                </View>
+                              </>
+                            );
+                          }}
+                          showsHorizontalScrollIndicator={true}
+                          showsVerticalScrollIndicator={true}
+                        />
+                      </View>
+                      {/* Operator Info Row 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { alignItems: 'center', flexDirection: 'row' },
+                            dimensions.width
+                          )}
+                        >
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { marginLeft: 5, marginRight: 5 },
+                              dimensions.width
+                            )}
+                          >
+                            <Image
+                              resizeMode={'cover'}
+                              source={Images.Ellipse21}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.ImageStyles(theme)['Image 3'],
+                                  { height: 50, width: 50 }
+                                ),
+                                dimensions.width
+                              )}
+                            />
                           </View>
-                        );
-                      }}
-                      showsHorizontalScrollIndicator={true}
-                      showsVerticalScrollIndicator={true}
-                    />
+                          {/* View 2 */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { marginLeft: 5, marginRight: 5 },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)['Text 3'],
+                                dimensions.width
+                              )}
+                            >
+                              {'driver name'}
+                            </Text>
+                            {/* Text 2 */}
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['Text 3'],
+                                  { color: theme.colors['Success'] }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Trip Started'}
+                            </Text>
+                          </View>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { alignItems: 'center', flexDirection: 'row' },
+                            dimensions.width
+                          )}
+                        >
+                          <IconButton
+                            icon={'Feather/phone'}
+                            size={32}
+                            style={StyleSheet.applyWidth(
+                              { marginLeft: 5, marginRight: 5 },
+                              dimensions.width
+                            )}
+                          />
+                          {/* Icon Button 2 */}
+                          <IconButton
+                            color={theme.colors['Success']}
+                            icon={'Feather/map-pin'}
+                            size={32}
+                          />
+                        </View>
+                      </View>
+                    </View>
                     {/* Location Container */}
                     <View
                       style={StyleSheet.applyWidth(

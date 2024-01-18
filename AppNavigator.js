@@ -28,7 +28,6 @@ import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import HomeScreen from './screens/HomeScreen';
 import HospitalOnMapScreen from './screens/HospitalOnMapScreen';
 import IdentityProofEditScreen from './screens/IdentityProofEditScreen';
-import IdentityProofSignUpScreen from './screens/IdentityProofSignUpScreen';
 import IdentityProofViewScreen from './screens/IdentityProofViewScreen';
 import ImportBookingScreen from './screens/ImportBookingScreen';
 import InvoiceScreen from './screens/InvoiceScreen';
@@ -44,6 +43,7 @@ import RecipientAddressScreen from './screens/RecipientAddressScreen';
 import ReferAFriendScreen from './screens/ReferAFriendScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import SignUpIdentityProofScreen from './screens/SignUpIdentityProofScreen';
 import TermsInRegisterScreen from './screens/TermsInRegisterScreen';
 import Test1Screen from './screens/Test1Screen';
 import TestForMapScreen from './screens/TestForMapScreen';
@@ -145,13 +145,6 @@ function StackNavigator() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          title: 'Register',
-        }}
-      />
-      <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
         options={{
@@ -179,6 +172,13 @@ function StackNavigator() {
           title: 'Forgot Password',
         }}
       />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{
+          title: 'Register',
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -204,10 +204,17 @@ export default function RootAppNavigator() {
         }}
       >
         <Stack.Screen
-          name="IdentityProofSignUpScreen"
-          component={IdentityProofSignUpScreen}
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
           options={{
-            title: 'Identity Proof Sign Up',
+            title: 'Sign Up Identity Proof',
+          }}
+        />
+        <Stack.Screen
+          name="ImportBookingScreen"
+          component={ImportBookingScreen}
+          options={{
+            title: 'Import Booking',
           }}
         />
         <Stack.Screen
@@ -327,13 +334,6 @@ export default function RootAppNavigator() {
           component={ReasonForCancelScreen}
           options={{
             title: 'Reason for cancel',
-          }}
-        />
-        <Stack.Screen
-          name="ImportBookingScreen"
-          component={ImportBookingScreen}
-          options={{
-            title: 'Import Booking',
           }}
         />
         <Stack.Screen

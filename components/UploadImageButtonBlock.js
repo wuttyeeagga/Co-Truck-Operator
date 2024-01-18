@@ -1,6 +1,5 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -11,9 +10,6 @@ import { Text, View } from 'react-native';
 const UploadImageButtonBlock = props => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
 
   return (
     <Touchable
@@ -24,11 +20,6 @@ const UploadImageButtonBlock = props => {
               mediaTypes: 'All',
               allowsEditing: false,
               quality: 0.2,
-            });
-
-            setGlobalVariableValue({
-              key: 'NRCImage',
-              value: results,
             });
           } catch (err) {
             console.error(err);

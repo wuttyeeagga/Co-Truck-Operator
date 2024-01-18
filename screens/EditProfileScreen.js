@@ -57,13 +57,7 @@ const EditProfileScreen = props => {
       {/* My Header */}
       <View
         style={StyleSheet.applyWidth(
-          {
-            alignItems: 'center',
-            flexDirection: 'row',
-            margin: 20,
-            marginLeft: 20,
-            marginTop: 20,
-          },
+          { alignItems: 'center', flexDirection: 'row', margin: 20 },
           dimensions.width
         )}
       >
@@ -81,7 +75,7 @@ const EditProfileScreen = props => {
         >
           <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
         </Touchable>
-
+        {/* Title */}
         <Text
           accessible={true}
           allowFontScaling={true}
@@ -397,6 +391,7 @@ const EditProfileScreen = props => {
           </View>
           {/* Select Paths View */}
           <View>
+            {/* Choose Preferred Paths */}
             <MultiSelectPicker
               autoDismissKeyboard={true}
               dropDownBackgroundColor={theme.colors.background}
@@ -406,10 +401,10 @@ const EditProfileScreen = props => {
               dropDownTextColor={theme.colors.strong}
               iconSize={24}
               leftIconMode={'inset'}
-              onValueChange={newMultiSelectPickerValue => {
-                const pickerValue = newMultiSelectPickerValue;
+              onValueChange={newChoosePreferredPathsValue => {
+                const pickerValue = newChoosePreferredPathsValue;
                 try {
-                  setMultiSelectPickerValue(newMultiSelectPickerValue);
+                  setMultiSelectPickerValue(newChoosePreferredPathsValue);
                 } catch (err) {
                   console.error(err);
                 }
@@ -432,9 +427,7 @@ const EditProfileScreen = props => {
               )}
               type={'solid'}
               value={multiSelectPickerValue}
-            >
-              <PickerItem />
-            </MultiSelectPicker>
+            ></MultiSelectPicker>
           </View>
         </View>
         {/* Contact Person Container */}
@@ -554,32 +547,16 @@ const EditProfileScreen = props => {
             />
           </View>
         </View>
-        {/* Update Button */}
         <Button
-          activeOpacity={0.8}
-          disabledOpacity={0.8}
-          onPress={() => {
-            try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'SettingsScreen',
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          }}
           style={StyleSheet.applyWidth(
-            {
-              backgroundColor: theme.colors.primary,
+            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
               borderRadius: 12,
-              fontFamily: 'System',
-              fontWeight: '700',
-              height: 52,
-              marginTop: 20,
-              textAlign: 'center',
-            },
+              height: 48,
+              margin: 10,
+            }),
             dimensions.width
           )}
-          title={'Update Profile\n'}
+          title={'Update Profile'}
         />
       </KeyboardAwareScrollView>
     </ScreenContainer>

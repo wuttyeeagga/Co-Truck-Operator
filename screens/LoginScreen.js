@@ -420,7 +420,7 @@ const LoginScreen = props => {
                   }
                   console.log('Complete ON_PRESS:4 CONDITIONAL_STOP');
                   console.log('Start ON_PRESS:5 EXTRACT_KEY');
-                  const userid = loginResponse?.data.userid;
+                  const userid = loginResponse?.data.id;
                   console.log('Complete ON_PRESS:5 EXTRACT_KEY', { userid });
                   console.log('Start ON_PRESS:6 SET_VARIABLE');
                   setGlobalVariableValue({
@@ -431,7 +431,7 @@ const LoginScreen = props => {
                   console.log('Start ON_PRESS:7 SET_VARIABLE');
                   setGlobalVariableValue({
                     key: 'AUTH_BEAR_TOKEN',
-                    value: token,
+                    value: 'Bearer ' + token,
                   });
                   console.log('Complete ON_PRESS:7 SET_VARIABLE');
                   console.log('Start ON_PRESS:8 EXTRACT_KEY');

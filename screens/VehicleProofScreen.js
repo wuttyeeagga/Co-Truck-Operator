@@ -217,7 +217,7 @@ const VehicleProofScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['NRCImage']}` }}
+                  source={{ uri: '' }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -241,7 +241,7 @@ const VehicleProofScreen = props => {
                   });
 
                   setGlobalVariableValue({
-                    key: 'NRCImage',
+                    key: 'RCImage',
                     value: results,
                   });
                   setIsNRCUpload(true);
@@ -323,7 +323,7 @@ const VehicleProofScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['DLImage']}` }}
+                  source={{ uri: '' }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -347,7 +347,7 @@ const VehicleProofScreen = props => {
                   });
 
                   setGlobalVariableValue({
-                    key: 'DLImage',
+                    key: 'VehicleInsuranceImage',
                     value: results,
                   });
                   setIsDLUpload(true);
@@ -403,7 +403,25 @@ const VehicleProofScreen = props => {
         <Button
           onPress={() => {
             try {
-              navigation.navigate('TermsInRegisterScreen');
+              navigation.navigate('TermsInRegisterScreen', {
+                comp_name: props.route?.params?.comp_name ?? '',
+                comp_phone: props.route?.params?.comp_phone ?? '',
+                comp_regi: props.route?.params?.comp_regi ?? '',
+                certificate: props.route?.params?.certificate ?? '',
+                agent_license: props.route?.params?.agent_license ?? '',
+                agent_name: props.route?.params?.agent_name ?? '',
+                prefer_paths: props.route?.params?.prefer_paths ?? '',
+                email: props.route?.params?.email ?? '',
+                mobile: props.route?.params?.mobile ?? '',
+                password: props.route?.params?.password ?? '',
+                refer_code: props.route?.params?.refer_code ?? '',
+                NRC: props.route?.params?.NRC ?? '',
+                driving_license: props.route?.params?.driving_license ?? '',
+                vehicle_type: pickerValue,
+                regi_no: textInputValue,
+                regi: Constants['RCImage'],
+                vehicle_insurance: Constants['VehicleInsuranceImage'],
+              });
             } catch (err) {
               console.error(err);
             }

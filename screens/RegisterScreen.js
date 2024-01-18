@@ -461,6 +461,39 @@ const RegisterScreen = props => {
           >
             {'Contact Person Details'}
           </Text>
+          {/* Contact Person Name */}
+          <TextInput
+            autoCapitalize={'none'}
+            onChangeText={newContactPersonNameValue => {
+              try {
+                setContactPersonName(newContactPersonNameValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            placeholder={'Name'}
+            placeholderTextColor={theme.colors['Light']}
+            style={StyleSheet.applyWidth(
+              {
+                backgroundColor: 'rgba(0, 0, 0, 0)',
+                borderBottomWidth: 1,
+                borderColor: theme.colors['Light'],
+                borderLeftWidth: 1,
+                borderRadius: 12,
+                borderRightWidth: 1,
+                borderTopWidth: 1,
+                fontFamily: 'Inter_400Regular',
+                height: 48,
+                margin: 20,
+                paddingBottom: 8,
+                paddingLeft: 12,
+                paddingRight: 8,
+                paddingTop: 8,
+              },
+              dimensions.width
+            )}
+            value={contactPersonName}
+          />
           {/* Contact Person Email */}
           <TextInput
             autoCapitalize={'none'}
@@ -598,7 +631,7 @@ const RegisterScreen = props => {
           <Button
             onPress={() => {
               try {
-                navigation.navigate('IdentityProofSignUpScreen', {
+                navigation.navigate('SignUpIdentityProofScreen', {
                   comp_name: companyName,
                   comp_phone: companyPhone,
                   comp_regi: companyiRegisterNumber,
@@ -617,6 +650,7 @@ const RegisterScreen = props => {
             }}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+                borderRadius: 12,
                 height: 48,
                 margin: 20,
               }),

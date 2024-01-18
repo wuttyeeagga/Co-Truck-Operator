@@ -1,6 +1,5 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -17,9 +16,6 @@ import { Image, Text, View } from 'react-native';
 const IdentityProofViewScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
 
@@ -105,7 +101,7 @@ const IdentityProofViewScreen = props => {
           >
             <Image
               resizeMode={'cover'}
-              source={{ uri: `${Constants['NRCImage']}` }}
+              source={{ uri: '' }}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image 3'], {
                   borderRadius: 8,
@@ -141,7 +137,7 @@ const IdentityProofViewScreen = props => {
           >
             <Image
               resizeMode={'cover'}
-              source={{ uri: `${Constants['DLImage']}` }}
+              source={{ uri: '' }}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image 3'], {
                   borderRadius: 8,

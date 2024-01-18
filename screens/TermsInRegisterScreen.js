@@ -1,5 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -16,10 +18,13 @@ import { Text, View } from 'react-native';
 const TermsInRegisterScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const cotruckNewAddOwnerPOST = CotruckApi.useNewAddOwnerPOST();
 
   return (
     <ScreenContainer
@@ -144,11 +149,38 @@ const TermsInRegisterScreen = props => {
         {/* Agree and Submit */}
         <Button
           onPress={() => {
-            try {
-              navigation.navigate('OTPVerificationScreen');
-            } catch (err) {
-              console.error(err);
-            }
+            const handler = async () => {
+              try {
+                const Response = (
+                  await cotruckNewAddOwnerPOST.mutateAsync({
+                    certificate: props.route?.params?.certificate ?? '',
+                    comp_name: props.route?.params?.comp_name ?? '',
+                    comp_phone: props.route?.params?.comp_phone ?? '',
+                    comp_reg_no: props.route?.params?.comp_regi ?? '',
+                    driving_license_back: 'file',
+                    driving_license_front: 'file',
+                    email: props.route?.params?.email ?? '',
+                    first_name: 'sfadl',
+                    license_no: props.route?.params?.agent_license ?? '',
+                    mobile: props.route?.params?.mobile ?? '',
+                    nrc_back: 'file',
+                    nrc_front: 'file',
+                    password: props.route?.params?.password ?? '',
+                    referral_code: props.route?.params?.refer_code ?? '',
+                    user_type: 'OWNER',
+                    vehicle_insurance:
+                      props.route?.params?.vehicle_insurance ?? '',
+                    vehicle_reg_certificate: props.route?.params?.regi ?? '',
+                    vehicle_reg_no: props.route?.params?.regi_no ?? '',
+                    vehicle_type: props.route?.params?.vehicle_type ?? '',
+                  })
+                )?.json;
+                console.log();
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
           }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {

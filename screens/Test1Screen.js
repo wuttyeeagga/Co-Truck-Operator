@@ -4,15 +4,15 @@ import * as CotruckApi from '../apis/CotruckApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { Button, ScreenContainer, withTheme } from '@draftbit/ui';
-import { Text, View, useWindowDimensions } from 'react-native';
+import { Text, View } from 'react-native';
 
 const Test1Screen = props => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
 
   return (
     <ScreenContainer
@@ -37,7 +37,7 @@ const Test1Screen = props => {
             dimensions.width
           )}
         >
-          {Constants['test']}
+          {null}
         </Text>
       </View>
       {/* View 2 */}
@@ -56,14 +56,8 @@ const Test1Screen = props => {
                 console.log('Start ON_PRESS:0 FETCH_REQUEST');
                 const asdf = (await CotruckApi.testGET(Constants))?.json;
                 console.log('Complete ON_PRESS:0 FETCH_REQUEST', { asdf });
-                console.log('Start ON_PRESS:1 SET_VARIABLE');
-                const gawp = setGlobalVariableValue({
-                  key: 'test',
-                  value: asdf,
-                });
-                console.log('Complete ON_PRESS:1 SET_VARIABLE', { gawp });
                 console.log('Start ON_PRESS:2 CONSOLE_LOG');
-                console.log(asdf, Constants['test'], gawp);
+                console.log(asdf);
                 console.log('Complete ON_PRESS:2 CONSOLE_LOG');
               } catch (err) {
                 console.error(err);

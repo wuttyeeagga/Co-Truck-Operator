@@ -36,6 +36,7 @@ import LoginScreen from './screens/LoginScreen';
 import ManageDriverScreen from './screens/ManageDriverScreen';
 import ManageVehicleScreen from './screens/ManageVehicleScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
+import OTPVerificationScreen from './screens/OTPVerificationScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PickUpDropDetailsScreen from './screens/PickUpDropDetailsScreen';
 import ReasonForCancelScreen from './screens/ReasonForCancelScreen';
@@ -48,7 +49,6 @@ import Test1Screen from './screens/Test1Screen';
 import TestForMapScreen from './screens/TestForMapScreen';
 import VehicleDetailsScreen from './screens/VehicleDetailsScreen';
 import VehicleProofScreen from './screens/VehicleProofScreen';
-import VerificationScreen from './screens/VerificationScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -145,10 +145,10 @@ function StackNavigator() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
-        name="ForgotPasswordScreen"
-        component={ForgotPasswordScreen}
+        name="RegisterScreen"
+        component={RegisterScreen}
         options={{
-          title: 'Forgot Password',
+          title: 'Register',
         }}
       />
       <Stack.Screen
@@ -156,13 +156,6 @@ function StackNavigator() {
         component={LoginScreen}
         options={{
           title: 'Login',
-        }}
-      />
-      <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          title: 'Register',
         }}
       />
       <Stack.Screen
@@ -177,6 +170,13 @@ function StackNavigator() {
         component={AboutUsScreen}
         options={{
           title: 'About Us',
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPasswordScreen"
+        component={ForgotPasswordScreen}
+        options={{
+          title: 'Forgot Password',
         }}
       />
     </Stack.Navigator>
@@ -211,10 +211,10 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="VerificationScreen"
-          component={VerificationScreen}
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
           options={{
-            title: 'Verification',
+            title: 'PickUpDropDetails',
           }}
         />
         <Stack.Screen
@@ -225,10 +225,59 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="ReasonForCancelScreen"
-          component={ReasonForCancelScreen}
+          name="BookingDetailsOnGoingScreen"
+          component={BookingDetailsOnGoingScreen}
           options={{
-            title: 'Reason for cancel',
+            title: 'Booking Details on Going',
+          }}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnPendingScreen"
+          component={BookingDetailsOnPendingScreen}
+          options={{
+            title: 'Booking Details on Pending',
+          }}
+        />
+        <Stack.Screen
+          name="ChooseLocationZoneScreen"
+          component={ChooseLocationZoneScreen}
+          options={{
+            title: 'Choose Location Zone',
+          }}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnCompletedScreen"
+          component={BookingDetailsOnCompletedScreen}
+          options={{
+            title: 'Booking Details on Completed',
+          }}
+        />
+        <Stack.Screen
+          name="ReferAFriendScreen"
+          component={ReferAFriendScreen}
+          options={{
+            title: 'Refer a friend',
+          }}
+        />
+        <Stack.Screen
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
+          options={{
+            title: 'OTP Verification',
+          }}
+        />
+        <Stack.Screen
+          name="Test1Screen"
+          component={Test1Screen}
+          options={{
+            title: 'Test1',
+          }}
+        />
+        <Stack.Screen
+          name="InvoiceScreen"
+          component={InvoiceScreen}
+          options={{
+            title: 'Invoice',
           }}
         />
         <Stack.Screen
@@ -236,6 +285,27 @@ export default function RootAppNavigator() {
           component={PaymentScreen}
           options={{
             title: 'Payment',
+          }}
+        />
+        <Stack.Screen
+          name="BookingSummaryScreen"
+          component={BookingSummaryScreen}
+          options={{
+            title: 'Booking Summary',
+          }}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnConfirmedScreen"
+          component={BookingDetailsOnConfirmedScreen}
+          options={{
+            title: 'Booking Details on  Confirmed',
+          }}
+        />
+        <Stack.Screen
+          name="TestForMapScreen"
+          component={TestForMapScreen}
+          options={{
+            title: 'Test For Map',
           }}
         />
         <Stack.Screen
@@ -253,73 +323,10 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="BookingDetailsOnConfirmedScreen"
-          component={BookingDetailsOnConfirmedScreen}
+          name="ReasonForCancelScreen"
+          component={ReasonForCancelScreen}
           options={{
-            title: 'Booking Details on  Confirmed',
-          }}
-        />
-        <Stack.Screen
-          name="ReferAFriendScreen"
-          component={ReferAFriendScreen}
-          options={{
-            title: 'Refer a friend',
-          }}
-        />
-        <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
-          options={{
-            title: 'Invoice',
-          }}
-        />
-        <Stack.Screen
-          name="Test1Screen"
-          component={Test1Screen}
-          options={{
-            title: 'Test1',
-          }}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnGoingScreen"
-          component={BookingDetailsOnGoingScreen}
-          options={{
-            title: 'Booking Details on Going',
-          }}
-        />
-        <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={{
-            title: 'PickUpDropDetails',
-          }}
-        />
-        <Stack.Screen
-          name="BookingSummaryScreen"
-          component={BookingSummaryScreen}
-          options={{
-            title: 'Booking Summary',
-          }}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnCompletedScreen"
-          component={BookingDetailsOnCompletedScreen}
-          options={{
-            title: 'Booking Details on Completed',
-          }}
-        />
-        <Stack.Screen
-          name="TestForMapScreen"
-          component={TestForMapScreen}
-          options={{
-            title: 'Test For Map',
-          }}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnPendingScreen"
-          component={BookingDetailsOnPendingScreen}
-          options={{
-            title: 'Booking Details on Pending',
+            title: 'Reason for cancel',
           }}
         />
         <Stack.Screen
@@ -327,13 +334,6 @@ export default function RootAppNavigator() {
           component={ImportBookingScreen}
           options={{
             title: 'Import Booking',
-          }}
-        />
-        <Stack.Screen
-          name="ChooseLocationZoneScreen"
-          component={ChooseLocationZoneScreen}
-          options={{
-            title: 'Choose Location Zone',
           }}
         />
         <Stack.Screen

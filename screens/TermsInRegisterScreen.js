@@ -145,7 +145,7 @@ const TermsInRegisterScreen = props => {
         <Button
           onPress={() => {
             try {
-              navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
+              navigation.navigate('OTPVerificationScreen');
             } catch (err) {
               console.error(err);
             }

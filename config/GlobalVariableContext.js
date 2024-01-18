@@ -4,9 +4,12 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DeviceVariables = {
+  AUTH_BEAR_TOKEN:
+    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRiY2I1YjkxZjY4OWQ4NGYzMGZkYjE5NDQ2NjQ3ZmUzOWNjYzUwN2YwMTc2MjUzZDVhOWIwNTRiOGUwMjJkNGUxZGQ2OGVlMGQ1OTU2ODhlIn0.eyJhdWQiOiIxIiwianRpIjoiZGJjYjViOTFmNjg5ZDg0ZjMwZmRiMTk0NDY2NDdmZTM5Y2NjNTA3ZjAxNzYyNTNkNWE5YjA1NGI4ZTAyMmQ0ZTFkZDY4ZWUwZDU5NTY4OGUiLCJpYXQiOjE3MDU0ODE1NzIsIm5iZiI6MTcwNTQ4MTU3MiwiZXhwIjoxNzM3MTAzOTcyLCJzdWIiOiIxMjAiLCJzY29wZXMiOltdfQ.RXu6PNhsaRfDwTelvnQNJWGDPIlj7Qu95CLjC1mk6qN6Qmyd-3H_AsEQ7bFl_yHkCPdOLwugIKxkcyVmLTeQ8C1z8fUUJIINURGPtyIA0XgRzuYI5nzm4ttAFyF7F92oQxM2s9QdN8gygBwNbUIlsh2D0-RCeSXXl0olPWX3MEcou77LgMhUg9Mx6NSWp2BKijQ6tv5e68MoDST2RwhgJAMe3LiXDp3wTNP6lrxEPskunMZyrHr6NoeZt4Qy27l7V26WpnsmW_9qIHkoA4vCmcyZFS4ohUsr7wW8-3BV_6ujdOUbSV9qNflyOqHJYAdB8X4g4-FlBQo34DR2_KVkHfSmekNREjwatESz9rBq-A-w5r3VwiOmVLcXwp3ulYudc5TuZnkh7nJOqA3nPU4RS7B_rcBPPqOZsir_fhVN1lzHwvlV3kBALjJY4K4MuOLFcuW7aUuHYXkIrDwJUyBlwdd8mPsSauUqPgqDfKF2LWH6aYSxek9-JUjrtVW0EIiy6xgnERGHiKvEUDFa7yX4Xv7NAnhwAX0M9YhkYFH2uoL0GVhgWXcqdVHRjt2ETJifzbxFr2gTkXBFXXPvuDv4ps6IhIrdt5SoYRp6y_Ypy2SnImMj322_92-wHwnmAP1V_3Oes-CPekAT0ckYj4Czs1YuLTuwpnWMokA2h5q0QKA',
+  AUTH_OWNER_ID: '',
   DLImage: '',
-  LOGIN_TOKEN: 'some LOGIN_TOKEN',
   NRCImage: '',
+  OWNER_INFO: '',
   RCImage: '',
   VehicleImage: '',
   VehicleInsuranceImage: '',
@@ -15,33 +18,17 @@ export const DeviceVariables = {
   confirmPwdShown: false,
   dlBackImage: '',
   dlFrontImage: '',
-  imageURL: 'some imageURL',
   newPwdShown: false,
   nrcBackImage: '',
   nrcFrontImage: '',
   oldPwdShown: false,
+  showPassword: false,
   __env__: 'Development',
 };
-export const AppVariables = {
-  email: [{}],
-  geo: [{}],
-  isBookingSuccess: true,
-  location: [{}],
-  materialOptions: [{ label: 'some label', value: 123 }],
-  operatorList: [{ label: 'some label', value: 123 }],
-  password: [{}],
-  pickUpLocation: [{}],
-  pickUpOptions: [{ label: 'some label', value: 123 }],
-  productOptions: [{ label: 'some label', value: 123 }],
-  test: 'some test',
-  testLocation: [{}],
-  vehicleOptions: [
-    { label: '20ft Container', value: 1 },
-    { label: '40ft Container', value: 2 },
-  ],
-};
+export const AppVariables = {};
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
+const keySuffix = '';
 
 // Attempt to parse a string as JSON. If the parse fails, return the string as-is.
 // This is necessary to account for variables which are already present in local
@@ -64,7 +51,7 @@ class GlobalVariable {
   static async syncToLocalStorage(values) {
     const update = Object.entries(values)
       .filter(([key]) => key in DeviceVariables)
-      .map(([key, value]) => [key, JSON.stringify(value)]);
+      .map(([key, value]) => [key + keySuffix, JSON.stringify(value)]);
 
     if (update.length > 0) {
       await AsyncStorage.multiSet(update);
@@ -74,14 +61,19 @@ class GlobalVariable {
   }
 
   static async loadLocalStorage() {
-    const entries = await AsyncStorage.multiGet(Object.keys(DeviceVariables));
+    const keys = Object.keys(DeviceVariables);
+    const entries = await AsyncStorage.multiGet(
+      keySuffix ? keys.map(k => k + keySuffix) : keys
+    );
 
     // If values isn't set, use the default. These will be written back to
     // storage on the next render.
-    const withDefaults = entries.map(([key, value]) => [
-      key,
-      value ? tryParseJson(value) : DeviceVariables[key],
-    ]);
+    const withDefaults = entries.map(([key_, value]) => {
+      // Keys only have the suffix appended in storage; strip the key
+      // after they are retrieved
+      const key = keySuffix ? key_.replace(keySuffix, '') : key_;
+      return [key, value ? tryParseJson(value) : DeviceVariables[key]];
+    });
 
     return Object.fromEntries(withDefaults);
   }

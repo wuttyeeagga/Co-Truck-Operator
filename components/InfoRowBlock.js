@@ -1,8 +1,9 @@
 import React from 'react';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { TextInput, withTheme } from '@draftbit/ui';
-import { View, useWindowDimensions } from 'react-native';
+import { View } from 'react-native';
 
 const InfoRowBlock = props => {
   const { theme } = props;

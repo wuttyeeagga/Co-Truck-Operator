@@ -123,7 +123,6 @@ const VehicleProofScreen = props => {
               console.error(err);
             }
           }}
-          options={Constants['vehicleOptions']}
           placeholder={'Choose Vehicle Type'}
           selectedIconColor={theme.colors.strong}
           selectedIconName={'Feather/check'}

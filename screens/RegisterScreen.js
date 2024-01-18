@@ -4,6 +4,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   Divider,
@@ -15,7 +16,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Image, Text, View, useWindowDimensions } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const RegisterScreen = props => {
@@ -415,7 +416,6 @@ const RegisterScreen = props => {
                 console.error(err);
               }
             }}
-            options={Constants['operatorList']}
             placeholder={'Choose preferred paths'}
             selectedIconColor={theme.colors.strong}
             selectedIconName={'Feather/check'}
@@ -598,7 +598,19 @@ const RegisterScreen = props => {
           <Button
             onPress={() => {
               try {
-                navigation.navigate('VerificationScreen');
+                navigation.navigate('IdentityProofSignUpScreen', {
+                  comp_name: companyName,
+                  comp_phone: companyPhone,
+                  comp_regi: companyiRegisterNumber,
+                  certificate: Constants['certificateURL'],
+                  agent_license: agentLicense,
+                  agent_name: agentName,
+                  prefer_paths: multiSelectPickerValue2,
+                  email: contactPersonEmail,
+                  mobile: contactPersonPhone,
+                  password: contactPersonPassword,
+                  refer_code: referCode,
+                });
               } catch (err) {
                 console.error(err);
               }

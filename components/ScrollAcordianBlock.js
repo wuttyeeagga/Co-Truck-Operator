@@ -2,8 +2,9 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { AccordionGroup, Icon, withTheme } from '@draftbit/ui';
-import { ScrollView, Text, View, useWindowDimensions } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 const ScrollAcordianBlock = props => {
   const { theme } = props;

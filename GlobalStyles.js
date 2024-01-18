@@ -365,3 +365,6 @@ export const CircleStyles = theme =>
 
 export const WebViewStyles = theme =>
   StyleSheet.create({ 'HTML View': { flex: 1 }, 'Web View': { flex: 1 } });
+
+export const ActivityIndicatorStyles = theme =>
+  StyleSheet.create({ 'Activity Indicator': { height: 36, width: 36 } });

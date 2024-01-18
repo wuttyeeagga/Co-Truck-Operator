@@ -10,6 +10,7 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   CheckboxRow,
+  IconButton,
   ScreenContainer,
   TextInput,
   Touchable,
@@ -26,12 +27,10 @@ const LoginScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
   const [condi, setCondi] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = React.useState('mayur@innogyasia.com');
   const [msg, setMsg] = React.useState('Message');
-  const [password, setPassword] = React.useState('');
+  const [password, setPassword] = React.useState('123456');
   const [successMsg, setSuccessMsg] = React.useState('Success');
-  const [userEmail, setUserEmail] = React.useState('');
-  const [userPassword, setUserPassword] = React.useState('');
   const cotruckLoginPOST = CotruckApi.useLoginPOST();
 
   return (
@@ -117,7 +116,7 @@ const LoginScreen = props => {
             dimensions.width
           )}
         >
-          {/* EmailInputBox */}
+          {/* Email */}
           <TextInput
             allowFontScaling={true}
             autoCapitalize={'none'}
@@ -126,15 +125,15 @@ const LoginScreen = props => {
             changeTextDelay={500}
             enablesReturnKeyAutomatically={true}
             keyboardType={'default'}
-            onChangeText={newEmailInputBoxValue => {
+            onChangeText={newEmailValue => {
               try {
-                setUserEmail(newEmailInputBoxValue);
+                setEmail(newEmailValue);
               } catch (err) {
                 console.error(err);
               }
             }}
             placeholder={'Email'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholderTextColor={theme.colors['TextPlaceholder']}
             returnKeyType={'next'}
             secureTextEntry={false}
             spellcheck={true}
@@ -149,53 +148,142 @@ const LoginScreen = props => {
                   marginLeft: 20,
                   marginRight: 20,
                   marginTop: 20,
-                  paddingLeft: 12,
+                  paddingLeft: 20,
                 }
               ),
               dimensions.width
             )}
-            value={userEmail}
+            value={email}
           />
-          {/* PasswordInputBox */}
-          <TextInput
-            allowFontScaling={true}
-            autoCapitalize={'none'}
-            autoCorrect={false}
-            blurOnSubmit={true}
-            changeTextDelay={500}
-            enablesReturnKeyAutomatically={true}
-            keyboardType={'default'}
-            onChangeText={newPasswordInputBoxValue => {
-              try {
-                const valueKwJ1pKnX = newPasswordInputBoxValue;
-                setUserPassword(valueKwJ1pKnX);
-                const password = valueKwJ1pKnX;
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            placeholder={'Password'}
-            placeholderTextColor={theme.colors['Light']}
-            returnKeyType={'next'}
-            secureTextEntry={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.TextInputStyles(theme)['Text Input'],
-                {
-                  borderColor: theme.colors['Light'],
-                  borderRadius: 12,
-                  height: 48,
-                  marginBottom: 20,
-                  marginLeft: 20,
-                  marginRight: 20,
-                  marginTop: 20,
-                  paddingLeft: 12,
-                }
-              ),
-              dimensions.width
+          {/* Password */}
+          <>
+            {Constants['showPassword'] ? null : (
+              <TextInput
+                allowFontScaling={true}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                blurOnSubmit={true}
+                changeTextDelay={500}
+                enablesReturnKeyAutomatically={true}
+                keyboardType={'default'}
+                onChangeText={newPasswordValue => {
+                  try {
+                    setPassword(newPasswordValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                placeholder={'Password'}
+                placeholderTextColor={theme.colors['TextPlaceholder']}
+                returnKeyType={'next'}
+                secureTextEntry={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.TextInputStyles(theme)['Text Input'],
+                    {
+                      borderColor: theme.colors['Light'],
+                      borderRadius: 12,
+                      height: 48,
+                      marginBottom: 20,
+                      marginLeft: 20,
+                      marginRight: 20,
+                      marginTop: 20,
+                      paddingLeft: 20,
+                    }
+                  ),
+                  dimensions.width
+                )}
+                value={password}
+              />
             )}
-            value={userPassword}
-          />
+          </>
+          {/* Password 2 */}
+          <>
+            {!Constants['showPassword'] ? null : (
+              <TextInput
+                allowFontScaling={true}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                blurOnSubmit={true}
+                changeTextDelay={500}
+                enablesReturnKeyAutomatically={true}
+                keyboardType={'default'}
+                onChangeText={newPassword2Value => {
+                  try {
+                    setPassword(newPassword2Value);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                placeholder={'Password'}
+                placeholderTextColor={theme.colors['TextPlaceholder']}
+                returnKeyType={'next'}
+                secureTextEntry={false}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.TextInputStyles(theme)['Text Input'],
+                    {
+                      borderColor: theme.colors['Light'],
+                      borderRadius: 12,
+                      height: 48,
+                      marginBottom: 20,
+                      marginLeft: 20,
+                      marginRight: 20,
+                      marginTop: 20,
+                      paddingLeft: 20,
+                    }
+                  ),
+                  dimensions.width
+                )}
+                value={password}
+              />
+            )}
+          </>
+          <>
+            {Constants['showPassword'] ? null : (
+              <IconButton
+                icon={'Ionicons/ios-eye-off-sharp'}
+                onPress={() => {
+                  try {
+                    setGlobalVariableValue({
+                      key: 'showPassword',
+                      value: !Constants['showPassword'],
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                size={32}
+                style={StyleSheet.applyWidth(
+                  { bottom: 30, position: 'absolute', right: 30 },
+                  dimensions.width
+                )}
+              />
+            )}
+          </>
+          {/* Icon Button 2 */}
+          <>
+            {!Constants['showPassword'] ? null : (
+              <IconButton
+                icon={'Ionicons/ios-eye-outline'}
+                onPress={() => {
+                  try {
+                    setGlobalVariableValue({
+                      key: 'showPassword',
+                      value: !Constants['showPassword'],
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                size={32}
+                style={StyleSheet.applyWidth(
+                  { bottom: 30, position: 'absolute', right: 30 },
+                  dimensions.width
+                )}
+              />
+            )}
+          </>
         </View>
         {/* ForgetPasswordContainer */}
         <View
@@ -250,6 +338,30 @@ const LoginScreen = props => {
             color={theme.colors['Custom Color']}
             direction={'row-reverse'}
             label={'Remember Me'}
+            onCheck={() => {
+              const checkboxRowValue = undefined;
+              console.log('Checkbox Row ON_CHECK Start');
+              let error = null;
+              try {
+                console.log('Start ON_CHECK:0 SET_VARIABLE');
+                const valueYyYWxtOb = email;
+                setEmail(valueYyYWxtOb);
+                const e = valueYyYWxtOb;
+                console.log('Complete ON_CHECK:0 SET_VARIABLE');
+                console.log('Start ON_CHECK:1 SET_VARIABLE');
+                const valueMCIw4va0 = password;
+                setPassword(valueMCIw4va0);
+                const p = valueMCIw4va0;
+                console.log('Complete ON_CHECK:1 SET_VARIABLE');
+              } catch (err) {
+                console.error(err);
+                error = err.message ?? err;
+              }
+              console.log(
+                'Checkbox Row ON_CHECK Complete',
+                error ? { error } : 'no error'
+              );
+            }}
             onPress={newCheckboxRowValue => {
               const checkboxRowValue = newCheckboxRowValue;
               try {
@@ -274,22 +386,81 @@ const LoginScreen = props => {
           {/* Login */}
           <Button
             onPress={() => {
-              console.log('Login ON_PRESS Start');
-              let error = null;
-              try {
-                console.log('Start ON_PRESS:7 NAVIGATE');
-                navigation.navigate('BottomTabNavigator', {
-                  screen: 'HomeScreen',
-                });
-                console.log('Complete ON_PRESS:7 NAVIGATE');
-              } catch (err) {
-                console.error(err);
-                error = err.message ?? err;
-              }
-              console.log(
-                'Login ON_PRESS Complete',
-                error ? { error } : 'no error'
-              );
+              const handler = async () => {
+                console.log('Login ON_PRESS Start');
+                let error = null;
+                try {
+                  console.log('Start ON_PRESS:0 FETCH_REQUEST');
+                  const loginResponse = (
+                    await cotruckLoginPOST.mutateAsync({
+                      email: 'mayur@innogyasia.com',
+                      password: 123456,
+                      user_type: 'OWNER',
+                    })
+                  )?.json;
+                  console.log('Complete ON_PRESS:0 FETCH_REQUEST', {
+                    loginResponse,
+                  });
+                  console.log('Start ON_PRESS:1 EXTRACT_KEY');
+                  const message = loginResponse?.message;
+                  console.log('Complete ON_PRESS:1 EXTRACT_KEY', { message });
+                  console.log('Start ON_PRESS:2 SHOW_ALERT');
+                  showAlertUtil({
+                    title: 'Message',
+                    message: message,
+                    buttonText: undefined,
+                  });
+                  console.log('Complete ON_PRESS:2 SHOW_ALERT');
+                  console.log('Start ON_PRESS:3 EXTRACT_KEY');
+                  const token = loginResponse?.token;
+                  console.log('Complete ON_PRESS:3 EXTRACT_KEY', { token });
+                  console.log('Start ON_PRESS:4 CONDITIONAL_STOP');
+                  if (!token) {
+                    return;
+                  }
+                  console.log('Complete ON_PRESS:4 CONDITIONAL_STOP');
+                  console.log('Start ON_PRESS:5 EXTRACT_KEY');
+                  const userid = loginResponse?.data.userid;
+                  console.log('Complete ON_PRESS:5 EXTRACT_KEY', { userid });
+                  console.log('Start ON_PRESS:6 SET_VARIABLE');
+                  setGlobalVariableValue({
+                    key: 'AUTH_OWNER_ID',
+                    value: userid,
+                  });
+                  console.log('Complete ON_PRESS:6 SET_VARIABLE');
+                  console.log('Start ON_PRESS:7 SET_VARIABLE');
+                  setGlobalVariableValue({
+                    key: 'AUTH_BEAR_TOKEN',
+                    value: token,
+                  });
+                  console.log('Complete ON_PRESS:7 SET_VARIABLE');
+                  console.log('Start ON_PRESS:8 EXTRACT_KEY');
+                  const data = loginResponse?.data;
+                  console.log('Complete ON_PRESS:8 EXTRACT_KEY', { data });
+                  console.log('Start ON_PRESS:9 SET_VARIABLE');
+                  setGlobalVariableValue({
+                    key: 'OWNER_INFO',
+                    value: data,
+                  });
+                  console.log('Complete ON_PRESS:9 SET_VARIABLE');
+                  console.log('Start ON_PRESS:10 CONSOLE_LOG');
+                  console.log(Constants['OWNER_INFO']);
+                  console.log('Complete ON_PRESS:10 CONSOLE_LOG');
+                  console.log('Start ON_PRESS:11 NAVIGATE');
+                  navigation.navigate('BottomTabNavigator', {
+                    screen: 'HomeScreen',
+                  });
+                  console.log('Complete ON_PRESS:11 NAVIGATE');
+                } catch (err) {
+                  console.error(err);
+                  error = err.message ?? err;
+                }
+                console.log(
+                  'Login ON_PRESS Complete',
+                  error ? { error } : 'no error'
+                );
+              };
+              handler();
             }}
             style={StyleSheet.applyWidth(
               GlobalStyles.ButtonStyles(theme)['Button'],
@@ -351,60 +522,6 @@ const LoginScreen = props => {
               {'Sign Up'}
             </Text>
           </Touchable>
-        </View>
-        {/* Change Language Row */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              margin: 10,
-            },
-            dimensions.width
-          )}
-        >
-          <View style={StyleSheet.applyWidth({ margin: 5 }, dimensions.width)}>
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'English'}
-            </Text>
-          </View>
-          {/* Onpress Conatiner */}
-          <View style={StyleSheet.applyWidth({ margin: 5 }, dimensions.width)}>
-            {/* Change Language Button */}
-            <Touchable
-              onPress={() => {
-                try {
-                  navigation.navigate('StackNavigator', {
-                    screen: 'ChooseLanguageScreen',
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-            >
-              {/* Change Language */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-                    color: theme.colors['Primary'],
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Change Language'}
-              </Text>
-            </Touchable>
-          </View>
         </View>
       </KeyboardAwareScrollView>
     </ScreenContainer>

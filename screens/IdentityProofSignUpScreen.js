@@ -315,7 +315,21 @@ const IdentityProofSignUpScreen = props => {
         <Button
           onPress={() => {
             try {
-              navigation.navigate('VehicleProofScreen');
+              navigation.navigate('VehicleProofScreen', {
+                comp_name: props.route?.params?.comp_name ?? '',
+                comp_phone: props.route?.params?.comp_phone ?? '',
+                comp_regi: props.route?.params?.comp_regi ?? '',
+                certificate: props.route?.params?.certificate ?? '',
+                agent_license: props.route?.params?.agent_license ?? '',
+                agent_name: props.route?.params?.agent_name ?? '',
+                prefer_paths: props.route?.params?.prefer_paths ?? '',
+                mobile: props.route?.params?.mobile ?? '',
+                email: props.route?.params?.email ?? '',
+                password: props.route?.params?.password ?? '',
+                refer_code: props.route?.params?.refer_code ?? '',
+                NRC: Constants['NRCImage'],
+                driving_license: Constants['DLImage'],
+              });
             } catch (err) {
               console.error(err);
             }

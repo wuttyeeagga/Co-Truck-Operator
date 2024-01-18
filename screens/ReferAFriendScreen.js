@@ -3,9 +3,10 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { Icon, ScreenContainer, Touchable, withTheme } from '@draftbit/ui';
 import * as Linking from 'expo-linking';
-import { Image, Text, View, useWindowDimensions } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 const ReferAFriendScreen = props => {
   const { theme, navigation } = props;

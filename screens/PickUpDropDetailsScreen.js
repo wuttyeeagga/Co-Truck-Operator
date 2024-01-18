@@ -1,9 +1,9 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   DatePicker,
@@ -15,14 +15,12 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Image, Text, View, useWindowDimensions } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const PickUpDropDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
   const [comment, setComment] = React.useState('');
   const [datePickerValue, setDatePickerValue] = React.useState(new Date());
   const [loadImage, setLoadImage] = React.useState('');
@@ -675,7 +673,6 @@ const PickUpDropDetailsScreen = props => {
                 console.error(err);
               }
             }}
-            options={Constants['operatorList']}
             placeholder={'Select an option'}
             selectedIconColor={theme.colors.strong}
             selectedIconName={'Feather/check'}

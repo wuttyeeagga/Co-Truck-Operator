@@ -1,9 +1,10 @@
 import React from 'react';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { MapMarker, MapView } from '@draftbit/maps';
 import { Button, Icon, ScreenContainer, withTheme } from '@draftbit/ui';
-import { Image, Text, View, useWindowDimensions } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 const RecipientAddressScreen = props => {
   const { theme, navigation } = props;

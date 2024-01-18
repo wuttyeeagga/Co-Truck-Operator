@@ -1,9 +1,9 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import getLocationUtil from '../utils/getLocation';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   MapCallout,
   MapMarker,
@@ -19,14 +19,11 @@ import {
 } from '@draftbit/ui';
 import { H4, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { Text, View, useWindowDimensions } from 'react-native';
+import { Text, View } from 'react-native';
 
 const ChooseLocationZoneScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [screenVariable, setScreenVariable] = React.useState({});
   const [switchValue, setSwitchValue] = React.useState(false);
   const [testLocation, setTestLocation] = React.useState({});
@@ -45,19 +42,10 @@ const ChooseLocationZoneScreen = props => {
         console.log('Start ON_SCREEN_FOCUS:0 GET_LOCATION');
         const myLocation = await getLocationUtil();
         console.log('Complete ON_SCREEN_FOCUS:0 GET_LOCATION', { myLocation });
-        console.log('Start ON_SCREEN_FOCUS:1 SET_VARIABLE');
-        const Response = setGlobalVariableValue({
-          key: 'location',
-          value: myLocation,
-        });
-        console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE', { Response });
         console.log('Start ON_SCREEN_FOCUS:2 UPDATE_MAP_LOCATION');
-        mapViewqcAzS1MtRef.current.animateToLocation({
-          latitude: Response?.latitude,
-          longitude: Response?.longitude,
-          zoom: 0,
-        });
-        console.log('Complete ON_SCREEN_FOCUS:2 UPDATE_MAP_LOCATION');
+        /* 'Update Map Location' action requires configuration: select Latitude and Longitude */ console.log(
+          'Complete ON_SCREEN_FOCUS:2 UPDATE_MAP_LOCATION'
+        );
       } catch (err) {
         console.error(err);
         error = err.message ?? err;
@@ -126,21 +114,17 @@ const ChooseLocationZoneScreen = props => {
           </Text>
         </View>
       </View>
+
       <MapView
         apiKey={'AIzaSyBzktToWosjNgrrUawZnbslB9NSXSXCkwo'}
         autoClusterMarkers={true}
         autoClusterMarkersDistanceMeters={10000}
         customMapStyle={'Beautiful West Coast Villa'}
-        keyExtractor={mapViewData =>
-          mapViewData?.id || mapViewData?.uuid || JSON.stringify(mapViewData)
-        }
-        latitude={Constants['location']?.latitude}
-        listKey={'qcAzS1Mt'}
+        latitude={37.40241}
         loadingBackgroundColor={theme.colors['Custom Color_19']}
         loadingEnabled={true}
         loadingIndicatorColor={theme.colors['Success']}
-        longitude={Constants['location']?.longitude}
-        markersData={Constants['location']}
+        longitude={-122.12125}
         moveOnMarkerPress={true}
         onPress={(latitude, longitude) => {
           const handler = async () => {
@@ -175,26 +159,6 @@ const ChooseLocationZoneScreen = props => {
         }}
         provider={'google'}
         ref={mapViewqcAzS1MtRef}
-        renderItem={({ item }) => {
-          const mapViewData = item;
-          return (
-            <MapMarkerCluster>
-              <MapMarker
-                androidUseDefaultIconImplementation={true}
-                description={'a is a a for a'}
-                flat={true}
-                latitude={testLocation?.latitude}
-                longitude={testLocation?.longitude}
-                pinColor={theme.colors['GetFit Orange']}
-                pinImageSize={50}
-                title={'a'}
-                tracksViewChanges={true}
-              >
-                <MapCallout showTooltip={true} />
-              </MapMarker>
-            </MapMarkerCluster>
-          );
-        }}
         rotateEnabled={false}
         scrollEnabled={true}
         showsPointsOfInterest={false}
@@ -205,7 +169,24 @@ const ChooseLocationZoneScreen = props => {
         )}
         zoom={15}
         zoomEnabled={true}
-      />
+      >
+        <MapMarkerCluster>
+          <MapMarker
+            androidUseDefaultIconImplementation={true}
+            description={'a is a a for a'}
+            flat={true}
+            latitude={testLocation?.latitude}
+            longitude={testLocation?.longitude}
+            pinColor={theme.colors['GetFit Orange']}
+            pinImageSize={50}
+            title={'a'}
+            tracksViewChanges={true}
+          >
+            <MapCallout showTooltip={true} />
+          </MapMarker>
+        </MapMarkerCluster>
+      </MapView>
+
       <View
         style={StyleSheet.applyWidth(
           { backgroundColor: 'rgba(0, 0, 0, 0)', margin: 20 },

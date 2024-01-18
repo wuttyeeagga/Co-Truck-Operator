@@ -1,8 +1,9 @@
 import React from 'react';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { Icon, Touchable, withTheme } from '@draftbit/ui';
-import { Text, View, useWindowDimensions } from 'react-native';
+import { Text, View } from 'react-native';
 
 const TabHeaderBlock = props => {
   const { theme } = props;

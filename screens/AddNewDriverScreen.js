@@ -215,7 +215,6 @@ const AddNewDriverScreen = props => {
               console.error(err);
             }
           }}
-          options={Constants['vehicleOptions']}
           placeholder={'Choose vehicle to Assign'}
           placeholderTextColor={theme.colors['TextPlaceholder']}
           selectedIconColor={theme.colors.strong}

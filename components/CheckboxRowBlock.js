@@ -2,8 +2,9 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { CheckboxRow, withTheme } from '@draftbit/ui';
-import { View, useWindowDimensions } from 'react-native';
+import { View } from 'react-native';
 
 const CheckboxRowBlock = props => {
   const { theme } = props;

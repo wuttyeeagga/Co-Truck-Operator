@@ -21,6 +21,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [],
     "ios": {
       "bundleIdentifier": "com.draftbit.untitledapp",
       "buildNumber": "1.0.0",

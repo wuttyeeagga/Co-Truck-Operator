@@ -107,7 +107,6 @@ const AddNewVehicleScreen = props => {
               console.error(err);
             }
           }}
-          options={Constants['vehicleOptions']}
           placeholder={'Choose Type of Vehicle'}
           selectedIconColor={theme.colors.strong}
           selectedIconName={'Feather/check'}

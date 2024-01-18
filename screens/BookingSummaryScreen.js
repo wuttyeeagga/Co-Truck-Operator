@@ -1,8 +1,8 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   Divider,
@@ -12,14 +12,11 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Modal, Text, View, useWindowDimensions } from 'react-native';
+import { Modal, Text, View } from 'react-native';
 
 const BookingSummaryScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
 
   return (
     <ScreenContainer
@@ -860,16 +857,6 @@ const BookingSummaryScreen = props => {
         )}
       >
         <Button
-          onPress={() => {
-            try {
-              setGlobalVariableValue({
-                key: 'isBookingSuccess',
-                value: true,
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
               marginTop: 20,
@@ -880,11 +867,7 @@ const BookingSummaryScreen = props => {
         />
       </View>
 
-      <Modal
-        animationType={'none'}
-        transparent={false}
-        visible={Constants['isBookingSuccess']}
-      >
+      <Modal animationType={'none'} transparent={false}>
         <View
           style={StyleSheet.applyWidth(
             {
@@ -908,16 +891,6 @@ const BookingSummaryScreen = props => {
             <IconButton
               color={theme.colors['Success']}
               icon={'AntDesign/checkcircleo'}
-              onPress={() => {
-                try {
-                  setGlobalVariableValue({
-                    key: 'isBookingSuccess',
-                    value: false,
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
               size={100}
               style={StyleSheet.applyWidth(
                 { marginBottom: 10, marginTop: 10 },
@@ -975,10 +948,6 @@ const BookingSummaryScreen = props => {
             <Button
               onPress={() => {
                 try {
-                  setGlobalVariableValue({
-                    key: 'isBookingSuccess',
-                    value: false,
-                  });
                   navigation.navigate('RootNavigator');
                 } catch (err) {
                   console.error(err);

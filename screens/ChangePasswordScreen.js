@@ -1,8 +1,10 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -22,6 +24,7 @@ const ChangePasswordScreen = props => {
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [newPassword, setNewPassword] = React.useState('');
   const [oldPassword, setOldPassword] = React.useState('');
+  const cotruckChangePwdPOST = CotruckApi.useChangePwdPOST();
 
   return (
     <ScreenContainer
@@ -29,10 +32,10 @@ const ChangePasswordScreen = props => {
       hasSafeArea={true}
       scrollable={false}
     >
-      {/* Header 2 */}
+      {/* Header  */}
       <View
         style={StyleSheet.applyWidth(
-          { alignItems: 'center', flexDirection: 'row' },
+          { alignItems: 'center', flexDirection: 'row', margin: 20 },
           dimensions.width
         )}
       >
@@ -48,7 +51,7 @@ const ChangePasswordScreen = props => {
             }
           }}
           size={32}
-          style={StyleSheet.applyWidth({ marginLeft: 30 }, dimensions.width)}
+          style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
         />
         {/* Title */}
         <Text
@@ -67,13 +70,12 @@ const ChangePasswordScreen = props => {
         >
           {'Change Password'}
         </Text>
-        <View />
       </View>
       {/* Old Password View */}
       <View>
         {/* Old Password Input */}
         <>
-          {!Constants['oldPwdShown'] ? null : (
+          {Constants['oldPwdShown'] ? null : (
             <TextInput
               allowFontScaling={true}
               autoCapitalize={'none'}
@@ -85,7 +87,7 @@ const ChangePasswordScreen = props => {
                   console.error(err);
                 }
               }}
-              placeholder={'password'}
+              placeholder={'Old Password'}
               placeholderTextColor={theme.colors['TextPlaceholder']}
               secureTextEntry={true}
               style={StyleSheet.applyWidth(
@@ -107,7 +109,7 @@ const ChangePasswordScreen = props => {
         </>
         {/* Old Password Input */}
         <>
-          {Constants['oldPwdShown'] ? null : (
+          {!Constants['oldPwdShown'] ? null : (
             <TextInput
               allowFontScaling={true}
               autoCapitalize={'none'}
@@ -119,7 +121,7 @@ const ChangePasswordScreen = props => {
                   console.error(err);
                 }
               }}
-              placeholder={'shown password'}
+              placeholder={'Old Password'}
               placeholderTextColor={theme.colors['TextPlaceholder']}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
@@ -139,7 +141,7 @@ const ChangePasswordScreen = props => {
           )}
         </>
         <>
-          {!Constants['oldPwdShown'] ? null : (
+          {Constants['oldPwdShown'] ? null : (
             <IconButton
               icon={'Ionicons/eye-off-sharp'}
               onPress={() => {
@@ -162,7 +164,7 @@ const ChangePasswordScreen = props => {
         </>
         {/* Icon Button 2 */}
         <>
-          {Constants['oldPwdShown'] ? null : (
+          {!Constants['oldPwdShown'] ? null : (
             <IconButton
               icon={'Ionicons/eye-outline'}
               onPress={() => {
@@ -188,7 +190,7 @@ const ChangePasswordScreen = props => {
       <View>
         {/* New Password Input */}
         <>
-          {!Constants['newPwdShown'] ? null : (
+          {Constants['newPwdShown'] ? null : (
             <TextInput
               allowFontScaling={true}
               autoCapitalize={'none'}
@@ -222,7 +224,7 @@ const ChangePasswordScreen = props => {
         </>
         {/* New Password Input */}
         <>
-          {Constants['newPwdShown'] ? null : (
+          {!Constants['newPwdShown'] ? null : (
             <TextInput
               allowFontScaling={true}
               autoCapitalize={'none'}
@@ -254,7 +256,7 @@ const ChangePasswordScreen = props => {
           )}
         </>
         <>
-          {!Constants['newPwdShown'] ? null : (
+          {Constants['newPwdShown'] ? null : (
             <IconButton
               icon={'Ionicons/eye-off-sharp'}
               onPress={() => {
@@ -277,7 +279,7 @@ const ChangePasswordScreen = props => {
         </>
         {/* Icon Button 2 */}
         <>
-          {Constants['newPwdShown'] ? null : (
+          {!Constants['newPwdShown'] ? null : (
             <IconButton
               icon={'Ionicons/eye-outline'}
               onPress={() => {
@@ -303,7 +305,7 @@ const ChangePasswordScreen = props => {
       <View>
         {/* Confirm Password Input */}
         <>
-          {!Constants['confirmPwdShown'] ? null : (
+          {Constants['confirmPwdShown'] ? null : (
             <TextInput
               allowFontScaling={true}
               autoCapitalize={'none'}
@@ -337,7 +339,7 @@ const ChangePasswordScreen = props => {
         </>
         {/* Confirm Password Input */}
         <>
-          {Constants['confirmPwdShown'] ? null : (
+          {!Constants['confirmPwdShown'] ? null : (
             <TextInput
               allowFontScaling={true}
               autoCapitalize={'none'}
@@ -369,7 +371,7 @@ const ChangePasswordScreen = props => {
           )}
         </>
         <>
-          {!Constants['confirmPwdShown'] ? null : (
+          {Constants['confirmPwdShown'] ? null : (
             <IconButton
               icon={'Ionicons/eye-off-sharp'}
               onPress={() => {
@@ -392,7 +394,7 @@ const ChangePasswordScreen = props => {
         </>
         {/* Icon Button 2 */}
         <>
-          {Constants['confirmPwdShown'] ? null : (
+          {!Constants['confirmPwdShown'] ? null : (
             <IconButton
               icon={'Ionicons/eye-outline'}
               onPress={() => {
@@ -417,11 +419,31 @@ const ChangePasswordScreen = props => {
       {/* Reset */}
       <Button
         onPress={() => {
-          try {
-            navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
-          } catch (err) {
-            console.error(err);
-          }
+          const handler = async () => {
+            try {
+              if (oldPassword !== confirmPassword) {
+                return;
+              }
+              const changePassword = (
+                await cotruckChangePwdPOST.mutateAsync({
+                  new_password: confirmPassword,
+                  old_password: oldPassword,
+                  user_id: 12,
+                })
+              )?.json;
+
+              showAlertUtil({
+                title: 'Message',
+                message: changePassword?.message,
+                buttonText: undefined,
+              });
+
+              navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
+            } catch (err) {
+              console.error(err);
+            }
+          };
+          handler();
         }}
         style={StyleSheet.applyWidth(
           StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {

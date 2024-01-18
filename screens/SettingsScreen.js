@@ -1,7 +1,10 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Divider,
@@ -10,11 +13,14 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 const SettingsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const cotruckLogOutPOST = CotruckApi.useLogOutPOST();
 
   return (
     <ScreenContainer hasSafeArea={true} scrollable={true}>
@@ -26,21 +32,22 @@ const SettingsScreen = props => {
             backgroundColor: 'rgba(0, 0, 0, 0)',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: 20,
-            padding: 20,
           },
           dimensions.width
         )}
       >
+        {/* Title Container */}
         <View
           style={StyleSheet.applyWidth(
             { alignItems: 'center', flexDirection: 'row' },
             dimensions.width
           )}
         >
+          {/* Title View */}
           <View
             style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
           >
+            {/* Title */}
             <Text
               style={StyleSheet.applyWidth(
                 {
@@ -65,12 +72,62 @@ const SettingsScreen = props => {
             }
           }}
         >
+          {/* Bell */}
           <Icon
             name={'Ionicons/ios-notifications-outline'}
             size={24}
             style={StyleSheet.applyWidth({ opacity: 0.5 }, dimensions.width)}
           />
         </Touchable>
+      </View>
+      {/* Info View */}
+      <View
+        style={StyleSheet.applyWidth(
+          { alignItems: 'center', justifyContent: 'center' },
+          dimensions.width
+        )}
+      >
+        {/* Image View */}
+        <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
+          {/* Profile Image */}
+          <Image
+            resizeMode={'cover'}
+            source={{ uri: `${Constants['OWNER_INFO']?.certificate}` }}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.ImageStyles(theme)['Image 3'],
+              dimensions.width
+            )}
+          />
+        </View>
+        {/* View  */}
+        <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
+          {/* Operator Name */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                margin: 10,
+              }),
+              dimensions.width
+            )}
+          >
+            {Constants['OWNER_INFO']?.comp_name}
+          </Text>
+          {/* Operator Phone Number */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                margin: 10,
+              }),
+              dimensions.width
+            )}
+          >
+            {Constants['OWNER_INFO']?.comp_number}
+          </Text>
+        </View>
       </View>
       {/* Content Wrapper */}
       <View
@@ -107,11 +164,6 @@ const SettingsScreen = props => {
                 dimensions.width
               )}
             >
-              <Icon
-                color={theme.colors.strong}
-                name={'FontAwesome/user-circle'}
-                size={24}
-              />
               <Text
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
@@ -177,11 +229,6 @@ const SettingsScreen = props => {
                 dimensions.width
               )}
             >
-              <Icon
-                color={theme.colors.strong}
-                name={'FontAwesome/calendar'}
-                size={24}
-              />
               <Text
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
@@ -247,11 +294,6 @@ const SettingsScreen = props => {
                 dimensions.width
               )}
             >
-              <Icon
-                color={theme.colors.strong}
-                name={'MaterialIcons/chat-bubble'}
-                size={24}
-              />
               <Text
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
@@ -326,7 +368,6 @@ const SettingsScreen = props => {
                   dimensions.width
                 )}
               >
-                <Icon name={'Foundation/dollar'} size={24} />
                 <Text
                   accessible={true}
                   allowFontScaling={true}
@@ -392,11 +433,6 @@ const SettingsScreen = props => {
                 dimensions.width
               )}
             >
-              <Icon
-                color={theme.colors.strong}
-                name={'FontAwesome/send'}
-                size={24}
-              />
               <Text
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
@@ -435,149 +471,74 @@ const SettingsScreen = props => {
           />
         </Touchable>
         {/* Change Password */}
-        <View
-          style={StyleSheet.applyWidth(
-            { flexDirection: 'column' },
-            dimensions.width
-          )}
-        >
-          {/* Row Container */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                height: 60,
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            {/* Left Aligned */}
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'center', flexDirection: 'row' },
-                dimensions.width
-              )}
-            >
-              <Icon name={'Foundation/map'} size={24} />
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                    fontFamily: 'System',
-                    fontWeight: '600',
-                    marginLeft: 12,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Change Password'}
-              </Text>
-            </View>
-            {/* Right Aligned */}
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'center', flexDirection: 'row' },
-                dimensions.width
-              )}
-            >
-              <Icon name={'Entypo/chevron-right'} size={24} />
-            </View>
-          </View>
-          <Divider
-            color={theme.colors.divider}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-        </View>
-        {/* Language */}
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('StackNavigator', {
-                screen: 'AboutUsScreen',
-              });
-              navigation.navigate('StackNavigator', {
-                screen: 'ChooseLanguageScreen',
-              });
+              navigation.navigate('ChangePasswordScreen');
             } catch (err) {
               console.error(err);
             }
           }}
         >
-          {/* Row Wrapper */}
+          {/* Change Password */}
           <View
             style={StyleSheet.applyWidth(
-              {
-                flexDirection: 'row',
-                height: 60,
-                justifyContent: 'space-between',
-              },
+              { flexDirection: 'column' },
               dimensions.width
             )}
           >
-            {/* Left Aligned */}
+            {/* Row Container */}
             <View
               style={StyleSheet.applyWidth(
-                { alignItems: 'center', flex: 1, flexDirection: 'row' },
+                {
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  height: 60,
+                  justifyContent: 'space-between',
+                },
                 dimensions.width
               )}
             >
-              <Icon
-                color={theme.colors.strong}
-                name={'Entypo/language'}
-                size={24}
-              />
-              <Text
-                allowFontScaling={true}
-                ellipsizeMode={'tail'}
+              {/* Left Aligned */}
+              <View
                 style={StyleSheet.applyWidth(
-                  {
-                    color: theme.colors.strong,
-                    fontFamily: 'System',
-                    fontWeight: '600',
-                    marginLeft: 12,
-                  },
+                  { alignItems: 'center', flexDirection: 'row' },
                   dimensions.width
                 )}
-                textBreakStrategy={'highQuality'}
               >
-                {'Language'}
-              </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                      fontFamily: 'System',
+                      fontWeight: '600',
+                      marginLeft: 12,
+                    }),
+                    dimensions.width
+                  )}
+                >
+                  {'Change Password'}
+                </Text>
+              </View>
+              {/* Right Aligned */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flexDirection: 'row' },
+                  dimensions.width
+                )}
+              >
+                <Icon name={'Entypo/chevron-right'} size={24} />
+              </View>
             </View>
-            {/* Right Aligned */}
-            <View
+            <Divider
+              color={theme.colors.divider}
               style={StyleSheet.applyWidth(
-                { alignItems: 'center', flexDirection: 'row' },
+                GlobalStyles.DividerStyles(theme)['Divider'],
                 dimensions.width
               )}
-            >
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TextStyles(theme)['Text'],
-                  dimensions.width
-                )}
-              >
-                {'English'}
-              </Text>
-              <Icon
-                color={theme.colors.strong}
-                name={'MaterialIcons/chevron-right'}
-                size={24}
-              />
-            </View>
+            />
           </View>
-          <Divider
-            color={theme.colors.divider}
-            height={1}
-            style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
-          />
         </Touchable>
         {/* About  */}
         <Touchable
@@ -609,11 +570,6 @@ const SettingsScreen = props => {
                 dimensions.width
               )}
             >
-              <Icon
-                color={theme.colors.strong}
-                name={'AntDesign/infocirlce'}
-                size={24}
-              />
               <Text
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
@@ -651,8 +607,6 @@ const SettingsScreen = props => {
             style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
           />
         </Touchable>
-        {/* Touchable 2 */}
-        <Touchable />
       </View>
       {/* Footer Wrapper */}
       <View
@@ -661,13 +615,30 @@ const SettingsScreen = props => {
           dimensions.width
         )}
       >
+        {/* Sign Out */}
         <Touchable
           onPress={() => {
-            try {
-              navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
-            } catch (err) {
-              console.error(err);
-            }
+            const handler = async () => {
+              try {
+                const Response = (
+                  await cotruckLogOutPOST.mutateAsync({ id: 120 })
+                )?.json;
+                const msg = Response?.message;
+
+                showAlertUtil({
+                  title: 'Message',
+                  message: msg,
+                  buttonText: undefined,
+                });
+
+                navigation.navigate('StackNavigator', {
+                  screen: 'LoginScreen',
+                });
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
           }}
         >
           {/* Button Wrapper */}

@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   CheckboxRow,
@@ -12,7 +13,7 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useNavigation } from '@react-navigation/native';
-import { Modal, Text, View, useWindowDimensions } from 'react-native';
+import { Modal, Text, View } from 'react-native';
 
 const AsdfBlock = props => {
   const { theme } = props;

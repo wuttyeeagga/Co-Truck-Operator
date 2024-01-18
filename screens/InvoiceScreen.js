@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Icon,
   ScreenContainer,
@@ -11,7 +12,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Text, View, useWindowDimensions } from 'react-native';
+import { Text, View } from 'react-native';
 
 const InvoiceScreen = props => {
   const { theme, navigation } = props;

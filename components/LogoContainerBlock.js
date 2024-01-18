@@ -3,8 +3,9 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 import { withTheme } from '@draftbit/ui';
-import { Image, View, useWindowDimensions } from 'react-native';
+import { Image, View } from 'react-native';
 
 const LogoContainerBlock = props => {
   const { theme } = props;

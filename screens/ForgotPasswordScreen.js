@@ -157,9 +157,6 @@ const ForgotPasswordScreen = props => {
               console.log('Send ON_PRESS Start');
               let error = null;
               try {
-                console.log('Start ON_PRESS:0 SET_VARIABLE');
-                undefined;
-                console.log('Complete ON_PRESS:0 SET_VARIABLE');
                 console.log('Start ON_PRESS:1 FETCH_REQUEST');
                 const response = (
                   await cotruckForgotPwdPOST.mutateAsync({ mobile: num })
@@ -178,9 +175,17 @@ const ForgotPasswordScreen = props => {
                   buttonText: undefined,
                 });
                 console.log('Complete ON_PRESS:4 SHOW_ALERT');
-                console.log('Start ON_PRESS:5 CONSOLE_LOG');
+                console.log('Start ON_PRESS:5 CONDITIONAL_STOP');
+                if (status) {
+                  return;
+                }
+                console.log('Complete ON_PRESS:5 CONDITIONAL_STOP');
+                console.log('Start ON_PRESS:6 NAVIGATE');
+                navigation.navigate('ChangePasswordScreen');
+                console.log('Complete ON_PRESS:6 NAVIGATE');
+                console.log('Start ON_PRESS:7 CONSOLE_LOG');
                 console.log(response, response);
-                console.log('Complete ON_PRESS:5 CONSOLE_LOG');
+                console.log('Complete ON_PRESS:7 CONSOLE_LOG');
               } catch (err) {
                 console.error(err);
                 error = err.message ?? err;

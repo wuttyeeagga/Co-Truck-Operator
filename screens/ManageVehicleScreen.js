@@ -1,5 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -11,11 +13,16 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Text, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { FlashList } from '@shopify/flash-list';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { Fetch } from 'react-request';
 
 const ManageVehicleScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
 
   return (
     <ScreenContainer
@@ -91,591 +98,194 @@ const ManageVehicleScreen = props => {
         />
       </View>
 
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('DriverDetailsScreen');
-          } catch (err) {
-            console.error(err);
-          }
-        }}
+      <CotruckApi.FetchOperatorVehicleListPOST
+        ownerid={Constants['AUTH_OWNER_ID']}
       >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'20ft Container Truck'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'4567810'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 2 */}
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('VehicleDetailsScreen');
-          } catch (err) {
-            console.error(err);
+        {({ loading, error, data, refetchOperatorVehicleList }) => {
+          const fetchData = data?.json;
+          if (loading) {
+            return (
+              <>
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                    dimensions.width
+                  )}
+                >
+                  <ActivityIndicator
+                    animating={true}
+                    color={theme.colors['Primary']}
+                    hidesWhenStopped={true}
+                    size={'large'}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.ActivityIndicatorStyles(theme)[
+                        'Activity Indicator'
+                      ],
+                      dimensions.width
+                    )}
+                  />
+                </View>
+              </>
+            );
           }
-        }}
-      >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              {/* Vehicle Type */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'40ft Container Truck'}
-              </Text>
-              {/* Registration No. */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'250620'}
-              </Text>
-            </View>
 
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 3 */}
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('VehicleDetailsScreen');
-          } catch (err) {
-            console.error(err);
+          if (error || data?.status < 200 || data?.status >= 300) {
+            return (
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      { fontSize: 16 }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'There is not found Vehicle'}
+                </Text>
+              </View>
+            );
           }
+
+          return (
+            <>
+              <FlatList
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flexDirection: 'column-reverse' },
+                  dimensions.width
+                )}
+                data={fetchData?.data}
+                keyExtractor={listData =>
+                  listData?.id || listData?.uuid || JSON.stringify(listData)
+                }
+                listKey={'1MYH0n2p'}
+                numColumns={1}
+                onEndReachedThreshold={0.5}
+                renderItem={({ item }) => {
+                  const listData = item;
+                  return (
+                    <Touchable
+                      onPress={() => {
+                        try {
+                          navigation.navigate('VehicleDetailsScreen', {
+                            id: flashListData?.id,
+                          });
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Surface
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.SurfaceStyles(theme)['Surface'],
+                            {
+                              alignItems: 'stretch',
+                              flexDirection: 'column',
+                              margin: 20,
+                              padding: 10,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              alignItems: 'center',
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <View>
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  { margin: 10 }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.vehicle_type}
+                            </Text>
+                            {/* Text 2 */}
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  { margin: 10 }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.registr_number}
+                            </Text>
+                          </View>
+
+                          <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['Text 2'],
+                                {
+                                  color: theme.colors['CoTruckPending'],
+                                  fontFamily: 'System',
+                                  fontSize: 14,
+                                  fontWeight: '400',
+                                  margin: 10,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.status_of_vechile}
+                          </Text>
+                        </View>
+                      </Surface>
+                    </Touchable>
+                  );
+                }}
+                showsHorizontalScrollIndicator={true}
+                showsVerticalScrollIndicator={true}
+              />
+              <FlashList
+                data={fetchData?.data}
+                estimatedItemSize={50}
+                keyExtractor={flashListData =>
+                  flashListData?.id ||
+                  flashListData?.uuid ||
+                  JSON.stringify(flashListData)
+                }
+                listKey={'uYxVQ6YI'}
+                numColumns={1}
+                onEndReachedThreshold={0.5}
+                renderItem={({ item }) => {
+                  const flashListData = item;
+                  return null;
+                }}
+                showsHorizontalScrollIndicator={true}
+                showsVerticalScrollIndicator={true}
+              />
+            </>
+          );
         }}
-      >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              {/* Vehicle Type */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'20ft Container Truck'}
-              </Text>
-              {/* Registration No. */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'htet shine truck'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 4 */}
-      <Touchable>
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'20ft Container Truck'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'4567810'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 5 */}
-      <Touchable>
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'20ft Container Truck'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'4567810'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 6 */}
-      <Touchable>
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'20ft Container Truck'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'4567810'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 7 */}
-      <Touchable>
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'20ft Container Truck'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'4567810'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 8 */}
-      <Touchable>
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'20ft Container Truck'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'4567810'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
+      </CotruckApi.FetchOperatorVehicleListPOST>
     </ScreenContainer>
   );
 };

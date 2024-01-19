@@ -23,8 +23,8 @@ const VehicleProofScreen = props => {
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
-  const [vehicleInsurance, setVehicleInsurance] = React.useState('');
-  const [vehicleRC, setVehicleRC] = React.useState('');
+  const [vehicleInsurance, setVehicleInsurance] = React.useState({});
+  const [vehicleRC, setVehicleRC] = React.useState({});
 
   return (
     <ScreenContainer

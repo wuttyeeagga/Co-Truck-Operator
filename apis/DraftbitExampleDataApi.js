@@ -9,11 +9,12 @@ import useFetch from 'react-fetch-hook';
 import { useIsFocused } from '@react-navigation/native';
 import { handleResponse, isOkStatus } from '../utils/handleRestApiResponse';
 import usePrevious from '../utils/usePrevious';
+import encodeQueryParam from '../utils/encodeQueryParam';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
 export const usersGET = (Constants, { limit }, handlers = {}) =>
   fetch(
-    `https://example-data.draftbit.com/users?_limit=${encodeURIComponent(
+    `https://example-data.draftbit.com/users?_limit=${encodeQueryParam(
       `${typeof limit === 'string' ? limit : JSON.stringify(limit ?? '')}`
     )}`,
     {

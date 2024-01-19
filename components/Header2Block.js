@@ -31,7 +31,7 @@ const Header2Block = props => {
           }
         }}
         size={32}
-        style={StyleSheet.applyWidth({ marginLeft: 30 }, dimensions.width)}
+        style={StyleSheet.applyWidth({ marginLeft: 20 }, dimensions.width)}
       />
       {/* Title */}
       <Text

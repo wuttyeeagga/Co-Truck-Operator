@@ -116,7 +116,7 @@ const BookingDetailsOnPendingScreen = props => {
               listKey={'7d61XBrJ'}
               numColumns={1}
               onEndReachedThreshold={0.5}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const flashListData = item;
                 return (
                   <>

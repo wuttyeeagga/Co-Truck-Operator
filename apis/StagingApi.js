@@ -9,6 +9,7 @@ import useFetch from 'react-fetch-hook';
 import { useIsFocused } from '@react-navigation/native';
 import { handleResponse, isOkStatus } from '../utils/handleRestApiResponse';
 import usePrevious from '../utils/usePrevious';
+import encodeQueryParam from '../utils/encodeQueryParam';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
 export const forgotPasswordPOST = (Constants, { mobile }, handlers = {}) =>

@@ -182,7 +182,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['RCImage']}` }}
+                  source={{ uri: '' }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -205,10 +205,6 @@ const AddNewVehicleScreen = props => {
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'RCImage',
-                    value: results,
-                  });
                   setIsRCUpload(true);
                 } catch (err) {
                   console.error(err);

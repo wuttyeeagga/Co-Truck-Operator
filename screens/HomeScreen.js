@@ -202,7 +202,7 @@ const HomeScreen = props => {
                 listKey={'Or2R6bzt'}
                 numColumns={1}
                 onEndReachedThreshold={0.5}
-                renderItem={({ item }) => {
+                renderItem={({ item, index }) => {
                   const listData = item;
                   return (
                     <>

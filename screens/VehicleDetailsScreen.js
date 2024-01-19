@@ -72,7 +72,27 @@ const VehicleDetailsScreen = props => {
         {({ loading, error, data, refetchOperatorViewVehicle }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return (
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <ActivityIndicator
+                  animating={true}
+                  color={theme.colors['Primary']}
+                  hidesWhenStopped={true}
+                  size={'large'}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ActivityIndicatorStyles(theme)[
+                      'Activity Indicator'
+                    ],
+                    dimensions.width
+                  )}
+                />
+              </View>
+            );
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -91,7 +111,7 @@ const VehicleDetailsScreen = props => {
               listKey={'0Di5Ny2r'}
               numColumns={1}
               onEndReachedThreshold={0.5}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const flashListData = item;
                 return (
                   <>

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import { Icon, Touchable } from '@draftbit/ui';
@@ -7,6 +6,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import theme from './themes/Draftbit.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
+import React from 'react';
+import * as GlobalVariables from './config/GlobalVariableContext';
+import Breakpoints from './utils/Breakpoints';
+import useWindowDimensions from './utils/useWindowDimensions';
 
 import AboutUsScreen from './screens/AboutUsScreen';
 import AddNewDriverScreen from './screens/AddNewDriverScreen';
@@ -35,7 +38,8 @@ import InvoiceScreen from './screens/InvoiceScreen';
 import LoginScreen from './screens/LoginScreen';
 import ManageDriverScreen from './screens/ManageDriverScreen';
 import ManageVehicleScreen from './screens/ManageVehicleScreen';
-import NewTripScreen from './screens/NewTripScreen';
+import NewTripAcceptedScreen from './screens/NewTripAcceptedScreen';
+import NewTripCancelledScreen from './screens/NewTripCancelledScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import OTPVerificationScreen from './screens/OTPVerificationScreen';
 import PaymentScreen from './screens/PaymentScreen';
@@ -59,7 +63,7 @@ function BottomTabNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerRight: ({ tintColor }) => (
           <View style={[styles.headerContainer, styles.headerContainerRight]}>
             <Icon
@@ -74,12 +78,12 @@ function BottomTabNavigator() {
         tabBarActiveTintColor: theme.colors['Primary'],
         tabBarLabelPosition: 'below-icon',
         tabBarStyle: { borderTopColor: 'transparent' },
-      }}
+      })}
     >
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
               name="Ionicons/ios-home-outline"
@@ -89,12 +93,12 @@ function BottomTabNavigator() {
           ),
           tabBarLabel: 'Home',
           title: 'Home',
-        }}
+        })}
       />
       <Tab.Screen
         name="ImportActivityScreen"
         component={ImportActivityScreen}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
               name="MaterialCommunityIcons/calendar-clock"
@@ -104,12 +108,12 @@ function BottomTabNavigator() {
           ),
           tabBarLabel: 'Import Activity',
           title: 'Import Activity',
-        }}
+        })}
       />
       <Tab.Screen
         name="ExportActivityScreen"
         component={ExportActivityScreen}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
               name="MaterialCommunityIcons/calendar-clock"
@@ -119,12 +123,12 @@ function BottomTabNavigator() {
           ),
           tabBarLabel: 'Export Activity',
           title: 'Export Activity',
-        }}
+        })}
       />
       <Tab.Screen
         name="NotificationsScreen"
         component={NotificationsScreen}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
               name="Ionicons/ios-notifications-outline"
@@ -134,12 +138,12 @@ function BottomTabNavigator() {
           ),
           tabBarLabel: 'Notifications',
           title: 'Notifications',
-        }}
+        })}
       />
       <Tab.Screen
         name="SettingsScreen"
         component={SettingsScreen}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
               name="Ionicons/settings-outline"
@@ -149,7 +153,7 @@ function BottomTabNavigator() {
           ),
           tabBarLabel: 'Settings',
           title: 'Settings',
-        }}
+        })}
       />
     </Tab.Navigator>
   );
@@ -159,42 +163,42 @@ function StackNavigator() {
   return (
     <Stack.Navigator
       presentation="transparentModal"
-      screenOptions={{ headerShown: false }}
+      screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
-        options={{
+        options={({ navigation }) => ({
           title: 'Login',
-        }}
-      />
-      <Stack.Screen
-        name="ForgotPasswordScreen"
-        component={ForgotPasswordScreen}
-        options={{
-          title: 'Forgot Password',
-        }}
-      />
-      <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          title: 'Register',
-        }}
+        })}
       />
       <Stack.Screen
         name="ChooseLanguageScreen"
         component={ChooseLanguageScreen}
-        options={{
+        options={({ navigation }) => ({
           title: 'Choose Language',
-        }}
+        })}
       />
       <Stack.Screen
         name="AboutUsScreen"
         component={AboutUsScreen}
-        options={{
+        options={({ navigation }) => ({
           title: 'About Us',
-        }}
+        })}
+      />
+      <Stack.Screen
+        name="ForgotPasswordScreen"
+        component={ForgotPasswordScreen}
+        options={({ navigation }) => ({
+          title: 'Forgot Password',
+        })}
+      />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={({ navigation }) => ({
+          title: 'Register',
+        })}
       />
     </Stack.Navigator>
   );
@@ -205,7 +209,7 @@ export default function RootAppNavigator() {
     <NavigationContainer linking={LinkingConfiguration}>
       <Stack.Navigator
         initialRouteName="StackNavigator"
-        screenOptions={{
+        screenOptions={({ navigation }) => ({
           headerRight: ({ tintColor }) => (
             <View style={[styles.headerContainer, styles.headerContainerRight]}>
               <Icon
@@ -218,231 +222,238 @@ export default function RootAppNavigator() {
           ),
           headerShown: false,
           headerTitle: 'Co Truck',
-        }}
+        })}
       >
-        <Stack.Screen
-          name="BookingDetailsOnGoingScreen"
-          component={BookingDetailsOnGoingScreen}
-          options={{
-            title: 'Booking Details on Going',
-          }}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnCompletedScreen"
-          component={BookingDetailsOnCompletedScreen}
-          options={{
-            title: 'Booking Details on Completed',
-          }}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnConfirmedScreen"
-          component={BookingDetailsOnConfirmedScreen}
-          options={{
-            title: 'Booking Details on  Confirmed',
-          }}
-        />
-        <Stack.Screen
-          name="ReasonForCancelScreen"
-          component={ReasonForCancelScreen}
-          options={{
-            title: 'Reason for cancel',
-          }}
-        />
-        <Stack.Screen
-          name="SignUpIdentityProofScreen"
-          component={SignUpIdentityProofScreen}
-          options={{
-            title: 'Sign Up Identity Proof',
-          }}
-        />
-        <Stack.Screen
-          name="ImportBookingScreen"
-          component={ImportBookingScreen}
-          options={{
-            title: 'Import Booking',
-          }}
-        />
-        <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={{
-            title: 'PickUpDropDetails',
-          }}
-        />
         <Stack.Screen
           name="CompanyInformationScreen"
           component={CompanyInformationScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Company Information',
-          }}
+          })}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnGoingScreen"
+          component={BookingDetailsOnGoingScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Details on Going',
+          })}
         />
         <Stack.Screen
           name="BookingDetailsOnPendingScreen"
           component={BookingDetailsOnPendingScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Booking Details on Pending',
-          }}
+          })}
         />
         <Stack.Screen
           name="ChooseLocationZoneScreen"
           component={ChooseLocationZoneScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Choose Location Zone',
-          }}
-        />
-        <Stack.Screen
-          name="ReferAFriendScreen"
-          component={ReferAFriendScreen}
-          options={{
-            title: 'Refer a friend',
-          }}
+          })}
         />
         <Stack.Screen
           name="OTPVerificationScreen"
           component={OTPVerificationScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'OTP Verification',
-          }}
-        />
-        <Stack.Screen
-          name="Test1Screen"
-          component={Test1Screen}
-          options={{
-            title: 'Test1',
-          }}
+          })}
         />
         <Stack.Screen
           name="InvoiceScreen"
           component={InvoiceScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Invoice',
-          }}
+          })}
+        />
+        <Stack.Screen
+          name="Test1Screen"
+          component={Test1Screen}
+          options={({ navigation }) => ({
+            title: 'Test1',
+          })}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnCompletedScreen"
+          component={BookingDetailsOnCompletedScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Details on Completed',
+          })}
+        />
+        <Stack.Screen
+          name="ReferAFriendScreen"
+          component={ReferAFriendScreen}
+          options={({ navigation }) => ({
+            title: 'Refer a friend',
+          })}
+        />
+        <Stack.Screen
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
+          options={({ navigation }) => ({
+            title: 'Sign Up Identity Proof',
+          })}
         />
         <Stack.Screen
           name="PaymentScreen"
           component={PaymentScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Payment',
-          }}
+          })}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnConfirmedScreen"
+          component={BookingDetailsOnConfirmedScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Details on  Confirmed',
+          })}
         />
         <Stack.Screen
           name="BookingSummaryScreen"
           component={BookingSummaryScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Booking Summary',
-          }}
+          })}
         />
         <Stack.Screen
           name="TestForMapScreen"
           component={TestForMapScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Test For Map',
-          }}
+          })}
         />
         <Stack.Screen
           name="HospitalOnMapScreen"
           component={HospitalOnMapScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Hospital on Map',
-          }}
+          })}
         />
         <Stack.Screen
           name="RecipientAddressScreen"
           component={RecipientAddressScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Recipient Address',
-          }}
+          })}
+        />
+        <Stack.Screen
+          name="ReasonForCancelScreen"
+          component={ReasonForCancelScreen}
+          options={({ navigation }) => ({
+            title: 'Reason for cancel',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingScreen"
+          component={ImportBookingScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking',
+          })}
+        />
+        <Stack.Screen
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'PickUpDropDetails',
+          })}
         />
         <Stack.Screen
           name="VehicleProofScreen"
           component={VehicleProofScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Vehicle Proof',
-          }}
+          })}
         />
         <Stack.Screen
           name="TermsInRegisterScreen"
           component={TermsInRegisterScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Terms in Register',
-          }}
+          })}
         />
         <Stack.Screen
           name="EditProfileScreen"
           component={EditProfileScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Edit Profile',
-          }}
+          })}
         />
         <Stack.Screen
           name="IdentityProofViewScreen"
           component={IdentityProofViewScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Identity Proof View',
-          }}
+          })}
         />
         <Stack.Screen
           name="IdentityProofEditScreen"
           component={IdentityProofEditScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Identity Proof Edit',
-          }}
+          })}
         />
         <Stack.Screen
           name="VehicleDetailsScreen"
           component={VehicleDetailsScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Vehicle Details',
-          }}
+          })}
         />
         <Stack.Screen
           name="ManageVehicleScreen"
           component={ManageVehicleScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Manage Vehicle',
-          }}
+          })}
         />
         <Stack.Screen
           name="AddNewVehicleScreen"
           component={AddNewVehicleScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Add New Vehicle',
-          }}
+          })}
         />
         <Stack.Screen
           name="ManageDriverScreen"
           component={ManageDriverScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Manage Driver',
-          }}
+          })}
         />
         <Stack.Screen
           name="AddNewDriverScreen"
           component={AddNewDriverScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Add New Driver',
-          }}
+          })}
         />
         <Stack.Screen
           name="DriverDetailsScreen"
           component={DriverDetailsScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Driver Details',
-          }}
+          })}
         />
         <Stack.Screen
           name="ChangePasswordScreen"
           component={ChangePasswordScreen}
-          options={{
+          options={({ navigation }) => ({
             title: 'Change Password',
-          }}
+          })}
         />
         <Stack.Screen
-          name="NewTripScreen"
-          component={NewTripScreen}
-          options={{
-            title: 'New Trip',
-          }}
+          name="NewTripCancelledScreen"
+          component={NewTripCancelledScreen}
+          options={({ navigation }) => ({
+            title: 'New Trip Cancelled',
+          })}
+        />
+        <Stack.Screen
+          name="NewTripAcceptedScreen"
+          component={NewTripAcceptedScreen}
+          options={({ navigation }) => ({
+            title: 'New Trip Accepted',
+          })}
         />
         <Stack.Screen
           name="BottomTabNavigator"

@@ -103,7 +103,7 @@ const DriverDetailsScreen = props => {
               listKey={'GWBNoYIK'}
               numColumns={1}
               onEndReachedThreshold={0.5}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const flashListData = item;
                 return (
                   <>

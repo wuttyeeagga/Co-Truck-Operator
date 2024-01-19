@@ -108,7 +108,7 @@ const BookingDetailsOnGoingScreen = props => {
               listKey={'AAW2BHQO'}
               numColumns={1}
               onEndReachedThreshold={0.5}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const flashListData = item;
                 return (
                   <>
@@ -187,7 +187,7 @@ const BookingDetailsOnGoingScreen = props => {
                           )}
                           numColumns={1}
                           onEndReachedThreshold={0.5}
-                          renderItem={({ item }) => {
+                          renderItem={({ item, index }) => {
                             const flashListData = item;
                             return (
                               <>

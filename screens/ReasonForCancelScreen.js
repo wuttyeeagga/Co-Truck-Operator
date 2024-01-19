@@ -230,7 +230,7 @@ const ReasonForCancelScreen = props => {
             onChangeText={newTypeReasonValue => {
               const textInputValue = newTypeReasonValue;
               try {
-                setTextInputValue(textInputValue);
+                setValue(value);
               } catch (err) {
                 console.error(err);
               }

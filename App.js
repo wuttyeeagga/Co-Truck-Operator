@@ -14,6 +14,7 @@ import Draftbit from './themes/Draftbit.js';
 import cacheAssetsAsync from './config/cacheAssetsAsync';
 import { GlobalVariableProvider } from './config/GlobalVariableContext';
 import { useFonts } from 'expo-font';
+import Fonts from './config/Fonts.js';
 SplashScreen.preventAutoHideAsync();
 
 Notifications.setNotificationHandler({
@@ -30,37 +31,38 @@ const App = () => {
   const [areAssetsCached, setAreAssetsCached] = React.useState(false);
 
   const [fontsLoaded] = useFonts({
-    Inter_300Light:
-      'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfMZhrib2Bg-4.ttf',
-    Inter_400Regular:
-      'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf',
-    Inter_500Medium:
-      'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf',
-    Inter_600SemiBold:
-      'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf',
-    Poppins_400Regular:
-      'https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf',
-    Poppins_500Medium:
-      'https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLGT9V1tvFP-KUEg.ttf',
-    Poppins_700Bold:
-      'https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf',
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_600SemiBold: Fonts.Inter_600SemiBold,
+    Inter_300Light: Fonts.Inter_300Light,
+    Inter_300Light: Fonts.Inter_300Light,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_600SemiBold: Fonts.Inter_600SemiBold,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_500Medium: Fonts.Inter_500Medium,
+    Inter_400Regular: Fonts.Inter_400Regular,
+    Poppins_400Regular: Fonts.Poppins_400Regular,
+    Poppins_500Medium: Fonts.Poppins_500Medium,
+    Poppins_700Bold: Fonts.Poppins_700Bold,
   });
-  const [fontsTimedOut, setFontsTimedOut] = React.useState(false);
-  const [fontTimer, setFontTimer] = React.useState(null);
-  React.useEffect(() => {
-    if (fontsLoaded && fontTimer) {
-      clearTimeout(fontTimer);
-      setFontsTimedOut(false);
-    }
-    if (!fontsLoaded && !fontTimer) {
-      const timer = setTimeout(() => {
-        console.warn('Timed out waiting for fonts to load');
-        setFontsTimedOut(true);
-      }, 10000);
-      setFontTimer(timer);
-      return () => clearTimeout(timer);
-    }
-  }, [fontsLoaded, fontTimer]);
 
   const appState = React.useRef(AppState.currentState);
 
@@ -101,7 +103,7 @@ const App = () => {
     prepare();
   }, []);
 
-  const isReady = areAssetsCached && (fontsLoaded || fontsTimedOut);
+  const isReady = areAssetsCached && fontsLoaded;
   const onLayoutRootView = React.useCallback(async () => {
     if (isReady) {
       await SplashScreen.hideAsync();

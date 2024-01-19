@@ -169,7 +169,7 @@ const ManageVehicleScreen = props => {
                 listKey={'1MYH0n2p'}
                 numColumns={1}
                 onEndReachedThreshold={0.5}
-                renderItem={({ item }) => {
+                renderItem={({ item, index }) => {
                   const listData = item;
                   return (
                     <Touchable
@@ -275,7 +275,7 @@ const ManageVehicleScreen = props => {
                 listKey={'uYxVQ6YI'}
                 numColumns={1}
                 onEndReachedThreshold={0.5}
-                renderItem={({ item }) => {
+                renderItem={({ item, index }) => {
                   const flashListData = item;
                   return null;
                 }}

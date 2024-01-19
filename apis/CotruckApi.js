@@ -9,12 +9,17 @@ import useFetch from 'react-fetch-hook';
 import { useIsFocused } from '@react-navigation/native';
 import { handleResponse, isOkStatus } from '../utils/handleRestApiResponse';
 import usePrevious from '../utils/usePrevious';
+import encodeQueryParam from '../utils/encodeQueryParam';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
 export const addNewLeadPOST = (Constants, { id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/add-new-lead`, {
     body: JSON.stringify({ id: id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
     method: 'POST',
   }).then(res => handleResponse(res, handlers));
 

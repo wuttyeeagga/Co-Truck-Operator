@@ -137,7 +137,7 @@ const NotificationsScreen = props => {
               listKey={'jHy0kwrU'}
               numColumns={1}
               onEndReachedThreshold={0.5}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const listData = item;
                 return (
                   <>

@@ -162,7 +162,7 @@ const TermsInRegisterScreen = props => {
                     driving_license_front:
                       props.route?.params?.driving_license ?? '',
                     email: props.route?.params?.email ?? '',
-                    first_name: 'sfadl',
+                    first_name: props.route?.params?.name ?? '',
                     license_no: props.route?.params?.agent_license ?? '',
                     mobile: props.route?.params?.mobile ?? '',
                     nrc_back: props.route?.params?.NRC_back ?? '',

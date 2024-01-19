@@ -12,6 +12,75 @@ import usePrevious from '../utils/usePrevious';
 import encodeQueryParam from '../utils/encodeQueryParam';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
+export const addNewDriverPOST = (Constants, { owner_id }, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/new-add-driver`, {
+    body: JSON.stringify({ owner_id: owner_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useAddNewDriverPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => addNewDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Driver', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Driver');
+        queryClient.invalidateQueries('Drivers');
+      },
+    }
+  );
+};
+
+export const FetchAddNewDriverPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  owner_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useAddNewDriverPOST(
+    { owner_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchAddNewDriver: refetch });
+};
+
 export const addNewLeadPOST = (Constants, { id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/add-new-lead`, {
     body: JSON.stringify({ id: id }),
@@ -2836,12 +2905,12 @@ export const useOperatorViewDriverPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('operator', previousValue);
+          return queryClient.setQueryData('Driver', previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('operator');
-        queryClient.invalidateQueries('operators');
+        queryClient.invalidateQueries('Driver');
+        queryClient.invalidateQueries('Drivers');
       },
     }
   );

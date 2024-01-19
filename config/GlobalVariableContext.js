@@ -17,6 +17,7 @@ export const DeviceVariables = {
   nrcBackImage: '',
   nrcFrontImage: '',
   oldPwdShown: false,
+  ownerImage: {},
   showPassword: false,
   __env__: 'Development',
 };

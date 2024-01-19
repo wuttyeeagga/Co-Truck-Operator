@@ -16,8 +16,15 @@ import { Image, Text, View } from 'react-native';
 const IdentityProofEditScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const [isDLUpload, setIsDLUpload] = React.useState(false);
-  const [isNRCUpload, setIsNRCUpload] = React.useState(false);
+  const [dlBack, setDlBack] = React.useState({});
+  const [dlFront, setDlFront] = React.useState({});
+  const [isDLBack, setIsDLBack] = React.useState(false);
+  const [isDLFront, setIsDLFront] = React.useState(false);
+  const [isNRCBack, setIsNRCBack] = React.useState(false);
+  const [isNRCFront, setIsNRCFront] = React.useState(false);
+  const [nrcBack, setNrcBack] = React.useState({});
+  const [nrcFront, setNrcFront] = React.useState({});
+  const [testImg, setTestImg] = React.useState('');
 
   return (
     <ScreenContainer
@@ -92,92 +99,215 @@ const IdentityProofEditScreen = props => {
           >
             {'1.  Upload National Registration Card'}
           </Text>
-          {/* Image View */}
+          {/* NRC Front */}
           <>
-            {!isNRCUpload ? null : (
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: 10,
-                  },
-                  dimensions.width
-                )}
+            {!isNRCFront ? null : (
+              <Touchable
+                onPress={() => {
+                  try {
+                    setIsNRCFront(false);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
               >
-                <Image
-                  resizeMode={'cover'}
-                  source={{ uri: '' }}
+                {/* NRC Front View */}
+                <View
                   style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.ImageStyles(theme)['Image 3'],
-                      { borderRadius: 8, height: 150, width: 150 }
-                    ),
+                    {
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: 10,
+                    },
                     dimensions.width
                   )}
-                />
-              </View>
+                >
+                  {/* NRC Front */}
+                  <Image
+                    resizeMode={'cover'}
+                    source={{ uri: `${nrcFront}` }}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ImageStyles(theme)['Image 3'],
+                        { borderRadius: 8, height: 150, width: 150 }
+                      ),
+                      dimensions.width
+                    )}
+                  />
+                </View>
+              </Touchable>
             )}
           </>
-          {/* Upload Image Button */}
-          <Touchable
-            onPress={() => {
-              const handler = async () => {
-                try {
-                  const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
-                    allowsEditing: false,
-                    quality: 0.2,
-                  });
+          {/* Upload NRC Front */}
+          <>
+            {isNRCFront ? null : (
+              <Touchable
+                onPress={() => {
+                  const handler = async () => {
+                    try {
+                      const results = await openImagePickerUtil({
+                        mediaTypes: 'Images',
+                        allowsEditing: false,
+                        quality: 0.2,
+                      });
 
-                  setIsNRCUpload(true);
-                } catch (err) {
-                  console.error(err);
-                }
-              };
-              handler();
-            }}
-          >
-            {/* Upload View */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  borderRadius: 8,
-                  borderStyle: 'dashed',
-                  borderWidth: 1,
-                  justifyContent: 'center',
-                  margin: 20,
-                  padding: 20,
-                },
-                dimensions.width
-              )}
-            >
-              <Icon
-                name={'AntDesign/pluscircle'}
-                size={24}
-                style={StyleSheet.applyWidth(
-                  {
-                    marginBottom: 5,
-                    marginLeft: 5,
-                    marginRight: 5,
-                    marginTop: 5,
-                  },
-                  dimensions.width
-                )}
-              />
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TextStyles(theme)['Text 2'],
-                  dimensions.width
-                )}
+                      setNrcFront(results);
+                      setIsNRCFront(true);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
+                }}
               >
-                {'Upload Image'}
-              </Text>
-            </View>
-          </Touchable>
+                {/* Upload View */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      borderRadius: 8,
+                      borderStyle: 'dashed',
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      margin: 20,
+                      padding: 20,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    name={'AntDesign/pluscircle'}
+                    size={24}
+                    style={StyleSheet.applyWidth(
+                      {
+                        marginBottom: 5,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        marginTop: 5,
+                      },
+                      dimensions.width
+                    )}
+                  />
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      dimensions.width
+                    )}
+                  >
+                    {'Upload Image'}
+                  </Text>
+                </View>
+              </Touchable>
+            )}
+          </>
+          {/* NRC Back */}
+          <>
+            {!isNRCBack ? null : (
+              <Touchable
+                onPress={() => {
+                  try {
+                    setIsNRCBack(false);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                {/* Image View */}
+                <>
+                  {!isNRCFront ? null : (
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          margin: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <Image
+                        resizeMode={'cover'}
+                        source={{ uri: `${nrcBack}` }}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.ImageStyles(theme)['Image 3'],
+                            { borderRadius: 8, height: 150, width: 150 }
+                          ),
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                  )}
+                </>
+              </Touchable>
+            )}
+          </>
+          {/* Upload NRC Back */}
+          <>
+            {isNRCBack ? null : (
+              <Touchable
+                onPress={() => {
+                  const handler = async () => {
+                    try {
+                      const results = await openImagePickerUtil({
+                        mediaTypes: 'Images',
+                        allowsEditing: false,
+                        quality: 0.2,
+                      });
+
+                      setIsNRCBack(true);
+                      setNrcBack(results);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
+                }}
+              >
+                {/* Upload View */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      borderRadius: 8,
+                      borderStyle: 'dashed',
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      margin: 20,
+                      padding: 20,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    name={'AntDesign/pluscircle'}
+                    size={24}
+                    style={StyleSheet.applyWidth(
+                      {
+                        marginBottom: 5,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        marginTop: 5,
+                      },
+                      dimensions.width
+                    )}
+                  />
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      dimensions.width
+                    )}
+                  >
+                    {'Upload Image'}
+                  </Text>
+                </View>
+              </Touchable>
+            )}
+          </>
         </View>
         {/* Driving License Container */}
         <View>
@@ -194,92 +324,212 @@ const IdentityProofEditScreen = props => {
           >
             {'2.  Upload Driving License'}
           </Text>
-          {/* Image View */}
+          {/* DL Front */}
           <>
-            {!isDLUpload ? null : (
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: 10,
-                  },
-                  dimensions.width
-                )}
+            {!isDLFront ? null : (
+              <Touchable
+                onPress={() => {
+                  try {
+                    setIsDLFront(false);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
               >
-                <Image
-                  resizeMode={'cover'}
-                  source={{ uri: '' }}
+                {/* Image View */}
+                <View
                   style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.ImageStyles(theme)['Image 3'],
-                      { borderRadius: 8, height: 150, width: 150 }
-                    ),
+                    {
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: 10,
+                    },
                     dimensions.width
                   )}
-                />
-              </View>
+                >
+                  {/* DL Front Image */}
+                  <Image
+                    resizeMode={'cover'}
+                    source={{ uri: `${dlFront}` }}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ImageStyles(theme)['Image 3'],
+                        { borderRadius: 8, height: 150, width: 150 }
+                      ),
+                      dimensions.width
+                    )}
+                  />
+                </View>
+              </Touchable>
             )}
           </>
-          {/* Upload Image Button */}
-          <Touchable
-            onPress={() => {
-              const handler = async () => {
-                try {
-                  const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
-                    allowsEditing: false,
-                    quality: 0.2,
-                  });
+          {/* Upload DL Front */}
+          <>
+            {isDLFront ? null : (
+              <Touchable
+                onPress={() => {
+                  const handler = async () => {
+                    try {
+                      const results = await openImagePickerUtil({
+                        mediaTypes: 'Images',
+                        allowsEditing: false,
+                        quality: 0.2,
+                      });
 
-                  setIsDLUpload(true);
-                } catch (err) {
-                  console.error(err);
-                }
-              };
-              handler();
-            }}
-          >
-            {/* Upload View */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  borderRadius: 8,
-                  borderStyle: 'dashed',
-                  borderWidth: 1,
-                  justifyContent: 'center',
-                  margin: 20,
-                  padding: 20,
-                },
-                dimensions.width
-              )}
-            >
-              <Icon
-                name={'AntDesign/pluscircle'}
-                size={24}
-                style={StyleSheet.applyWidth(
-                  {
-                    marginBottom: 5,
-                    marginLeft: 5,
-                    marginRight: 5,
-                    marginTop: 5,
-                  },
-                  dimensions.width
-                )}
-              />
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TextStyles(theme)['Text 2'],
-                  dimensions.width
-                )}
+                      setDlFront(results);
+                      setIsDLFront(true);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
+                }}
               >
-                {'Upload Image'}
-              </Text>
-            </View>
-          </Touchable>
+                {/* Upload View */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      borderRadius: 8,
+                      borderStyle: 'dashed',
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      margin: 20,
+                      padding: 20,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    name={'AntDesign/pluscircle'}
+                    size={24}
+                    style={StyleSheet.applyWidth(
+                      {
+                        marginBottom: 5,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        marginTop: 5,
+                      },
+                      dimensions.width
+                    )}
+                  />
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      dimensions.width
+                    )}
+                  >
+                    {'Upload Image'}
+                  </Text>
+                </View>
+              </Touchable>
+            )}
+          </>
+          {/* DL Back */}
+          <>
+            {!isDLBack ? null : (
+              <Touchable
+                onPress={() => {
+                  try {
+                    setIsDLBack(false);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                {/* Image View */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: 10,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* DL Front Image */}
+                  <Image
+                    resizeMode={'cover'}
+                    source={{ uri: `${dlBack}` }}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ImageStyles(theme)['Image 3'],
+                        { borderRadius: 8, height: 150, width: 150 }
+                      ),
+                      dimensions.width
+                    )}
+                  />
+                </View>
+              </Touchable>
+            )}
+          </>
+          {/* Upload DL Back */}
+          <>
+            {isDLBack ? null : (
+              <Touchable
+                onPress={() => {
+                  const handler = async () => {
+                    try {
+                      const results = await openImagePickerUtil({
+                        mediaTypes: 'Images',
+                        allowsEditing: false,
+                        quality: 0.2,
+                      });
+
+                      setDlBack(results);
+                      setIsDLBack(true);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
+                }}
+              >
+                {/* Upload View */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      borderRadius: 8,
+                      borderStyle: 'dashed',
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      margin: 20,
+                      padding: 20,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    name={'AntDesign/pluscircle'}
+                    size={24}
+                    style={StyleSheet.applyWidth(
+                      {
+                        marginBottom: 5,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        marginTop: 5,
+                      },
+                      dimensions.width
+                    )}
+                  />
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      dimensions.width
+                    )}
+                  >
+                    {'Upload Image'}
+                  </Text>
+                </View>
+              </Touchable>
+            )}
+          </>
         </View>
         {/* Update */}
         <Button

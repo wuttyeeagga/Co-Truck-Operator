@@ -24,6 +24,10 @@ const VehicleProofScreen = props => {
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const [vehicleInsurance, setVehicleInsurance] = React.useState({});
+  const [vehicleList, setVehicleList] = React.useState([
+    { label: '20ft Container Truck', value: 8 },
+    { label: '40ft Container Truck', value: 9 },
+  ]);
   const [vehicleRC, setVehicleRC] = React.useState({});
 
   return (
@@ -121,6 +125,7 @@ const VehicleProofScreen = props => {
               console.error(err);
             }
           }}
+          options={vehicleList}
           placeholder={'Choose Vehicle Type'}
           selectedIconColor={theme.colors.strong}
           selectedIconName={'Feather/check'}
@@ -238,7 +243,7 @@ const VehicleProofScreen = props => {
                     quality: 0.2,
                   });
 
-                  undefined;
+                  setVehicleRC(results);
                   setIsNRCUpload(true);
                 } catch (err) {
                   console.error(err);

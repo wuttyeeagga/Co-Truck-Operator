@@ -39,7 +39,7 @@ const NewTripPendingScreen = props => {
       )}
     >
       {/* Header */}
-      <Header2Block title={'New Trip'} />
+      <Header2Block title={'New Trip (Pending)'} />
       <ScrollView
         bounces={true}
         showsHorizontalScrollIndicator={true}

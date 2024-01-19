@@ -24,7 +24,7 @@ const NewTripAcceptedScreen = props => {
       )}
     >
       {/* Header */}
-      <Header2Block title={'New Trip'} />
+      <Header2Block title={'New Trip Accepted'} />
       <ScrollView
         bounces={true}
         showsHorizontalScrollIndicator={true}

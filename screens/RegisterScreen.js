@@ -41,7 +41,7 @@ const RegisterScreen = props => {
     []
   );
   const [numberInputValue, setNumberInputValue] = React.useState('');
-  const [photoUploaded, setPhotoUploaded] = React.useState({});
+  const [photoUploaded, setPhotoUploaded] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState('');
   const [referCode, setReferCode] = React.useState('');
   const [textAreaValue, setTextAreaValue] = React.useState('');

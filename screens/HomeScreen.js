@@ -210,6 +210,15 @@ const HomeScreen = props => {
                         onPress={() => {
                           try {
                             console.log('pressed');
+                            if (listData?.owner_book_status === 'ACCEPTED') {
+                              navigation.navigate('NewTripAcceptedScreen');
+                            }
+                            if (listData?.owner_book_status === 'PENDING') {
+                              navigation.navigate('NewTripPendingScreen');
+                            }
+                            if (listData?.owner_book_status === 'CANCELLED') {
+                              navigation.navigate('NewTripCancelledScreen');
+                            }
                           } catch (err) {
                             console.error(err);
                           }

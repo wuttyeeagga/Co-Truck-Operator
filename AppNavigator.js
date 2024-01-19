@@ -61,6 +61,8 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function BottomTabNavigator() {
+  const Constants = GlobalVariables.useValues();
+
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
@@ -226,10 +228,10 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
           options={({ navigation }) => ({
-            title: 'Invoice',
+            title: 'PickUpDropDetails',
           })}
         />
         <Stack.Screen
@@ -237,13 +239,6 @@ export default function RootAppNavigator() {
           component={CompanyInformationScreen}
           options={({ navigation }) => ({
             title: 'Company Information',
-          })}
-        />
-        <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={({ navigation }) => ({
-            title: 'PickUpDropDetails',
           })}
         />
         <Stack.Screen
@@ -272,6 +267,13 @@ export default function RootAppNavigator() {
           component={OTPVerificationScreen}
           options={({ navigation }) => ({
             title: 'OTP Verification',
+          })}
+        />
+        <Stack.Screen
+          name="InvoiceScreen"
+          component={InvoiceScreen}
+          options={({ navigation }) => ({
+            title: 'Invoice',
           })}
         />
         <Stack.Screen

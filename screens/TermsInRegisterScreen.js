@@ -159,10 +159,12 @@ const TermsInRegisterScreen = props => {
                     comp_name: props.route?.params?.comp_name ?? '',
                     comp_phone: props.route?.params?.comp_phone ?? '',
                     comp_reg_no: props.route?.params?.comp_regi ?? '',
-                    driving_license_back:
-                      props.route?.params?.driving_license_back ?? '',
-                    driving_license_front:
-                      props.route?.params?.driving_license ?? '',
+                    driving_license_back: JSON.stringify(
+                      props.route?.params?.driving_license_back ?? ''
+                    ),
+                    driving_license_front: JSON.stringify(
+                      props.route?.params?.driving_license ?? ''
+                    ),
                     email: props.route?.params?.email ?? '',
                     mobile: props.route?.params?.mobile ?? '',
                     name: props.route?.params?.name ?? '',
@@ -173,12 +175,35 @@ const TermsInRegisterScreen = props => {
                     user_type: 'OWNER',
                     vehicle_insurance:
                       props.route?.params?.vehicle_insurance ?? '',
-                    vehicle_reg_certificate: null,
+                    vehicle_reg_certificate:
+                      props.route?.params?.vehicle_rc ?? '',
                     vehicle_reg_no: props.route?.params?.regi_no ?? '',
                     vehicle_type: props.route?.params?.vehicle_type ?? '',
                   })
                 )?.json;
                 console.log(Response);
+                console.log(
+                  props.route?.params?.comp_name ?? '',
+                  props.route?.params?.comp_phone ?? '',
+                  props.route?.params?.comp_regi ?? '',
+                  props.route?.params?.agent_license ?? '',
+                  props.route?.params?.agent_name ?? '',
+                  props.route?.params?.name ?? '',
+                  props.route?.params?.email ?? '',
+                  props.route?.params?.password ?? '',
+                  props.route?.params?.vehicle_type ?? '',
+                  props.route?.params?.regi_no ?? '',
+                  props.route?.params?.mobile ?? ''
+                );
+                console.log(
+                  props.route?.params?.certificate ?? '',
+                  props.route?.params?.NRC_back ?? '',
+                  props.route?.params?.NRC ?? '',
+                  props.route?.params?.vehicle_rc ?? '',
+                  props.route?.params?.vehicle_insurance ?? '',
+                  props.route?.params?.driving_license ?? '',
+                  props.route?.params?.driving_license_back ?? ''
+                );
               } catch (err) {
                 console.error(err);
               }

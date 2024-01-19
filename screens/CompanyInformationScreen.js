@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -15,8 +16,10 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Image, Text, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Fetch } from 'react-request';
 
 const CompanyInformationScreen = props => {
   const { theme, navigation } = props;
@@ -102,490 +105,508 @@ const CompanyInformationScreen = props => {
         keyboardShouldPersistTaps={'never'}
         showsVerticalScrollIndicator={true}
       >
-        <View>
-          {/* Profile Pic */}
-          <View>
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'center' },
-                dimensions.width
-              )}
-            >
-              <Image
-                resizeMode={'cover'}
-                source={Images.Ellipse21}
-                style={StyleSheet.applyWidth(
-                  {
-                    borderRadius: 55,
-                    height: 110,
-                    position: 'absolute',
-                    top: 5,
-                    width: 110,
-                  },
-                  dimensions.width
-                )}
-              />
-              <Touchable
-                activeOpacity={0.8}
-                disabledOpacity={0.8}
-                onPress={() => {
-                  const handler = async () => {
+        <CotruckApi.FetchCompanyInformationPOST id={120}>
+          {({ loading, error, data, refetchCompanyInformation }) => {
+            const fetchData = data?.json;
+            if (loading) {
+              return <ActivityIndicator />;
+            }
+
+            if (error || data?.status < 200 || data?.status >= 300) {
+              return <ActivityIndicator />;
+            }
+
+            return (
+              <>
+                <View>
+                  {/* Profile Pic */}
+                  <View>
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'center' },
+                        dimensions.width
+                      )}
+                    >
+                      <Image
+                        resizeMode={'cover'}
+                        source={Images.Ellipse21}
+                        style={StyleSheet.applyWidth(
+                          {
+                            borderRadius: 55,
+                            height: 110,
+                            position: 'absolute',
+                            top: 5,
+                            width: 110,
+                          },
+                          dimensions.width
+                        )}
+                      />
+                      <Touchable
+                        activeOpacity={0.8}
+                        disabledOpacity={0.8}
+                        onPress={() => {
+                          const handler = async () => {
+                            try {
+                              await openImagePickerUtil({
+                                mediaTypes: 'All',
+                                allowsEditing: false,
+                                quality: 0.2,
+                              });
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          };
+                          handler();
+                        }}
+                      >
+                        <Image
+                          resizeMode={'cover'}
+                          source={Images.EditProfile}
+                          style={StyleSheet.applyWidth(
+                            { height: 137, width: 120 },
+                            dimensions.width
+                          )}
+                        />
+                      </Touchable>
+                    </View>
+                  </View>
+                  {/* Row */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Name'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.comp_name}
+                    </Text>
+                  </View>
+                  <Divider
+                    color={theme.colors['CoTruckGrey']}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                  {/* Row 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Mobile Number'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.comp_number}
+                    </Text>
+                  </View>
+                  {/* Divider 3 */}
+                  <Divider
+                    color={theme.colors['CoTruckGrey']}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                  {/* Row 3 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Registration No.'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.reg_no}
+                    </Text>
+                  </View>
+                  {/* Divider 4 */}
+                  <Divider
+                    color={theme.colors['CoTruckGrey']}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                  {/* Row 4 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Agent License'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.agent_license}
+                    </Text>
+                  </View>
+                  {/* Divider 5 */}
+                  <Divider
+                    color={theme.colors['CoTruckGrey']}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                  {/* Row 5 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Certificate'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'uploads/users/11600864312.jpg'}
+                    </Text>
+                  </View>
+                  {/* Divider 6 */}
+                  <Divider
+                    color={theme.colors['CoTruckGrey']}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                  {/* Row 6 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Path selected'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.is_preferred_paths}
+                    </Text>
+                  </View>
+                  {/* Divider 2 */}
+                  <Divider
+                    color={theme.colors['CoTruckGrey']}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                </View>
+                {/* View 2 */}
+                <View>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontFamily: 'System',
+                          fontSize: 16,
+                          fontWeight: '600',
+                          marginBottom: 20,
+                          marginTop: 20,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Contact Person Details'}
+                  </Text>
+                  {/* sampleRow */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Name'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.name}
+                    </Text>
+                  </View>
+                  <Divider
+                    color={theme.colors.divider}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                  {/* sampleRow 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Mobile Number'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.mobile}
+                    </Text>
+                  </View>
+                  {/* Divider 2 */}
+                  <Divider
+                    color={theme.colors.divider}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                  {/* sampleRow 3 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Email'}
+                    </Text>
+                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    {/* Text 2 */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.email}
+                    </Text>
+                  </View>
+                  {/* Divider 3 */}
+                  <Divider
+                    color={theme.colors.divider}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      dimensions.width
+                    )}
+                  />
+                </View>
+                {/* Edit Profile */}
+                <Button
+                  activeOpacity={0.8}
+                  disabledOpacity={0.8}
+                  onPress={() => {
                     try {
-                      await openImagePickerUtil({
-                        mediaTypes: 'All',
-                        allowsEditing: false,
-                        quality: 0.2,
-                      });
+                      navigation.navigate('EditProfileScreen');
                     } catch (err) {
                       console.error(err);
                     }
-                  };
-                  handler();
-                }}
-              >
-                <Image
-                  resizeMode={'cover'}
-                  source={Images.EditProfile}
+                  }}
                   style={StyleSheet.applyWidth(
-                    { height: 137, width: 120 },
+                    {
+                      backgroundColor: theme.colors.primary,
+                      borderRadius: 12,
+                      fontFamily: 'System',
+                      fontWeight: '700',
+                      height: 52,
+                      marginTop: 20,
+                      textAlign: 'center',
+                    },
                     dimensions.width
                   )}
+                  title={'Edit Profile'}
                 />
-              </Touchable>
-            </View>
-          </View>
-          {/* Row */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Name'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Toperator comp 1'}
-            </Text>
-          </View>
-          <Divider
-            color={theme.colors['CoTruckGrey']}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-          {/* Row 2 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Mobile Number'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'128641111'}
-            </Text>
-          </View>
-          {/* Divider 3 */}
-          <Divider
-            color={theme.colors['CoTruckGrey']}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-          {/* Row 3 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Registration No.'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'111111'}
-            </Text>
-          </View>
-          {/* Divider 4 */}
-          <Divider
-            color={theme.colors['CoTruckGrey']}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-          {/* Row 4 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Agent License'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'1111'}
-            </Text>
-          </View>
-          {/* Divider 5 */}
-          <Divider
-            color={theme.colors['CoTruckGrey']}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-          {/* Row 5 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Certificate'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'uploads/users/11600864312.jpg'}
-            </Text>
-          </View>
-          {/* Divider 6 */}
-          <Divider
-            color={theme.colors['CoTruckGrey']}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-          {/* Row 6 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Path selected'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {
-                'Asia World Port Terminal (AWPT), Myanmar Industrial Port (MIP), Myanmar International Terminal Thilawa (MITT), Shwe Phi Thar, Hlaing Thar Yar, Mingalar Don, East Dagon, South Dagon, North Dagon, အနောက်ဒဂုံ'
-              }
-            </Text>
-          </View>
-          {/* Divider 2 */}
-          <Divider
-            color={theme.colors['CoTruckGrey']}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-        </View>
-        {/* View 2 */}
-        <View>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                fontFamily: 'System',
-                fontSize: 16,
-                fontWeight: '600',
-                marginBottom: 20,
-                marginTop: 20,
-              }),
-              dimensions.width
-            )}
-          >
-            {'Contact Person Details'}
-          </Text>
-          {/* sampleRow */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Name'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Toperator one'}
-            </Text>
-          </View>
-          <Divider
-            color={theme.colors.divider}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-          {/* sampleRow 2 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Mobile Number'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'09776001177'}
-            </Text>
-          </View>
-          {/* Divider 2 */}
-          <Divider
-            color={theme.colors.divider}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-          {/* sampleRow 3 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 10,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'Email'}
-            </Text>
-            <Icon name={'Entypo/dots-two-vertical'} size={20} />
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 2'],
-                dimensions.width
-              )}
-            >
-              {'mayur@innogyasia.com'}
-            </Text>
-          </View>
-          {/* Divider 3 */}
-          <Divider
-            color={theme.colors.divider}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
-              dimensions.width
-            )}
-          />
-        </View>
-        {/* Edit Profile */}
-        <Button
-          activeOpacity={0.8}
-          disabledOpacity={0.8}
-          onPress={() => {
-            try {
-              navigation.navigate('EditProfileScreen');
-            } catch (err) {
-              console.error(err);
-            }
+              </>
+            );
           }}
-          style={StyleSheet.applyWidth(
-            {
-              backgroundColor: theme.colors.primary,
-              borderRadius: 12,
-              fontFamily: 'System',
-              fontWeight: '700',
-              height: 52,
-              marginTop: 20,
-              textAlign: 'center',
-            },
-            dimensions.width
-          )}
-          title={'Edit Profile'}
-        />
+        </CotruckApi.FetchCompanyInformationPOST>
       </KeyboardAwareScrollView>
     </ScreenContainer>
   );

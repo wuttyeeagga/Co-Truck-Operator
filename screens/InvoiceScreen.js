@@ -112,196 +112,110 @@ const InvoiceScreen = props => {
           {'Status: COMPLETED'}
         </Text>
       </View>
-
-      <Table
-        borderColor={theme.colors.divider}
-        borderStyle={'solid'}
-        borderWidth={1}
-        cellHorizontalPadding={10}
-        cellVerticalPadding={10}
-        drawTopBorder={true}
-        showsVerticalScrollIndicator={true}
+      {/* Row Wrapper */}
+      <View
         style={StyleSheet.applyWidth(
-          StyleSheet.compose(GlobalStyles.TableStyles(theme)['Table'], {
-            alignSelf: 'auto',
-            flex: 0.2,
-          }),
+          {
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            margin: 10,
+          },
           dimensions.width
         )}
       >
-        <TableRow
-          drawBottomBorder={true}
-          drawStartBorder={true}
-          style={StyleSheet.applyWidth(
-            { backgroundColor: 'rgba(0, 0, 0, 0)' },
-            dimensions.width
-          )}
-        >
-          <TableCell
-            drawEndBorder={true}
+        <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
+          {/* Details */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                color: theme.colors['CoTruckBlack'],
+                fontSize: 16,
+                margin: 5,
+              }),
               dimensions.width
             )}
           >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'Ownername'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 2 */}
-          <TableCell
-            drawEndBorder={true}
+            {"Sender's Details"}
+          </Text>
+          {/* Sender's Name */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                color: theme.colors['CoTruckBlack'],
+                fontSize: 16,
+                margin: 5,
+              }),
               dimensions.width
             )}
           >
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'TruckCount'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 3 */}
-          <TableCell
-            drawEndBorder={true}
+            {'kham'}
+          </Text>
+          {/* Sender's Mobile */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                margin: 5,
+              }),
               dimensions.width
             )}
           >
-            {/* Text 3 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'Payment'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 4 */}
-          <TableCell
-            drawEndBorder={true}
+            {'9672005000'}
+          </Text>
+        </View>
+        {/* View 2 */}
+        <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
+          {/* Details */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                color: theme.colors['CoTruckBlack'],
+                fontSize: 16,
+                margin: 5,
+              }),
               dimensions.width
             )}
           >
-            {/* Text 4 */}
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'Amount'}
-            </Text>
-          </TableCell>
-        </TableRow>
-        {/* Table Row 2 */}
-        <TableRow
-          drawBottomBorder={true}
-          drawStartBorder={true}
-          style={StyleSheet.applyWidth(
-            { backgroundColor: 'rgba(0, 0, 0, 0)' },
-            dimensions.width
-          )}
-        >
-          <TableCell
-            drawEndBorder={true}
+            {"Sender's Details"}
+          </Text>
+          {/* Sender's Name */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                color: theme.colors['CoTruckBlack'],
+                fontSize: 16,
+                margin: 5,
+              }),
               dimensions.width
             )}
           >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'Toperator one'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 2 */}
-          <TableCell
-            drawEndBorder={true}
+            {'kham'}
+          </Text>
+          {/* Sender's Mobile */}
+          <Text
+            accessible={true}
+            allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                margin: 5,
+              }),
               dimensions.width
             )}
           >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'1'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 3 */}
-          <TableCell
-            drawEndBorder={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'PAID'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 4 */}
-          <TableCell
-            drawEndBorder={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'500'}
-            </Text>
-          </TableCell>
-        </TableRow>
-      </Table>
+            {'9672005000'}
+          </Text>
+        </View>
+      </View>
       {/* Table 2 */}
       <Table
         borderColor={theme.colors.divider}
@@ -312,7 +226,12 @@ const InvoiceScreen = props => {
         drawTopBorder={true}
         showsVerticalScrollIndicator={true}
         style={StyleSheet.applyWidth(
-          GlobalStyles.TableStyles(theme)['Table'],
+          StyleSheet.compose(GlobalStyles.TableStyles(theme)['Table'], {
+            marginBottom: 10,
+            marginLeft: 10,
+            marginRight: 10,
+            marginTop: 10,
+          }),
           dimensions.width
         )}
       >

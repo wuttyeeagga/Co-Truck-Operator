@@ -629,6 +629,7 @@ const RegisterScreen = props => {
                   comp_name: companyName,
                   comp_phone: companyPhone,
                   comp_regi: companyiRegisterNumber,
+                  certificate: photoUploaded,
                   agent_license: agentLicense,
                   agent_name: agentName,
                   prefer_paths: multiSelectPickerValue2,

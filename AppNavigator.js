@@ -167,13 +167,6 @@ function StackNavigator() {
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={({ navigation }) => ({
-          title: 'Register',
-        })}
-      />
-      <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
         options={({ navigation }) => ({
@@ -201,6 +194,13 @@ function StackNavigator() {
           title: 'Forgot Password',
         })}
       />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={({ navigation }) => ({
+          title: 'Register',
+        })}
+      />
     </Stack.Navigator>
   );
 }
@@ -226,10 +226,10 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
+          name="InvoiceScreen"
+          component={InvoiceScreen}
           options={({ navigation }) => ({
-            title: 'PickUpDropDetails',
+            title: 'Invoice',
           })}
         />
         <Stack.Screen
@@ -237,6 +237,13 @@ export default function RootAppNavigator() {
           component={CompanyInformationScreen}
           options={({ navigation }) => ({
             title: 'Company Information',
+          })}
+        />
+        <Stack.Screen
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'PickUpDropDetails',
           })}
         />
         <Stack.Screen
@@ -265,13 +272,6 @@ export default function RootAppNavigator() {
           component={OTPVerificationScreen}
           options={({ navigation }) => ({
             title: 'OTP Verification',
-          })}
-        />
-        <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
-          options={({ navigation }) => ({
-            title: 'Invoice',
           })}
         />
         <Stack.Screen

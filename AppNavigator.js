@@ -40,6 +40,7 @@ import ManageDriverScreen from './screens/ManageDriverScreen';
 import ManageVehicleScreen from './screens/ManageVehicleScreen';
 import NewTripAcceptedScreen from './screens/NewTripAcceptedScreen';
 import NewTripCancelledScreen from './screens/NewTripCancelledScreen';
+import NewTripPendingScreen from './screens/NewTripPendingScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import OTPVerificationScreen from './screens/OTPVerificationScreen';
 import PaymentScreen from './screens/PaymentScreen';
@@ -166,6 +167,13 @@ function StackNavigator() {
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={({ navigation }) => ({
+          title: 'Register',
+        })}
+      />
+      <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
         options={({ navigation }) => ({
@@ -193,13 +201,6 @@ function StackNavigator() {
           title: 'Forgot Password',
         })}
       />
-      <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={({ navigation }) => ({
-          title: 'Register',
-        })}
-      />
     </Stack.Navigator>
   );
 }
@@ -224,6 +225,13 @@ export default function RootAppNavigator() {
           headerTitle: 'Co Truck',
         })}
       >
+        <Stack.Screen
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'PickUpDropDetails',
+          })}
+        />
         <Stack.Screen
           name="CompanyInformationScreen"
           component={CompanyInformationScreen}
@@ -351,13 +359,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={({ navigation }) => ({
-            title: 'PickUpDropDetails',
-          })}
-        />
-        <Stack.Screen
           name="VehicleProofScreen"
           component={VehicleProofScreen}
           options={({ navigation }) => ({
@@ -442,6 +443,13 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="NewTripAcceptedScreen"
+          component={NewTripAcceptedScreen}
+          options={({ navigation }) => ({
+            title: 'New Trip Accepted',
+          })}
+        />
+        <Stack.Screen
           name="NewTripCancelledScreen"
           component={NewTripCancelledScreen}
           options={({ navigation }) => ({
@@ -449,10 +457,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="NewTripAcceptedScreen"
-          component={NewTripAcceptedScreen}
+          name="NewTripPendingScreen"
+          component={NewTripPendingScreen}
           options={({ navigation }) => ({
-            title: 'New Trip Accepted',
+            title: 'New Trip Pending',
           })}
         />
         <Stack.Screen

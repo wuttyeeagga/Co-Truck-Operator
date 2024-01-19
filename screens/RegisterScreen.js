@@ -41,6 +41,7 @@ const RegisterScreen = props => {
     []
   );
   const [numberInputValue, setNumberInputValue] = React.useState('');
+  const [photoUploaded, setPhotoUploaded] = React.useState({});
   const [pickerValue, setPickerValue] = React.useState('');
   const [referCode, setReferCode] = React.useState('');
   const [textAreaValue, setTextAreaValue] = React.useState('');
@@ -250,6 +251,9 @@ const RegisterScreen = props => {
                   console.log('Complete ON_PRESS:0 OPEN_IMAGE_PICKER', {
                     result,
                   });
+                  console.log('Start ON_PRESS:1 SET_VARIABLE');
+                  setPhotoUploaded(result);
+                  console.log('Complete ON_PRESS:1 SET_VARIABLE');
                   console.log('Start ON_PRESS:2 SET_VARIABLE');
                   const valuegkXwmERR = true;
                   setIsPhotoUploaded(valuegkXwmERR);
@@ -296,7 +300,7 @@ const RegisterScreen = props => {
                 {/* Certificat Image */}
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: '' }}
+                  source={{ uri: `${photoUploaded}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 2'],

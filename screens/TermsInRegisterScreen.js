@@ -153,6 +153,8 @@ const TermsInRegisterScreen = props => {
               try {
                 const Response = (
                   await cotruckNewAddOwnerPOST.mutateAsync({
+                    agent_license: props.route?.params?.agent_license ?? '',
+                    agent_name: props.route?.params?.agent_name ?? '',
                     certificate: props.route?.params?.certificate ?? '',
                     comp_name: props.route?.params?.comp_name ?? '',
                     comp_phone: props.route?.params?.comp_phone ?? '',
@@ -162,9 +164,8 @@ const TermsInRegisterScreen = props => {
                     driving_license_front:
                       props.route?.params?.driving_license ?? '',
                     email: props.route?.params?.email ?? '',
-                    first_name: props.route?.params?.name ?? '',
-                    license_no: props.route?.params?.agent_license ?? '',
                     mobile: props.route?.params?.mobile ?? '',
+                    name: props.route?.params?.name ?? '',
                     nrc_back: props.route?.params?.NRC_back ?? '',
                     nrc_front: props.route?.params?.NRC ?? '',
                     password: props.route?.params?.password ?? '',
@@ -177,7 +178,7 @@ const TermsInRegisterScreen = props => {
                     vehicle_type: props.route?.params?.vehicle_type ?? '',
                   })
                 )?.json;
-                console.log();
+                console.log(Response);
               } catch (err) {
                 console.error(err);
               }

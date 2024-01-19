@@ -713,7 +713,7 @@ export const FetchCheckFcmPOST = ({
 };
 
 export const companyInformationPOST = (Constants, { id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/view-company-info`, {
+  fetch(`https://dev.cotruck.co/index.php/api/operator/view-company-info`, {
     body: JSON.stringify({ operator_id: id }),
     headers: {
       Accept: 'application/json',
@@ -1809,6 +1809,8 @@ export const FetchMobileOTPPOST = ({
 export const newAddOwnerPOST = (
   Constants,
   {
+    agent_license,
+    agent_name,
     certificate,
     comp_name,
     comp_phone,
@@ -1816,9 +1818,8 @@ export const newAddOwnerPOST = (
     driving_license_back,
     driving_license_front,
     email,
-    first_name,
-    license_no,
     mobile,
+    name,
     nrc_back,
     nrc_front,
     password,
@@ -1837,8 +1838,9 @@ export const newAddOwnerPOST = (
       comp_phone: comp_phone,
       comp_reg_no: comp_reg_no,
       certificate: certificate,
-      license_no: license_no,
-      first_name: first_name,
+      agent_license: agent_license,
+      agent_name: agent_name,
+      name: name,
       email: email,
       password: password,
       mobile: mobile,
@@ -1884,6 +1886,8 @@ export const FetchNewAddOwnerPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  agent_license,
+  agent_name,
   certificate,
   comp_name,
   comp_phone,
@@ -1891,9 +1895,8 @@ export const FetchNewAddOwnerPOST = ({
   driving_license_back,
   driving_license_front,
   email,
-  first_name,
-  license_no,
   mobile,
+  name,
   nrc_back,
   nrc_front,
   password,
@@ -1915,6 +1918,8 @@ export const FetchNewAddOwnerPOST = ({
     mutate: refetch,
   } = useNewAddOwnerPOST(
     {
+      agent_license,
+      agent_name,
       certificate,
       comp_name,
       comp_phone,
@@ -1922,9 +1927,8 @@ export const FetchNewAddOwnerPOST = ({
       driving_license_back,
       driving_license_front,
       email,
-      first_name,
-      license_no,
       mobile,
+      name,
       nrc_back,
       nrc_front,
       password,

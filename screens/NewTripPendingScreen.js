@@ -1,17 +1,32 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import Header2Block from '../components/Header2Block';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { Divider, ScreenContainer, TextInput, withTheme } from '@draftbit/ui';
+import {
+  Button,
+  Divider,
+  MultiSelectPicker,
+  PickerItem,
+  ScreenContainer,
+  TextInput,
+  withTheme,
+} from '@draftbit/ui';
 import { ScrollView, Text, View } from 'react-native';
 
-const NewTripCancelledScreen = props => {
+const NewTripPendingScreen = props => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [availabilityTruck, setAvailabilityTruck] = React.useState(1);
+  const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
+    []
+  );
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [pickerValue, setPickerValue] = React.useState(undefined);
 
   return (
     <ScreenContainer
@@ -86,7 +101,7 @@ const NewTripCancelledScreen = props => {
           >
             {'Asia World Port Terminal (AWPT) to Myanmar Industrial Port (MIP)'}
           </Text>
-          {/* Divider 4 */}
+          {/* Divider 2 */}
           <Divider
             color={theme.colors['Light']}
             style={StyleSheet.applyWidth(
@@ -300,7 +315,6 @@ const NewTripCancelledScreen = props => {
               allowFontScaling={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckGrey'],
                   margin: 5,
                 }),
                 dimensions.width
@@ -322,46 +336,172 @@ const NewTripCancelledScreen = props => {
               {'20ft Container'}
             </Text>
           </View>
-          {/* Cancel Text View */}
+          {/* No of Truck View */}
           <View
             style={StyleSheet.applyWidth(
-              { alignItems: 'center', width: '50%' },
+              { alignItems: 'center', width: '35%' },
               dimensions.width
             )}
           >
-            {/* Cancel Text */}
+            {/* No of truck */}
             <Text
               accessible={true}
               allowFontScaling={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckBlack'],
-                  fontSize: 16,
                   margin: 5,
                 }),
                 dimensions.width
               )}
             >
-              {'Booked Cancelled by Shipper'}
+              {'No of Truck'}
+            </Text>
+            {/* No of Truck */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                  margin: 5,
+                }),
+                dimensions.width
+              )}
+            >
+              {'1'}
             </Text>
           </View>
+          {/* Availability View */}
+          <View
+            style={StyleSheet.applyWidth(
+              { alignItems: 'center', width: '40%' },
+              dimensions.width
+            )}
+          >
+            {/* Text View */}
+            <View>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                    margin: 5,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Availability'}
+              </Text>
+            </View>
+            {/* Availability Input */}
+            <TextInput
+              allowFontScaling={true}
+              autoCapitalize={'none'}
+              changeTextDelay={500}
+              onChangeText={newAvailabilityInputValue => {
+                try {
+                  setAvailabilityTruck(newAvailabilityInputValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              placeholder={'enter number'}
+              placeholderTextColor={theme.colors['TextPlaceholder']}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                  {
+                    borderColor: theme.colors['Light'],
+                    margin: 10,
+                    paddingLeft: 20,
+                    width: '50%',
+                  }
+                ),
+                dimensions.width
+              )}
+              value={availabilityTruck}
+            />
+          </View>
         </View>
-        {/* Divider 3 */}
-        <Divider
-          color={theme.colors['Light']}
+
+        <MultiSelectPicker
+          autoDismissKeyboard={true}
+          dropDownBackgroundColor={theme.colors.background}
+          dropDownBorderColor={theme.colors['Light']}
+          dropDownBorderRadius={12}
+          dropDownBorderWidth={1}
+          dropDownTextColor={theme.colors.strong}
+          iconSize={24}
+          leftIconMode={'inset'}
+          onValueChange={newMultiSelectPickerValue => {
+            const pickerValue = newMultiSelectPickerValue;
+            try {
+              setMultiSelectPickerValue(newMultiSelectPickerValue);
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+          options={Constants['optionsList']}
+          placeholder={'Choose Driver'}
+          placeholderTextColor={theme.colors['TextPlaceholder']}
+          rightIconName={'AntDesign/caretdown'}
+          selectedIconColor={theme.colors.strong}
+          selectedIconName={'Feather/check'}
+          selectedIconSize={20}
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.DividerStyles(theme)['Divider'], {
-              marginBottom: 10,
-              marginLeft: 20,
-              marginRight: 20,
-              marginTop: 10,
-            }),
+            { borderRadius: 12, height: 48, margin: 20 },
             dimensions.width
           )}
-        />
+          type={'solid'}
+          value={multiSelectPickerValue}
+        >
+          <PickerItem
+            selectedBackgroundColor={theme.colors['Success']}
+            selectedTextColor={theme.colors['Primary']}
+          />
+        </MultiSelectPicker>
+        {/* View 2 */}
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+            },
+            dimensions.width
+          )}
+        >
+          {/* Reject */}
+          <Button
+            icon={'Entypo/circle-with-cross'}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+                backgroundColor: theme.colors['Error'],
+                borderRadius: 12,
+                height: 48,
+                margin: 10,
+              }),
+              dimensions.width
+            )}
+            title={'REJECT'}
+          />
+          {/* Accept */}
+          <Button
+            icon={'Ionicons/ios-checkmark-circle-sharp'}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+                backgroundColor: theme.colors['Success'],
+                borderRadius: 12,
+                height: 48,
+                margin: 10,
+              }),
+              dimensions.width
+            )}
+            title={'ACCEPT'}
+          />
+        </View>
       </ScrollView>
     </ScreenContainer>
   );
 };
 
-export default withTheme(NewTripCancelledScreen);
+export default withTheme(NewTripPendingScreen);

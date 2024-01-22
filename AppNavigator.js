@@ -169,13 +169,6 @@ function StackNavigator() {
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={({ navigation }) => ({
-          title: 'Login',
-        })}
-      />
-      <Stack.Screen
         name="ForgotPasswordScreen"
         component={ForgotPasswordScreen}
         options={({ navigation }) => ({
@@ -201,6 +194,13 @@ function StackNavigator() {
         component={RegisterScreen}
         options={({ navigation }) => ({
           title: 'Register',
+        })}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={({ navigation }) => ({
+          title: 'Login',
         })}
       />
     </Stack.Navigator>
@@ -237,27 +237,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="BookingDetailsOnGoingScreen"
-          component={BookingDetailsOnGoingScreen}
-          options={({ navigation }) => ({
-            title: 'Booking Details on Going',
-          })}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnCompletedScreen"
-          component={BookingDetailsOnCompletedScreen}
-          options={({ navigation }) => ({
-            title: 'Booking Details on Completed',
-          })}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnConfirmedScreen"
-          component={BookingDetailsOnConfirmedScreen}
-          options={({ navigation }) => ({
-            title: 'Booking Details on  Confirmed',
-          })}
-        />
-        <Stack.Screen
           name="ChooseLocationZoneScreen"
           component={ChooseLocationZoneScreen}
           options={({ navigation }) => ({
@@ -276,6 +255,27 @@ export default function RootAppNavigator() {
           component={BookingDetailsOnPendingScreen}
           options={({ navigation }) => ({
             title: 'Booking Details on Pending',
+          })}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnGoingScreen"
+          component={BookingDetailsOnGoingScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Details on Going',
+          })}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnConfirmedScreen"
+          component={BookingDetailsOnConfirmedScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Details on  Confirmed',
+          })}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnCompletedScreen"
+          component={BookingDetailsOnCompletedScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Details on Completed',
           })}
         />
         <Stack.Screen

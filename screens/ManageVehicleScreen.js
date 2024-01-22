@@ -172,93 +172,95 @@ const ManageVehicleScreen = props => {
                 renderItem={({ item, index }) => {
                   const listData = item;
                   return (
-                    <Touchable
-                      onPress={() => {
-                        try {
-                          navigation.navigate('VehicleDetailsScreen', {
-                            id: flashListData?.id,
-                          });
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
-                    >
-                      <Surface
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.SurfaceStyles(theme)['Surface'],
-                            {
-                              alignItems: 'stretch',
-                              flexDirection: 'column',
-                              margin: 20,
-                              padding: 10,
-                            }
-                          ),
-                          dimensions.width
-                        )}
+                    <View>
+                      <Touchable
+                        onPress={() => {
+                          try {
+                            navigation.navigate('VehicleDetailsScreen', {
+                              id: flashListData?.id,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
                       >
-                        <View
+                        <Surface
                           style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                            },
+                            StyleSheet.compose(
+                              GlobalStyles.SurfaceStyles(theme)['Surface'],
+                              {
+                                alignItems: 'stretch',
+                                flexDirection: 'column',
+                                margin: 20,
+                                padding: 10,
+                              }
+                            ),
                             dimensions.width
                           )}
                         >
-                          <View>
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { margin: 10 }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.vehicle_type}
-                            </Text>
-                            {/* Text 2 */}
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { margin: 10 }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.registr_number}
-                            </Text>
-                          </View>
-
-                          <Text
-                            accessible={true}
-                            allowFontScaling={true}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['Text 2'],
-                                {
-                                  color: theme.colors['CoTruckPending'],
-                                  fontFamily: 'System',
-                                  fontSize: 14,
-                                  fontWeight: '400',
-                                  margin: 10,
-                                }
-                              ),
+                              {
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                              },
                               dimensions.width
                             )}
                           >
-                            {listData?.status_of_vechile}
-                          </Text>
-                        </View>
-                      </Surface>
-                    </Touchable>
+                            <View>
+                              <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)['Text 2'],
+                                    { margin: 10 }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {listData?.vehicle_type}
+                              </Text>
+                              {/* Text 2 */}
+                              <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)['Text 2'],
+                                    { margin: 10 }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {listData?.registr_number}
+                              </Text>
+                            </View>
+
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  {
+                                    color: theme.colors['CoTruckPending'],
+                                    fontFamily: 'System',
+                                    fontSize: 14,
+                                    fontWeight: '400',
+                                    margin: 10,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.status_of_vechile}
+                            </Text>
+                          </View>
+                        </Surface>
+                      </Touchable>
+                    </View>
                   );
                 }}
                 showsHorizontalScrollIndicator={true}

@@ -80,7 +80,9 @@ const DriverDetailsScreen = props => {
         </Text>
       </View>
 
-      <CotruckApi.FetchOperatorViewDriverPOST driver_id={123}>
+      <CotruckApi.FetchOperatorViewDriverPOST
+        driver_id={props.route?.params?.driver_id ?? ''}
+      >
         {({ loading, error, data, refetchOperatorViewDriver }) => {
           const fetchData = data?.json;
           if (loading) {

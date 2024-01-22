@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -19,6 +20,8 @@ import { Fetch } from 'react-request';
 const ManageDriverScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
 
   return (
     <ScreenContainer
@@ -94,7 +97,9 @@ const ManageDriverScreen = props => {
         />
       </View>
 
-      <CotruckApi.FetchOperatorDriverListPOST operator_id={120}>
+      <CotruckApi.FetchOperatorDriverListPOST
+        operator_id={Constants['AUTH_OWNER_ID']}
+      >
         {({ loading, error, data, refetchOperatorDriverList }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -162,7 +167,9 @@ const ManageDriverScreen = props => {
                     <Touchable
                       onPress={() => {
                         try {
-                          navigation.navigate('DriverDetailsScreen');
+                          navigation.navigate('DriverDetailsScreen', {
+                            driver_id: listData?.driver_id,
+                          });
                         } catch (err) {
                           console.error(err);
                         }

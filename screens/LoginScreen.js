@@ -60,12 +60,7 @@ const LoginScreen = props => {
             resizeMode={'cover'}
             source={Images.Icon}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'], {
-                height: 150,
-                marginBottom: 10,
-                marginTop: 10,
-                width: 150,
-              }),
+              { height: 150, marginBottom: 10, marginTop: 10, width: 150 },
               dimensions.width
             )}
           />
@@ -440,7 +435,7 @@ const LoginScreen = props => {
                   });
                   console.log('Complete ON_PRESS:9 SET_VARIABLE');
                   console.log('Start ON_PRESS:10 CONSOLE_LOG');
-                  console.log(Constants['OWNER_INFO']);
+                  console.log(Constants['OWNER_INFO'], token);
                   console.log('Complete ON_PRESS:10 CONSOLE_LOG');
                   console.log('Start ON_PRESS:11 NAVIGATE');
                   navigation.navigate('BottomTabNavigator', {

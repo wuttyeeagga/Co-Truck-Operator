@@ -16,6 +16,7 @@ import {
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import * as Linking from 'expo-linking';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -89,7 +90,27 @@ const BookingDetailsOnGoingScreen = props => {
         {({ loading, error, data, refetchOperatorBookingDetailById }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return (
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <ActivityIndicator
+                  animating={true}
+                  color={theme.colors['Primary']}
+                  hidesWhenStopped={true}
+                  size={'large'}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ActivityIndicatorStyles(theme)[
+                      'Activity Indicator'
+                    ],
+                    dimensions.width
+                  )}
+                />
+              </View>
+            );
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -238,6 +259,7 @@ const BookingDetailsOnGoingScreen = props => {
                                         dimensions.width
                                       )}
                                     >
+                                      {/* Shipper Name */}
                                       <Text
                                         accessible={true}
                                         allowFontScaling={true}
@@ -250,7 +272,7 @@ const BookingDetailsOnGoingScreen = props => {
                                       >
                                         {flashListData?.name}
                                       </Text>
-                                      {/* Text 2 */}
+                                      {/* Shipper Comp Name */}
                                       <Text
                                         accessible={true}
                                         allowFontScaling={true}
@@ -275,8 +297,18 @@ const BookingDetailsOnGoingScreen = props => {
                                       dimensions.width
                                     )}
                                   >
+                                    {/* Call */}
                                     <IconButton
                                       icon={'Feather/phone'}
+                                      onPress={() => {
+                                        try {
+                                          Linking.openURL(
+                                            `tel:${flashListData?.mobile}`
+                                          );
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
                                       size={32}
                                       style={StyleSheet.applyWidth(
                                         { marginLeft: 5, marginRight: 5 },
@@ -334,6 +366,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Driver Name */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -367,6 +400,7 @@ const BookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
+                          {/* Call */}
                           <IconButton
                             icon={'Feather/phone'}
                             size={32}
@@ -389,6 +423,7 @@ const BookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Pickup Location */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
@@ -399,6 +434,7 @@ const BookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
+                        {/* Pickup */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -415,7 +451,7 @@ const BookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Pick up to drop location'}
+                          {flashListData?.pickup_location}
                         </Text>
                       </View>
                       {/* Icon View */}
@@ -431,7 +467,7 @@ const BookingDetailsOnGoingScreen = props => {
                           size={20}
                         />
                       </View>
-                      {/* View 3 */}
+                      {/* Drop Location */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
@@ -442,6 +478,7 @@ const BookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
+                        {/* Drop */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -458,7 +495,7 @@ const BookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Pick up to drop location'}
+                          {flashListData?.drop_location}
                         </Text>
                       </View>
                       {/* Icon View 2 */}
@@ -474,7 +511,7 @@ const BookingDetailsOnGoingScreen = props => {
                           size={20}
                         />
                       </View>
-                      {/* View 4 */}
+                      {/* Depot Location */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
@@ -485,6 +522,7 @@ const BookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
+                        {/* Depot */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -501,7 +539,7 @@ const BookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Pick up to drop location'}
+                          {flashListData?.depot_location}
                         </Text>
                       </View>
                     </View>
@@ -518,6 +556,7 @@ const BookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Truck Type Info */}
                       <View>
                         {/* Row View */}
                         <View
@@ -537,6 +576,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Truck Type */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -574,7 +614,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {/* Text 2 */}
+                            {/* Truck Type */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -601,7 +641,7 @@ const BookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* View 2 */}
+                      {/* Material Info */}
                       <View>
                         {/* Row View */}
                         <View
@@ -658,7 +698,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {/* Text 2 */}
+                            {/* Type Material */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -685,7 +725,7 @@ const BookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* View 3 */}
+                      {/* Load Weight Info */}
                       <View>
                         {/* Row View */}
                         <View
@@ -742,7 +782,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {/* Text 2 */}
+                            {/* Load Weight */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -769,7 +809,7 @@ const BookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* View 4 */}
+                      {/* N0. Truck Info */}
                       <View>
                         {/* Row View */}
                         <View
@@ -826,7 +866,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {/* Text 2 */}
+                            {/* No. truck */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -853,7 +893,7 @@ const BookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* View 5 */}
+                      {/* Product Info */}
                       <View>
                         {/* Row View */}
                         <View
@@ -910,7 +950,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {/* Text 2 */}
+                            {/* Product Type */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -937,7 +977,7 @@ const BookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* View 6 */}
+                      {/* Pickup Date Info */}
                       <View>
                         {/* Row View */}
                         <View
@@ -994,7 +1034,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {/* Text 2 */}
+                            {/* Pickup Date */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -1021,7 +1061,7 @@ const BookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* View 7 */}
+                      {/* Truck Price Info */}
                       <View>
                         {/* Row View */}
                         <View
@@ -1078,7 +1118,7 @@ const BookingDetailsOnGoingScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {/* Text 2 */}
+                            {/* Truck Price */}
                             <Text
                               accessible={true}
                               allowFontScaling={true}
@@ -1090,7 +1130,8 @@ const BookingDetailsOnGoingScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {'MMK 500'}
+                              {'MMK '}
+                              {flashListData?.estimate_price}
                             </Text>
                           </View>
                         </View>

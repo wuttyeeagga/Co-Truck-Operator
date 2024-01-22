@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -11,7 +12,9 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Text, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { Fetch } from 'react-request';
 
 const ManageDriverScreen = props => {
   const { theme, navigation } = props;
@@ -91,475 +94,165 @@ const ManageDriverScreen = props => {
         />
       </View>
 
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('DriverDetailsScreen');
-          } catch (err) {
-            console.error(err);
+      <CotruckApi.FetchOperatorDriverListPOST operator_id={120}>
+        {({ loading, error, data, refetchOperatorDriverList }) => {
+          const fetchData = data?.json;
+          if (loading) {
+            return (
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <ActivityIndicator
+                  animating={true}
+                  color={theme.colors['Primary']}
+                  hidesWhenStopped={true}
+                  size={'large'}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ActivityIndicatorStyles(theme)[
+                      'Activity Indicator'
+                    ],
+                    dimensions.width
+                  )}
+                />
+              </View>
+            );
           }
-        }}
-      >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'cin pu'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'9782100465'}
-              </Text>
-            </View>
 
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 2 */}
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('DriverDetailsScreen');
-          } catch (err) {
-            console.error(err);
+          if (error || data?.status < 200 || data?.status >= 300) {
+            return (
+              <>
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?.message}
+                  </Text>
+                </View>
+              </>
+            );
           }
-        }}
-      >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              {/* Vehicle Type */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'hyet shine'}
-              </Text>
-              {/* Registration No. */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'9782100466'}
-              </Text>
-            </View>
 
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 3 */}
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('DriverDetailsScreen');
-          } catch (err) {
-            console.error(err);
-          }
-        }}
-      >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              {/* Vehicle Type */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'hyet shine'}
-              </Text>
-              {/* Registration No. */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'9782100469'}
-              </Text>
-            </View>
+          return (
+            <FlatList
+              data={fetchData?.data}
+              keyExtractor={listData =>
+                listData?.id || listData?.uuid || JSON.stringify(listData)
+              }
+              listKey={'PHh3S0pv'}
+              numColumns={1}
+              onEndReachedThreshold={0.5}
+              renderItem={({ item, index }) => {
+                const listData = item;
+                return (
+                  <View>
+                    <Touchable
+                      onPress={() => {
+                        try {
+                          navigation.navigate('DriverDetailsScreen');
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Surface
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.SurfaceStyles(theme)['Surface'],
+                            {
+                              alignItems: 'stretch',
+                              flexDirection: 'column',
+                              margin: 20,
+                              padding: 10,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              alignItems: 'center',
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <View>
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  { margin: 10 }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.name}
+                            </Text>
+                            {/* Text 2 */}
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  { margin: 10 }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.mobile}
+                            </Text>
+                          </View>
 
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 4 */}
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('DriverDetailsScreen');
-          } catch (err) {
-            console.error(err);
-          }
+                          <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['Text 2'],
+                                {
+                                  color: theme.colors['CoTruckPending'],
+                                  fontFamily: 'System',
+                                  fontSize: 14,
+                                  fontWeight: '400',
+                                  margin: 10,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.status_of_driver}
+                          </Text>
+                        </View>
+                      </Surface>
+                    </Touchable>
+                  </View>
+                );
+              }}
+              showsHorizontalScrollIndicator={true}
+              showsVerticalScrollIndicator={true}
+            />
+          );
         }}
-      >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Testing Driver'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'9764890518'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 5 */}
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('DriverDetailsScreen');
-          } catch (err) {
-            console.error(err);
-          }
-        }}
-      >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Zaw Zaw 2'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'99776001178'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
-      {/* Touchable 6 */}
-      <Touchable
-        onPress={() => {
-          try {
-            navigation.navigate('DriverDetailsScreen');
-          } catch (err) {
-            console.error(err);
-          }
-        }}
-      >
-        <Surface
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
-              alignItems: 'stretch',
-              flexDirection: 'column',
-              margin: 20,
-              padding: 10,
-            }),
-            dimensions.width
-          )}
-        >
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-              dimensions.width
-            )}
-          >
-            <View>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Zaw Zaw'}
-              </Text>
-              {/* Text 2 */}
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                    margin: 10,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'9453918929'}
-              </Text>
-            </View>
-
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckPending'],
-                  fontFamily: 'System',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  margin: 10,
-                }),
-                dimensions.width
-              )}
-            >
-              {'ASSIGNED'}
-            </Text>
-          </View>
-        </Surface>
-      </Touchable>
+      </CotruckApi.FetchOperatorDriverListPOST>
     </ScreenContainer>
   );
 };

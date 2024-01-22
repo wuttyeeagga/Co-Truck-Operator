@@ -1,9 +1,11 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -15,6 +17,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { Image, Text, View } from 'react-native';
 
 const AddNewVehicleScreen = props => {
@@ -22,7 +25,9 @@ const AddNewVehicleScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [RCPhoto, setRCPhoto] = React.useState({});
+  const [VehicleInsurancePhoto, setVehicleInsurancePhoto] = React.useState({});
+  const [VehiclePhoto, setVehiclePhoto] = React.useState({});
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [isRCUpload, setIsRCUpload] = React.useState(false);
@@ -30,12 +35,31 @@ const AddNewVehicleScreen = props => {
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
+  const [vehicleTypeList, setVehicleTypeList] = React.useState('');
+  const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
+  const cotruckAddNewVehiclePOST = CotruckApi.useAddNewVehiclePOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const Response = (await cotruckVehicleTypeListPOST.mutateAsync())?.json;
+        const data = Response?.data;
+        setVehicleTypeList(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handler();
+  }, [isFocused]);
 
   return (
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      scrollable={false}
+      scrollable={true}
     >
       {/* Header */}
       <View
@@ -107,6 +131,7 @@ const AddNewVehicleScreen = props => {
               console.error(err);
             }
           }}
+          options={vehicleTypeList}
           placeholder={'Choose Type of Vehicle'}
           selectedIconColor={theme.colors.strong}
           selectedIconName={'Feather/check'}
@@ -182,7 +207,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: '' }}
+                  source={{ uri: `${RCPhoto}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -205,6 +230,7 @@ const AddNewVehicleScreen = props => {
                     quality: 0.2,
                   });
 
+                  setRCPhoto(results);
                   setIsRCUpload(true);
                 } catch (err) {
                   console.error(err);
@@ -284,7 +310,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['VehicleInsuranceImage']}` }}
+                  source={{ uri: `${VehicleInsurancePhoto}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -307,10 +333,7 @@ const AddNewVehicleScreen = props => {
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'VehicleInsuranceImage',
-                    value: results,
-                  });
+                  setVehicleInsurancePhoto(results);
                   setIsVehicleInsurance(true);
                 } catch (err) {
                   console.error(err);
@@ -390,7 +413,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['VehicleImage']}` }}
+                  source={{ uri: `${VehiclePhoto}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -413,10 +436,7 @@ const AddNewVehicleScreen = props => {
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'VehicleImage',
-                    value: results,
-                  });
+                  setVehiclePhoto(results);
                   setUploadVehicleImage(true);
                 } catch (err) {
                   console.error(err);
@@ -469,13 +489,35 @@ const AddNewVehicleScreen = props => {
         {/* Add Vehicle */}
         <Button
           onPress={() => {
-            try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'SettingsScreen',
-              });
-            } catch (err) {
-              console.error(err);
-            }
+            const handler = async () => {
+              try {
+                const Response = (
+                  await cotruckAddNewVehiclePOST.mutateAsync({
+                    operator_id: Constants['AUTH_OWNER_ID'],
+                    reg_certificate: RCPhoto,
+                    reg_no: textInputValue,
+                    vehicle_id: pickerValue,
+                    vehicle_image: VehiclePhoto,
+                    vehicle_insurance: VehicleInsurancePhoto,
+                  })
+                )?.json;
+                console.log(Response);
+                const message = Response?.message;
+
+                showAlertUtil({
+                  title: 'Message',
+                  message: message,
+                  buttonText: undefined,
+                });
+
+                navigation.navigate('BottomTabNavigator', {
+                  screen: 'SettingsScreen',
+                });
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
           }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {

@@ -12,12 +12,37 @@ import usePrevious from '../utils/usePrevious';
 import encodeQueryParam from '../utils/encodeQueryParam';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
-export const addNewDriverPOST = (Constants, { owner_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/new-add-driver`, {
-    body: JSON.stringify({ owner_id: owner_id }),
+export const addNewDriverPOST = (
+  Constants,
+  {
+    driving_license_back,
+    driving_license_front,
+    mobile,
+    name,
+    nrc_back,
+    nrc_front,
+    operator_id,
+    password,
+    vehicle_id,
+  },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/add-driver`, {
+    body: JSON.stringify({
+      operator_id: operator_id,
+      name: name,
+      moblie: mobile,
+      password: password,
+      vehicle_id: vehicle_id,
+      driving_license_front: driving_license_front,
+      driving_license_back: driving_license_back,
+      nrc_front: nrc_front,
+      nrc_back: nrc_back,
+    }),
     headers: {
       Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhjMDhlZDU4OThmNDNjMTgwMTM5YjlmNzcyMTFjZmUzODdmODQwZWYwZDJjZTUzYWE1NjMxNzFlNzg0N2MxZDE4ZWZmNDk0YjFkOWQ4YjdhIn0.eyJhdWQiOiIxIiwianRpIjoiOGMwOGVkNTg5OGY0M2MxODAxMzliOWY3NzIxMWNmZTM4N2Y4NDBlZjBkMmNlNTNhYTU2MzE3MWU3ODQ3YzFkMThlZmY0OTRiMWQ5ZDhiN2EiLCJpYXQiOjE3MDU2NTk5ODcsIm5iZiI6MTcwNTY1OTk4NywiZXhwIjoxNzM3MjgyMzg3LCJzdWIiOiIxMjAiLCJzY29wZXMiOltdfQ.UaZ1woBJrvDq3dJCmRR32FfHtzsHyMwJQOe36imi36Pg9EkNQjnyOwj4YXNDOfRncZIwMagqsYmYu6hnzgsywOux01QSiNHVVLcB6c3k6rEe0PBLDxqb2ixqSSHOZ5BEGfH4A9GmPSlQOU1ge1fDEagdca4JlkyYO0hF0_htXgtIj_EnWA6jADI5-I2BZFTtj6A-uh6DwfZ-9yFCCq9jGrtdnFk4inTEW8qIYsdXx_6luv-bWQpZTIrkwnMje37nfjvcBHr6AyPByS6D8t87i3UnPX_rab7rpDZ1wJbm-9ZghB_nTPPbDS4cY2NAJgj6pNfTqXwE8VaET2ILNLHVIB9KgtbrH7jY4XBWil047Lk2qk-XD7XtlL44i3nFLpa0ajTYzKKmNTrWTO61oVedR3xaBDUAbJW90fZDs_iFybaCh59CkoYF39MUyv0Pyz5Re-KiffLWE1eFetV5tvJxyM5yh4b7XmuV4jqUydVvMHvO-1rH9xltpsxN74fSYY_iYZqR0bGYm61Je3pxOYDzznkE_Svx7agYAdsDBA4OF-_D7_dNSM7ujqAqd5NUd6aEZcHDY56HxoeC6T1auCMLkgJi2KL1Ylgz84mo11Dv33tDUFQ2L4Y6_po80d3XK7gusWO5paVfwYAdoZjaSxtwB60HNtzKRjXcC8g3AJP93nA',
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -50,7 +75,15 @@ export const FetchAddNewDriverPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
-  owner_id,
+  driving_license_back,
+  driving_license_front,
+  mobile,
+  name,
+  nrc_back,
+  nrc_front,
+  operator_id,
+  password,
+  vehicle_id,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -62,7 +95,17 @@ export const FetchAddNewDriverPOST = ({
     error,
     mutate: refetch,
   } = useAddNewDriverPOST(
-    { owner_id },
+    {
+      driving_license_back,
+      driving_license_front,
+      mobile,
+      name,
+      nrc_back,
+      nrc_front,
+      operator_id,
+      password,
+      vehicle_id,
+    },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -263,6 +306,105 @@ export const FetchAddNewUserPOST = ({
   return children({ loading, data, error, refetchAddNewUser: refetch });
 };
 
+export const addNewVehiclePOST = (
+  Constants,
+  {
+    operator_id,
+    reg_certificate,
+    reg_no,
+    vehicle_id,
+    vehicle_image,
+    vehicle_insurance,
+  },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/add-vehicle`, {
+    body: JSON.stringify({
+      operator_id: operator_id,
+      vehicle_id: vehicle_id,
+      reg_no: reg_no,
+      reg_certificate: reg_certificate,
+      vehicle_insurance: vehicle_insurance,
+      vehicle_image: vehicle_image,
+    }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useAddNewVehiclePOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => addNewVehiclePOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Vehicle', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Vehicle');
+        queryClient.invalidateQueries('Vehicles');
+      },
+    }
+  );
+};
+
+export const FetchAddNewVehiclePOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  operator_id,
+  reg_certificate,
+  reg_no,
+  vehicle_id,
+  vehicle_image,
+  vehicle_insurance,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useAddNewVehiclePOST(
+    {
+      operator_id,
+      reg_certificate,
+      reg_no,
+      vehicle_id,
+      vehicle_image,
+      vehicle_insurance,
+    },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchAddNewVehicle: refetch });
+};
+
 export const addVehiclePOST = (Constants, { user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/add-vechicle`, {
     body: JSON.stringify({ user_id: user_id }),
@@ -282,12 +424,12 @@ export const useAddVehiclePOST = (initialArgs = {}, { handlers = {} } = {}) => {
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Vehicle', previousValue);
+          return queryClient.setQueryData('test', previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Vehicle');
-        queryClient.invalidateQueries('Vehicles');
+        queryClient.invalidateQueries('test');
+        queryClient.invalidateQueries('tests');
       },
     }
   );
@@ -1057,6 +1199,75 @@ export const FetchDriverJobListPOST = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchDriverJobList: refetch });
+};
+
+export const editProfilePOST = (Constants, { user_id }, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/get-user`, {
+    body: JSON.stringify({ user_id: user_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useEditProfilePOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => editProfilePOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Profile', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Profile');
+        queryClient.invalidateQueries('Profiles');
+      },
+    }
+  );
+};
+
+export const FetchEditProfilePOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  user_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useEditProfilePOST(
+    { user_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchEditProfile: refetch });
 };
 
 export const editUserPOST = (Constants, { user_id }, handlers = {}) =>
@@ -2575,9 +2786,9 @@ export const FetchNewVehiclePOST = ({
   return children({ loading, data, error, refetchNewVehicle: refetch });
 };
 
-export const notificationsPOST = (Constants, { owner_id }, handlers = {}) =>
+export const notificationsPOST = (Constants, { user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/notifications`, {
-    body: JSON.stringify({ owner_id: owner_id }),
+    body: JSON.stringify({ user_id: user_id }),
     headers: {
       Accept: 'application/json',
       Authorization:
@@ -2614,7 +2825,7 @@ export const FetchNotificationsPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
-  owner_id,
+  user_id,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -2626,7 +2837,7 @@ export const FetchNotificationsPOST = ({
     error,
     mutate: refetch,
   } = useNotificationsPOST(
-    { owner_id },
+    { user_id },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -2727,6 +2938,80 @@ export const FetchOperatorBookingDetailByIdPOST = ({
     error,
     refetchOperatorBookingDetailById: refetch,
   });
+};
+
+export const operatorDriverListPOST = (
+  Constants,
+  { operator_id },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/driver-list`, {
+    body: JSON.stringify({ operator_id: operator_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useOperatorDriverListPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      operatorDriverListPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Driver', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Driver');
+        queryClient.invalidateQueries('Drivers');
+      },
+    }
+  );
+};
+
+export const FetchOperatorDriverListPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  operator_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useOperatorDriverListPOST(
+    { operator_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchOperatorDriverList: refetch });
 };
 
 export const operatorUserIdPOST = (Constants, { user_id }, handlers = {}) =>
@@ -3983,12 +4268,12 @@ export const usePaymentDetailUserPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('payment detail', previousValue);
+          return queryClient.setQueryData('test', previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('payment detail');
-        queryClient.invalidateQueries('payment details');
+        queryClient.invalidateQueries('test');
+        queryClient.invalidateQueries('tests');
       },
     }
   );
@@ -5561,6 +5846,75 @@ export const FetchVehicleTypePOST = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchVehicleType: refetch });
+};
+
+export const vehicleTypeListPOST = (Constants, _args, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/vehicles`, {
+    body: JSON.stringify({ key: 'value' }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useVehicleTypeListPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      vehicleTypeListPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Vehicle', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Vehicle');
+        queryClient.invalidateQueries('Vehicles');
+      },
+    }
+  );
+};
+
+export const FetchVehicleTypeListPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useVehicleTypeListPOST(
+    {},
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchVehicleTypeList: refetch });
 };
 
 export const verifyOTPPOST = (Constants, { mobile, otp }, handlers = {}) =>

@@ -159,12 +159,10 @@ const TermsInRegisterScreen = props => {
                     comp_name: props.route?.params?.comp_name ?? '',
                     comp_phone: props.route?.params?.comp_phone ?? '',
                     comp_reg_no: props.route?.params?.comp_regi ?? '',
-                    driving_license_back: JSON.stringify(
-                      props.route?.params?.driving_license_back ?? ''
-                    ),
-                    driving_license_front: JSON.stringify(
-                      props.route?.params?.driving_license ?? ''
-                    ),
+                    driving_license_back:
+                      props.route?.params?.driving_license_back ?? '',
+                    driving_license_front:
+                      props.route?.params?.driving_license ?? '',
                     email: props.route?.params?.email ?? '',
                     mobile: props.route?.params?.mobile ?? '',
                     name: props.route?.params?.name ?? '',

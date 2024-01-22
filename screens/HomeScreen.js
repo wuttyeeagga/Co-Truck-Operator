@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -25,6 +26,8 @@ import { Fetch } from 'react-request';
 const HomeScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [checkboxRow2Value, setCheckboxRow2Value] = React.useState('');
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
   const [containerWeight, setContainerWeight] = React.useState('');
@@ -133,7 +136,7 @@ const HomeScreen = props => {
               }
             },
           }}
-          user_id={120}
+          user_id={Constants['AUTH_OWNER_ID']}
         >
           {({ loading, error, data, refetchOperatorUserId }) => {
             const fetchData = data?.json;
@@ -195,6 +198,10 @@ const HomeScreen = props => {
 
             return (
               <FlatList
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flexDirection: 'column' },
+                  dimensions.width
+                )}
                 data={fetchData?.data}
                 keyExtractor={listData =>
                   listData?.id || listData?.uuid || JSON.stringify(listData)

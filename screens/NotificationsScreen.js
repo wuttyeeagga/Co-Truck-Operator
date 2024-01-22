@@ -69,7 +69,7 @@ const NotificationsScreen = props => {
         </View>
       </View>
 
-      <CotruckApi.FetchNotificationsPOST owner_id={120}>
+      <CotruckApi.FetchNotificationsPOST user_id={120}>
         {({ loading, error, data, refetchNotifications }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -130,7 +130,7 @@ const NotificationsScreen = props => {
 
           return (
             <FlatList
-              data={[]}
+              data={fetchData?.data}
               keyExtractor={listData =>
                 listData?.id || listData?.uuid || JSON.stringify(listData)
               }
@@ -165,9 +165,7 @@ const NotificationsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {
-                            'Driver Aung Ko Oo has started the ride.Booking ID is 304456.'
-                          }
+                          {listData?.message}
                         </Text>
                       </View>
                       {/* View 2 */}
@@ -191,7 +189,7 @@ const NotificationsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'2023-12-07 03:21 PM'}
+                          {listData?.created_at}
                         </Text>
                       </View>
                     </View>

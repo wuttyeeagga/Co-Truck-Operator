@@ -264,24 +264,6 @@ const ManageVehicleScreen = props => {
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               />
-              <FlashList
-                data={fetchData?.data}
-                estimatedItemSize={50}
-                keyExtractor={flashListData =>
-                  flashListData?.id ||
-                  flashListData?.uuid ||
-                  JSON.stringify(flashListData)
-                }
-                listKey={'uYxVQ6YI'}
-                numColumns={1}
-                onEndReachedThreshold={0.5}
-                renderItem={({ item, index }) => {
-                  const flashListData = item;
-                  return null;
-                }}
-                showsHorizontalScrollIndicator={true}
-                showsVerticalScrollIndicator={true}
-              />
             </>
           );
         }}

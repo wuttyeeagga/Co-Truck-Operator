@@ -4,15 +4,12 @@ import * as CotruckApi from '../apis/CotruckApi.js';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
-import openImagePickerUtil from '../utils/openImagePicker';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   Divider,
   Icon,
-  NumberInput,
   ScreenContainer,
-  TextInput,
   Touchable,
   withTheme,
 } from '@draftbit/ui';
@@ -74,7 +71,7 @@ const CompanyInformationScreen = props => {
         >
           <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
         </Touchable>
-
+        {/* Title */}
         <Text
           accessible={true}
           allowFontScaling={true}
@@ -109,7 +106,34 @@ const CompanyInformationScreen = props => {
           {({ loading, error, data, refetchCompanyInformation }) => {
             const fetchData = data?.json;
             if (loading) {
-              return <ActivityIndicator />;
+              return (
+                <>
+                  {/* loading */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flex: 1,
+                        justifyContent: 'center',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <ActivityIndicator
+                      animating={true}
+                      color={'rgba(0, 0, 0, 0)'}
+                      hidesWhenStopped={true}
+                      size={'large'}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.ActivityIndicatorStyles(theme)[
+                          'Activity Indicator'
+                        ],
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                </>
+              );
             }
 
             if (error || data?.status < 200 || data?.status >= 300) {
@@ -118,6 +142,7 @@ const CompanyInformationScreen = props => {
 
             return (
               <>
+                {/* Company Info View */}
                 <View>
                   {/* Profile Pic */}
                   <View>
@@ -141,36 +166,17 @@ const CompanyInformationScreen = props => {
                           dimensions.width
                         )}
                       />
-                      <Touchable
-                        activeOpacity={0.8}
-                        disabledOpacity={0.8}
-                        onPress={() => {
-                          const handler = async () => {
-                            try {
-                              await openImagePickerUtil({
-                                mediaTypes: 'All',
-                                allowsEditing: false,
-                                quality: 0.2,
-                              });
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          };
-                          handler();
-                        }}
-                      >
-                        <Image
-                          resizeMode={'cover'}
-                          source={Images.EditProfile}
-                          style={StyleSheet.applyWidth(
-                            { height: 137, width: 120 },
-                            dimensions.width
-                          )}
-                        />
-                      </Touchable>
+                      <Image
+                        resizeMode={'cover'}
+                        source={Images.EditProfile}
+                        style={StyleSheet.applyWidth(
+                          { height: 137, width: 120 },
+                          dimensions.width
+                        )}
+                      />
                     </View>
                   </View>
-                  {/* Row */}
+                  {/* Name Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -178,32 +184,62 @@ const CompanyInformationScreen = props => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         margin: 10,
+                        marginTop: 20,
                       },
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* Name View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Name'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Name */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Name'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.comp_name}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* Name View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Company Name */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.comp_name}
+                      </Text>
+                    </View>
                   </View>
                   <Divider
                     color={theme.colors['CoTruckGrey']}
@@ -212,7 +248,7 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   />
-                  {/* Row 2 */}
+                  {/* Mobile Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -224,28 +260,57 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* Mobile View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Mobile Number'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Mobile Number */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Mobile Number'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.comp_number}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* Mobile View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Company Mobile */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.comp_number}
+                      </Text>
+                    </View>
                   </View>
                   {/* Divider 3 */}
                   <Divider
@@ -255,7 +320,7 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   />
-                  {/* Row 3 */}
+                  {/* Registration Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -267,28 +332,57 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* Regi View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Registration No.'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Regi Number */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Registration No.'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.reg_no}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* Regi View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Regi Number */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.reg_no}
+                      </Text>
+                    </View>
                   </View>
                   {/* Divider 4 */}
                   <Divider
@@ -298,7 +392,7 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   />
-                  {/* Row 4 */}
+                  {/* Agent License Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -310,28 +404,57 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* License View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Agent License'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Agent License */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Agent License'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.agent_license}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* License View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Agent License */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.agent_license}
+                      </Text>
+                    </View>
                   </View>
                   {/* Divider 5 */}
                   <Divider
@@ -341,7 +464,7 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   />
-                  {/* Row 5 */}
+                  {/* Certificate Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -353,28 +476,57 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* Certificate View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Certificate'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Certificate */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Certificate'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {'uploads/users/11600864312.jpg'}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* Certificate View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Certificate */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.certificate}
+                      </Text>
+                    </View>
                   </View>
                   {/* Divider 6 */}
                   <Divider
@@ -384,7 +536,7 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   />
-                  {/* Row 6 */}
+                  {/* Path Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -396,28 +548,57 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* Path View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Path selected'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Path */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Certificate'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.is_preferred_paths}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* Path View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Path */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.is_preferred_paths}
+                      </Text>
+                    </View>
                   </View>
                   {/* Divider 2 */}
                   <Divider
@@ -428,8 +609,9 @@ const CompanyInformationScreen = props => {
                     )}
                   />
                 </View>
-                {/* View 2 */}
+                {/* Contact Person Info View */}
                 <View>
+                  {/* SubTitle */}
                   <Text
                     accessible={true}
                     allowFontScaling={true}
@@ -449,7 +631,7 @@ const CompanyInformationScreen = props => {
                   >
                     {'Contact Person Details'}
                   </Text>
-                  {/* sampleRow */}
+                  {/* Contact Name Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -461,28 +643,57 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* Contact Name View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Name'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Contact Name */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Name'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.name}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* Contact Name View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Contact Name */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.name}
+                      </Text>
+                    </View>
                   </View>
                   <Divider
                     color={theme.colors.divider}
@@ -491,7 +702,7 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   />
-                  {/* sampleRow 2 */}
+                  {/* Mobile Number Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -503,28 +714,57 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* Mobile Number View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Mobile Number'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Mobile Number */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Mobile Number'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.mobile}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* Mobile Number View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Mobile Number */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.mobile}
+                      </Text>
+                    </View>
                   </View>
                   {/* Divider 2 */}
                   <Divider
@@ -534,7 +774,7 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   />
-                  {/* sampleRow 3 */}
+                  {/* Email Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -546,28 +786,57 @@ const CompanyInformationScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                    {/* Email View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { width: '45%' },
                         dimensions.width
                       )}
                     >
-                      {'Email'}
-                    </Text>
-                    <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    {/* Text 2 */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
+                      {/* Email */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Email'}
+                      </Text>
+                    </View>
+                    {/* Icon View */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        {
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '5%',
+                        },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.email}
-                    </Text>
+                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
+                    </View>
+                    {/* Email View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', width: '45%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Email */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.email}
+                      </Text>
+                    </View>
                   </View>
                   {/* Divider 3 */}
                   <Divider

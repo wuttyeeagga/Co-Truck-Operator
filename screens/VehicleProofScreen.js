@@ -1,5 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -14,11 +16,14 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { Image, Text, View } from 'react-native';
 
 const VehicleProofScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [pickerValue, setPickerValue] = React.useState('');
@@ -29,6 +34,24 @@ const VehicleProofScreen = props => {
     { label: '40ft Container Truck', value: 9 },
   ]);
   const [vehicleRC, setVehicleRC] = React.useState({});
+  const [vehicleTypeList, setVehicleTypeList] = React.useState('');
+  const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const Response = (await cotruckVehicleTypeListPOST.mutateAsync())?.json;
+        const data = Response?.data;
+        setVehicleTypeList(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handler();
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -125,7 +148,7 @@ const VehicleProofScreen = props => {
               console.error(err);
             }
           }}
-          options={vehicleList}
+          options={vehicleTypeList}
           placeholder={'Choose Vehicle Type'}
           selectedIconColor={theme.colors.strong}
           selectedIconName={'Feather/check'}

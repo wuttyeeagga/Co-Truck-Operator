@@ -16,6 +16,7 @@ import {
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import * as Linking from 'expo-linking';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -88,7 +89,27 @@ const BookingDetailsOnConfirmedScreen = props => {
         {({ loading, error, data, refetchOperatorBookingDetailById }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return (
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <ActivityIndicator
+                  animating={true}
+                  color={theme.colors['Primary']}
+                  hidesWhenStopped={true}
+                  size={'large'}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ActivityIndicatorStyles(theme)[
+                      'Activity Indicator'
+                    ],
+                    dimensions.width
+                  )}
+                />
+              </View>
+            );
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -150,7 +171,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                             )}
                           >
                             {'Booking ID : '}
-                            {null}
+                            {flashListData?.id}
                           </Text>
                           {/* Status */}
                           <Text
@@ -233,7 +254,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                         dimensions.width
                                       )}
                                     >
-                                      {/* Operator Name */}
+                                      {/* Shipper Name */}
                                       <Text
                                         accessible={true}
                                         allowFontScaling={true}
@@ -251,9 +272,9 @@ const BookingDetailsOnConfirmedScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {fetchData?.get_booking_customers?.name}
+                                        {flashListData?.name}
                                       </Text>
-                                      {/* Operator Mobile */}
+                                      {/* Shipper Mobile */}
                                       <Text
                                         accessible={true}
                                         allowFontScaling={true}
@@ -272,7 +293,7 @@ const BookingDetailsOnConfirmedScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {'Operator Mobile'}
+                                        {flashListData?.mobile}
                                       </Text>
                                     </View>
                                   </View>
@@ -284,6 +305,15 @@ const BookingDetailsOnConfirmedScreen = props => {
                                       <IconButton
                                         color={theme.colors['Primary']}
                                         icon={'Feather/phone'}
+                                        onPress={() => {
+                                          try {
+                                            Linking.openURL(
+                                              `tel:${flashListData?.mobile}`
+                                            );
+                                          } catch (err) {
+                                            console.error(err);
+                                          }
+                                        }}
                                         size={25}
                                         style={StyleSheet.applyWidth(
                                           { marginRight: 20 },

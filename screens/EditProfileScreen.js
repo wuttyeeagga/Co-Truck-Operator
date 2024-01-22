@@ -60,9 +60,7 @@ const EditProfileScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'SettingsScreen',
-              });
+              navigation.goBack();
             } catch (err) {
               console.error(err);
             }
@@ -540,6 +538,13 @@ const EditProfileScreen = props => {
           </View>
         </View>
         <Button
+          onPress={() => {
+            try {
+              navigation.navigate('CompanyInformationScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
               borderRadius: 12,

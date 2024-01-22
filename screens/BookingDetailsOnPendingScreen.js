@@ -97,7 +97,27 @@ const BookingDetailsOnPendingScreen = props => {
         {({ loading, error, data, refetchOperatorBookingDetailById }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return (
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <ActivityIndicator
+                  animating={true}
+                  color={theme.colors['Primary']}
+                  hidesWhenStopped={true}
+                  size={'large'}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ActivityIndicatorStyles(theme)[
+                      'Activity Indicator'
+                    ],
+                    dimensions.width
+                  )}
+                />
+              </View>
+            );
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {

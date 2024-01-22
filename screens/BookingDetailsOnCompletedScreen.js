@@ -16,6 +16,7 @@ import {
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import * as Linking from 'expo-linking';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -88,7 +89,27 @@ const BookingDetailsOnCompletedScreen = props => {
         {({ loading, error, data, refetchOperatorBookingDetailById }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return (
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <ActivityIndicator
+                  animating={true}
+                  color={theme.colors['Primary']}
+                  hidesWhenStopped={true}
+                  size={'large'}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ActivityIndicatorStyles(theme)[
+                      'Activity Indicator'
+                    ],
+                    dimensions.width
+                  )}
+                />
+              </View>
+            );
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -300,6 +321,15 @@ const BookingDetailsOnCompletedScreen = props => {
                                     {/* Call Button */}
                                     <IconButton
                                       icon={'Feather/phone'}
+                                      onPress={() => {
+                                        try {
+                                          Linking.openURL(
+                                            `tel:${flashListData?.mobile}`
+                                          );
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
                                       size={32}
                                       style={StyleSheet.applyWidth(
                                         { marginLeft: 5, marginRight: 5 },
@@ -1133,7 +1163,8 @@ const BookingDetailsOnCompletedScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'MMK 500'}
+                                {'MMK '}
+                                {flashListData?.estimate_price}
                               </Text>
                             </View>
                           </View>

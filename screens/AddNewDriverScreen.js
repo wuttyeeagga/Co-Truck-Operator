@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -16,6 +17,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { Image, Text, View } from 'react-native';
 
 const AddNewDriverScreen = props => {
@@ -23,27 +25,47 @@ const AddNewDriverScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [Mobile, setMobile] = React.useState('');
+  const [Name, setName] = React.useState('');
+  const [Password, setPassword] = React.useState('');
+  const [dlBack, setDlBack] = React.useState({});
+  const [dlFront, setDlFront] = React.useState({});
   const [isDLBack, setIsDLBack] = React.useState(false);
   const [isDLFront, setIsDLFront] = React.useState(false);
-  const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCBack, setIsNRCBack] = React.useState(false);
   const [isNRCFront, setIsNRCFront] = React.useState(false);
-  const [isNRCUpload, setIsNRCUpload] = React.useState(false);
-  const [isRCUpload, setIsRCUpload] = React.useState(false);
-  const [isVehicleInsurance, setIsVehicleInsurance] = React.useState(false);
+  const [nrcBack, setNrcBack] = React.useState({});
+  const [nrcFront, setNrcFront] = React.useState({});
   const [numberInputValue, setNumberInputValue] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const [textInputValue2, setTextInputValue2] = React.useState('');
-  const [textInputValue3, setTextInputValue3] = React.useState('');
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
+  const [vehicleTypeList, setVehicleTypeList] = React.useState('');
+  const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
+  const cotruckAddNewDriverPOST = CotruckApi.useAddNewDriverPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const Response = (await cotruckVehicleTypeListPOST.mutateAsync())?.json;
+        const data = Response?.data;
+        setVehicleTypeList(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handler();
+  }, [isFocused]);
 
   return (
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      scrollable={false}
+      scrollable={true}
     >
       {/* Header */}
       <View
@@ -105,9 +127,8 @@ const AddNewDriverScreen = props => {
             autoCapitalize={'none'}
             changeTextDelay={500}
             onChangeText={newNameInputValue => {
-              const textInputValue = newNameInputValue;
               try {
-                setTextInputValue2(newNameInputValue);
+                setName(newNameInputValue);
               } catch (err) {
                 console.error(err);
               }
@@ -127,7 +148,7 @@ const AddNewDriverScreen = props => {
               ),
               dimensions.width
             )}
-            value={textInputValue2}
+            value={Name}
           />
         </View>
         {/* Mobile Container */}
@@ -137,9 +158,8 @@ const AddNewDriverScreen = props => {
             allowFontScaling={true}
             changeTextDelay={500}
             onChangeText={newMobileInputValue => {
-              const numberInputValue = newMobileInputValue;
               try {
-                setNumberInputValue(newMobileInputValue);
+                setMobile(newMobileInputValue);
               } catch (err) {
                 console.error(err);
               }
@@ -159,7 +179,7 @@ const AddNewDriverScreen = props => {
               ),
               dimensions.width
             )}
-            value={numberInputValue}
+            value={Mobile}
           />
         </View>
         {/* Password Container */}
@@ -170,9 +190,8 @@ const AddNewDriverScreen = props => {
             autoCapitalize={'none'}
             changeTextDelay={500}
             onChangeText={newPasswordInputValue => {
-              const textInputValue = newPasswordInputValue;
               try {
-                setTextInputValue3(newPasswordInputValue);
+                setPassword(newPasswordInputValue);
               } catch (err) {
                 console.error(err);
               }
@@ -193,7 +212,7 @@ const AddNewDriverScreen = props => {
               ),
               dimensions.width
             )}
-            value={textInputValue3}
+            value={Password}
           />
         </View>
         {/* Vehicle Picker */}
@@ -215,6 +234,7 @@ const AddNewDriverScreen = props => {
               console.error(err);
             }
           }}
+          options={vehicleTypeList}
           placeholder={'Choose vehicle to Assign'}
           placeholderTextColor={theme.colors['TextPlaceholder']}
           selectedIconColor={theme.colors.strong}
@@ -265,9 +285,10 @@ const AddNewDriverScreen = props => {
                   dimensions.width
                 )}
               >
+                {/* DL Front Image */}
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['dlFrontImage']}` }}
+                  source={{ uri: `${dlFront}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -285,15 +306,12 @@ const AddNewDriverScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
+                    mediaTypes: 'Images',
                     allowsEditing: false,
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'dlFrontImage',
-                    value: results,
-                  });
+                  setDlFront(results);
                   setIsDLFront(true);
                 } catch (err) {
                   console.error(err);
@@ -371,9 +389,10 @@ const AddNewDriverScreen = props => {
                   dimensions.width
                 )}
               >
+                {/* DL Back Image */}
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['dlBackImage']}` }}
+                  source={{ uri: `${dlBack}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -391,15 +410,12 @@ const AddNewDriverScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
+                    mediaTypes: 'Images',
                     allowsEditing: false,
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'dlBackImage',
-                    value: results,
-                  });
+                  setDlBack(results);
                   setIsDLBack(true);
                 } catch (err) {
                   console.error(err);
@@ -477,9 +493,10 @@ const AddNewDriverScreen = props => {
                   dimensions.width
                 )}
               >
+                {/* NRC Front Image */}
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['nrcFrontImage']}` }}
+                  source={{ uri: `${nrcFront}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -502,10 +519,7 @@ const AddNewDriverScreen = props => {
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'nrcFrontImage',
-                    value: results,
-                  });
+                  setNrcFront(results);
                   setIsNRCFront(true);
                 } catch (err) {
                   console.error(err);
@@ -583,9 +597,10 @@ const AddNewDriverScreen = props => {
                   dimensions.width
                 )}
               >
+                {/* NRC Back Image */}
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${Constants['nrcBackImage']}` }}
+                  source={{ uri: `${nrcBack}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -608,10 +623,7 @@ const AddNewDriverScreen = props => {
                     quality: 0.2,
                   });
 
-                  setGlobalVariableValue({
-                    key: 'nrcBackImage',
-                    value: results,
-                  });
+                  setNrcBack(results);
                   setIsNRCBack(true);
                 } catch (err) {
                   console.error(err);
@@ -664,13 +676,27 @@ const AddNewDriverScreen = props => {
         {/* Add Driver */}
         <Button
           onPress={() => {
-            try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'SettingsScreen',
-              });
-            } catch (err) {
-              console.error(err);
-            }
+            const handler = async () => {
+              try {
+                const results = (
+                  await cotruckAddNewDriverPOST.mutateAsync({
+                    driving_license_back: dlBack,
+                    driving_license_front: dlFront,
+                    mobile: Mobile,
+                    name: Name,
+                    nrc_back: nrcBack,
+                    nrc_front: nrcFront,
+                    operator_id: Constants['AUTH_OWNER_ID'],
+                    password: Password,
+                    vehicle_id: pickerValue,
+                  })
+                )?.json;
+                console.log(results);
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
           }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {

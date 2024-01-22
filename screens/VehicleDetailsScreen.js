@@ -66,9 +66,7 @@ const VehicleDetailsScreen = props => {
         </Text>
       </View>
 
-      <CotruckApi.FetchOperatorViewVehiclePOST
-        vehicle_id={props.route?.params?.id ?? ''}
-      >
+      <CotruckApi.FetchOperatorViewVehiclePOST vehicle_id={10}>
         {({ loading, error, data, refetchOperatorViewVehicle }) => {
           const fetchData = data?.json;
           if (loading) {

@@ -421,7 +421,7 @@ const ChangePasswordScreen = props => {
         onPress={() => {
           const handler = async () => {
             try {
-              if (oldPassword === confirmPassword) {
+              if (newPassword === confirmPassword) {
                 const changePassword = (
                   await cotruckChangePwdPOST.mutateAsync({
                     new_password: confirmPassword,
@@ -447,7 +447,7 @@ const ChangePasswordScreen = props => {
               } else {
                 showAlertUtil({
                   title: 'Message',
-                  message: 'Confirm Password',
+                  message: 'Incorrect password',
                   buttonText: undefined,
                 });
               }

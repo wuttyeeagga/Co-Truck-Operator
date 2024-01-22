@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -12,6 +13,8 @@ import { Fetch } from 'react-request';
 const NotificationsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
 
   return (
     <ScreenContainer
@@ -69,7 +72,7 @@ const NotificationsScreen = props => {
         </View>
       </View>
 
-      <CotruckApi.FetchNotificationsPOST user_id={120}>
+      <CotruckApi.FetchNotificationsPOST user_id={Constants['AUTH_OWNER_ID']}>
         {({ loading, error, data, refetchNotifications }) => {
           const fetchData = data?.json;
           if (loading) {

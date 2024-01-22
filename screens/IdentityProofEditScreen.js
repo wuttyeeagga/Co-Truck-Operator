@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -16,6 +17,8 @@ import { Image, Text, View } from 'react-native';
 const IdentityProofEditScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [dlBack, setDlBack] = React.useState({});
   const [dlFront, setDlFront] = React.useState({});
   const [isDLBack, setIsDLBack] = React.useState(false);
@@ -535,6 +538,7 @@ const IdentityProofEditScreen = props => {
         <Button
           onPress={() => {
             try {
+              /* 'API Request' action requires configuration: choose an API endpoint */
               navigation.navigate('BottomTabNavigator', {
                 screen: 'SettingsScreen',
               });

@@ -4315,6 +4315,80 @@ export const FetchPaymentDetailUserPOST = ({
   return children({ loading, data, error, refetchPaymentDetailUser: refetch });
 };
 
+export const reasonForCancelPOST = (
+  Constants,
+  { book_truck_id },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/booking-cancel`, {
+    body: JSON.stringify({ book_truck_id: book_truck_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useReasonForCancelPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      reasonForCancelPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Reason Cancel', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Reason Cancel');
+        queryClient.invalidateQueries('Reason Cancels');
+      },
+    }
+  );
+};
+
+export const FetchReasonForCancelPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  book_truck_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useReasonForCancelPOST(
+    { book_truck_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchReasonForCancel: refetch });
+};
+
 export const replaceDriverPOST = (
   Constants,
   { booking_truck_id, current_driver_id, new_driver_id, owner_id },

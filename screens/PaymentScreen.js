@@ -8,14 +8,12 @@ import {
   Icon,
   ScreenContainer,
   StarRating,
-  Table,
-  TableCell,
-  TableRow,
   TextInput,
   Touchable,
   withTheme,
 } from '@draftbit/ui';
 import { ScrollView, Text, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const PaymentScreen = props => {
   const { theme, navigation } = props;
@@ -24,11 +22,17 @@ const PaymentScreen = props => {
   const [PaymentModal, setPaymentModal] = React.useState(false);
   const [PromoCodeModal, setPromoCodeModal] = React.useState(false);
   const [ShippingAddressModal, setShippingAddressModal] = React.useState(false);
+  const [addCharges, setAddCharges] = React.useState('');
+  const [addComment, setAddComment] = React.useState('');
   const [paymentMethodRadioGroup, setPaymentMethodRadioGroup] =
     React.useState(1);
   const [starRatingValue, setStarRatingValue] = React.useState(0);
   const [textAreaValue, setTextAreaValue] = React.useState('');
+  const [textAreaValue2, setTextAreaValue2] = React.useState('');
+  const [textAreaValue3, setTextAreaValue3] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [textInputValue2, setTextInputValue2] = React.useState('');
+  const [tripExp, setTripExp] = React.useState('');
   const [ratingValue, setRatingValue] = React.useState(undefined);
 
   return (
@@ -43,7 +47,6 @@ const PaymentScreen = props => {
           {
             alignItems: 'center',
             flexDirection: 'row',
-            marginBottom: 20,
             marginLeft: 20,
             marginRight: 20,
             marginTop: 20,
@@ -89,9 +92,8 @@ const PaymentScreen = props => {
         </View>
       </View>
 
-      <ScrollView
-        bounces={true}
-        showsHorizontalScrollIndicator={true}
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps={'never'}
         showsVerticalScrollIndicator={true}
       >
         {/* Main View */}
@@ -110,6 +112,48 @@ const PaymentScreen = props => {
             dimensions.width
           )}
         >
+          {/* Shipper Info Row */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                margin: 10,
+              },
+              dimensions.width
+            )}
+          >
+            {/* Shipper Name */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                  color: theme.colors['Primary'],
+                  margin: 5,
+                }),
+                dimensions.width
+              )}
+            >
+              {'Shipper Name'}
+            </Text>
+            {/* Shipper Mobile */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                  color: theme.colors['Primary'],
+                  margin: 5,
+                }),
+                dimensions.width
+              )}
+            >
+              {'09812312311'}
+            </Text>
+          </View>
+          {/* Success Status */}
           <View
             style={StyleSheet.applyWidth(
               {
@@ -151,162 +195,109 @@ const PaymentScreen = props => {
               {'Your ride has been successfully completed'}
             </Text>
           </View>
-
-          <Table
-            borderColor={theme.colors.divider}
-            borderStyle={'solid'}
-            borderWidth={1}
-            cellHorizontalPadding={10}
-            cellVerticalPadding={10}
-            drawTopBorder={true}
-            showsVerticalScrollIndicator={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableStyles(theme)['Table'],
-              dimensions.width
-            )}
-          >
-            <TableRow drawBottomBorder={true} drawStartBorder={true}>
-              <TableCell
-                drawEndBorder={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TableCellStyles(theme)['Table Cell'],
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.TextStyles(theme)['Text 3'],
-                    dimensions.width
-                  )}
-                >
-                  {'Sub Total'}
-                </Text>
-              </TableCell>
-              {/* Table Cell 2 */}
-              <TableCell
-                drawEndBorder={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TableCellStyles(theme)['Table Cell'],
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.TextStyles(theme)['Text 3'],
-                    dimensions.width
-                  )}
-                >
-                  {'500'}
-                </Text>
-              </TableCell>
-            </TableRow>
-            {/* Table Row 2 */}
-            <TableRow drawBottomBorder={true} drawStartBorder={true}>
-              <TableCell
-                drawEndBorder={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TableCellStyles(theme)['Table Cell'],
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.TextStyles(theme)['Text 3'],
-                    dimensions.width
-                  )}
-                >
-                  {'Extra Charges'}
-                </Text>
-              </TableCell>
-              {/* Table Cell 2 */}
-              <TableCell
-                drawEndBorder={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TableCellStyles(theme)['Table Cell'],
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.TextStyles(theme)['Text 3'],
-                    dimensions.width
-                  )}
-                >
-                  {'300'}
-                </Text>
-              </TableCell>
-            </TableRow>
-            {/* Table Row 3 */}
-            <TableRow drawBottomBorder={true} drawStartBorder={true}>
-              <TableCell
-                drawEndBorder={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TableCellStyles(theme)['Table Cell'],
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['Text 3'],
-                      { fontFamily: 'System', fontSize: 14, fontWeight: '400' }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {'Total'}
-                </Text>
-              </TableCell>
-              {/* Table Cell 2 */}
-              <TableCell
-                drawEndBorder={true}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.TableCellStyles(theme)['Table Cell'],
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.TextStyles(theme)['Text 3'],
-                    dimensions.width
-                  )}
-                >
-                  {'800'}
-                </Text>
-              </TableCell>
-            </TableRow>
-          </Table>
-          {/* View 2 */}
+          {/* Amount View */}
           <View
             style={StyleSheet.applyWidth(
               { alignItems: 'center', margin: 20 },
               dimensions.width
             )}
           >
+            {/* Total Amount */}
             <Text
               accessible={true}
               allowFontScaling={true}
               style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
+                  color: theme.colors['Primary'],
+                  fontSize: 16,
+                }),
                 dimensions.width
               )}
             >
-              {'Toperator comp 1'}
+              {'MMK - 4000'}
+            </Text>
+            {/* Total Charges */}
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                  color: theme.colors['CoTruckGrey'],
+                  margin: 5,
+                }),
+                dimensions.width
+              )}
+            >
+              {'Total Charges'}
             </Text>
           </View>
-          {/* View 3 */}
+          {/* Additional Charges View */}
+          <View style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}>
+            {/* Additional Charges */}
+            <TextInput
+              allowFontScaling={true}
+              autoCapitalize={'none'}
+              changeTextDelay={500}
+              multiline={false}
+              onChangeText={newAdditionalChargesValue => {
+                try {
+                  setAddCharges(newAdditionalChargesValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              placeholder={'Add additional charges'}
+              placeholderTextColor={theme.colors['TextPlaceholder']}
+              scrollEnabled={false}
+              spellcheck={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                  {
+                    borderColor: theme.colors['Light'],
+                    borderRadius: 12,
+                    height: 48,
+                    paddingLeft: 12,
+                  }
+                ),
+                dimensions.width
+              )}
+              value={addCharges}
+            />
+          </View>
+          {/* Comment View */}
+          <View style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}>
+            {/* Add Comment */}
+            <TextInput
+              allowFontScaling={true}
+              changeTextDelay={500}
+              multiline={true}
+              numberOfLines={4}
+              onChangeText={newAddCommentValue => {
+                try {
+                  setAddComment(newAddCommentValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              placeholder={'Add comment'}
+              placeholderTextColor={theme.colors['TextPlaceholder']}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Text Area'],
+                  {
+                    borderColor: theme.colors['Light'],
+                    height: 68,
+                    paddingLeft: 12,
+                  }
+                ),
+                dimensions.width
+              )}
+              textAlignVertical={'top'}
+              value={addComment}
+            />
+          </View>
+          {/* Star View */}
           <View
             style={StyleSheet.applyWidth(
               { alignItems: 'center', margin: 20 },
@@ -347,50 +338,53 @@ const PaymentScreen = props => {
             />
           </View>
           {/* View 4 */}
-          <View
-            style={StyleSheet.applyWidth(
-              { marginLeft: 10, marginRight: 10 },
-              dimensions.width
-            )}
-          >
+          <View style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}>
+            {/* Trip Experience */}
             <TextInput
               allowFontScaling={true}
-              autoCapitalize={'none'}
               changeTextDelay={500}
               multiline={true}
-              onChangeText={newTextInputValue => {
-                const textInputValue = newTextInputValue;
+              numberOfLines={4}
+              onChangeText={newTripExperienceValue => {
+                const textInputValue = newTripExperienceValue;
                 try {
-                  setTextInputValue(newTextInputValue);
+                  setTextAreaValue3(newTripExperienceValue);
                 } catch (err) {
                   console.error(err);
                 }
               }}
               placeholder={'Share your trip experience'}
               placeholderTextColor={theme.colors['TextPlaceholder']}
-              scrollEnabled={true}
-              spellcheck={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input 3'],
-                  { borderRadius: 12, padding: 15 }
+                  GlobalStyles.TextInputStyles(theme)['Text Area'],
+                  {
+                    borderColor: theme.colors['Light'],
+                    height: 68,
+                    paddingLeft: 12,
+                  }
                 ),
                 dimensions.width
               )}
-              value={textInputValue}
+              textAlignVertical={'top'}
+              value={textAreaValue3}
             />
           </View>
         </View>
         <Button
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+              borderRadius: 12,
+              height: 48,
               margin: 20,
+              marginLeft: 30,
+              marginRight: 30,
             }),
             dimensions.width
           )}
-          title={'CONFIRM PAYMENT'}
+          title={'Request'}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </ScreenContainer>
   );
 };

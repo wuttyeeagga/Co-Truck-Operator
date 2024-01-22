@@ -91,25 +91,29 @@ const BookingDetailsOnGoingScreen = props => {
           const fetchData = data?.json;
           if (loading) {
             return (
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
-                  dimensions.width
-                )}
-              >
-                <ActivityIndicator
-                  animating={true}
-                  color={theme.colors['Primary']}
-                  hidesWhenStopped={true}
-                  size={'large'}
+              <>
+                {/* loading View */}
+                <View
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.ActivityIndicatorStyles(theme)[
-                      'Activity Indicator'
-                    ],
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
                     dimensions.width
                   )}
-                />
-              </View>
+                >
+                  {/* loading */}
+                  <ActivityIndicator
+                    animating={true}
+                    color={theme.colors['Primary']}
+                    hidesWhenStopped={true}
+                    size={'large'}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.ActivityIndicatorStyles(theme)[
+                        'Activity Indicator'
+                      ],
+                      dimensions.width
+                    )}
+                  />
+                </View>
+              </>
             );
           }
 

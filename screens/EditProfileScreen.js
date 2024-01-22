@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -24,6 +25,8 @@ import { Fetch } from 'react-request';
 const EditProfileScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [agentLicense, setAgentLicense] = React.useState('wee112');
   const [certificateImage, setCertificateImage] = React.useState({});
   const [companyName, setCompanyName] = React.useState('BAN NA BAN WA');
@@ -124,7 +127,7 @@ const EditProfileScreen = props => {
                 }
               },
             }}
-            user_id={120}
+            user_id={Constants['AUTH_OWNER_ID']}
           >
             {({ loading, error, data, refetchEditProfile }) => {
               const fetchData = data?.json;

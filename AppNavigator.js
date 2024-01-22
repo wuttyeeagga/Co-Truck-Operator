@@ -230,6 +230,27 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="PaymentScreen"
+          component={PaymentScreen}
+          options={({ navigation }) => ({
+            title: 'Payment',
+          })}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnPendingScreen"
+          component={BookingDetailsOnPendingScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Details on Pending',
+          })}
+        />
+        <Stack.Screen
+          name="BookingDetailsOnGoingScreen"
+          component={BookingDetailsOnGoingScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Details on Going',
+          })}
+        />
+        <Stack.Screen
           name="CompanyInformationScreen"
           component={CompanyInformationScreen}
           options={({ navigation }) => ({
@@ -248,20 +269,6 @@ export default function RootAppNavigator() {
           component={BookingSummaryScreen}
           options={({ navigation }) => ({
             title: 'Booking Summary',
-          })}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnPendingScreen"
-          component={BookingDetailsOnPendingScreen}
-          options={({ navigation }) => ({
-            title: 'Booking Details on Pending',
-          })}
-        />
-        <Stack.Screen
-          name="BookingDetailsOnGoingScreen"
-          component={BookingDetailsOnGoingScreen}
-          options={({ navigation }) => ({
-            title: 'Booking Details on Going',
           })}
         />
         <Stack.Screen
@@ -325,13 +332,6 @@ export default function RootAppNavigator() {
           component={PickUpDropDetailsScreen}
           options={({ navigation }) => ({
             title: 'PickUpDropDetails',
-          })}
-        />
-        <Stack.Screen
-          name="PaymentScreen"
-          component={PaymentScreen}
-          options={({ navigation }) => ({
-            title: 'Payment',
           })}
         />
         <Stack.Screen

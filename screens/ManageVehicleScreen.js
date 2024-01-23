@@ -174,6 +174,7 @@ const ManageVehicleScreen = props => {
                     onPress={() => {
                       try {
                         navigation.navigate('VehicleDetailsScreen', {
+                          vehicle_status: listData?.status_of_vechile,
                           id: listData?.id,
                         });
                       } catch (err) {

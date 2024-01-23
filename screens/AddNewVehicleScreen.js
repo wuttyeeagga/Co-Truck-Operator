@@ -11,7 +11,6 @@ import {
   Button,
   Icon,
   Picker,
-  PickerItem,
   ScreenContainer,
   TextInput,
   Touchable,
@@ -25,16 +24,17 @@ const AddNewVehicleScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const [RCPhoto, setRCPhoto] = React.useState({});
-  const [VehicleInsurancePhoto, setVehicleInsurancePhoto] = React.useState({});
-  const [VehiclePhoto, setVehiclePhoto] = React.useState({});
+  const [InsuranceImage, setInsuranceImage] = React.useState({});
+  const [RCImage, setRCImage] = React.useState({});
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [isRCUpload, setIsRCUpload] = React.useState(false);
   const [isVehicleInsurance, setIsVehicleInsurance] = React.useState(false);
-  const [pickerValue, setPickerValue] = React.useState('');
+  const [noOfReg, setNoOfReg] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
+  const [vehicleImage, setVehicleImage] = React.useState({});
+  const [vehicleType, setVehicleType] = React.useState('');
   const [vehicleTypeList, setVehicleTypeList] = React.useState('');
   const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
   const cotruckAddNewVehiclePOST = CotruckApi.useAddNewVehiclePOST();
@@ -113,6 +113,7 @@ const AddNewVehicleScreen = props => {
       </View>
       {/* Main View */}
       <View style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}>
+        {/* Choose Vehicle Type */}
         <Picker
           autoDismissKeyboard={true}
           dropDownBackgroundColor={theme.colors.background}
@@ -123,10 +124,9 @@ const AddNewVehicleScreen = props => {
           iconSize={24}
           leftIconMode={'inset'}
           mode={'dropdown'}
-          onValueChange={newPickerValue => {
-            const pickerValue = newPickerValue;
+          onValueChange={newChooseVehicleTypeValue => {
             try {
-              setPickerValue(newPickerValue);
+              setVehicleType(newChooseVehicleTypeValue);
             } catch (err) {
               console.error(err);
             }
@@ -141,20 +141,18 @@ const AddNewVehicleScreen = props => {
             dimensions.width
           )}
           type={'solid'}
-          value={pickerValue}
-        >
-          <PickerItem />
-        </Picker>
-        {/* TextInput View */}
+          value={vehicleType}
+        />
+        {/* Registration View */}
         <View>
+          {/* No of Reg */}
           <TextInput
             allowFontScaling={true}
             autoCapitalize={'none'}
             changeTextDelay={500}
-            onChangeText={newTextInputValue => {
-              const textInputValue = newTextInputValue;
+            onChangeText={newNoOfRegValue => {
               try {
-                setTextInputValue(newTextInputValue);
+                setNoOfReg(newNoOfRegValue);
               } catch (err) {
                 console.error(err);
               }
@@ -174,7 +172,7 @@ const AddNewVehicleScreen = props => {
               ),
               dimensions.width
             )}
-            value={textInputValue}
+            value={noOfReg}
           />
         </View>
         {/* RC Container */}
@@ -207,7 +205,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${RCPhoto}` }}
+                  source={{ uri: `${RCImage}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -230,7 +228,7 @@ const AddNewVehicleScreen = props => {
                     quality: 0.2,
                   });
 
-                  setRCPhoto(results);
+                  setRCImage(results);
                   setIsRCUpload(true);
                 } catch (err) {
                   console.error(err);
@@ -310,7 +308,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${VehicleInsurancePhoto}` }}
+                  source={{ uri: `${InsuranceImage}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -333,7 +331,7 @@ const AddNewVehicleScreen = props => {
                     quality: 0.2,
                   });
 
-                  setVehicleInsurancePhoto(results);
+                  setInsuranceImage(results);
                   setIsVehicleInsurance(true);
                 } catch (err) {
                   console.error(err);
@@ -413,7 +411,7 @@ const AddNewVehicleScreen = props => {
               >
                 <Image
                   resizeMode={'cover'}
-                  source={{ uri: `${VehiclePhoto}` }}
+                  source={{ uri: `${vehicleImage}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -431,12 +429,12 @@ const AddNewVehicleScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
+                    mediaTypes: 'Images',
                     allowsEditing: false,
                     quality: 0.2,
                   });
 
-                  setVehiclePhoto(results);
+                  setVehicleImage(results);
                   setUploadVehicleImage(true);
                 } catch (err) {
                   console.error(err);
@@ -494,14 +492,13 @@ const AddNewVehicleScreen = props => {
                 const Response = (
                   await cotruckAddNewVehiclePOST.mutateAsync({
                     operator_id: Constants['AUTH_OWNER_ID'],
-                    reg_certificate: RCPhoto,
-                    reg_no: textInputValue,
-                    vehicle_id: pickerValue,
-                    vehicle_image: VehiclePhoto,
-                    vehicle_insurance: VehicleInsurancePhoto,
+                    reg_certificate: RCImage,
+                    reg_no: noOfReg,
+                    vehicle_id: vehicleType,
+                    vehicle_image: vehicleImage,
+                    vehicle_insurance: InsuranceImage,
                   })
                 )?.json;
-                console.log(Response);
                 const message = Response?.message;
 
                 showAlertUtil({
@@ -513,6 +510,7 @@ const AddNewVehicleScreen = props => {
                 navigation.navigate('BottomTabNavigator', {
                   screen: 'SettingsScreen',
                 });
+                console.log(Response);
               } catch (err) {
                 console.error(err);
               }

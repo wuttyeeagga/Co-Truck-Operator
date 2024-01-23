@@ -192,7 +192,7 @@ const VehicleDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {null}
+                      {props.route?.params?.vehicle_status ?? ''}
                     </Text>
                   </View>
                   {/* Vehicle Type Row */}

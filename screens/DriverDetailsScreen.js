@@ -159,6 +159,13 @@ const DriverDetailsScreen = props => {
                       <View>
                         {/* Edit */}
                         <Button
+                          onPress={() => {
+                            try {
+                              navigation.navigate('EditDriverScreen');
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.ButtonStyles(theme)['Button'],

@@ -24,6 +24,7 @@ import ChooseLanguageScreen from './screens/ChooseLanguageScreen';
 import ChooseLocationZoneScreen from './screens/ChooseLocationZoneScreen';
 import CompanyInformationScreen from './screens/CompanyInformationScreen';
 import DriverDetailsScreen from './screens/DriverDetailsScreen';
+import EditDriverScreen from './screens/EditDriverScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import EditVehicleScreen from './screens/EditVehicleScreen';
 import ExportActivityScreen from './screens/ExportActivityScreen';
@@ -473,6 +474,13 @@ export default function RootAppNavigator() {
           component={EditVehicleScreen}
           options={({ navigation }) => ({
             title: 'Edit Vehicle',
+          })}
+        />
+        <Stack.Screen
+          name="EditDriverScreen"
+          component={EditDriverScreen}
+          options={({ navigation }) => ({
+            title: 'Edit Driver',
           })}
         />
         <Stack.Screen

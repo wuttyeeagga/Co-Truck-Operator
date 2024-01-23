@@ -95,11 +95,8 @@ const BookingDetailsOnPendingScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
-        <CotruckApi.FetchOperatorBookingDetailByIdPOST
-          booking_id={5}
-          user_id={120}
-        >
-          {({ loading, error, data, refetchOperatorBookingDetailById }) => {
+        <CotruckApi.FetchNewLeadsDetailsPOST>
+          {({ loading, error, data, refetchNewLeadsDetails }) => {
             const fetchData = data?.json;
             if (loading) {
               return (
@@ -934,7 +931,7 @@ const BookingDetailsOnPendingScreen = props => {
               />
             );
           }}
-        </CotruckApi.FetchOperatorBookingDetailByIdPOST>
+        </CotruckApi.FetchNewLeadsDetailsPOST>
       </ScrollView>
     </ScreenContainer>
   );

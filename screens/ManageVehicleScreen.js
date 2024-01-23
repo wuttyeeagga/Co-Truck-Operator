@@ -94,7 +94,7 @@ const ManageVehicleScreen = props => {
         />
       </View>
 
-      <CotruckApi.FetchOperatorVehicleListPOST ownerid={120}>
+      <CotruckApi.FetchOperatorVehicleListPOST operator_id={120}>
         {({ loading, error, data, refetchOperatorVehicleList }) => {
           const fetchData = data?.json;
           if (loading) {

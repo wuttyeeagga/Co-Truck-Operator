@@ -37,7 +37,7 @@ const DriverDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
-      if ((props.route?.params?.driver_status ?? '') === 'AVAILABLE') {
+      if ((props.route?.params?.driver_status ?? 'AVAILABLE') === 'AVAILABLE') {
         setIsShown(true);
       } else {
         setIsShown(false);
@@ -57,10 +57,10 @@ const DriverDetailsScreen = props => {
         dimensions.width
       )}
     >
-      <CotruckApi.FetchOperatorViewDriverPOST
+      <CotruckApi.FetchDriverDetailPOST
         driver_id={props.route?.params?.driver_id ?? ''}
       >
-        {({ loading, error, data, refetchOperatorViewDriver }) => {
+        {({ loading, error, data, refetchDriverDetail }) => {
           const fetchData = data?.json;
           if (loading) {
             return (
@@ -230,7 +230,8 @@ const DriverDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {props.route?.params?.driver_status ?? ''}
+                              {props.route?.params?.driver_status ??
+                                'AVAILABLE'}
                             </Text>
                             {/* Delete */}
                             <>
@@ -660,7 +661,7 @@ const DriverDetailsScreen = props => {
             </>
           );
         }}
-      </CotruckApi.FetchOperatorViewDriverPOST>
+      </CotruckApi.FetchDriverDetailPOST>
     </ScreenContainer>
   );
 };

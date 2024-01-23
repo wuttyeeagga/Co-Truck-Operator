@@ -94,8 +94,8 @@ const ManageDriverScreen = props => {
         />
       </View>
 
-      <CotruckApi.FetchOperatorDriverListPOST operator_id={120}>
-        {({ loading, error, data, refetchOperatorDriverList }) => {
+      <CotruckApi.FetchDriverList$Pending$POST operator_id={120}>
+        {({ loading, error, data, refetchDriverList$Pending$ }) => {
           const fetchData = data?.json;
           if (loading) {
             return (
@@ -167,8 +167,8 @@ const ManageDriverScreen = props => {
                       onPress={() => {
                         try {
                           navigation.navigate('DriverDetailsScreen', {
-                            driver_id: listData?.driver_id,
                             driver_status: listData?.status_of_driver,
+                            driver_id: listData?.driver_id,
                           });
                         } catch (err) {
                           console.error(err);
@@ -262,7 +262,7 @@ const ManageDriverScreen = props => {
             />
           );
         }}
-      </CotruckApi.FetchOperatorDriverListPOST>
+      </CotruckApi.FetchDriverList$Pending$POST>
     </ScreenContainer>
   );
 };

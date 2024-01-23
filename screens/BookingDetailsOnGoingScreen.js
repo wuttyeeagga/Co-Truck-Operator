@@ -83,11 +83,8 @@ const BookingDetailsOnGoingScreen = props => {
         </Text>
       </View>
 
-      <CotruckApi.FetchOperatorBookingDetailByIdPOST
-        booking_id={5}
-        user_id={120}
-      >
-        {({ loading, error, data, refetchOperatorBookingDetailById }) => {
+      <CotruckApi.FetchNewLeadsDetailsPOST book_truck_id={120}>
+        {({ loading, error, data, refetchNewLeadsDetails }) => {
           const fetchData = data?.json;
           if (loading) {
             return (
@@ -1182,7 +1179,7 @@ const BookingDetailsOnGoingScreen = props => {
             />
           );
         }}
-      </CotruckApi.FetchOperatorBookingDetailByIdPOST>
+      </CotruckApi.FetchNewLeadsDetailsPOST>
     </ScreenContainer>
   );
 };

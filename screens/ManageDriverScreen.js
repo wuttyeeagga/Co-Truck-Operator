@@ -24,7 +24,7 @@ const ManageDriverScreen = props => {
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      scrollable={true}
+      scrollable={false}
     >
       {/* Header */}
       <View
@@ -94,8 +94,8 @@ const ManageDriverScreen = props => {
         />
       </View>
 
-      <CotruckApi.FetchDriverList$Pending$POST operator_id={120}>
-        {({ loading, error, data, refetchDriverList$Pending$ }) => {
+      <CotruckApi.FetchDriverList$ALL$POST operator_id={120}>
+        {({ loading, error, data, refetchDriverList$ALL$ }) => {
           const fetchData = data?.json;
           if (loading) {
             return (
@@ -105,6 +105,7 @@ const ManageDriverScreen = props => {
                   dimensions.width
                 )}
               >
+                {/* loading */}
                 <ActivityIndicator
                   animating={true}
                   color={theme.colors['Primary']}
@@ -124,13 +125,14 @@ const ManageDriverScreen = props => {
           if (error || data?.status < 200 || data?.status >= 300) {
             return (
               <>
-                {/* View 2 */}
+                {/* Error View */}
                 <View
                   style={StyleSheet.applyWidth(
                     { alignItems: 'center', flex: 1, justifyContent: 'center' },
                     dimensions.width
                   )}
                 >
+                  {/* error */}
                   <Text
                     accessible={true}
                     allowFontScaling={true}
@@ -167,8 +169,8 @@ const ManageDriverScreen = props => {
                       onPress={() => {
                         try {
                           navigation.navigate('DriverDetailsScreen', {
-                            driver_status: listData?.status_of_driver,
                             driver_id: listData?.driver_id,
+                            driver_status: listData?.status_of_driver,
                           });
                         } catch (err) {
                           console.error(err);
@@ -262,7 +264,7 @@ const ManageDriverScreen = props => {
             />
           );
         }}
-      </CotruckApi.FetchDriverList$Pending$POST>
+      </CotruckApi.FetchDriverList$ALL$POST>
     </ScreenContainer>
   );
 };

@@ -25,6 +25,7 @@ import ChooseLocationZoneScreen from './screens/ChooseLocationZoneScreen';
 import CompanyInformationScreen from './screens/CompanyInformationScreen';
 import DriverDetailsScreen from './screens/DriverDetailsScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
+import EditVehicleScreen from './screens/EditVehicleScreen';
 import ExportActivityScreen from './screens/ExportActivityScreen';
 import FAQsScreen from './screens/FAQsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
@@ -465,6 +466,13 @@ export default function RootAppNavigator() {
           component={NewTripPendingScreen}
           options={({ navigation }) => ({
             title: 'New Trip Pending',
+          })}
+        />
+        <Stack.Screen
+          name="EditVehicleScreen"
+          component={EditVehicleScreen}
+          options={({ navigation }) => ({
+            title: 'Edit Vehicle',
           })}
         />
         <Stack.Screen

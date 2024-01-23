@@ -5,6 +5,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -37,11 +38,12 @@ const AddNewDriverScreen = props => {
   const [nrcBack, setNrcBack] = React.useState({});
   const [nrcFront, setNrcFront] = React.useState({});
   const [numberInputValue, setNumberInputValue] = React.useState('');
-  const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const [textInputValue2, setTextInputValue2] = React.useState('');
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
   const [vehicleTypeList, setVehicleTypeList] = React.useState('');
+  const [vehicleTypePicker, setVehicleTypePicker] = React.useState('');
+  const [pickerValue, setPickerValue] = React.useState(undefined);
   const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
   const cotruckAddNewDriverPOST = CotruckApi.useAddNewDriverPOST();
   const isFocused = useIsFocused();
@@ -157,6 +159,7 @@ const AddNewDriverScreen = props => {
           <NumberInput
             allowFontScaling={true}
             changeTextDelay={500}
+            maxLength={11}
             onChangeText={newMobileInputValue => {
               try {
                 setMobile(newMobileInputValue);
@@ -229,7 +232,7 @@ const AddNewDriverScreen = props => {
           onValueChange={newVehiclePickerValue => {
             const pickerValue = newVehiclePickerValue;
             try {
-              setPickerValue(newVehiclePickerValue);
+              setVehicleTypePicker(newVehiclePickerValue);
             } catch (err) {
               console.error(err);
             }
@@ -253,10 +256,8 @@ const AddNewDriverScreen = props => {
             dimensions.width
           )}
           type={'solid'}
-          value={pickerValue}
-        >
-          <PickerItem />
-        </Picker>
+          value={vehicleTypePicker}
+        ></Picker>
         {/* Front Driving License View */}
         <View>
           {/* Sub Title */}
@@ -688,9 +689,19 @@ const AddNewDriverScreen = props => {
                     nrc_front: nrcFront,
                     operator_id: Constants['AUTH_OWNER_ID'],
                     password: Password,
-                    vehicle_id: pickerValue,
+                    vehicle_id: vehicleTypePicker,
                   })
                 )?.json;
+
+                showAlertUtil({
+                  title: 'Message',
+                  message: results?.message,
+                  buttonText: undefined,
+                });
+
+                navigation.navigate('BottomTabNavigator', {
+                  screen: 'SettingsScreen',
+                });
                 console.log(results);
               } catch (err) {
                 console.error(err);

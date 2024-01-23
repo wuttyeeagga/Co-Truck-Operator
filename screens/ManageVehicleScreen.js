@@ -33,7 +33,7 @@ const ManageVehicleScreen = props => {
             alignItems: 'center',
             flexDirection: 'row',
             justifyContent: 'space-around',
-            marginTop: 10,
+            marginTop: 20,
           },
           dimensions.width
         )}
@@ -147,7 +147,7 @@ const ManageVehicleScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {'There is not found Vehicle'}
+                    {fetchData?.message}
                   </Text>
                 </View>
               </>

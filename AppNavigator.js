@@ -173,6 +173,7 @@ function BottomTabNavigator() {
 function StackNavigator() {
   return (
     <Stack.Navigator
+      initialRouteName="LoginScreen"
       presentation="transparentModal"
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
@@ -181,13 +182,6 @@ function StackNavigator() {
         component={LoginScreen}
         options={({ navigation }) => ({
           title: 'Login',
-        })}
-      />
-      <Stack.Screen
-        name="ForgotPasswordScreen"
-        component={ForgotPasswordScreen}
-        options={({ navigation }) => ({
-          title: 'Forgot Password',
         })}
       />
       <Stack.Screen
@@ -249,6 +243,13 @@ export default function RootAppNavigator() {
           component={PaymentScreen}
           options={({ navigation }) => ({
             title: 'Payment',
+          })}
+        />
+        <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
+          options={({ navigation }) => ({
+            title: 'Forgot Password',
           })}
         />
         <Stack.Screen

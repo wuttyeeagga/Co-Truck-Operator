@@ -946,7 +946,7 @@ const ImportActivityScreen = props => {
                                               dimensions.width
                                             )}
                                           >
-                                            {null}
+                                            {listData?.status}
                                           </Text>
                                         </View>
                                       </View>

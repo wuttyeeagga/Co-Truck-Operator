@@ -43,7 +43,7 @@ const EditDriverScreen = props => {
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
   const [vehicleTypeList, setVehicleTypeList] = React.useState('');
   const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
-  const cotruckAcceptNewTripPOST = CotruckApi.useAcceptNewTripPOST();
+  const cotruckUpdateDriverPOST = CotruckApi.useUpdateDriverPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     const handler = async () => {
@@ -679,17 +679,22 @@ const EditDriverScreen = props => {
             const handler = async () => {
               try {
                 const results = (
-                  await cotruckAcceptNewTripPOST.mutateAsync({
-                    booking_id: 123,
-                    charges: 2345,
-                    desc: [],
-                    driver_id: 23,
-                    final_total: 23458,
-                    qty: 234,
-                    sub_total: 23456,
-                    user_id: 12,
+                  await cotruckUpdateDriverPOST.mutateAsync({
+                    dl_back: dlBack,
+                    dl_front: dlFront,
+                    driver_id: props.route?.params?.driver_id ?? '',
+                    driver_name: Name,
+                    mobile: Mobile,
+                    nrc_back: nrcBack,
+                    nrc_front: nrcFront,
+                    operator_id: Constants['AUTH_OWNER_ID'],
+                    password: Password,
+                    vehicle_id: pickerValue,
                   })
                 )?.json;
+                navigation.navigate('BottomTabNavigator', {
+                  screen: 'SettingsScreen',
+                });
                 console.log(results);
               } catch (err) {
                 console.error(err);

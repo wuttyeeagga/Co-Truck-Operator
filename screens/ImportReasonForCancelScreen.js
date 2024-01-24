@@ -18,7 +18,7 @@ import {
 } from '@draftbit/ui';
 import { Text, View } from 'react-native';
 
-const ReasonForCancelScreen = props => {
+const ImportReasonForCancelScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -330,4 +330,4 @@ const ReasonForCancelScreen = props => {
   );
 };
 
-export default withTheme(ReasonForCancelScreen);
+export default withTheme(ImportReasonForCancelScreen);

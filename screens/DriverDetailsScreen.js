@@ -21,6 +21,7 @@ const DriverDetailsScreen = props => {
   const dimensions = useWindowDimensions();
   const [dlBack, setDlBack] = React.useState({});
   const [dlFront, setDlFront] = React.useState({});
+  const [driverID, setDriverID] = React.useState(0);
   const [driverStatus, setDriverStatus] = React.useState('');
   const [isShown, setIsShown] = React.useState(false);
   const [mobile, setMobile] = React.useState('');
@@ -114,7 +115,9 @@ const DriverDetailsScreen = props => {
               <Button
                 onPress={() => {
                   try {
-                    navigation.navigate('EditDriverScreen');
+                    navigation.navigate('EditDriverScreen', {
+                      driver_id: props.route?.params?.driver_id ?? '',
+                    });
                   } catch (err) {
                     console.error(err);
                   }

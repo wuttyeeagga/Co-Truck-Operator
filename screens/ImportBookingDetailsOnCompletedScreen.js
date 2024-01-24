@@ -82,7 +82,9 @@ const ImportBookingDetailsOnCompletedScreen = props => {
         </Text>
       </View>
 
-      <CotruckApi.FetchNewLeadsDetailsPOST book_truck_id={120}>
+      <CotruckApi.FetchNewLeadsDetailsPOST
+        book_truck_id={props.route?.params?.book_truck_id ?? ''}
+      >
         {({ loading, error, data, refetchNewLeadsDetails }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -192,13 +194,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
               {/* Booking Info Row */}
               <View
                 style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginLeft: 20,
-                    marginRight: 20,
-                  },
+                  { marginLeft: 20, marginRight: 20 },
                   dimensions.width
                 )}
               >
@@ -432,7 +428,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {null}
+                    {fetchData?.data?.pickup_location}
                   </Text>
                 </View>
                 {/* Icon View */}
@@ -473,7 +469,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {null}
+                    {fetchData?.data?.drop_location}
                   </Text>
                 </View>
                 {/* Icon View 2 */}
@@ -514,7 +510,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {null}
+                    {fetchData?.data?.depot_location}
                   </Text>
                 </View>
               </View>
@@ -599,7 +595,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.vehicle_type}
                       </Text>
                     </View>
                   </View>
@@ -683,7 +679,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.material_type}
                       </Text>
                     </View>
                   </View>
@@ -851,7 +847,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.no_of_truck}
                       </Text>
                     </View>
                   </View>
@@ -1019,7 +1015,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.pickup_date?.split(' ')[0]}
                       </Text>
                     </View>
                   </View>

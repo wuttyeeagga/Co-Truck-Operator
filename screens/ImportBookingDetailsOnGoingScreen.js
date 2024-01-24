@@ -15,7 +15,6 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { FlashList } from '@shopify/flash-list';
 import * as Linking from 'expo-linking';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
@@ -184,96 +183,88 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     dimensions.width
                   )}
                 >
-                  {/* View 3 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      },
+                      { alignItems: 'center', flexDirection: 'row' },
                       dimensions.width
                     )}
                   >
                     <View
                       style={StyleSheet.applyWidth(
-                        { alignItems: 'center', flexDirection: 'row' },
+                        { marginLeft: 5, marginRight: 5 },
                         dimensions.width
                       )}
                     >
-                      <View
+                      <Image
+                        resizeMode={'cover'}
+                        source={Images.Icon}
                         style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
-                          dimensions.width
-                        )}
-                      >
-                        <Image
-                          resizeMode={'cover'}
-                          source={Images.Icon}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.ImageStyles(theme)['Image 3'],
-                              { height: 60, width: 60 }
-                            ),
-                            dimensions.width
-                          )}
-                        />
-                      </View>
-                      {/* View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Shipper Name */}
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['Text 3'],
-                            dimensions.width
-                          )}
-                        >
-                          {null}
-                        </Text>
-                        {/* Shipper Comp Name */}
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['Text 3'],
-                            dimensions.width
-                          )}
-                        >
-                          {null}
-                        </Text>
-                      </View>
-                    </View>
-                    {/* View 2 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { alignItems: 'center', flexDirection: 'row' },
-                        dimensions.width
-                      )}
-                    >
-                      {/* Call */}
-                      <IconButton
-                        icon={'Feather/phone'}
-                        onPress={() => {
-                          try {
-                            Linking.openURL('tel:');
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        size={32}
-                        style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
+                          StyleSheet.compose(
+                            GlobalStyles.ImageStyles(theme)['Image 3'],
+                            { height: 60, width: 60 }
+                          ),
                           dimensions.width
                         )}
                       />
                     </View>
+                    {/* View 2 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { marginLeft: 5, marginRight: 5 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Shipper Name */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 3'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Shipper name'}
+                      </Text>
+                      {/* Shipper Comp Name */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 3'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Shipper mobile'}
+                      </Text>
+                    </View>
+                  </View>
+                  {/* View 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Call */}
+                    <IconButton
+                      icon={'Feather/phone'}
+                      onPress={() => {
+                        try {
+                          Linking.openURL('tel:');
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      size={32}
+                      style={StyleSheet.applyWidth(
+                        { marginLeft: 5, marginRight: 5 },
+                        dimensions.width
+                      )}
+                    />
                   </View>
                 </View>
                 {/* Operator Info Row 2 */}
@@ -994,7 +985,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.pickup_date?.split(' ')[0]}
                       </Text>
                     </View>
                   </View>

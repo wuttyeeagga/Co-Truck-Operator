@@ -177,6 +177,13 @@ function StackNavigator() {
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
+        name="ForgotPasswordScreen"
+        component={ForgotPasswordScreen}
+        options={({ navigation }) => ({
+          title: 'Forgot Password',
+        })}
+      />
+      <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
         options={({ navigation }) => ({
@@ -202,13 +209,6 @@ function StackNavigator() {
         component={ChooseLanguageScreen}
         options={({ navigation }) => ({
           title: 'Choose Language',
-        })}
-      />
-      <Stack.Screen
-        name="ForgotPasswordScreen"
-        component={ForgotPasswordScreen}
-        options={({ navigation }) => ({
-          title: 'Forgot Password',
         })}
       />
     </Stack.Navigator>
@@ -238,17 +238,17 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="ImportBookingDetailsOnGoingScreen"
-          component={ImportBookingDetailsOnGoingScreen}
+          name="ImportBookingDetailsOnCompletedScreen"
+          component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
-            title: 'Import Booking Details on Going',
+            title: 'Import Booking Details on Completed',
           })}
         />
         <Stack.Screen
-          name="ImportBookingDetailsOnPendingScreen"
-          component={ImportBookingDetailsOnPendingScreen}
+          name="PaymentScreen"
+          component={PaymentScreen}
           options={({ navigation }) => ({
-            title: 'Import Booking Details on Pending',
+            title: 'Payment',
           })}
         />
         <Stack.Screen
@@ -256,20 +256,6 @@ export default function RootAppNavigator() {
           component={ImportBookingDetailsOnConfirmedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on  Confirmed',
-          })}
-        />
-        <Stack.Screen
-          name="ImportReasonForCancelScreen"
-          component={ImportReasonForCancelScreen}
-          options={({ navigation }) => ({
-            title: 'Import Reason for cancel',
-          })}
-        />
-        <Stack.Screen
-          name="ImportBookingDetailsOnCompletedScreen"
-          component={ImportBookingDetailsOnCompletedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Completed',
           })}
         />
         <Stack.Screen
@@ -301,6 +287,13 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="ImportReasonForCancelScreen"
+          component={ImportReasonForCancelScreen}
+          options={({ navigation }) => ({
+            title: 'Import Reason for cancel',
+          })}
+        />
+        <Stack.Screen
           name="PickUpDropDetailsScreen"
           component={PickUpDropDetailsScreen}
           options={({ navigation }) => ({
@@ -312,6 +305,20 @@ export default function RootAppNavigator() {
           component={CompanyInformationScreen}
           options={({ navigation }) => ({
             title: 'Company Information',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnGoingScreen"
+          component={ImportBookingDetailsOnGoingScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Going',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnPendingScreen"
+          component={ImportBookingDetailsOnPendingScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Pending',
           })}
         />
         <Stack.Screen
@@ -354,13 +361,6 @@ export default function RootAppNavigator() {
           component={SignUpIdentityProofScreen}
           options={({ navigation }) => ({
             title: 'Sign Up Identity Proof',
-          })}
-        />
-        <Stack.Screen
-          name="PaymentScreen"
-          component={PaymentScreen}
-          options={({ navigation }) => ({
-            title: 'Payment',
           })}
         />
         <Stack.Screen

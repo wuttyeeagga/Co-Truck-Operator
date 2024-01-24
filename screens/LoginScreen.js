@@ -38,7 +38,7 @@ const LoginScreen = props => {
       hasBottomSafeArea={true}
       hasSafeArea={true}
       hasTopSafeArea={false}
-      scrollable={false}
+      scrollable={true}
       style={StyleSheet.applyWidth(
         { backgroundColor: theme.colors['Surface'], flex: 1 },
         dimensions.width

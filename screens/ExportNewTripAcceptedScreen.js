@@ -16,7 +16,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
-const NewTripCancelledScreen = props => {
+const ExportNewTripAcceptedScreen = props => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
   const [availabilityTruck, setAvailabilityTruck] = React.useState(1);
@@ -33,7 +33,7 @@ const NewTripCancelledScreen = props => {
       )}
     >
       {/* Header */}
-      <Header2Block title={'New Trip Cancelled'} />
+      <Header2Block title={'New Trip Accepted'} />
       <ScrollView
         bounces={true}
         showsHorizontalScrollIndicator={true}
@@ -47,7 +47,7 @@ const NewTripCancelledScreen = props => {
             if (loading) {
               return (
                 <>
-                  {/* loading */}
+                  {/* Loading View */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -58,9 +58,10 @@ const NewTripCancelledScreen = props => {
                       dimensions.width
                     )}
                   >
+                    {/* loading */}
                     <ActivityIndicator
                       animating={true}
-                      color={theme.colors['Primary']}
+                      color={'rgba(0, 0, 0, 0)'}
                       hidesWhenStopped={true}
                       size={'large'}
                       style={StyleSheet.applyWidth(
@@ -78,8 +79,17 @@ const NewTripCancelledScreen = props => {
             if (error || data?.status < 200 || data?.status >= 300) {
               return (
                 <>
-                  {/* error */}
-                  <View>
+                  {/* Error */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flex: 1,
+                        justifyContent: 'center',
+                      },
+                      dimensions.width
+                    )}
+                  >
                     {/* error */}
                     <Text
                       accessible={true}
@@ -100,13 +110,7 @@ const NewTripCancelledScreen = props => {
               <>
                 {/* Main View */}
                 <View>
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { margin: 10 },
-                      dimensions.width
-                    )}
-                  >
-                    {/* Ride Zone */}
+                  <View>
                     <Text
                       accessible={true}
                       allowFontScaling={true}
@@ -116,8 +120,8 @@ const NewTripCancelledScreen = props => {
                           {
                             color: theme.colors['CoTruckBlack'],
                             fontSize: 20,
-                            margin: 5,
-                            marginLeft: 20,
+                            margin: 10,
+                            marginLeft: 30,
                           }
                         ),
                         dimensions.width
@@ -125,7 +129,7 @@ const NewTripCancelledScreen = props => {
                     >
                       {'Ride Zone'}
                     </Text>
-                    {/* Row */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -140,6 +144,49 @@ const NewTripCancelledScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Depot View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '30%',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Depot */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 2'],
+                              { fontSize: 12, margin: 3 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.data?.depot_location}
+                        </Text>
+                      </View>
+                      {/* Icon View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '5%',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['CoTruckBlack']}
+                          name={'AntDesign/swap'}
+                          size={20}
+                        />
+                      </View>
                       {/* Pickup View */}
                       <View
                         style={StyleSheet.applyWidth(
@@ -158,7 +205,7 @@ const NewTripCancelledScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 2'],
-                              { fontSize: 12, margin: 5 }
+                              { fontSize: 12, margin: 3 }
                             ),
                             dimensions.width
                           )}
@@ -169,7 +216,11 @@ const NewTripCancelledScreen = props => {
                       {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { alignItems: 'center', justifyContent: 'center' },
+                          {
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '5%',
+                          },
                           dimensions.width
                         )}
                       >
@@ -197,7 +248,7 @@ const NewTripCancelledScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 2'],
-                              { fontSize: 12, margin: 5 }
+                              { fontSize: 12, margin: 3 }
                             ),
                             dimensions.width
                           )}
@@ -205,48 +256,100 @@ const NewTripCancelledScreen = props => {
                           {fetchData?.data?.drop_location}
                         </Text>
                       </View>
-                      {/* Icon View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { alignItems: 'center', justifyContent: 'center' },
-                          dimensions.width
-                        )}
-                      >
-                        <Icon
-                          color={theme.colors['CoTruckBlack']}
-                          name={'AntDesign/swap'}
-                          size={20}
-                        />
-                      </View>
-                      {/* Depot View */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: '30%',
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Depot */}
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 2'],
-                              { fontSize: 12, margin: 5 }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?.data?.depot_location}
-                        </Text>
-                      </View>
                     </View>
                   </View>
-                  {/* Divider 2 */}
+                  {/* Address View */}
+                  <View>
+                    {/* Pickup Address */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginBottom: 0, marginLeft: 20 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Pickup Address */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 10 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Pickup address'}
+                      </Text>
+                      {/* Pickup Address Value */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 10 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.pickup_address}
+                      </Text>
+                    </View>
+                    {/* Divider 4 */}
+                    <Divider
+                      color={theme.colors['Light']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          {
+                            marginBottom: 10,
+                            marginLeft: 20,
+                            marginRight: 20,
+                            marginTop: 10,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                    {/* Drop Address */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginLeft: 20, marginTop: 0 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Drop Address */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 10 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Pickup address'}
+                      </Text>
+                      {/* Drop Address Value */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 10 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.drop_address}
+                      </Text>
+                    </View>
+                  </View>
+                  {/* Divider 4 */}
                   <Divider
                     color={theme.colors['Light']}
                     style={StyleSheet.applyWidth(
@@ -270,6 +373,7 @@ const NewTripCancelledScreen = props => {
                       dimensions.width
                     )}
                   >
+                    {/* Date View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', width: '35%' },
@@ -305,14 +409,14 @@ const NewTripCancelledScreen = props => {
                         {fetchData?.data?.pickup_date?.split(' ')[0]}
                       </Text>
                     </View>
-                    {/* View 2 */}
+                    {/* Time View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', width: '35%' },
                         dimensions.width
                       )}
                     >
-                      {/* Material Type */}
+                      {/* Timeslot */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -324,9 +428,9 @@ const NewTripCancelledScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Product Type'}
+                        {'Material Type'}
                       </Text>
-                      {/* Material Type */}
+                      {/* Product Type */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -341,7 +445,7 @@ const NewTripCancelledScreen = props => {
                         {fetchData?.data?.material_type}
                       </Text>
                     </View>
-                    {/* View 3 */}
+                    {/* Price View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', width: '35%' },
@@ -378,18 +482,13 @@ const NewTripCancelledScreen = props => {
                       </Text>
                     </View>
                   </View>
-                  {/* Divider 3 */}
+                  {/* Divider 2 */}
                   <Divider
                     color={theme.colors['Light']}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.DividerStyles(theme)['Divider'],
-                        {
-                          marginBottom: 10,
-                          marginLeft: 20,
-                          marginRight: 20,
-                          marginTop: 10,
-                        }
+                        { marginLeft: 20, marginRight: 20, marginTop: 10 }
                       ),
                       dimensions.width
                     )}
@@ -421,7 +520,7 @@ const NewTripCancelledScreen = props => {
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['Text 2'],
-                            { color: theme.colors['CoTruckGrey'], margin: 5 }
+                            { margin: 5 }
                           ),
                           dimensions.width
                         )}
@@ -440,36 +539,114 @@ const NewTripCancelledScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {fetchData?.data?.vehicle_type}
+                        {fetchData?.data?.vehicle_type?.split(' ')[0]}
                       </Text>
                     </View>
-                    {/* Cancel Text View */}
+                    {/* No of Truck View */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { alignItems: 'center', width: '50%' },
+                        { alignItems: 'center', width: '35%' },
                         dimensions.width
                       )}
                     >
-                      {/* Cancel Text */}
+                      {/* No of truck */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['Text 2'],
-                            {
-                              color: theme.colors['CoTruckBlack'],
-                              fontSize: 16,
-                              margin: 5,
-                            }
+                            { margin: 5 }
                           ),
                           dimensions.width
                         )}
                       >
-                        {'Booked Cancelled by Shipper'}
+                        {'No of Truck'}
+                      </Text>
+                      {/* No of Truck */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 5 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.no_of_truck}
                       </Text>
                     </View>
+                    {/* Availability View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'center', width: '40%' },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text View */}
+                      <View>
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 2'],
+                              { margin: 5 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Availability'}
+                        </Text>
+                      </View>
+                      {/* Availability Input */}
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize={'none'}
+                        changeTextDelay={500}
+                        onChangeText={newAvailabilityInputValue => {
+                          try {
+                            setAvailabilityTruck(newAvailabilityInputValue);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        placeholder={'enter number'}
+                        placeholderTextColor={theme.colors['TextPlaceholder']}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                            {
+                              borderColor: theme.colors['Light'],
+                              margin: 10,
+                              paddingLeft: 20,
+                              width: '50%',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        value={availabilityTruck}
+                      />
+                    </View>
                   </View>
+                  {/* Divider 3 */}
+                  <Divider
+                    color={theme.colors['Light']}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.DividerStyles(theme)['Divider'],
+                        {
+                          marginBottom: 10,
+                          marginLeft: 20,
+                          marginRight: 20,
+                          marginTop: 10,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  />
                 </View>
               </>
             );
@@ -480,4 +657,4 @@ const NewTripCancelledScreen = props => {
   );
 };
 
-export default withTheme(NewTripCancelledScreen);
+export default withTheme(ExportNewTripAcceptedScreen);

@@ -43,7 +43,7 @@ const EditDriverScreen = props => {
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
   const [vehicleTypeList, setVehicleTypeList] = React.useState('');
   const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
-  const cotruckAddNewDriverPOST = CotruckApi.useAddNewDriverPOST();
+  const cotruckAcceptNewTripPOST = CotruckApi.useAcceptNewTripPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     const handler = async () => {
@@ -673,22 +673,21 @@ const EditDriverScreen = props => {
             </View>
           </Touchable>
         </View>
-        {/* Add Driver */}
+        {/* Update Driver */}
         <Button
           onPress={() => {
             const handler = async () => {
               try {
                 const results = (
-                  await cotruckAddNewDriverPOST.mutateAsync({
-                    driving_license_back: dlBack,
-                    driving_license_front: dlFront,
-                    mobile: Mobile,
-                    name: Name,
-                    nrc_back: nrcBack,
-                    nrc_front: nrcFront,
-                    operator_id: Constants['AUTH_OWNER_ID'],
-                    password: Password,
-                    vehicle_id: pickerValue,
+                  await cotruckAcceptNewTripPOST.mutateAsync({
+                    booking_id: 123,
+                    charges: 2345,
+                    desc: [],
+                    driver_id: 23,
+                    final_total: 23458,
+                    qty: 234,
+                    sub_total: 23456,
+                    user_id: 12,
                   })
                 )?.json;
                 console.log(results);
@@ -704,7 +703,7 @@ const EditDriverScreen = props => {
             }),
             dimensions.width
           )}
-          title={'Add Driver'}
+          title={'Update Driver'}
         />
       </View>
     </ScreenContainer>

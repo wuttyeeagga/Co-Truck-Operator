@@ -157,7 +157,6 @@ const HomeScreen = props => {
                 },
               }}
               id={120}
-              owner_status={'PENDING'}
             >
               {({ loading, error, data, refetchNewLeads }) => {
                 const fetchData = data?.json;
@@ -221,7 +220,7 @@ const HomeScreen = props => {
                 return (
                   <FlatList
                     contentContainerStyle={StyleSheet.applyWidth(
-                      { flexDirection: 'column' },
+                      { flexDirection: 'column-reverse' },
                       dimensions.width
                     )}
                     data={fetchData?.data}
@@ -236,19 +235,23 @@ const HomeScreen = props => {
                           <Touchable
                             onPress={() => {
                               try {
-                                console.log('pressed');
-                                if (
-                                  listData?.owner_book_status === 'ACCEPTED'
-                                ) {
-                                  navigation.navigate('NewTripAcceptedScreen');
+                                if (listData?.owner_status === 'ACCEPTED') {
+                                  navigation.navigate(
+                                    'ImportNewTripAcceptedScreen',
+                                    { book_truck_id: listData?.book_truck_id }
+                                  );
                                 }
-                                if (listData?.owner_book_status === 'PENDING') {
-                                  navigation.navigate('NewTripPendingScreen');
+                                if (listData?.owner_status === 'PENDING') {
+                                  navigation.navigate(
+                                    'ImportNewTripPendingScreen',
+                                    { booking_id: listData?.book_truck_id }
+                                  );
                                 }
-                                if (
-                                  listData?.owner_book_status === 'CANCELLED'
-                                ) {
-                                  navigation.navigate('NewTripCancelledScreen');
+                                if (listData?.owner_status === 'CANCELLED') {
+                                  navigation.navigate(
+                                    'NewTripCancelledScreen',
+                                    { book_truck_id: listData?.book_truck_id }
+                                  );
                                 }
                               } catch (err) {
                                 console.error(err);
@@ -549,7 +552,7 @@ const HomeScreen = props => {
                                   {/* Accepted */}
                                   <>
                                     {!(
-                                      listData?.owner_book_status === 'ACCEPTED'
+                                      listData?.owner_status === 'ACCEPTED'
                                     ) ? null : (
                                       <Text
                                         accessible={true}
@@ -564,33 +567,39 @@ const HomeScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {listData?.owner_book_status}
+                                        {listData?.owner_status}
                                       </Text>
                                     )}
                                   </>
                                   {/* Pending */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        {
-                                          color: theme.colors['CoTruckPending'],
-                                        }
-                                      ),
-                                      dimensions.width
+                                  <>
+                                    {!(
+                                      listData?.owner_status === 'PENDING'
+                                    ) ? null : (
+                                      <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'Text 2'
+                                            ],
+                                            {
+                                              color:
+                                                theme.colors['CoTruckPending'],
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {listData?.owner_status}
+                                      </Text>
                                     )}
-                                  >
-                                    {listData?.owner_status}
-                                  </Text>
+                                  </>
                                   {/* Cancelled */}
                                   <>
                                     {!(
-                                      listData?.owner_book_status ===
-                                      'CANCELLED'
+                                      listData?.owner_status === 'CANCELLED'
                                     ) ? null : (
                                       <Text
                                         accessible={true}
@@ -605,7 +614,7 @@ const HomeScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {listData?.owner_book_status}
+                                        {listData?.owner_status}
                                       </Text>
                                     )}
                                   </>
@@ -632,7 +641,6 @@ const HomeScreen = props => {
           )}
           title={'Export'}
         >
-          {/* Scroll View 2 */}
           <ScrollView
             bounces={true}
             contentContainerStyle={StyleSheet.applyWidth(
@@ -654,7 +662,6 @@ const HomeScreen = props => {
                 },
               }}
               id={120}
-              owner_status={'PENDING'}
             >
               {({ loading, error, data, refetchNewLeads }) => {
                 const fetchData = data?.json;
@@ -718,7 +725,7 @@ const HomeScreen = props => {
                 return (
                   <FlatList
                     contentContainerStyle={StyleSheet.applyWidth(
-                      { flexDirection: 'column' },
+                      { flexDirection: 'column-reverse' },
                       dimensions.width
                     )}
                     data={fetchData?.data}
@@ -733,19 +740,23 @@ const HomeScreen = props => {
                           <Touchable
                             onPress={() => {
                               try {
-                                console.log('pressed');
-                                if (
-                                  listData?.owner_book_status === 'ACCEPTED'
-                                ) {
-                                  navigation.navigate('NewTripAcceptedScreen');
+                                if (listData?.owner_status === 'ACCEPTED') {
+                                  navigation.navigate(
+                                    'ExportNewTripAcceptedScreen',
+                                    { book_truck_id: listData?.book_truck_id }
+                                  );
                                 }
-                                if (listData?.owner_book_status === 'PENDING') {
-                                  navigation.navigate('NewTripPendingScreen');
+                                if (listData?.owner_status === 'PENDING') {
+                                  navigation.navigate(
+                                    'ExportNewTripPendingScreen',
+                                    { booking_id: listData?.book_truck_id }
+                                  );
                                 }
-                                if (
-                                  listData?.owner_book_status === 'CANCELLED'
-                                ) {
-                                  navigation.navigate('NewTripCancelledScreen');
+                                if (listData?.owner_status === 'CANCELLED') {
+                                  navigation.navigate(
+                                    'NewTripCancelledScreen',
+                                    { book_truck_id: listData?.book_truck_id }
+                                  );
                                 }
                               } catch (err) {
                                 console.error(err);
@@ -775,7 +786,7 @@ const HomeScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {/* Pick Up View */}
+                                {/* Depot View */}
                                 <View
                                   style={StyleSheet.applyWidth(
                                     {
@@ -786,7 +797,47 @@ const HomeScreen = props => {
                                     dimensions.width
                                   )}
                                 >
-                                  {/* Pick Up */}
+                                  {/* Depot */}
+                                  <Text
+                                    accessible={true}
+                                    allowFontScaling={true}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'Text 2'
+                                        ],
+                                        {
+                                          alignSelf: 'center',
+                                          fontSize: 12,
+                                          margin: 5,
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.depot_location}
+                                  </Text>
+                                </View>
+                                {/* Icon View */}
+                                <View>
+                                  <Icon
+                                    color={theme.colors['CoTruckGrey']}
+                                    name={'AntDesign/swap'}
+                                    size={20}
+                                  />
+                                </View>
+                                {/* Pickup View */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      width: '30%',
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  {/* Pickup */}
                                   <Text
                                     accessible={true}
                                     allowFontScaling={true}
@@ -845,46 +896,6 @@ const HomeScreen = props => {
                                     )}
                                   >
                                     {listData?.drop_location}
-                                  </Text>
-                                </View>
-                                {/* Icon View */}
-                                <View>
-                                  <Icon
-                                    color={theme.colors['CoTruckGrey']}
-                                    name={'AntDesign/swap'}
-                                    size={20}
-                                  />
-                                </View>
-                                {/* Depot View */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '30%',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* Depot */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        {
-                                          alignSelf: 'center',
-                                          fontSize: 12,
-                                          margin: 5,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.depot_location}
                                   </Text>
                                 </View>
                               </View>
@@ -1046,7 +1057,7 @@ const HomeScreen = props => {
                                   {/* Accepted */}
                                   <>
                                     {!(
-                                      listData?.owner_book_status === 'ACCEPTED'
+                                      listData?.owner_status === 'ACCEPTED'
                                     ) ? null : (
                                       <Text
                                         accessible={true}
@@ -1061,33 +1072,39 @@ const HomeScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {listData?.owner_book_status}
+                                        {listData?.owner_status}
                                       </Text>
                                     )}
                                   </>
                                   {/* Pending */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        {
-                                          color: theme.colors['CoTruckPending'],
-                                        }
-                                      ),
-                                      dimensions.width
+                                  <>
+                                    {!(
+                                      listData?.owner_status === 'PENDING'
+                                    ) ? null : (
+                                      <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'Text 2'
+                                            ],
+                                            {
+                                              color:
+                                                theme.colors['CoTruckPending'],
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {listData?.owner_status}
+                                      </Text>
                                     )}
-                                  >
-                                    {listData?.owner_status}
-                                  </Text>
+                                  </>
                                   {/* Cancelled */}
                                   <>
                                     {!(
-                                      listData?.owner_book_status ===
-                                      'CANCELLED'
+                                      listData?.owner_status === 'CANCELLED'
                                     ) ? null : (
                                       <Text
                                         accessible={true}
@@ -1102,7 +1119,7 @@ const HomeScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {listData?.owner_book_status}
+                                        {listData?.owner_status}
                                       </Text>
                                     )}
                                   </>

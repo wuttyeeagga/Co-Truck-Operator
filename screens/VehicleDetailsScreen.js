@@ -19,6 +19,22 @@ import { Fetch } from 'react-request';
 const VehicleDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const [isShow, setIsShow] = React.useState(false);
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      if ((props.route?.params?.vehicle_status ?? '') === 'AVAILABLE') {
+        setIsShow(true);
+      } else {
+        setIsShow(false);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -81,25 +97,32 @@ const VehicleDetailsScreen = props => {
           </Text>
         </View>
         {/* View 2 */}
-        <View
-          style={StyleSheet.applyWidth({ marginRight: 20 }, dimensions.width)}
-        >
-          {/* Edit */}
-          <Button
-            onPress={() => {
-              try {
-                navigation.navigate('EditVehicleScreen');
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.ButtonStyles(theme)['Button'],
-              dimensions.width
-            )}
-            title={'Edit'}
-          />
-        </View>
+        <>
+          {!isShow ? null : (
+            <View
+              style={StyleSheet.applyWidth(
+                { marginRight: 20 },
+                dimensions.width
+              )}
+            >
+              {/* Edit */}
+              <Button
+                onPress={() => {
+                  try {
+                    navigation.navigate('EditVehicleScreen');
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                style={StyleSheet.applyWidth(
+                  GlobalStyles.ButtonStyles(theme)['Button'],
+                  dimensions.width
+                )}
+                title={'Edit'}
+              />
+            </View>
+          )}
+        </>
       </View>
 
       <ScrollView

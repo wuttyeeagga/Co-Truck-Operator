@@ -484,7 +484,7 @@ const EditVehicleScreen = props => {
             </View>
           </Touchable>
         </View>
-        {/* Add Vehicle */}
+        {/* Update Vehicle */}
         <Button
           onPress={() => {
             const handler = async () => {
@@ -523,7 +523,7 @@ const EditVehicleScreen = props => {
             }),
             dimensions.width
           )}
-          title={'Add Vehicle'}
+          title={'Update Vehicle'}
         />
       </View>
     </ScreenContainer>

@@ -34,22 +34,6 @@ const NotificationsScreen = props => {
           dimensions.width
         )}
       >
-        {/* Icon Button */}
-        <View
-          style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
-        >
-          <Touchable
-            onPress={() => {
-              try {
-                navigation.goBack();
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-          >
-            <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
-          </Touchable>
-        </View>
         {/* Title View */}
         <View
           style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}

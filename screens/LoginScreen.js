@@ -454,7 +454,11 @@ const LoginScreen = props => {
               handler();
             }}
             style={StyleSheet.applyWidth(
-              GlobalStyles.ButtonStyles(theme)['Button'],
+              StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+                borderRadius: 12,
+                fontSize: 16,
+                height: 48,
+              }),
               dimensions.width
             )}
             title={'Log In'}

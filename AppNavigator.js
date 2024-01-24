@@ -177,6 +177,13 @@ function StackNavigator() {
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={({ navigation }) => ({
+          title: 'Login',
+        })}
+      />
+      <Stack.Screen
         name="ForgotPasswordScreen"
         component={ForgotPasswordScreen}
         options={({ navigation }) => ({
@@ -188,13 +195,6 @@ function StackNavigator() {
         component={RegisterScreen}
         options={({ navigation }) => ({
           title: 'Register',
-        })}
-      />
-      <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={({ navigation }) => ({
-          title: 'Login',
         })}
       />
       <Stack.Screen

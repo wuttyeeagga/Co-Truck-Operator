@@ -1,7 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -13,8 +12,6 @@ import { Fetch } from 'react-request';
 const NotificationsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
 
   return (
     <ScreenContainer
@@ -25,15 +22,26 @@ const NotificationsScreen = props => {
       {/* Header */}
       <View
         style={StyleSheet.applyWidth(
-          {
-            alignItems: 'center',
-            flexDirection: 'row',
-            marginLeft: 20,
-            marginTop: 20,
-          },
+          { alignItems: 'center', flexDirection: 'row', margin: 20 },
           dimensions.width
         )}
       >
+        {/* Icon Button */}
+        <View
+          style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
+        >
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.goBack();
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
+            <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
+          </Touchable>
+        </View>
         {/* Title View */}
         <View
           style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
@@ -56,7 +64,7 @@ const NotificationsScreen = props => {
         </View>
       </View>
 
-      <CotruckApi.FetchNotificationsPOST user_id={Constants['AUTH_OWNER_ID']}>
+      <CotruckApi.FetchNotificationsPOST user_id={120}>
         {({ loading, error, data, refetchNotifications }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -117,7 +125,12 @@ const NotificationsScreen = props => {
 
           return (
             <FlatList
+              contentContainerStyle={StyleSheet.applyWidth(
+                { flexDirection: 'column' },
+                dimensions.width
+              )}
               data={fetchData?.data}
+              inverted={true}
               keyExtractor={listData =>
                 listData?.id || listData?.uuid || JSON.stringify(listData)
               }
@@ -132,23 +145,30 @@ const NotificationsScreen = props => {
                     <View
                       style={StyleSheet.applyWidth(
                         {
-                          borderColor: theme.colors['Custom Color_6'],
+                          borderColor: theme.colors['Light'],
                           borderRadius: 12,
                           borderWidth: 1,
-                          margin: 10,
-                          marginBottom: 20,
-                          marginTop: 20,
-                          padding: 10,
+                          margin: 20,
                         },
                         dimensions.width
                       )}
                     >
-                      <View>
+                      {/* Message View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { marginLeft: 10 },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Message  */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['Text'],
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text'],
+                              { margin: 10 }
+                            ),
                             dimensions.width
                           )}
                         >
@@ -161,22 +181,24 @@ const NotificationsScreen = props => {
                           {
                             alignItems: 'flex-end',
                             justifyContent: 'flex-start',
+                            marginRight: 10,
                           },
                           dimensions.width
                         )}
                       >
+                        {/* Date */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text'],
-                              { color: theme.colors['Custom #5f5a53'] }
+                              { color: theme.colors['CoTruckGrey'], margin: 10 }
                             ),
                             dimensions.width
                           )}
                         >
-                          {listData?.created_at}
+                          {listData?.date}
                         </Text>
                       </View>
                     </View>

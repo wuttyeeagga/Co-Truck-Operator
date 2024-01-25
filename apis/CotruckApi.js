@@ -730,6 +730,88 @@ export const FetchBookingListPOST = ({
   return children({ loading, data, error, refetchBookingList: refetch });
 };
 
+export const bookingList$PAID$POST = (
+  Constants,
+  { booking_status, booking_type, operator, paid_status },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/booking-list`, {
+    body: JSON.stringify({
+      operator_id: operator,
+      booking_type: booking_type,
+      booking_status: booking_status,
+      paid_status: paid_status,
+    }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useBookingList$PAID$POST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      bookingList$PAID$POST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Activity', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Activity');
+        queryClient.invalidateQueries('Activities');
+      },
+    }
+  );
+};
+
+export const FetchBookingList$PAID$POST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  booking_status,
+  booking_type,
+  operator,
+  paid_status,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useBookingList$PAID$POST(
+    { booking_status, booking_type, operator, paid_status },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchBookingList$PAID$: refetch });
+};
+
 export const bookingSummaryAllPOST = (
   Constants,
   { id, user_id },
@@ -1250,6 +1332,75 @@ export const FetchCompanyInformationPOST = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchCompanyInformation: refetch });
+};
+
+export const deleteDriverPOST = (Constants, { driver_id }, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/delete-driver`, {
+    body: JSON.stringify({ driver_id: driver_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useDeleteDriverPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => deleteDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Driver', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Driver');
+        queryClient.invalidateQueries('Drivers');
+      },
+    }
+  );
+};
+
+export const FetchDeleteDriverPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  driver_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useDeleteDriverPOST(
+    { driver_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchDeleteDriver: refetch });
 };
 
 export const distanceCostPOST = (Constants, _args, handlers = {}) =>
@@ -3439,8 +3590,7 @@ export const notificationsPOST = (Constants, { user_id }, handlers = {}) =>
     body: JSON.stringify({ user_id: user_id }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImVlMzBiMzA1MTQzNTUzMDJlYTMyNmQ4MGYwZWJiNmNhOTQyZmRjNzYxZjRmMzMwM2Q2MWQ1OTQzMzU3ODZjMDcyMDNhODgzMTA2NjdhZTU5In0.eyJhdWQiOiIxIiwianRpIjoiZWUzMGIzMDUxNDM1NTMwMmVhMzI2ZDgwZjBlYmI2Y2E5NDJmZGM3NjFmNGYzMzAzZDYxZDU5NDMzNTc4NmMwNzIwM2E4ODMxMDY2N2FlNTkiLCJpYXQiOjE3MDU1NjE2NzEsIm5iZiI6MTcwNTU2MTY3MSwiZXhwIjoxNzM3MTg0MDcxLCJzdWIiOiIxMjAiLCJzY29wZXMiOltdfQ.ULVfxmHHvyBT6E3X0tzdGz5GOe5Q2xhySE1wKRW6vGG1xwgGqwWwdiuJCsaUXnGTvi5eA21dKdGjwMwXiEOBe1vcjsjGtJbrTtoND-mCgmoZ-FBOVEUZ_ETiADkLkIZ_vDXbDrG-lef6ihDWBgkmOGHEw0xQF2gdalEmONdY4FG-A-OM8xzEUJhxe1FbGFZizBN354FhlRGOsGfeQjIsG29hhbBRQjiAXzEbXXdX5EG-xTYWYvoOA9xyG0lUhC_x6pyR533QXdHrvdurCz6608jY5mgxBUfKG4sPfnpY7ttBvnfc8D_ZHrwnN0sYRRevQuIvBGC3ipDucemFahoPedZD-AkKUv9IFYTwIHRrwgAHubpgO5uk6XH5Oa9zNeZRi213zoHRe8G9ZZP0HAzusXMnc_UD3mbunmvVDtmtPjweF-_ixc8fYjTV9od_BZEEUbGdxE3z1G8Rc-72LhBnlXYtvk_U_-8bx4iRyAsc6h46TF2FkD5GWHm1CgB8fMgc_vE92J5Dsu4gcDUwUlsCDeM_3ITXxxOgpFN3DxVx0CAVKw1QUpiKnW3WcXoZOg5XazGjTYK-duUQUZtaQkdcHpBGAEh2M9cgur9tJCnrwCUR-myP7qegZq8xaMEP5rZ3CC4_LiomEOIkaViPqYoP17wIsCUGvz2K1FMazKMIS8M',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',

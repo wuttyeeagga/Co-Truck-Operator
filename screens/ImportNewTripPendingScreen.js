@@ -627,7 +627,7 @@ const ImportNewTripPendingScreen = props => {
                         console.error(err);
                       }
                     }}
-                    options={Constants['optionsList']}
+                    options={fetchData?.data?.drivers}
                     placeholder={'Choose Driver'}
                     placeholderTextColor={theme.colors['TextPlaceholder']}
                     rightIconName={'AntDesign/caretdown'}

@@ -1,8 +1,10 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -19,6 +21,8 @@ import { Fetch } from 'react-request';
 const DriverDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [dlBack, setDlBack] = React.useState({});
   const [dlFront, setDlFront] = React.useState({});
   const [driverID, setDriverID] = React.useState(0);
@@ -31,6 +35,7 @@ const DriverDetailsScreen = props => {
   const [regNo, setRegNo] = React.useState('');
   const [vehicleAssigned, setVehicleAssigned] = React.useState('');
   const [vehicleType, setVehicleType] = React.useState('');
+  const cotruckDeleteDriverPOST = CotruckApi.useDeleteDriverPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -154,8 +159,9 @@ const DriverDetailsScreen = props => {
                   {/* loading */}
                   <ActivityIndicator
                     animating={true}
+                    color={theme.colors['Primary']}
                     hidesWhenStopped={true}
-                    size={'small'}
+                    size={'large'}
                     style={StyleSheet.applyWidth(
                       GlobalStyles.ActivityIndicatorStyles(theme)[
                         'Activity Indicator'
@@ -240,6 +246,30 @@ const DriverDetailsScreen = props => {
                     <>
                       {!isShown ? null : (
                         <Button
+                          onPress={() => {
+                            const handler = async () => {
+                              try {
+                                const Response = (
+                                  await cotruckDeleteDriverPOST.mutateAsync({
+                                    driver_id:
+                                      props.route?.params?.driver_id ?? '',
+                                  })
+                                )?.json;
+                                const message = Response?.message;
+
+                                showAlertUtil({
+                                  title: 'Message',
+                                  message: message,
+                                  buttonText: undefined,
+                                });
+
+                                navigation.navigate('ManageDriverScreen');
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            };
+                            handler();
+                          }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.ButtonStyles(theme)['Button'],

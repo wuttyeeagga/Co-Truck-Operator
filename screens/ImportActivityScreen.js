@@ -1090,10 +1090,10 @@ const ImportActivityScreen = props => {
                                       navigation.navigate(
                                         'ImportBookingDetailsOnCompletedScreen',
                                         {
-                                          booking_status: listData?.status,
                                           booking_type: listData?.booking_type,
                                           book_truck_id:
                                             listData?.book_truck_id,
+                                          booking_status: listData?.status,
                                         }
                                       );
                                     } catch (err) {

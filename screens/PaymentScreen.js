@@ -94,7 +94,7 @@ const PaymentScreen = props => {
 
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps={'never'}
-        showsVerticalScrollIndicator={true}
+        showsVerticalScrollIndicator={false}
       >
         {/* Main View */}
         <View
@@ -326,11 +326,27 @@ const PaymentScreen = props => {
               maxStars={5}
               onPress={newStarRatingValue => {
                 const ratingValue = newStarRatingValue;
+                console.log('Star Rating ON_PRESS Start');
+                let error = null;
                 try {
-                  setStarRatingValue(newStarRatingValue);
+                  console.log('Start ON_PRESS:0 SET_VARIABLE');
+                  const valueDESkyt8R = newStarRatingValue;
+                  setStarRatingValue(valueDESkyt8R);
+                  const asdf = valueDESkyt8R;
+                  console.log('Complete ON_PRESS:0 SET_VARIABLE');
+                  console.log('Start ON_PRESS:1 STATE_FROM_ARG');
+                  console.log('Complete ON_PRESS:1 STATE_FROM_ARG');
+                  console.log('Start ON_PRESS:2 CONSOLE_LOG');
+                  console.log(asdf);
+                  console.log('Complete ON_PRESS:2 CONSOLE_LOG');
                 } catch (err) {
                   console.error(err);
+                  error = err.message ?? err;
                 }
+                console.log(
+                  'Star Rating ON_PRESS Complete',
+                  error ? { error } : 'no error'
+                );
               }}
               rating={starRatingValue}
               starSize={50}
@@ -346,9 +362,8 @@ const PaymentScreen = props => {
               multiline={true}
               numberOfLines={4}
               onChangeText={newTripExperienceValue => {
-                const textInputValue = newTripExperienceValue;
                 try {
-                  setTextAreaValue3(newTripExperienceValue);
+                  setTripExp(newTripExperienceValue);
                 } catch (err) {
                   console.error(err);
                 }
@@ -367,7 +382,7 @@ const PaymentScreen = props => {
                 dimensions.width
               )}
               textAlignVertical={'top'}
-              value={textAreaValue3}
+              value={tripExp}
             />
           </View>
         </View>

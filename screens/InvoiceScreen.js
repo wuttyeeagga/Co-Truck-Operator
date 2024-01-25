@@ -63,7 +63,7 @@ const InvoiceScreen = props => {
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-                color: theme.colors['Primary'],
+                color: theme.colors['CoTruckBlack'],
                 fontFamily: 'System',
                 fontSize: 20,
                 fontWeight: '400',

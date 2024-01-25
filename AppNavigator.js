@@ -52,6 +52,7 @@ import ManageVehicleScreen from './screens/ManageVehicleScreen';
 import NewTripCancelledScreen from './screens/NewTripCancelledScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import OTPVerificationScreen from './screens/OTPVerificationScreen';
+import PaidScreen from './screens/PaidScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PickUpDropDetailsScreen from './screens/PickUpDropDetailsScreen';
 import RecipientAddressScreen from './screens/RecipientAddressScreen';
@@ -178,17 +179,17 @@ function StackNavigator() {
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={({ navigation }) => ({
-          title: 'Login',
-        })}
-      />
-      <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
         options={({ navigation }) => ({
           title: 'Register',
+        })}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={({ navigation }) => ({
+          title: 'Login',
         })}
       />
       <Stack.Screen
@@ -231,13 +232,6 @@ export default function RootAppNavigator() {
           headerTitle: 'Co Truck',
         })}
       >
-        <Stack.Screen
-          name="ImportBookingDetailsOnCompletedScreen"
-          component={ImportBookingDetailsOnCompletedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Completed',
-          })}
-        />
         <Stack.Screen
           name="PaymentScreen"
           component={PaymentScreen}
@@ -355,6 +349,13 @@ export default function RootAppNavigator() {
           component={ReferAFriendScreen}
           options={({ navigation }) => ({
             title: 'Refer a friend',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnCompletedScreen"
+          component={ImportBookingDetailsOnCompletedScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Completed',
           })}
         />
         <Stack.Screen
@@ -491,13 +492,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ExportBookingDetailsOnCompletedScreen"
-          component={ExportBookingDetailsOnCompletedScreen}
-          options={({ navigation }) => ({
-            title: 'Export Booking Details on Completed',
-          })}
-        />
-        <Stack.Screen
           name="ExportBookingDetailsOnGoingScreen"
           component={ExportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
@@ -530,6 +524,20 @@ export default function RootAppNavigator() {
           component={ExportReasonForCancelScreen}
           options={({ navigation }) => ({
             title: 'Export Reason for cancel',
+          })}
+        />
+        <Stack.Screen
+          name="PaidScreen"
+          component={PaidScreen}
+          options={({ navigation }) => ({
+            title: 'Paid',
+          })}
+        />
+        <Stack.Screen
+          name="ExportBookingDetailsOnCompletedScreen"
+          component={ExportBookingDetailsOnCompletedScreen}
+          options={({ navigation }) => ({
+            title: 'Export Booking Details on Completed',
           })}
         />
         <Stack.Screen

@@ -1,7 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
-import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -15,7 +14,6 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { FlashList } from '@shopify/flash-list';
 import * as Linking from 'expo-linking';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
@@ -82,32 +80,36 @@ const ImportBookingDetailsOnCompletedScreen = props => {
         </Text>
       </View>
 
-      <CotruckApi.FetchNewLeadsDetailsPOST
+      <CotruckApi.FetchBookingDetailPOST
         book_truck_id={props.route?.params?.book_truck_id ?? ''}
       >
-        {({ loading, error, data, refetchNewLeadsDetails }) => {
+        {({ loading, error, data, refetchBookingDetail }) => {
           const fetchData = data?.json;
           if (loading) {
             return (
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
-                  dimensions.width
-                )}
-              >
-                <ActivityIndicator
-                  animating={true}
-                  color={theme.colors['Primary']}
-                  hidesWhenStopped={true}
-                  size={'large'}
+              <>
+                {/* Loading */}
+                <View
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.ActivityIndicatorStyles(theme)[
-                      'Activity Indicator'
-                    ],
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
                     dimensions.width
                   )}
-                />
-              </View>
+                >
+                  {/* loading */}
+                  <ActivityIndicator
+                    animating={true}
+                    color={theme.colors['Primary']}
+                    hidesWhenStopped={true}
+                    size={'large'}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.ActivityIndicatorStyles(theme)[
+                        'Activity Indicator'
+                      ],
+                      dimensions.width
+                    )}
+                  />
+                </View>
+              </>
             );
           }
 
@@ -165,7 +167,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                   )}
                 >
                   {'Status : '}
-                  {props.route?.params?.booking_status ?? ''}
+                  {fetchData?.data?.status}
                 </Text>
               </View>
               {/* Paid Status View */}
@@ -188,7 +190,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                   )}
                 >
                   {'Payment Status : '}
-                  {'paid_statu'}
+                  {fetchData?.data?.paid_status}
                 </Text>
               </View>
               {/* Booking Info Row */}
@@ -218,9 +220,12 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                   >
                     {/* Image View */}
                     <View>
+                      {/* Shipper Image */}
                       <Image
                         resizeMode={'cover'}
-                        source={Images.Icon}
+                        source={{
+                          uri: `${fetchData?.data?.shipper_info?.user_image}`,
+                        }}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -231,7 +236,12 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       />
                     </View>
                     {/* Info View */}
-                    <View>
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { marginLeft: 20 },
+                        dimensions.width
+                      )}
+                    >
                       {/* Name */}
                       <Text
                         accessible={true}
@@ -241,7 +251,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'shipper name'}
+                        {fetchData?.data?.shipper_info?.name}
                       </Text>
                       {/* Mobile */}
                       <Text
@@ -252,7 +262,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'shipper mobile'}
+                        {fetchData?.data?.shipper_info?.mobile}
                       </Text>
                     </View>
                   </View>
@@ -268,7 +278,9 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       icon={'Feather/phone'}
                       onPress={() => {
                         try {
-                          Linking.openURL('tel:');
+                          Linking.openURL(
+                            `tel:${fetchData?.data?.shipper_info?.mobile}`
+                          );
                         } catch (err) {
                           console.error(err);
                         }
@@ -323,7 +335,9 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       {/* Driver Image */}
                       <Image
                         resizeMode={'cover'}
-                        source={Images.Icon}
+                        source={{
+                          uri: `${fetchData?.data?.driver_info?.user_image}`,
+                        }}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -334,7 +348,12 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       />
                     </View>
                     {/* Info View */}
-                    <View>
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { marginLeft: 20 },
+                        dimensions.width
+                      )}
+                    >
                       {/* Driver Name */}
                       <Text
                         accessible={true}
@@ -344,7 +363,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.driver_info?.name}
                       </Text>
                       {/* Driver Mobile */}
                       <Text
@@ -355,7 +374,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.driver_info?.mobile}
                       </Text>
                     </View>
                   </View>
@@ -371,7 +390,9 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       icon={'Feather/phone'}
                       onPress={() => {
                         try {
-                          Linking.openURL('tel:');
+                          Linking.openURL(
+                            `tel:${fetchData?.data?.driver_info?.mobile}`
+                          );
                         } catch (err) {
                           console.error(err);
                         }
@@ -527,6 +548,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                   dimensions.width
                 )}
               >
+                {/* Vehicle Type */}
                 <View>
                   {/* Row View */}
                   <View
@@ -583,7 +605,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Text 2 */}
+                      {/* Vehicle Type */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -610,7 +632,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   />
                 </View>
-                {/* View 2 */}
+                {/* Material Type */}
                 <View>
                   {/* Row View */}
                   <View
@@ -667,7 +689,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Text 2 */}
+                      {/* Material Type */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -694,7 +716,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   />
                 </View>
-                {/* View 3 */}
+                {/* Load Weight */}
                 <View>
                   {/* Row View */}
                   <View
@@ -751,7 +773,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Text 2 */}
+                      {/* Load Weight */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -763,7 +785,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.load_weight}
                       </Text>
                     </View>
                   </View>
@@ -778,7 +800,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   />
                 </View>
-                {/* View 4 */}
+                {/* No of Container */}
                 <View>
                   {/* Row View */}
                   <View
@@ -835,7 +857,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Text 2 */}
+                      {/* No of Container */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -862,7 +884,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   />
                 </View>
-                {/* View 5 */}
+                {/* Product Type */}
                 <View>
                   {/* Row View */}
                   <View
@@ -919,7 +941,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Text 2 */}
+                      {/* Product Type */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -931,7 +953,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {null}
+                        {fetchData?.data?.product_category}
                       </Text>
                     </View>
                   </View>
@@ -946,7 +968,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   />
                 </View>
-                {/* View 6 */}
+                {/* Pickup Date */}
                 <View>
                   {/* Row View */}
                   <View
@@ -1003,7 +1025,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Text 2 */}
+                      {/* Pickup Date */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -1030,7 +1052,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   />
                 </View>
-                {/* View 7 */}
+                {/* Per Truck Price */}
                 <View>
                   {/* Row View */}
                   <View
@@ -1087,7 +1109,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Text 2 */}
+                      {/* Per Truck Price */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -1099,8 +1121,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'MMK '}
-                        {null}
+                        {'MMK 450'}
                       </Text>
                     </View>
                   </View>
@@ -1132,7 +1153,9 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                 <Button
                   onPress={() => {
                     try {
-                      navigation.navigate('InvoiceScreen');
+                      navigation.navigate('InvoiceScreen', {
+                        book_truck_id: fetchData?.data?.book_truck_id,
+                      });
                     } catch (err) {
                       console.error(err);
                     }
@@ -1150,7 +1173,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
             </>
           );
         }}
-      </CotruckApi.FetchNewLeadsDetailsPOST>
+      </CotruckApi.FetchBookingDetailPOST>
     </ScreenContainer>
   );
 };

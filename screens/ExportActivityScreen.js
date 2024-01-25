@@ -1082,23 +1082,7 @@ const ExportActivityScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                <Touchable
-                                  onPress={() => {
-                                    try {
-                                      navigation.navigate(
-                                        'ExportBookingDetailsOnCompletedScreen',
-                                        {
-                                          booking_status: listData?.status,
-                                          booking_type: listData?.booking_type,
-                                          book_truck_id:
-                                            listData?.book_truck_id,
-                                        }
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                >
+                                <Touchable>
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {

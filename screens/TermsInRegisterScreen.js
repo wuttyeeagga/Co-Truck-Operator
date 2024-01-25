@@ -202,6 +202,7 @@ const TermsInRegisterScreen = props => {
                   props.route?.params?.driving_license ?? '',
                   props.route?.params?.driving_license_back ?? ''
                 );
+                navigation.navigate('OTPVerificationScreen');
               } catch (err) {
                 console.error(err);
               }

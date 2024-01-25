@@ -7,7 +7,6 @@ import {
   Feather,
   FontAwesome,
   Ionicons,
-  MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons';
 
@@ -35,7 +34,6 @@ export default function cacheAssetsAsync() {
     Feather.font,
     FontAwesome.font,
     Ionicons.font,
-    MaterialCommunityIcons.font,
     MaterialIcons.font,
   ]);
 

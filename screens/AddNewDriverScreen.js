@@ -699,9 +699,7 @@ const AddNewDriverScreen = props => {
                   buttonText: undefined,
                 });
 
-                navigation.navigate('BottomTabNavigator', {
-                  screen: 'SettingsScreen',
-                });
+                navigation.navigate('ManageDriverScreen');
                 console.log(results);
               } catch (err) {
                 console.error(err);

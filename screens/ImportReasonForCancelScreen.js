@@ -34,7 +34,8 @@ const ImportReasonForCancelScreen = props => {
 
   return (
     <ScreenContainer
-      hasSafeArea={false}
+      hasBottomSafeArea={true}
+      hasSafeArea={true}
       scrollable={false}
       style={StyleSheet.applyWidth(
         { backgroundColor: theme.colors['Surface'] },

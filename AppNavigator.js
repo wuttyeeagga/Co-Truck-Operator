@@ -55,7 +55,6 @@ import OTPVerificationScreen from './screens/OTPVerificationScreen';
 import PaidScreen from './screens/PaidScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PickUpDropDetailsScreen from './screens/PickUpDropDetailsScreen';
-import RecipientAddressScreen from './screens/RecipientAddressScreen';
 import ReferAFriendScreen from './screens/ReferAFriendScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import SettingsScreen from './screens/SettingsScreen';
@@ -68,6 +67,38 @@ import VehicleProofScreen from './screens/VehicleProofScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function AuthNavigator() {
+  return (
+    <Stack.Navigator
+      initialRouteName="LoginScreen"
+      presentation="transparentModal"
+      screenOptions={({ navigation }) => ({ headerShown: false })}
+    >
+      <Stack.Screen
+        name="ChooseLanguageScreen"
+        component={ChooseLanguageScreen}
+        options={({ navigation }) => ({
+          title: 'Choose Language',
+        })}
+      />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={({ navigation }) => ({
+          title: 'Register',
+        })}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={({ navigation }) => ({
+          title: 'Login',
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function BottomTabNavigator() {
   const Constants = GlobalVariables.useValues();
@@ -118,7 +149,7 @@ function BottomTabNavigator() {
               color={focused ? theme.colors['Primary'] : color}
             />
           ),
-          tabBarLabel: 'Import Activity',
+          tabBarLabel: 'Import',
           title: 'Import Activity',
         })}
       />
@@ -133,23 +164,23 @@ function BottomTabNavigator() {
               color={focused ? theme.colors['Primary'] : color}
             />
           ),
-          tabBarLabel: 'Export Activity',
+          tabBarLabel: 'Export',
           title: 'Export Activity',
         })}
       />
       <Tab.Screen
-        name="NotificationsScreen"
-        component={NotificationsScreen}
+        name="PaidScreen"
+        component={PaidScreen}
         options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
-              name="Ionicons/ios-notifications-outline"
+              name="Foundation/dollar-bill"
               size={25}
               color={focused ? theme.colors['Primary'] : color}
             />
           ),
-          tabBarLabel: 'Notifications',
-          title: 'Notifications',
+          tabBarLabel: 'Paid',
+          title: 'Paid',
         })}
       />
       <Tab.Screen
@@ -158,7 +189,7 @@ function BottomTabNavigator() {
         options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
-              name="Ionicons/settings-outline"
+              name="Ionicons/ios-settings-outline"
               size={25}
               color={focused ? theme.colors['Primary'] : color}
             />
@@ -168,45 +199,6 @@ function BottomTabNavigator() {
         })}
       />
     </Tab.Navigator>
-  );
-}
-
-function StackNavigator() {
-  return (
-    <Stack.Navigator
-      initialRouteName="LoginScreen"
-      presentation="transparentModal"
-      screenOptions={({ navigation }) => ({ headerShown: false })}
-    >
-      <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={({ navigation }) => ({
-          title: 'Register',
-        })}
-      />
-      <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={({ navigation }) => ({
-          title: 'Login',
-        })}
-      />
-      <Stack.Screen
-        name="AboutUsScreen"
-        component={AboutUsScreen}
-        options={({ navigation }) => ({
-          title: 'About Us',
-        })}
-      />
-      <Stack.Screen
-        name="ChooseLanguageScreen"
-        component={ChooseLanguageScreen}
-        options={({ navigation }) => ({
-          title: 'Choose Language',
-        })}
-      />
-    </Stack.Navigator>
   );
 }
 
@@ -232,6 +224,13 @@ export default function RootAppNavigator() {
           headerTitle: 'Co Truck',
         })}
       >
+        <Stack.Screen
+          name="ImportBookingDetailsOnGoingScreen"
+          component={ImportBookingDetailsOnGoingScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Going',
+          })}
+        />
         <Stack.Screen
           name="PaymentScreen"
           component={PaymentScreen}
@@ -275,13 +274,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="RecipientAddressScreen"
-          component={RecipientAddressScreen}
-          options={({ navigation }) => ({
-            title: 'Recipient Address',
-          })}
-        />
-        <Stack.Screen
           name="ImportReasonForCancelScreen"
           component={ImportReasonForCancelScreen}
           options={({ navigation }) => ({
@@ -303,24 +295,17 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ImportBookingDetailsOnGoingScreen"
-          component={ImportBookingDetailsOnGoingScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Going',
-          })}
-        />
-        <Stack.Screen
-          name="ImportBookingDetailsOnPendingScreen"
-          component={ImportBookingDetailsOnPendingScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Pending',
-          })}
-        />
-        <Stack.Screen
           name="ChooseLocationZoneScreen"
           component={ChooseLocationZoneScreen}
           options={({ navigation }) => ({
             title: 'Choose Location Zone',
+          })}
+        />
+        <Stack.Screen
+          name="FAQsScreen"
+          component={FAQsScreen}
+          options={({ navigation }) => ({
+            title: 'FAQs',
           })}
         />
         <Stack.Screen
@@ -345,6 +330,20 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
+          options={({ navigation }) => ({
+            title: 'Sign Up Identity Proof',
+          })}
+        />
+        <Stack.Screen
+          name="NotificationsScreen"
+          component={NotificationsScreen}
+          options={({ navigation }) => ({
+            title: 'Notifications',
+          })}
+        />
+        <Stack.Screen
           name="ReferAFriendScreen"
           component={ReferAFriendScreen}
           options={({ navigation }) => ({
@@ -359,10 +358,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="SignUpIdentityProofScreen"
-          component={SignUpIdentityProofScreen}
+          name="AboutUsScreen"
+          component={AboutUsScreen}
           options={({ navigation }) => ({
-            title: 'Sign Up Identity Proof',
+            title: 'About Us',
           })}
         />
         <Stack.Screen
@@ -527,13 +526,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="PaidScreen"
-          component={PaidScreen}
-          options={({ navigation }) => ({
-            title: 'Paid',
-          })}
-        />
-        <Stack.Screen
           name="ExportBookingDetailsOnCompletedScreen"
           component={ExportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
@@ -541,10 +533,17 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="ImportBookingDetailsOnPendingScreen"
+          component={ImportBookingDetailsOnPendingScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Pending',
+          })}
+        />
+        <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
+        <Stack.Screen
           name="BottomTabNavigator"
           component={BottomTabNavigator}
         />
-        <Stack.Screen name="StackNavigator" component={StackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

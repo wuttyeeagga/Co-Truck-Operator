@@ -19,7 +19,7 @@ const TabHeaderBlock = props => {
           backgroundColor: 'rgba(0, 0, 0, 0)',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          margin: 10,
+          margin: 20,
         },
         dimensions.width
       )}
@@ -52,9 +52,7 @@ const TabHeaderBlock = props => {
       <Touchable
         onPress={() => {
           try {
-            navigation.navigate('BottomTabNavigator', {
-              screen: 'NotificationsScreen',
-            });
+            navigation.navigate('RootNavigator');
             console.log('pressed');
           } catch (err) {
             console.error(err);
@@ -62,8 +60,9 @@ const TabHeaderBlock = props => {
         }}
       >
         <Icon
+          color={theme.colors['CoTruckGrey']}
           name={'Ionicons/ios-notifications-outline'}
-          size={24}
+          size={30}
           style={StyleSheet.applyWidth({ opacity: 0.5 }, dimensions.width)}
         />
       </Touchable>

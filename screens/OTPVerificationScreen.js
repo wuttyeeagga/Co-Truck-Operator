@@ -132,7 +132,7 @@ const OTPVerificationScreen = props => {
         <Button
           onPress={() => {
             try {
-              navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
+              navigation.navigate('AuthNavigator', { screen: 'LoginScreen' });
             } catch (err) {
               console.error(err);
             }

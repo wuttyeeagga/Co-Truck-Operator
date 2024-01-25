@@ -103,9 +103,7 @@ const HomeScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'NotificationsScreen',
-              });
+              navigation.navigate('RootNavigator');
             } catch (err) {
               console.error(err);
             }

@@ -491,7 +491,7 @@ const LoginScreen = props => {
           <Touchable
             onPress={() => {
               try {
-                navigation.navigate('StackNavigator', {
+                navigation.navigate('AuthNavigator', {
                   screen: 'RegisterScreen',
                 });
               } catch (err) {

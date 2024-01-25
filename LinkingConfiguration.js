@@ -22,8 +22,8 @@ const linking = {
   prefixes: [prefix],
   config: {
     screens: {
+      AuthNavigator: { screens: {} },
       BottomTabNavigator: { screens: {} },
-      StackNavigator: { screens: {} },
     },
   },
 };

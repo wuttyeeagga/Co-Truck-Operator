@@ -77,9 +77,7 @@ const ImportActivityScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'NotificationsScreen',
-              });
+              navigation.navigate('RootNavigator');
             } catch (err) {
               console.error(err);
             }
@@ -204,7 +202,7 @@ const ImportActivityScreen = props => {
                           const listData = item;
                           return (
                             <>
-                              {/* 21 Dec 25 */}
+                              {/* Date */}
                               <AccordionGroup
                                 caretSize={24}
                                 expanded={true}
@@ -226,8 +224,7 @@ const ImportActivityScreen = props => {
                                       navigation.navigate(
                                         'ImportBookingDetailsOnPendingScreen',
                                         {
-                                          booking_type: listData?.booking_type,
-                                          booking_status: listData?.status,
+                                          booking_type: 'Import',
                                           book_truck_id:
                                             listData?.book_truck_id,
                                         }
@@ -506,7 +503,9 @@ const ImportActivityScreen = props => {
                                                 {
                                                   alignSelf: 'center',
                                                   color:
-                                                    theme.colors['Success'],
+                                                    theme.colors[
+                                                      'CoTruckPending'
+                                                    ],
                                                   margin: 10,
                                                 }
                                               ),
@@ -637,7 +636,7 @@ const ImportActivityScreen = props => {
                           const listData = item;
                           return (
                             <>
-                              {/* 21 Dec 23 */}
+                              {/* Date */}
                               <AccordionGroup
                                 caretSize={24}
                                 expanded={true}
@@ -1068,7 +1067,7 @@ const ImportActivityScreen = props => {
                           const listData = item;
                           return (
                             <>
-                              {/* 21 Dec 24 */}
+                              {/* Date */}
                               <AccordionGroup
                                 caretSize={24}
                                 expanded={true}

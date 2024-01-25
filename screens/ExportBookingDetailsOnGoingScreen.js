@@ -1,7 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
-import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -161,7 +160,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     {fetchData?.data?.status}
                   </Text>
                 </View>
-                {/* Operator Info Row */}
+                {/* Shipper Row */}
                 <View
                   style={StyleSheet.applyWidth(
                     {
@@ -187,7 +186,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     >
                       <Image
                         resizeMode={'cover'}
-                        source={Images.Icon}
+                        source={{
+                          uri: `${fetchData?.data?.shipper_info?.user_image}`,
+                        }}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -213,9 +214,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Shipper Name'}
+                        {fetchData?.data?.shipper_info?.name}
                       </Text>
-                      {/* Shipper Comp Name */}
+                      {/* Shipper Mobile */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -224,7 +225,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Shipper Comp'}
+                        {fetchData?.data?.shipper_info?.mobile}
                       </Text>
                     </View>
                   </View>
@@ -240,7 +241,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       icon={'Feather/phone'}
                       onPress={() => {
                         try {
-                          Linking.openURL('tel:');
+                          Linking.openURL(
+                            `tel:${fetchData?.data?.shipper_info?.mobile}`
+                          );
                         } catch (err) {
                           console.error(err);
                         }
@@ -253,7 +256,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     />
                   </View>
                 </View>
-                {/* Operator Info Row 2 */}
+                {/* Driver Row */}
                 <View
                   style={StyleSheet.applyWidth(
                     {
@@ -278,7 +281,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     >
                       <Image
                         resizeMode={'cover'}
-                        source={Images.Ellipse21}
+                        source={{
+                          uri: `${fetchData?.data?.driver_info?.user_image}`,
+                        }}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -291,7 +296,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     {/* View 2 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { marginLeft: 5, marginRight: 5 },
+                        { marginLeft: 10 },
                         dimensions.width
                       )}
                     >
@@ -304,21 +309,18 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'driver name'}
+                        {fetchData?.data?.driver_info?.name}
                       </Text>
                       {/* Text 2 */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['Text 3'],
-                            { color: theme.colors['Success'] }
-                          ),
+                          GlobalStyles.TextStyles(theme)['Text 3'],
                           dimensions.width
                         )}
                       >
-                        {'Trip Started'}
+                        {fetchData?.data?.driver_info?.mobile}
                       </Text>
                     </View>
                   </View>
@@ -332,6 +334,15 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     {/* Call */}
                     <IconButton
                       icon={'Feather/phone'}
+                      onPress={() => {
+                        try {
+                          Linking.openURL(
+                            `tel:${fetchData?.data?.driver_info?.mobile}`
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
                       size={32}
                       style={StyleSheet.applyWidth(
                         { marginLeft: 5, marginRight: 5 },

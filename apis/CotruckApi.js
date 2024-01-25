@@ -148,8 +148,7 @@ export const addNewDriverPOST = (
     }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhjMDhlZDU4OThmNDNjMTgwMTM5YjlmNzcyMTFjZmUzODdmODQwZWYwZDJjZTUzYWE1NjMxNzFlNzg0N2MxZDE4ZWZmNDk0YjFkOWQ4YjdhIn0.eyJhdWQiOiIxIiwianRpIjoiOGMwOGVkNTg5OGY0M2MxODAxMzliOWY3NzIxMWNmZTM4N2Y4NDBlZjBkMmNlNTNhYTU2MzE3MWU3ODQ3YzFkMThlZmY0OTRiMWQ5ZDhiN2EiLCJpYXQiOjE3MDU2NTk5ODcsIm5iZiI6MTcwNTY1OTk4NywiZXhwIjoxNzM3MjgyMzg3LCJzdWIiOiIxMjAiLCJzY29wZXMiOltdfQ.UaZ1woBJrvDq3dJCmRR32FfHtzsHyMwJQOe36imi36Pg9EkNQjnyOwj4YXNDOfRncZIwMagqsYmYu6hnzgsywOux01QSiNHVVLcB6c3k6rEe0PBLDxqb2ixqSSHOZ5BEGfH4A9GmPSlQOU1ge1fDEagdca4JlkyYO0hF0_htXgtIj_EnWA6jADI5-I2BZFTtj6A-uh6DwfZ-9yFCCq9jGrtdnFk4inTEW8qIYsdXx_6luv-bWQpZTIrkwnMje37nfjvcBHr6AyPByS6D8t87i3UnPX_rab7rpDZ1wJbm-9ZghB_nTPPbDS4cY2NAJgj6pNfTqXwE8VaET2ILNLHVIB9KgtbrH7jY4XBWil047Lk2qk-XD7XtlL44i3nFLpa0ajTYzKKmNTrWTO61oVedR3xaBDUAbJW90fZDs_iFybaCh59CkoYF39MUyv0Pyz5Re-KiffLWE1eFetV5tvJxyM5yh4b7XmuV4jqUydVvMHvO-1rH9xltpsxN74fSYY_iYZqR0bGYm61Je3pxOYDzznkE_Svx7agYAdsDBA4OF-_D7_dNSM7ujqAqd5NUd6aEZcHDY56HxoeC6T1auCMLkgJi2KL1Ylgz84mo11Dv33tDUFQ2L4Y6_po80d3XK7gusWO5paVfwYAdoZjaSxtwB60HNtzKRjXcC8g3AJP93nA',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',

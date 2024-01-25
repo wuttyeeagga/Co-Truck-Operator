@@ -8,12 +8,14 @@ import {
   Button,
   Divider,
   Icon,
+  IconButton,
   ScreenContainer,
   Touchable,
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import * as Linking from 'expo-linking';
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const ImportBookingDetailsOnPendingScreen = props => {
@@ -143,33 +145,183 @@ const ImportBookingDetailsOnPendingScreen = props => {
                     {
                       alignItems: 'center',
                       flexDirection: 'row',
-                      justifyContent: 'center',
-                      marginLeft: 20,
-                      marginRight: 20,
+                      justifyContent: 'space-around',
+                      margin: 10,
                     },
                     dimensions.width
                   )}
                 >
-                  <Icon
-                    color={theme.colors['GetFit Orange']}
-                    name={'MaterialCommunityIcons/timer-sand'}
-                    size={24}
-                  />
-                  {/* S */}
+                  {/* Booking ID */}
                   <Text
                     accessible={true}
                     allowFontScaling={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['Text 3'],
-                        { color: theme.colors['GetFit Orange'] }
+                        { color: theme.colors['CoTruckGrey'] }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'Fleet Operator to be assigned soon'}
+                    {'Booking ID : '}
+                    {fetchData?.data?.book_truck_id}
+                  </Text>
+                  {/* Status */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { color: theme.colors['CoTruckPending'] }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Status : '}
+                    {fetchData?.data?.status}
                   </Text>
                 </View>
+                <Divider
+                  color={theme.colors.divider}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      {
+                        marginBottom: 5,
+                        marginLeft: 20,
+                        marginRight: 20,
+                        marginTop: 5,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                />
+                {/* Shipper Row */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      margin: 20,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Row Wrapper */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { alignItems: 'center', flexDirection: 'row' },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Image View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 5 },
+                        dimensions.width
+                      )}
+                    >
+                      <Image
+                        resizeMode={'cover'}
+                        source={{
+                          uri: `${fetchData?.data?.shipper_info?.user_image}`,
+                        }}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.ImageStyles(theme)['Image 3'],
+                            { height: 60, width: 60 }
+                          ),
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                    {/* Name and Mobile */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { marginLeft: 20 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Shipper Name */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 5 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.shipper_info?.name}
+                      </Text>
+                      {/* Shipper Mobile */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 5 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.data?.shipper_info?.mobile}
+                      </Text>
+                    </View>
+                  </View>
+                  {/* View 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { alignItems: 'center', justifyContent: 'center' },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Call Button */}
+                    <IconButton
+                      icon={'Feather/phone'}
+                      onPress={() => {
+                        try {
+                          Linking.openURL(
+                            `tel:${fetchData?.data?.shipper_info?.mobile}`
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      size={32}
+                      style={StyleSheet.applyWidth(
+                        {
+                          marginBottom: 10,
+                          marginLeft: 10,
+                          marginRight: 10,
+                          marginTop: 10,
+                        },
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                </View>
+                {/* Divider 2 */}
+                <Divider
+                  color={theme.colors.divider}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.DividerStyles(theme)['Divider'],
+                      {
+                        marginBottom: 5,
+                        marginLeft: 20,
+                        marginRight: 20,
+                        marginTop: 5,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                />
                 {/* Location Container */}
                 <View
                   style={StyleSheet.applyWidth(

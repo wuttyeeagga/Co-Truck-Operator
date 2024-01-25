@@ -1,7 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
-import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -172,7 +171,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     {fetchData?.data?.status}
                   </Text>
                 </View>
-                {/* Operator Info Row */}
+                {/* Shipper Row */}
                 <View
                   style={StyleSheet.applyWidth(
                     {
@@ -197,7 +196,9 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     >
                       <Image
                         resizeMode={'cover'}
-                        source={Images.Icon}
+                        source={{
+                          uri: `${fetchData?.data?.shipper_info?.user_image}`,
+                        }}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -210,7 +211,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     {/* View 2 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { marginLeft: 5, marginRight: 5 },
+                        { marginLeft: 20 },
                         dimensions.width
                       )}
                     >
@@ -223,9 +224,9 @@ const ImportBookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Shipper name'}
+                        {fetchData?.data?.shipper_info?.name}
                       </Text>
-                      {/* Shipper Comp Name */}
+                      {/* Mobile */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -234,7 +235,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Shipper mobile'}
+                        {fetchData?.data?.shipper_info?.mobile}
                       </Text>
                     </View>
                   </View>
@@ -254,7 +255,9 @@ const ImportBookingDetailsOnGoingScreen = props => {
                       icon={'Feather/phone'}
                       onPress={() => {
                         try {
-                          Linking.openURL('tel:');
+                          Linking.openURL(
+                            `tel:${fetchData?.data?.shipper_info?.mobile}`
+                          );
                         } catch (err) {
                           console.error(err);
                         }
@@ -267,20 +270,25 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     />
                   </View>
                 </View>
-                {/* Operator Info Row 2 */}
+                {/* Driver Row */}
                 <View
                   style={StyleSheet.applyWidth(
                     {
                       alignItems: 'center',
                       flexDirection: 'row',
                       justifyContent: 'space-between',
+                      marginLeft: 10,
                     },
                     dimensions.width
                   )}
                 >
                   <View
                     style={StyleSheet.applyWidth(
-                      { alignItems: 'center', flexDirection: 'row' },
+                      {
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        marginLeft: 20,
+                      },
                       dimensions.width
                     )}
                   >
@@ -292,7 +300,9 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     >
                       <Image
                         resizeMode={'cover'}
-                        source={Images.Ellipse21}
+                        source={{
+                          uri: `${fetchData?.data?.driver_info?.user_image}`,
+                        }}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.ImageStyles(theme)['Image 3'],
@@ -305,7 +315,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     {/* View 2 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { marginLeft: 5, marginRight: 5 },
+                        { marginLeft: 10 },
                         dimensions.width
                       )}
                     >
@@ -318,21 +328,18 @@ const ImportBookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'driver name'}
+                        {fetchData?.data?.driver_info?.name}
                       </Text>
                       {/* Text 2 */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['Text 3'],
-                            { color: theme.colors['Success'] }
-                          ),
+                          GlobalStyles.TextStyles(theme)['Text 3'],
                           dimensions.width
                         )}
                       >
-                        {'Trip Started'}
+                        {fetchData?.data?.driver_info?.mobile}
                       </Text>
                     </View>
                   </View>
@@ -346,6 +353,15 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     {/* Call */}
                     <IconButton
                       icon={'Feather/phone'}
+                      onPress={() => {
+                        try {
+                          Linking.openURL(
+                            `tel:${fetchData?.data?.driver_info?.mobile}`
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
                       size={32}
                       style={StyleSheet.applyWidth(
                         { marginLeft: 5, marginRight: 5 },

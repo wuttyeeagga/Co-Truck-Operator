@@ -441,9 +441,7 @@ const ChangePasswordScreen = props => {
                 if (!data) {
                   return;
                 }
-                navigation.navigate('StackNavigator', {
-                  screen: 'LoginScreen',
-                });
+                navigation.navigate('AuthNavigator', { screen: 'LoginScreen' });
               } else {
                 showAlertUtil({
                   title: 'Message',

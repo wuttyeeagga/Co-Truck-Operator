@@ -80,9 +80,7 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'NotificationsScreen',
-              });
+              navigation.navigate('RootNavigator');
             } catch (err) {
               console.error(err);
             }
@@ -90,8 +88,9 @@ const SettingsScreen = props => {
         >
           {/* Bell */}
           <Icon
+            color={theme.colors['CoTruckGrey']}
             name={'Ionicons/ios-notifications-outline'}
-            size={24}
+            size={30}
             style={StyleSheet.applyWidth({ opacity: 1 }, dimensions.width)}
           />
         </Touchable>
@@ -563,9 +562,7 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('StackNavigator', {
-                screen: 'AboutUsScreen',
-              });
+              navigation.navigate('RootNavigator');
             } catch (err) {
               console.error(err);
             }
@@ -638,7 +635,7 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('StackNavigator', { screen: 'LoginScreen' });
+              navigation.navigate('AuthNavigator', { screen: 'LoginScreen' });
             } catch (err) {
               console.error(err);
             }

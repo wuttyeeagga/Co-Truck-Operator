@@ -77,9 +77,7 @@ const ExportActivityScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('BottomTabNavigator', {
-                screen: 'NotificationsScreen',
-              });
+              navigation.navigate('RootNavigator');
             } catch (err) {
               console.error(err);
             }
@@ -204,7 +202,7 @@ const ExportActivityScreen = props => {
                           const listData = item;
                           return (
                             <>
-                              {/* 21 Dec 25 */}
+                              {/* Date */}
                               <AccordionGroup
                                 caretSize={24}
                                 expanded={true}
@@ -227,7 +225,6 @@ const ExportActivityScreen = props => {
                                         'ExportBookingDetailsOnPendingScreen',
                                         {
                                           booking_type: listData?.booking_type,
-                                          booking_status: listData?.status,
                                           book_truck_id:
                                             listData?.book_truck_id,
                                         }
@@ -506,7 +503,9 @@ const ExportActivityScreen = props => {
                                                 {
                                                   alignSelf: 'center',
                                                   color:
-                                                    theme.colors['Success'],
+                                                    theme.colors[
+                                                      'CoTruckPending'
+                                                    ],
                                                   margin: 10,
                                                 }
                                               ),
@@ -1066,7 +1065,7 @@ const ExportActivityScreen = props => {
                           const listData = item;
                           return (
                             <>
-                              {/* 21 Dec 24 */}
+                              {/* Date */}
                               <AccordionGroup
                                 caretSize={24}
                                 expanded={true}
@@ -1082,7 +1081,21 @@ const ExportActivityScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                <Touchable>
+                                <Touchable
+                                  onPress={() => {
+                                    try {
+                                      navigation.navigate(
+                                        'ExportBookingDetailsOnCompletedScreen',
+                                        {
+                                          book_truck_id:
+                                            listData?.book_truck_id,
+                                        }
+                                      );
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  }}
+                                >
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {

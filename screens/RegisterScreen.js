@@ -1,5 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -15,12 +17,15 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { Image, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const RegisterScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [agentLicense, setAgentLicense] = React.useState('');
   const [agentName, setAgentName] = React.useState('');
   const [companyName, setCompanyName] = React.useState('');
@@ -41,11 +46,31 @@ const RegisterScreen = props => {
     []
   );
   const [numberInputValue, setNumberInputValue] = React.useState('');
+  const [pathsOptions, setPathsOptions] = React.useState([]);
   const [photoUploaded, setPhotoUploaded] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState('');
   const [referCode, setReferCode] = React.useState('');
   const [textAreaValue, setTextAreaValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const cotruckPreferredPathsPOST = CotruckApi.usePreferredPathsPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const results = (await cotruckPreferredPathsPOST.mutateAsync())?.json;
+        const asdf = results?.data;
+        setPathsOptions(asdf);
+        /* 'Set Variable' action requires configuration: choose a variable */
+        console.log(asdf);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handler();
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -410,6 +435,7 @@ const RegisterScreen = props => {
                 console.error(err);
               }
             }}
+            options={pathsOptions}
             placeholder={'Choose preferred paths'}
             selectedIconColor={theme.colors.strong}
             selectedIconName={'Feather/check'}
@@ -639,6 +665,7 @@ const RegisterScreen = props => {
                   refer_code: referCode,
                   name: contactPersonName,
                 });
+                console.log(multiSelectPickerValue2);
               } catch (err) {
                 console.error(err);
               }

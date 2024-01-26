@@ -51,7 +51,7 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={120}
+          book_truck_id={props.route?.params?.book_truck_id ?? ''}
           handlers={{
             onData: fetchData => {
               try {
@@ -687,10 +687,10 @@ const ImportNewTripPendingScreen = props => {
                             const results = (
                               await cotruckAcceptNewTripPOST.mutateAsync({
                                 booking_id:
-                                  props.route?.params?.booking_id ?? '',
+                                  props.route?.params?.book_truck_id ?? '',
                                 charges: 450,
                                 desc: [],
-                                driver_id: 23,
+                                driver_id: multiSelectPickerValue,
                                 final_total: 12345,
                                 qty: fetchData?.data?.no_of_truck,
                                 sub_total: 780,

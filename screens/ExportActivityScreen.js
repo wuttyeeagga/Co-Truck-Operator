@@ -634,7 +634,7 @@ const ExportActivityScreen = props => {
                           const listData = item;
                           return (
                             <>
-                              {/* 21 Dec 23 */}
+                              {/* Date */}
                               <AccordionGroup
                                 caretSize={24}
                                 expanded={true}

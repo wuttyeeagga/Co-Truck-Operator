@@ -224,7 +224,7 @@ const ManageVehicleScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {listData?.vehicle_type}
+                            {listData?.label}
                           </Text>
                           {/* Text 2 */}
                           <Text
@@ -238,7 +238,7 @@ const ManageVehicleScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {listData?.registr_number}
+                            {listData?.value}
                           </Text>
                         </View>
                         {/* Status */}

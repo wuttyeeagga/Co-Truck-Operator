@@ -24,7 +24,7 @@ const TermsInRegisterScreen = props => {
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
-  const cotruckNewAddOwnerPOST = CotruckApi.useNewAddOwnerPOST();
+  const cotruckRegisterPOST = CotruckApi.useRegisterPOST();
 
   return (
     <ScreenContainer
@@ -152,7 +152,7 @@ const TermsInRegisterScreen = props => {
             const handler = async () => {
               try {
                 const Response = (
-                  await cotruckNewAddOwnerPOST.mutateAsync({
+                  await cotruckRegisterPOST.mutateAsync({
                     agent_license: props.route?.params?.agent_license ?? '',
                     agent_name: props.route?.params?.agent_name ?? '',
                     certificate: props.route?.params?.certificate ?? '',

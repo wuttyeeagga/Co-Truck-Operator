@@ -69,6 +69,8 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function AuthNavigator() {
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
+
   return (
     <Stack.Navigator
       initialRouteName="LoginScreen"
@@ -203,6 +205,7 @@ function BottomTabNavigator() {
 }
 
 export default function RootAppNavigator() {
+  const Constants = GlobalVariables.useValues();
   const setGlobalVariableValue = GlobalVariables.useSetValue();
 
   return (
@@ -225,10 +228,10 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="ImportBookingDetailsOnGoingScreen"
-          component={ImportBookingDetailsOnGoingScreen}
+          name="CompanyInformationScreen"
+          component={CompanyInformationScreen}
           options={({ navigation }) => ({
-            title: 'Import Booking Details on Going',
+            title: 'Company Information',
           })}
         />
         <Stack.Screen
@@ -288,10 +291,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="CompanyInformationScreen"
-          component={CompanyInformationScreen}
+          name="ImportBookingDetailsOnGoingScreen"
+          component={ImportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
-            title: 'Company Information',
+            title: 'Import Booking Details on Going',
           })}
         />
         <Stack.Screen

@@ -44,7 +44,8 @@ const AddNewDriverScreen = props => {
   const [vehicleTypeList, setVehicleTypeList] = React.useState('');
   const [vehicleTypePicker, setVehicleTypePicker] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState(undefined);
-  const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
+  const cotruckOperatorVehicleList$available$POST =
+    CotruckApi.useOperatorVehicleList$available$POST();
   const cotruckAddNewDriverPOST = CotruckApi.useAddNewDriverPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -53,9 +54,15 @@ const AddNewDriverScreen = props => {
         if (!isFocused) {
           return;
         }
-        const Response = (await cotruckVehicleTypeListPOST.mutateAsync())?.json;
+        const Response = (
+          await cotruckOperatorVehicleList$available$POST.mutateAsync({
+            operator_id: Constants['AUTH_OWNER_ID'],
+            vehicle_status: 'AVAILABLE',
+          })
+        )?.json;
         const data = Response?.data;
         setVehicleTypeList(data);
+        console.log(Response);
       } catch (err) {
         console.error(err);
       }

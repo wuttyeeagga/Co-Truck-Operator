@@ -154,7 +154,7 @@ const HomeScreen = props => {
                   }
                 },
               }}
-              id={120}
+              id={Constants['AUTH_OWNER_ID']}
             >
               {({ loading, error, data, refetchNewLeads }) => {
                 const fetchData = data?.json;
@@ -242,7 +242,7 @@ const HomeScreen = props => {
                                 if (listData?.owner_status === 'PENDING') {
                                   navigation.navigate(
                                     'ImportNewTripPendingScreen',
-                                    { booking_id: listData?.book_truck_id }
+                                    { book_truck_id: listData?.book_truck_id }
                                   );
                                 }
                                 if (listData?.owner_status === 'CANCELLED') {
@@ -659,7 +659,7 @@ const HomeScreen = props => {
                   }
                 },
               }}
-              id={120}
+              id={Constants['AUTH_OWNER_ID']}
             >
               {({ loading, error, data, refetchNewLeads }) => {
                 const fetchData = data?.json;

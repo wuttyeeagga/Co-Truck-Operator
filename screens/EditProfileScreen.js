@@ -42,6 +42,7 @@ const EditProfileScreen = props => {
     []
   );
   const [numberInputValue, setNumberInputValue] = React.useState('');
+  const [preferredPathsOptions, setPreferredPathsOptions] = React.useState([]);
   const [registerNumber, setRegisterNumber] = React.useState(872100);
   const [textAreaValue, setTextAreaValue] = React.useState('');
   const [textAreaValue2, setTextAreaValue2] = React.useState('');
@@ -50,6 +51,25 @@ const EditProfileScreen = props => {
   const [textInputValue3, setTextInputValue3] = React.useState('');
   const [userImage, setUserImage] = React.useState({});
   const [pickerValue, setPickerValue] = React.useState(undefined);
+  const cotruckPreferredPathsPOST = CotruckApi.usePreferredPathsPOST();
+  const cotruckUpdateUserPOST = CotruckApi.useUpdateUserPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const results = (await cotruckPreferredPathsPOST.mutateAsync())?.json;
+        const options = results?.data;
+        setPreferredPathsOptions(options);
+        console.log(options);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handler();
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -127,7 +147,7 @@ const EditProfileScreen = props => {
                 }
               },
             }}
-            user_id={Constants['AUTH_OWNER_ID']}
+            user_id={120}
           >
             {({ loading, error, data, refetchEditProfile }) => {
               const fetchData = data?.json;
@@ -163,7 +183,23 @@ const EditProfileScreen = props => {
               }
 
               if (error || data?.status < 200 || data?.status >= 300) {
-                return <ActivityIndicator />;
+                return (
+                  <>
+                    {/* Error */}
+                    <View>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.message}
+                      </Text>
+                    </View>
+                  </>
+                );
               }
 
               return (
@@ -339,97 +375,6 @@ const EditProfileScreen = props => {
                         value={registerNumber}
                       />
                     </View>
-                    {/* Certificate View */}
-                    <View>
-                      {/* Image Container */}
-                      <>
-                        {!isShown ? null : (
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                padding: 10,
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <Image
-                              resizeMode={'cover'}
-                              source={{ uri: `${certificateImage}` }}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.ImageStyles(theme)['Image 3'],
-                                  { height: 150, width: 150 }
-                                ),
-                                dimensions.width
-                              )}
-                            />
-                          </View>
-                        )}
-                      </>
-                      {/* Upload Image Button */}
-                      <Touchable
-                        onPress={() => {
-                          const handler = async () => {
-                            try {
-                              const results = await openImagePickerUtil({
-                                mediaTypes: 'Images',
-                                allowsEditing: false,
-                                quality: 0.2,
-                              });
-
-                              setCertificateImage(results);
-                              setIsShown(true);
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          };
-                          handler();
-                        }}
-                      >
-                        {/* Upload View */}
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              borderRadius: 8,
-                              borderStyle: 'dashed',
-                              borderWidth: 1,
-                              justifyContent: 'center',
-                              margin: 20,
-                              padding: 20,
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <Icon
-                            name={'AntDesign/pluscircle'}
-                            size={24}
-                            style={StyleSheet.applyWidth(
-                              {
-                                marginBottom: 5,
-                                marginLeft: 5,
-                                marginRight: 5,
-                                marginTop: 5,
-                              },
-                              dimensions.width
-                            )}
-                          />
-                          {/* Button Text */}
-                          <Text
-                            accessible={true}
-                            allowFontScaling={true}
-                            style={StyleSheet.applyWidth(
-                              GlobalStyles.TextStyles(theme)['Text 2'],
-                              dimensions.width
-                            )}
-                          >
-                            {'Upload Certificate'}
-                          </Text>
-                        </View>
-                      </Touchable>
-                    </View>
                     {/* Agent License View */}
                     <View>
                       {/* Agent License */}
@@ -462,181 +407,188 @@ const EditProfileScreen = props => {
                         value={agentLicense}
                       />
                     </View>
-                    {/* Select Paths View */}
-                    <View>
-                      {/* Choose Preferred Paths */}
-                      <MultiSelectPicker
-                        autoDismissKeyboard={true}
-                        dropDownBackgroundColor={theme.colors.background}
-                        dropDownBorderColor={theme.colors.divider}
-                        dropDownBorderRadius={8}
-                        dropDownBorderWidth={1}
-                        dropDownTextColor={theme.colors.strong}
-                        iconSize={24}
-                        leftIconMode={'inset'}
-                        onValueChange={newChoosePreferredPathsValue => {
-                          const pickerValue = newChoosePreferredPathsValue;
-                          try {
-                            setMultiSelectPickerValue(
-                              newChoosePreferredPathsValue
-                            );
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        placeholder={'Choose preferred paths'}
-                        selectedIconColor={theme.colors.strong}
-                        selectedIconName={'Feather/check'}
-                        selectedIconSize={20}
-                        style={StyleSheet.applyWidth(
-                          {
-                            borderColor: theme.colors['Light'],
-                            borderRadius: 12,
-                            margin: 10,
-                            paddingBottom: 8,
-                            paddingLeft: 8,
-                            paddingRight: 8,
-                            paddingTop: 8,
-                          },
-                          dimensions.width
-                        )}
-                        type={'solid'}
-                        value={multiSelectPickerValue}
-                      />
-                    </View>
                   </View>
-                  {/* Contact Person Container */}
-                  <View
+                  {/* Choose Preferred Paths */}
+                  <MultiSelectPicker
+                    autoDismissKeyboard={true}
+                    dropDownBackgroundColor={theme.colors.background}
+                    dropDownBorderColor={theme.colors.divider}
+                    dropDownBorderRadius={8}
+                    dropDownBorderWidth={1}
+                    dropDownTextColor={theme.colors.strong}
+                    iconSize={24}
+                    leftIconMode={'inset'}
+                    onValueChange={newChoosePreferredPathsValue => {
+                      const pickerValue = newChoosePreferredPathsValue;
+                      try {
+                        setMultiSelectPickerValue(newChoosePreferredPathsValue);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    options={preferredPathsOptions}
+                    placeholder={'Choose preferred paths'}
+                    selectedIconColor={theme.colors.strong}
+                    selectedIconName={'Feather/check'}
+                    selectedIconSize={20}
                     style={StyleSheet.applyWidth(
-                      { marginBottom: 10, marginTop: 10 },
+                      {
+                        borderColor: theme.colors['Light'],
+                        borderRadius: 12,
+                        margin: 10,
+                        paddingBottom: 8,
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        paddingTop: 8,
+                      },
+                      dimensions.width
+                    )}
+                    type={'solid'}
+                    value={multiSelectPickerValue}
+                  />
+                  {/* Sub Titl3 */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          fontFamily: 'System',
+                          fontSize: 16,
+                          fontWeight: '600',
+                          margin: 10,
+                        }
+                      ),
                       dimensions.width
                     )}
                   >
-                    {/* Sub Titl3 */}
-                    <Text
-                      accessible={true}
+                    {'Contact Person Details'}
+                  </Text>
+                  {/* Contact Person Name */}
+                  <View>
+                    {/* Contact Person Name */}
+                    <TextInput
                       allowFontScaling={true}
+                      autoCapitalize={'none'}
+                      changeTextDelay={500}
+                      onChangeText={newContactPersonNameValue => {
+                        try {
+                          setContactPersonName(newContactPersonNameValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      placeholder={'Enter a value...'}
+                      placeholderTextColor={theme.colors['TextPlaceholder']}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text'],
+                          GlobalStyles.TextInputStyles(theme)['Text Input'],
                           {
-                            fontFamily: 'System',
-                            fontSize: 16,
-                            fontWeight: '600',
+                            borderColor: theme.colors['Light'],
+                            borderRadius: 12,
+                            height: 48,
                             margin: 10,
+                            paddingLeft: 12,
                           }
                         ),
                         dimensions.width
                       )}
-                    >
-                      {'Contact Person Details'}
-                    </Text>
-                    {/* Contact Person Name */}
-                    <View>
-                      {/* Contact Person Name */}
-                      <TextInput
-                        allowFontScaling={true}
-                        autoCapitalize={'none'}
-                        changeTextDelay={500}
-                        onChangeText={newContactPersonNameValue => {
-                          try {
-                            setContactPersonName(newContactPersonNameValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        placeholder={'Enter a value...'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextInputStyles(theme)['Text Input'],
-                            {
-                              borderColor: theme.colors['Light'],
-                              borderRadius: 12,
-                              height: 48,
-                              margin: 10,
-                              paddingLeft: 12,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        value={contactPersonName}
-                      />
-                    </View>
-                    {/* Contact Person Email */}
-                    <View>
-                      {/* Contact Person Email */}
-                      <TextInput
-                        allowFontScaling={true}
-                        autoCapitalize={'none'}
-                        changeTextDelay={500}
-                        onChangeText={newContactPersonEmailValue => {
-                          try {
-                            setContactPersonEmail(newContactPersonEmailValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        placeholder={'Enter a value...'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextInputStyles(theme)['Text Input'],
-                            {
-                              borderColor: theme.colors['Light'],
-                              borderRadius: 12,
-                              height: 48,
-                              margin: 12,
-                              paddingLeft: 12,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        value={contactPersonEmail}
-                      />
-                    </View>
-                    {/* Contact Person Phone Number */}
-                    <View>
-                      {/* Contact Person Phone */}
-                      <TextInput
-                        allowFontScaling={true}
-                        autoCapitalize={'none'}
-                        changeTextDelay={500}
-                        onChangeText={newContactPersonPhoneValue => {
-                          try {
-                            setContactPersonPhoneNumber(
-                              newContactPersonPhoneValue
-                            );
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        placeholder={'Enter a value...'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextInputStyles(theme)['Text Input'],
-                            {
-                              borderColor: theme.colors['Light'],
-                              borderRadius: 12,
-                              height: 48,
-                              margin: 10,
-                              paddingLeft: 12,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        value={contactPersonPhoneNumber}
-                      />
-                    </View>
+                      value={contactPersonName}
+                    />
                   </View>
+                  {/* Contact Person Email */}
+                  <View>
+                    {/* Contact Person Email */}
+                    <TextInput
+                      allowFontScaling={true}
+                      autoCapitalize={'none'}
+                      changeTextDelay={500}
+                      onChangeText={newContactPersonEmailValue => {
+                        try {
+                          setContactPersonEmail(newContactPersonEmailValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      placeholder={'Enter a value...'}
+                      placeholderTextColor={theme.colors['TextPlaceholder']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextInputStyles(theme)['Text Input'],
+                          {
+                            borderColor: theme.colors['Light'],
+                            borderRadius: 12,
+                            height: 48,
+                            margin: 12,
+                            paddingLeft: 12,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      value={contactPersonEmail}
+                    />
+                  </View>
+                  {/* Contact Person Phone Number */}
+                  <View>
+                    {/* Contact Person Phone */}
+                    <TextInput
+                      allowFontScaling={true}
+                      autoCapitalize={'none'}
+                      changeTextDelay={500}
+                      onChangeText={newContactPersonPhoneValue => {
+                        try {
+                          setContactPersonPhoneNumber(
+                            newContactPersonPhoneValue
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      placeholder={'Enter a value...'}
+                      placeholderTextColor={theme.colors['TextPlaceholder']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextInputStyles(theme)['Text Input'],
+                          {
+                            borderColor: theme.colors['Light'],
+                            borderRadius: 12,
+                            height: 48,
+                            margin: 10,
+                            paddingLeft: 12,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      value={contactPersonPhoneNumber}
+                    />
+                  </View>
+                  {/* Update Profile */}
                   <Button
                     onPress={() => {
-                      try {
-                        navigation.navigate('CompanyInformationScreen');
-                      } catch (err) {
-                        console.error(err);
-                      }
+                      const handler = async () => {
+                        try {
+                          const results = (
+                            await cotruckUpdateUserPOST.mutateAsync({
+                              agent_license: agentLicense,
+                              comp_name: companyName,
+                              comp_number: companyPhone,
+                              email: contactPersonEmail,
+                              mobile: contactPersonPhoneNumber,
+                              name: contactPersonName,
+                              paths: multiSelectPickerValue,
+                              register_number: registerNumber,
+                              user_id: 120,
+                              user_image: userImage,
+                            })
+                          )?.json;
+                          navigation.navigate('CompanyInformationScreen');
+                          console.log(results);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      };
+                      handler();
                     }}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(

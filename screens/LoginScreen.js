@@ -27,9 +27,9 @@ const LoginScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
   const [condi, setCondi] = React.useState('');
-  const [email, setEmail] = React.useState('mayur@innogyasia.com');
+  const [email, setEmail] = React.useState('toperator2@gmail.com');
   const [msg, setMsg] = React.useState('Message');
-  const [password, setPassword] = React.useState('123456');
+  const [password, setPassword] = React.useState('demo');
   const [successMsg, setSuccessMsg] = React.useState('Success');
   const cotruckLoginPOST = CotruckApi.useLoginPOST();
 
@@ -382,8 +382,8 @@ const LoginScreen = props => {
                   console.log('Start ON_PRESS:0 FETCH_REQUEST');
                   const loginResponse = (
                     await cotruckLoginPOST.mutateAsync({
-                      email: 'mayur@innogyasia.com',
-                      password: 123456,
+                      email: email,
+                      password: password,
                       user_type: 'OWNER',
                     })
                   )?.json;
@@ -433,7 +433,7 @@ const LoginScreen = props => {
                   });
                   console.log('Complete ON_PRESS:9 SET_VARIABLE');
                   console.log('Start ON_PRESS:10 CONSOLE_LOG');
-                  console.log(Constants['OWNER_INFO'], token);
+                  console.log(Constants['OWNER_INFO']?.certificate);
                   console.log('Complete ON_PRESS:10 CONSOLE_LOG');
                   console.log('Start ON_PRESS:11 NAVIGATE');
                   navigation.navigate('BottomTabNavigator', {

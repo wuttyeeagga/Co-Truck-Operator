@@ -215,7 +215,7 @@ const VehicleDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {props.route?.params?.vehicle_status ?? ''}
+                      {fetchData?.data?.status_of_vechile}
                     </Text>
                   </View>
                   {/* Vehicle Type Row */}

@@ -28,7 +28,7 @@ const SettingsScreen = props => {
       if (!isFocused) {
         return;
       }
-      console.log(Constants['OWNER_INFO']?.certificate);
+      console.log(Constants['OWNER_INFO']);
     } catch (err) {
       console.error(err);
     }

@@ -138,16 +138,14 @@ const EditProfileScreen = props => {
                   setAgentLicense(fetchData?.data?.agent_license);
                   setUserImage(fetchData?.data?.user_image);
                   setContactPersonName(fetchData?.data?.name);
-                  undefined;
+                  setContactPersonEmail(fetchData?.data?.email);
                   setContactPersonPhoneNumber(fetchData?.data?.mobile);
-                  /* 'Set Variable' action requires configuration: choose a variable */
-                  /* 'Set Variable' action requires configuration: choose a variable */
                 } catch (err) {
                   console.error(err);
                 }
               },
             }}
-            user_id={120}
+            user_id={Constants['AUTH_OWNER_ID']}
           >
             {({ loading, error, data, refetchEditProfile }) => {
               const fetchData = data?.json;
@@ -578,7 +576,7 @@ const EditProfileScreen = props => {
                               name: contactPersonName,
                               paths: multiSelectPickerValue,
                               register_number: registerNumber,
-                              user_id: 120,
+                              user_id: Constants['AUTH_OWNER_ID'],
                               user_image: userImage,
                             })
                           )?.json;

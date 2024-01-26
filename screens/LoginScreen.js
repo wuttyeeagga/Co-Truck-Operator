@@ -101,7 +101,7 @@ const LoginScreen = props => {
               dimensions.width
             )}
           >
-            {'Please sign in to continue\n'}
+            {'Please sign in to continue..'}
           </Text>
         </View>
         {/* Input Container */}

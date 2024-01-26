@@ -211,7 +211,7 @@ export default function RootAppNavigator() {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
       <Stack.Navigator
-        initialRouteName="StackNavigator"
+        initialRouteName="AuthNavigator"
         screenOptions={({ navigation }) => ({
           headerRight: ({ tintColor }) => (
             <View style={[styles.headerContainer, styles.headerContainerRight]}>
@@ -227,13 +227,6 @@ export default function RootAppNavigator() {
           headerTitle: 'Co Truck',
         })}
       >
-        <Stack.Screen
-          name="CompanyInformationScreen"
-          component={CompanyInformationScreen}
-          options={({ navigation }) => ({
-            title: 'Company Information',
-          })}
-        />
         <Stack.Screen
           name="PaymentScreen"
           component={PaymentScreen}
@@ -291,6 +284,13 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="CompanyInformationScreen"
+          component={CompanyInformationScreen}
+          options={({ navigation }) => ({
+            title: 'Company Information',
+          })}
+        />
+        <Stack.Screen
           name="ImportBookingDetailsOnGoingScreen"
           component={ImportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
@@ -333,13 +333,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="SignUpIdentityProofScreen"
-          component={SignUpIdentityProofScreen}
-          options={({ navigation }) => ({
-            title: 'Sign Up Identity Proof',
-          })}
-        />
-        <Stack.Screen
           name="NotificationsScreen"
           component={NotificationsScreen}
           options={({ navigation }) => ({
@@ -365,6 +358,13 @@ export default function RootAppNavigator() {
           component={AboutUsScreen}
           options={({ navigation }) => ({
             title: 'About Us',
+          })}
+        />
+        <Stack.Screen
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
+          options={({ navigation }) => ({
+            title: 'Sign Up Identity Proof',
           })}
         />
         <Stack.Screen

@@ -2262,6 +2262,80 @@ export const FetchGetBidsPOST = ({
   return children({ loading, data, error, refetchGetBids: refetch });
 };
 
+export const getIdentifyProofPOST = (
+  Constants,
+  { operator_id },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/identification-proofs`, {
+    body: JSON.stringify({ operator_id: operator_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useGetIdentifyProofPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      getIdentifyProofPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('identify', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('identify');
+        queryClient.invalidateQueries('identifies');
+      },
+    }
+  );
+};
+
+export const FetchGetIdentifyProofPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  operator_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useGetIdentifyProofPOST(
+    { operator_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchGetIdentifyProof: refetch });
+};
+
 export const getOwnerDriverListPOST = (
   Constants,
   { owner_id },
@@ -6360,6 +6434,102 @@ export const FetchUpdateVehicleEditPOST = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchUpdateVehicleEdit: refetch });
+};
+
+export const updateIdentificationPOST = (
+  Constants,
+  { dl_back, dl_fron, nrc_back, nrc_front, operator_id },
+  handlers = {}
+) =>
+  fetch(
+    `https://dev.cotruck.co/index.php/api/operator/update-identification-proofs`,
+    {
+      body: JSON.stringify({
+        operator_id: operator_id,
+        nrc_front: nrc_front,
+        nrc_back: nrc_back,
+        driving_license_back: dl_back,
+        driving_license_front: dl_fron,
+      }),
+      headers: {
+        Accept: 'application/json',
+        Authorization: Constants['AUTH_BEAR_TOKEN'],
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    }
+  ).then(res => handleResponse(res, handlers));
+
+export const useUpdateIdentificationPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      updateIdentificationPOST(
+        Constants,
+        { ...initialArgs, ...args },
+        handlers
+      ),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('identify', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('identify');
+        queryClient.invalidateQueries('identifies');
+      },
+    }
+  );
+};
+
+export const FetchUpdateIdentificationPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  dl_back,
+  dl_fron,
+  nrc_back,
+  nrc_front,
+  operator_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useUpdateIdentificationPOST(
+    { dl_back, dl_fron, nrc_back, nrc_front, operator_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({
+    loading,
+    data,
+    error,
+    refetchUpdateIdentification: refetch,
+  });
 };
 
 export const userBookingOngoingStatusPOST = (

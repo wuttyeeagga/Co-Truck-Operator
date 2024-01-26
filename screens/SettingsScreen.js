@@ -107,9 +107,10 @@ const SettingsScreen = props => {
           {/* Profile Image */}
           <Image
             resizeMode={'cover'}
-            source={{ uri: `${Constants['OWNER_INFO']?.certificate}` }}
+            source={{ uri: `${Constants['OWNER_INFO']?.user_image}` }}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image 3'], {
+                borderRadius: 8,
                 height: 80,
                 width: 80,
               }),
@@ -126,6 +127,7 @@ const SettingsScreen = props => {
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
                 margin: 10,
+                marginTop: 5,
               }),
               dimensions.width
             )}

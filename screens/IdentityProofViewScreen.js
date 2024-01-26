@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -11,7 +12,9 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Image, Text, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
+import { Fetch } from 'react-request';
 
 const IdentityProofViewScreen = props => {
   const { theme, navigation } = props;
@@ -75,98 +78,180 @@ const IdentityProofViewScreen = props => {
           </Text>
         </View>
       </View>
-      {/* Main View */}
-      <View style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}>
-        {/* NRC Container */}
-        <View>
-          {/* Sub Title */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                margin: 10,
-              }),
-              dimensions.width
-            )}
-          >
-            {'1.  Upload National Registration Card'}
-          </Text>
-          {/* Image View */}
-          <View
-            style={StyleSheet.applyWidth(
-              { alignItems: 'center', justifyContent: 'center', margin: 10 },
-              dimensions.width
-            )}
-          >
-            <Image
-              resizeMode={'cover'}
-              source={{ uri: '' }}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image 3'], {
-                  borderRadius: 8,
-                  height: 150,
-                  width: 150,
-                }),
-                dimensions.width
-              )}
-            />
-          </View>
-        </View>
-        {/* Driving License Container */}
-        <View>
-          {/* Sub Title */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                margin: 10,
-              }),
-              dimensions.width
-            )}
-          >
-            {'2.  Upload Driving License'}
-          </Text>
-          {/* Image View */}
-          <View
-            style={StyleSheet.applyWidth(
-              { alignItems: 'center', justifyContent: 'center', margin: 10 },
-              dimensions.width
-            )}
-          >
-            <Image
-              resizeMode={'cover'}
-              source={{ uri: '' }}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image 3'], {
-                  borderRadius: 8,
-                  height: 150,
-                  width: 150,
-                }),
-                dimensions.width
-              )}
-            />
-          </View>
-        </View>
-        {/* Edit */}
-        <Button
-          onPress={() => {
-            try {
-              navigation.navigate('IdentityProofEditScreen');
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
-              margin: 20,
-            }),
-            dimensions.width
-          )}
-          title={'Edit'}
-        />
-      </View>
+
+      <CotruckApi.FetchGetIdentifyProofPOST operator_id={125}>
+        {({ loading, error, data, refetchGetIdentifyProof }) => {
+          const fetchData = data?.json;
+          if (loading) {
+            return <ActivityIndicator />;
+          }
+
+          if (error || data?.status < 200 || data?.status >= 300) {
+            return <ActivityIndicator />;
+          }
+
+          return (
+            <ScrollView
+              bounces={true}
+              showsHorizontalScrollIndicator={true}
+              showsVerticalScrollIndicator={true}
+            >
+              {/* Main View */}
+              <View
+                style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}
+              >
+                {/* NRC Container */}
+                <View>
+                  {/* Sub Title */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { margin: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'1.  Upload National Registration Card'}
+                  </Text>
+                  {/* Image View */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Image
+                      resizeMode={'cover'}
+                      source={{ uri: `${fetchData?.data?.adhar_image}` }}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ImageStyles(theme)['Image 3'],
+                          { borderRadius: 8, height: 150, width: 150 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                  {/* Back Image View */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* NRC Back Image */}
+                    <Image
+                      resizeMode={'cover'}
+                      source={{ uri: `${fetchData?.data?.adhar_back}` }}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ImageStyles(theme)['Image 3'],
+                          { borderRadius: 8, height: 150, width: 150 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                </View>
+                {/* Driving License Container */}
+                <View>
+                  {/* Sub Title */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        { margin: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'2.  Upload Driving License'}
+                  </Text>
+                  {/* Image View */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* DL Front Image */}
+                    <Image
+                      resizeMode={'cover'}
+                      source={{ uri: `${fetchData?.data?.license_image}` }}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ImageStyles(theme)['Image 3'],
+                          { borderRadius: 8, height: 150, width: 150 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                  {/* Back Image */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* DL Back Image */}
+                    <Image
+                      resizeMode={'cover'}
+                      source={{ uri: `${fetchData?.data?.license_back}` }}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ImageStyles(theme)['Image 3'],
+                          { borderRadius: 8, height: 150, width: 150 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                </View>
+                {/* Edit */}
+                <Button
+                  onPress={() => {
+                    try {
+                      navigation.navigate('IdentityProofEditScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ButtonStyles(theme)['Button'],
+                      { margin: 20 }
+                    ),
+                    dimensions.width
+                  )}
+                  title={'Edit'}
+                />
+              </View>
+            </ScrollView>
+          );
+        }}
+      </CotruckApi.FetchGetIdentifyProofPOST>
     </ScreenContainer>
   );
 };

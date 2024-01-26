@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -21,6 +22,8 @@ import { Fetch } from 'react-request';
 const CompanyInformationScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [agentLicense, setAgentLicense] = React.useState('wee112');
   const [companyName, setCompanyName] = React.useState('BAN NA BAN WA');
   const [companyPhone, setCompanyPhone] = React.useState('09782100468');
@@ -102,7 +105,7 @@ const CompanyInformationScreen = props => {
         keyboardShouldPersistTaps={'never'}
         showsVerticalScrollIndicator={true}
       >
-        <CotruckApi.FetchCompanyInformationPOST id={120}>
+        <CotruckApi.FetchCompanyInformationPOST id={Constants['AUTH_OWNER_ID']}>
           {({ loading, error, data, refetchCompanyInformation }) => {
             const fetchData = data?.json;
             if (loading) {
@@ -456,78 +459,6 @@ const CompanyInformationScreen = props => {
                       </Text>
                     </View>
                   </View>
-                  {/* Divider 5 */}
-                  <Divider
-                    color={theme.colors['CoTruckGrey']}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.DividerStyles(theme)['Divider'],
-                      dimensions.width
-                    )}
-                  />
-                  {/* Certificate Row */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        margin: 10,
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    {/* Certificate View */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: '45%' },
-                        dimensions.width
-                      )}
-                    >
-                      {/* Certificate */}
-                      <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        style={StyleSheet.applyWidth(
-                          GlobalStyles.TextStyles(theme)['Text 2'],
-                          dimensions.width
-                        )}
-                      >
-                        {'Certificate'}
-                      </Text>
-                    </View>
-                    {/* Icon View */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '5%',
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      <Icon name={'Entypo/dots-two-vertical'} size={20} />
-                    </View>
-                    {/* Certificate View */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { alignItems: 'flex-start', width: '45%' },
-                        dimensions.width
-                      )}
-                    >
-                      <Image
-                        resizeMode={'cover'}
-                        source={{ uri: `${fetchData?.data?.certificate}` }}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.ImageStyles(theme)['Image 3'],
-                            { height: 50, width: 50 }
-                          ),
-                          dimensions.width
-                        )}
-                      />
-                    </View>
-                  </View>
                   {/* Divider 6 */}
                   <Divider
                     color={theme.colors['CoTruckGrey']}
@@ -564,7 +495,7 @@ const CompanyInformationScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Certificate'}
+                        {'Preferred Paths'}
                       </Text>
                     </View>
                     {/* Icon View */}

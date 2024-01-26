@@ -41,7 +41,7 @@ const AddNewDriverScreen = props => {
   const [textInputValue, setTextInputValue] = React.useState('');
   const [textInputValue2, setTextInputValue2] = React.useState('');
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
-  const [vehicleTypeList, setVehicleTypeList] = React.useState('');
+  const [vehicleOptions, setVehicleOptions] = React.useState([]);
   const [vehicleTypePicker, setVehicleTypePicker] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState(undefined);
   const cotruckOperatorVehicleList$available$POST =
@@ -61,8 +61,11 @@ const AddNewDriverScreen = props => {
           })
         )?.json;
         const data = Response?.data;
-        setVehicleTypeList(data);
-        console.log(Response);
+
+        const valueYV3eJn4H = data;
+        setVehicleOptions(valueYV3eJn4H);
+        const asdf = valueYV3eJn4H;
+        console.log(data);
       } catch (err) {
         console.error(err);
       }
@@ -244,7 +247,7 @@ const AddNewDriverScreen = props => {
               console.error(err);
             }
           }}
-          options={vehicleTypeList}
+          options={vehicleOptions}
           placeholder={'Choose vehicle to Assign'}
           placeholderTextColor={theme.colors['TextPlaceholder']}
           selectedIconColor={theme.colors.strong}

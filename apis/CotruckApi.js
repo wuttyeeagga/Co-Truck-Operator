@@ -138,7 +138,7 @@ export const addNewDriverPOST = (
     body: JSON.stringify({
       operator_id: operator_id,
       name: name,
-      moblie: mobile,
+      mobile: mobile,
       password: password,
       vehicle_id: vehicle_id,
       driving_license_front: driving_license_front,
@@ -5270,6 +5270,68 @@ export const FetchRequestBookingTruckPOST = ({
   });
 };
 
+export const resendOTPPOST = (Constants, { user_id }, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/resend-otp`, {
+    body: JSON.stringify({ user_id: user_id }),
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useResendOTPPOST = (initialArgs = {}, { handlers = {} } = {}) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => resendOTPPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('OTP', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('OTP');
+        queryClient.invalidateQueries('OTPS');
+      },
+    }
+  );
+};
+
+export const FetchResendOTPPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  user_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useResendOTPPOST(
+    { user_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchResendOTP: refetch });
+};
+
 export const resetPwdPOST = (
   Constants,
   { confirm_password, password, user_id },
@@ -7085,9 +7147,9 @@ export const FetchVehicleTypeListPOST = ({
   return children({ loading, data, error, refetchVehicleTypeList: refetch });
 };
 
-export const verifyOTPPOST = (Constants, { mobile, otp }, handlers = {}) =>
+export const verifyOTPPOST = (Constants, { otp, user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/verify-otp`, {
-    body: JSON.stringify({ mobile: mobile, otp: otp }),
+    body: JSON.stringify({ user_id: user_id, otp: otp }),
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     method: 'POST',
   }).then(res => handleResponse(res, handlers));
@@ -7100,12 +7162,12 @@ export const useVerifyOTPPOST = (initialArgs = {}, { handlers = {} } = {}) => {
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('otp', previousValue);
+          return queryClient.setQueryData('OTP', previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('otp');
-        queryClient.invalidateQueries('otps');
+        queryClient.invalidateQueries('OTP');
+        queryClient.invalidateQueries('OTPS');
       },
     }
   );
@@ -7116,8 +7178,8 @@ export const FetchVerifyOTPPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
-  mobile,
   otp,
+  user_id,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -7129,7 +7191,7 @@ export const FetchVerifyOTPPOST = ({
     error,
     mutate: refetch,
   } = useVerifyOTPPOST(
-    { mobile, otp },
+    { otp, user_id },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

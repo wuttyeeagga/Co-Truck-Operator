@@ -15,7 +15,7 @@ import {
 } from '@draftbit/ui';
 import { Text, View } from 'react-native';
 
-const ChangePasswordScreen = props => {
+const ChangeForgotPasswordScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -70,121 +70,6 @@ const ChangePasswordScreen = props => {
         >
           {'Change Password'}
         </Text>
-      </View>
-      {/* Old Password View */}
-      <View>
-        {/* Old Password Input */}
-        <>
-          {Constants['oldPwdShown'] ? null : (
-            <TextInput
-              allowFontScaling={true}
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              onChangeText={newOldPasswordInputValue => {
-                try {
-                  setOldPassword(newOldPasswordInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Old Password'}
-              placeholderTextColor={theme.colors['TextPlaceholder']}
-              secureTextEntry={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input 3'],
-                  {
-                    borderColor: theme.colors['Light'],
-                    borderRadius: 12,
-                    height: 48,
-                    margin: 20,
-                    paddingLeft: 12,
-                  }
-                ),
-                dimensions.width
-              )}
-              value={oldPassword}
-            />
-          )}
-        </>
-        {/* Old Password Input */}
-        <>
-          {!Constants['oldPwdShown'] ? null : (
-            <TextInput
-              allowFontScaling={true}
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              onChangeText={newOldPasswordInputValue => {
-                try {
-                  setOldPassword(newOldPasswordInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              placeholder={'Old Password'}
-              placeholderTextColor={theme.colors['TextPlaceholder']}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input 3'],
-                  {
-                    borderColor: theme.colors['Light'],
-                    borderRadius: 12,
-                    height: 48,
-                    margin: 20,
-                    paddingLeft: 12,
-                  }
-                ),
-                dimensions.width
-              )}
-              value={oldPassword}
-            />
-          )}
-        </>
-        <>
-          {Constants['oldPwdShown'] ? null : (
-            <IconButton
-              icon={'Ionicons/eye-off-sharp'}
-              onPress={() => {
-                try {
-                  setGlobalVariableValue({
-                    key: 'oldPwdShown',
-                    value: !Constants['oldPwdShown'],
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              size={32}
-              style={StyleSheet.applyWidth(
-                { bottom: 30, position: 'absolute', right: 30 },
-                dimensions.width
-              )}
-            />
-          )}
-        </>
-        {/* Icon Button 2 */}
-        <>
-          {!Constants['oldPwdShown'] ? null : (
-            <IconButton
-              icon={'Ionicons/eye-outline'}
-              onPress={() => {
-                try {
-                  setGlobalVariableValue({
-                    key: 'oldPwdShown',
-                    value: !Constants['oldPwdShown'],
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              size={32}
-              style={StyleSheet.applyWidth(
-                { bottom: 30, position: 'absolute', right: 30 },
-                dimensions.width
-              )}
-            />
-          )}
-        </>
       </View>
       {/* New Password View */}
       <View>
@@ -461,10 +346,10 @@ const ChangePasswordScreen = props => {
           }),
           dimensions.width
         )}
-        title={'Reset'}
+        title={'Change Password'}
       />
     </ScreenContainer>
   );
 };
 
-export default withTheme(ChangePasswordScreen);
+export default withTheme(ChangeForgotPasswordScreen);

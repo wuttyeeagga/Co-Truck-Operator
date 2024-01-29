@@ -5,7 +5,14 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { Button, ScreenContainer, withTheme } from '@draftbit/ui';
+import {
+  Button,
+  MultiSelectPicker,
+  Picker,
+  ScreenContainer,
+  withTheme,
+} from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 
 const Test1Screen = props => {
@@ -13,6 +20,52 @@ const Test1Screen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
+  const [list, setList] = React.useState('');
+  const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
+    []
+  );
+  const [pickerValue, setPickerValue] = React.useState('');
+  const cotruckOperatorVehicleList$available$POST =
+    CotruckApi.useOperatorVehicleList$available$POST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      console.log('Screen ON_SCREEN_FOCUS Start');
+      let error = null;
+      try {
+        if (!isFocused) {
+          return;
+        }
+        console.log('Start ON_SCREEN_FOCUS:0 FETCH_REQUEST');
+        const response = (
+          await cotruckOperatorVehicleList$available$POST.mutateAsync({
+            operator_id: 125,
+            vehicle_status: 'AVAILABLE',
+          })
+        )?.json;
+        console.log('Complete ON_SCREEN_FOCUS:0 FETCH_REQUEST', { response });
+        console.log('Start ON_SCREEN_FOCUS:1 EXTRACT_KEY');
+        const data = response?.data;
+        console.log('Complete ON_SCREEN_FOCUS:1 EXTRACT_KEY', { data });
+        console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
+        const valueHc7TK7k3 = JSON.stringify(data);
+        setList(valueHc7TK7k3);
+        const add = valueHc7TK7k3;
+        console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+        console.log('Start ON_SCREEN_FOCUS:3 CONSOLE_LOG');
+        console.log(response, list);
+        console.log('Complete ON_SCREEN_FOCUS:3 CONSOLE_LOG');
+      } catch (err) {
+        console.error(err);
+        error = err.message ?? err;
+      }
+      console.log(
+        'Screen ON_SCREEN_FOCUS Complete',
+        error ? { error } : 'no error'
+      );
+    };
+    handler();
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -28,53 +81,42 @@ const Test1Screen = props => {
         dimensions.width
       )}
     >
-      <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          style={StyleSheet.applyWidth(
-            GlobalStyles.TextStyles(theme)['Text 3'],
-            dimensions.width
-          )}
-        >
-          {null}
-        </Text>
-      </View>
-      {/* View 2 */}
       <View
         style={StyleSheet.applyWidth(
-          { marginBottom: 10, marginTop: 10 },
+          {
+            alignItems: 'center',
+            flex: 1,
+            justifyContent: 'center',
+            margin: 10,
+          },
           dimensions.width
         )}
       >
-        <Button
-          onPress={() => {
-            const handler = async () => {
-              console.log('Button ON_PRESS Start');
-              let error = null;
-              try {
-                console.log('Start ON_PRESS:0 FETCH_REQUEST');
-                const asdf = (await CotruckApi.testGET(Constants))?.json;
-                console.log('Complete ON_PRESS:0 FETCH_REQUEST', { asdf });
-                console.log('Start ON_PRESS:2 CONSOLE_LOG');
-                console.log(asdf);
-                console.log('Complete ON_PRESS:2 CONSOLE_LOG');
-              } catch (err) {
-                console.error(err);
-                error = err.message ?? err;
-              }
-              console.log(
-                'Button ON_PRESS Complete',
-                error ? { error } : 'no error'
-              );
-            };
-            handler();
+        <Picker
+          autoDismissKeyboard={true}
+          dropDownBackgroundColor={theme.colors.background}
+          dropDownBorderColor={theme.colors.divider}
+          dropDownBorderRadius={8}
+          dropDownBorderWidth={1}
+          dropDownTextColor={theme.colors.strong}
+          iconSize={24}
+          leftIconMode={'inset'}
+          mode={'native'}
+          onValueChange={newPickerValue => {
+            const pickerValue = newPickerValue;
+            try {
+              setPickerValue(newPickerValue);
+            } catch (err) {
+              console.error(err);
+            }
           }}
-          style={StyleSheet.applyWidth(
-            GlobalStyles.ButtonStyles(theme)['Button'],
-            dimensions.width
-          )}
-          title={'Back'}
+          options={list}
+          placeholder={'Select an option'}
+          selectedIconColor={theme.colors.strong}
+          selectedIconName={'Feather/check'}
+          selectedIconSize={20}
+          type={'solid'}
+          value={pickerValue}
         />
       </View>
     </ScreenContainer>

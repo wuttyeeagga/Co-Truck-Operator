@@ -159,7 +159,7 @@ const ForgotPasswordScreen = props => {
               try {
                 console.log('Start ON_PRESS:1 FETCH_REQUEST');
                 const response = (
-                  await cotruckForgotPwdPOST.mutateAsync({ mobile: num })
+                  await cotruckForgotPwdPOST.mutateAsync({ mobile: mobile })
                 )?.json;
                 console.log('Complete ON_PRESS:1 FETCH_REQUEST', { response });
                 console.log('Start ON_PRESS:2 EXTRACT_KEY');
@@ -181,7 +181,12 @@ const ForgotPasswordScreen = props => {
                 }
                 console.log('Complete ON_PRESS:5 CONDITIONAL_STOP');
                 console.log('Start ON_PRESS:6 NAVIGATE');
-                navigation.navigate('ChangePasswordScreen');
+                navigation.navigate('OTPVerificationScreen', {
+                  user_id: data,
+                  mobile: mobile,
+                  is_forgot: 1,
+                  is_regi: 0,
+                });
                 console.log('Complete ON_PRESS:6 NAVIGATE');
                 console.log('Start ON_PRESS:7 CONSOLE_LOG');
                 console.log(response, response);

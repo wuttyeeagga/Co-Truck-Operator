@@ -1,8 +1,11 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import { Button, PinInput, ScreenContainer, withTheme } from '@draftbit/ui';
 import { Image, Text, View } from 'react-native';
@@ -10,8 +13,12 @@ import { Image, Text, View } from 'react-native';
 const OTPVerificationScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [pinInputValue, setPinInputValue] = React.useState('');
   const [codeInputValue, setCodeInputValue] = React.useState(undefined);
+  const cotruckVerifyOTPPOST = CotruckApi.useVerifyOTPPOST();
+  const cotruckResendOTPPOST = CotruckApi.useResendOTPPOST();
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
@@ -83,7 +90,8 @@ const OTPVerificationScreen = props => {
             dimensions.width
           )}
         >
-          {'Enter the four digit code sent to 096782100468'}
+          {'Enter the four digit code sent to '}
+          {props.route?.params?.mobile ?? ''}
         </Text>
       </View>
       {/* View 2 */}
@@ -131,11 +139,40 @@ const OTPVerificationScreen = props => {
         {/* Verify Button */}
         <Button
           onPress={() => {
-            try {
-              navigation.navigate('AuthNavigator', { screen: 'LoginScreen' });
-            } catch (err) {
-              console.error(err);
-            }
+            const handler = async () => {
+              try {
+                const response = (
+                  await cotruckVerifyOTPPOST.mutateAsync({
+                    otp: pinInputValue,
+                    user_id: props.route?.params?.user_id ?? '',
+                  })
+                )?.json;
+                const data = response?.data;
+
+                showAlertUtil({
+                  title: 'Message',
+                  message: response?.message,
+                  buttonText: undefined,
+                });
+
+                if (!data) {
+                  return;
+                }
+                if ((props.route?.params?.is_regi ?? '') === 1) {
+                  navigation.navigate('AuthNavigator', {
+                    screen: 'LoginScreen',
+                  });
+                }
+                if ((props.route?.params?.is_forgot ?? '') === 1) {
+                  navigation.navigate('ChangeForgotPasswordScreen', {
+                    user_id: props.route?.params?.user_id ?? '',
+                  });
+                }
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
           }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
@@ -158,6 +195,26 @@ const OTPVerificationScreen = props => {
       >
         {/* Resend Button */}
         <Button
+          onPress={() => {
+            const handler = async () => {
+              try {
+                const response = (
+                  await cotruckResendOTPPOST.mutateAsync({
+                    user_id: props.route?.params?.user_id ?? '',
+                  })
+                )?.json;
+
+                showAlertUtil({
+                  title: 'Message',
+                  message: response?.message,
+                  buttonText: undefined,
+                });
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
+          }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
               borderRadius: 12,

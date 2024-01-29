@@ -15,6 +15,7 @@ import AboutUsScreen from './screens/AboutUsScreen';
 import AddNewDriverScreen from './screens/AddNewDriverScreen';
 import AddNewVehicleScreen from './screens/AddNewVehicleScreen';
 import BookingSummaryScreen from './screens/BookingSummaryScreen';
+import ChangeForgotPasswordScreen from './screens/ChangeForgotPasswordScreen';
 import ChangePasswordScreen from './screens/ChangePasswordScreen';
 import ChooseLanguageScreen from './screens/ChooseLanguageScreen';
 import ChooseLocationZoneScreen from './screens/ChooseLocationZoneScreen';
@@ -45,6 +46,7 @@ import ImportBookingDetailsOnPendingScreen from './screens/ImportBookingDetailsO
 import ImportNewTripAcceptedScreen from './screens/ImportNewTripAcceptedScreen';
 import ImportNewTripPendingScreen from './screens/ImportNewTripPendingScreen';
 import ImportReasonForCancelScreen from './screens/ImportReasonForCancelScreen';
+import InvoiceGenerateViewScreen from './screens/InvoiceGenerateViewScreen';
 import InvoiceScreen from './screens/InvoiceScreen';
 import LoginScreen from './screens/LoginScreen';
 import ManageDriverScreen from './screens/ManageDriverScreen';
@@ -228,10 +230,10 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="PaymentScreen"
-          component={PaymentScreen}
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
           options={({ navigation }) => ({
-            title: 'Payment',
+            title: 'OTP Verification',
           })}
         />
         <Stack.Screen
@@ -242,10 +244,80 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="PaymentScreen"
+          component={PaymentScreen}
+          options={({ navigation }) => ({
+            title: 'Payment',
+          })}
+        />
+        <Stack.Screen
+          name="NotificationsScreen"
+          component={NotificationsScreen}
+          options={({ navigation }) => ({
+            title: 'Notifications',
+          })}
+        />
+        <Stack.Screen
+          name="InvoiceScreen"
+          component={InvoiceScreen}
+          options={({ navigation }) => ({
+            title: 'Invoice',
+          })}
+        />
+        <Stack.Screen
+          name="ImportReasonForCancelScreen"
+          component={ImportReasonForCancelScreen}
+          options={({ navigation }) => ({
+            title: 'Import Reason for cancel',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnGoingScreen"
+          component={ImportBookingDetailsOnGoingScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Going',
+          })}
+        />
+        <Stack.Screen
           name="ImportBookingDetailsOnConfirmedScreen"
           component={ImportBookingDetailsOnConfirmedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on  Confirmed',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnCompletedScreen"
+          component={ImportBookingDetailsOnCompletedScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Completed',
+          })}
+        />
+        <Stack.Screen
+          name="HospitalOnMapScreen"
+          component={HospitalOnMapScreen}
+          options={({ navigation }) => ({
+            title: 'Hospital on Map',
+          })}
+        />
+        <Stack.Screen
+          name="FAQsScreen"
+          component={FAQsScreen}
+          options={({ navigation }) => ({
+            title: 'FAQs',
+          })}
+        />
+        <Stack.Screen
+          name="CompanyInformationScreen"
+          component={CompanyInformationScreen}
+          options={({ navigation }) => ({
+            title: 'Company Information',
+          })}
+        />
+        <Stack.Screen
+          name="ChooseLocationZoneScreen"
+          component={ChooseLocationZoneScreen}
+          options={({ navigation }) => ({
+            title: 'Choose Location Zone',
           })}
         />
         <Stack.Screen
@@ -263,69 +335,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="HospitalOnMapScreen"
-          component={HospitalOnMapScreen}
-          options={({ navigation }) => ({
-            title: 'Hospital on Map',
-          })}
-        />
-        <Stack.Screen
-          name="ImportReasonForCancelScreen"
-          component={ImportReasonForCancelScreen}
-          options={({ navigation }) => ({
-            title: 'Import Reason for cancel',
-          })}
-        />
-        <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={({ navigation }) => ({
-            title: 'PickUpDropDetails',
-          })}
-        />
-        <Stack.Screen
-          name="CompanyInformationScreen"
-          component={CompanyInformationScreen}
-          options={({ navigation }) => ({
-            title: 'Company Information',
-          })}
-        />
-        <Stack.Screen
-          name="ImportBookingDetailsOnGoingScreen"
-          component={ImportBookingDetailsOnGoingScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Going',
-          })}
-        />
-        <Stack.Screen
-          name="ChooseLocationZoneScreen"
-          component={ChooseLocationZoneScreen}
-          options={({ navigation }) => ({
-            title: 'Choose Location Zone',
-          })}
-        />
-        <Stack.Screen
-          name="FAQsScreen"
-          component={FAQsScreen}
-          options={({ navigation }) => ({
-            title: 'FAQs',
-          })}
-        />
-        <Stack.Screen
-          name="OTPVerificationScreen"
-          component={OTPVerificationScreen}
-          options={({ navigation }) => ({
-            title: 'OTP Verification',
-          })}
-        />
-        <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
-          options={({ navigation }) => ({
-            title: 'Invoice',
-          })}
-        />
-        <Stack.Screen
           name="Test1Screen"
           component={Test1Screen}
           options={({ navigation }) => ({
@@ -333,24 +342,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="NotificationsScreen"
-          component={NotificationsScreen}
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
           options={({ navigation }) => ({
-            title: 'Notifications',
-          })}
-        />
-        <Stack.Screen
-          name="ReferAFriendScreen"
-          component={ReferAFriendScreen}
-          options={({ navigation }) => ({
-            title: 'Refer a friend',
-          })}
-        />
-        <Stack.Screen
-          name="ImportBookingDetailsOnCompletedScreen"
-          component={ImportBookingDetailsOnCompletedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Completed',
+            title: 'Sign Up Identity Proof',
           })}
         />
         <Stack.Screen
@@ -361,10 +356,17 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="SignUpIdentityProofScreen"
-          component={SignUpIdentityProofScreen}
+          name="ReferAFriendScreen"
+          component={ReferAFriendScreen}
           options={({ navigation }) => ({
-            title: 'Sign Up Identity Proof',
+            title: 'Refer a friend',
+          })}
+        />
+        <Stack.Screen
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'PickUpDropDetails',
           })}
         />
         <Stack.Screen
@@ -540,6 +542,20 @@ export default function RootAppNavigator() {
           component={ImportBookingDetailsOnPendingScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Pending',
+          })}
+        />
+        <Stack.Screen
+          name="InvoiceGenerateViewScreen"
+          component={InvoiceGenerateViewScreen}
+          options={({ navigation }) => ({
+            title: 'Invoice Generate View',
+          })}
+        />
+        <Stack.Screen
+          name="ChangeForgotPasswordScreen"
+          component={ChangeForgotPasswordScreen}
+          options={({ navigation }) => ({
+            title: 'Change Forgot Password',
           })}
         />
         <Stack.Screen name="AuthNavigator" component={AuthNavigator} />

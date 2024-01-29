@@ -13,16 +13,10 @@ export const DeviceVariables = {
   confirmPwdShown: false,
   newPwdShown: false,
   oldPwdShown: false,
-  ownerImage: {},
   showPassword: false,
   __env__: 'Development',
 };
-export const AppVariables = {
-  optionsList: [
-    { label: 'hahahaha', value: 1 },
-    { label: 'hohohoho', value: 2 },
-  ],
-};
+export const AppVariables = {};
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 const keySuffix = '';

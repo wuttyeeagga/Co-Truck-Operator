@@ -5,6 +5,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -554,13 +555,18 @@ const IdentityProofEditScreen = props => {
                       dl_fron: dlFront,
                       nrc_back: nrcBack,
                       nrc_front: nrcFront,
-                      operator_id: 120,
+                      operator_id: Constants['AUTH_OWNER_ID'],
                     })
                   )?.json;
                   navigation.navigate('BottomTabNavigator', {
                     screen: 'SettingsScreen',
                   });
-                  console.log(results);
+
+                  showAlertUtil({
+                    title: 'Message',
+                    message: results?.message,
+                    buttonText: undefined,
+                  });
                 } catch (err) {
                   console.error(err);
                 }

@@ -40,6 +40,7 @@ const AddNewDriverScreen = props => {
   const [numberInputValue, setNumberInputValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const [textInputValue2, setTextInputValue2] = React.useState('');
+  const [textInputValue3, setTextInputValue3] = React.useState('');
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
   const [vehicleOptions, setVehicleOptions] = React.useState([]);
   const [vehicleTypePicker, setVehicleTypePicker] = React.useState('');
@@ -61,11 +62,7 @@ const AddNewDriverScreen = props => {
           })
         )?.json;
         const data = Response?.data;
-
-        const valueYV3eJn4H = data;
-        setVehicleOptions(valueYV3eJn4H);
-        const asdf = valueYV3eJn4H;
-        console.log(data);
+        setVehicleOptions(data);
       } catch (err) {
         console.error(err);
       }
@@ -166,13 +163,18 @@ const AddNewDriverScreen = props => {
         {/* Mobile Container */}
         <View>
           {/* Mobile Input */}
-          <NumberInput
+          <TextInput
             allowFontScaling={true}
+            autoCapitalize={'none'}
             changeTextDelay={500}
-            maxLength={11}
+            keyboardType={'phone-pad'}
+            maxLength={12}
             onChangeText={newMobileInputValue => {
               try {
-                setMobile(newMobileInputValue);
+                const valuemdPpFUTA = newMobileInputValue;
+                setMobile(valuemdPpFUTA);
+                const asdf = valuemdPpFUTA;
+                console.log(asdf);
               } catch (err) {
                 console.error(err);
               }
@@ -181,7 +183,7 @@ const AddNewDriverScreen = props => {
             placeholderTextColor={theme.colors['TextPlaceholder']}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
-                GlobalStyles.NumberInputStyles(theme)['Number Input'],
+                GlobalStyles.TextInputStyles(theme)['Text Input 3'],
                 {
                   borderColor: theme.colors['Light'],
                   borderRadius: 12,
@@ -242,7 +244,10 @@ const AddNewDriverScreen = props => {
           onValueChange={newVehiclePickerValue => {
             const pickerValue = newVehiclePickerValue;
             try {
-              setVehicleTypePicker(newVehiclePickerValue);
+              const valueyQlJENl8 = newVehiclePickerValue;
+              setVehicleTypePicker(valueyQlJENl8);
+              const ASDF = valueyQlJENl8;
+              console.log(ASDF);
             } catch (err) {
               console.error(err);
             }
@@ -710,7 +715,7 @@ const AddNewDriverScreen = props => {
                 });
 
                 navigation.navigate('ManageDriverScreen');
-                console.log(results);
+                console.log(results, Mobile);
               } catch (err) {
                 console.error(err);
               }

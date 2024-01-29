@@ -63,7 +63,6 @@ const RegisterScreen = props => {
         const results = (await cotruckPreferredPathsPOST.mutateAsync())?.json;
         const asdf = results?.data;
         setPathsOptions(asdf);
-        /* 'Set Variable' action requires configuration: choose a variable */
         console.log(asdf);
       } catch (err) {
         console.error(err);

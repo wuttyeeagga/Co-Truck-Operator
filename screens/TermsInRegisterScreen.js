@@ -4,6 +4,7 @@ import * as CotruckApi from '../apis/CotruckApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -169,6 +170,7 @@ const TermsInRegisterScreen = props => {
                     nrc_back: props.route?.params?.NRC_back ?? '',
                     nrc_front: props.route?.params?.NRC ?? '',
                     password: props.route?.params?.password ?? '',
+                    paths: props.route?.params?.prefer_paths ?? '',
                     referral_code: props.route?.params?.refer_code ?? '',
                     user_type: 'OWNER',
                     vehicle_insurance:
@@ -202,7 +204,23 @@ const TermsInRegisterScreen = props => {
                   props.route?.params?.driving_license ?? '',
                   props.route?.params?.driving_license_back ?? ''
                 );
-                navigation.navigate('OTPVerificationScreen');
+
+                showAlertUtil({
+                  title: 'Message',
+                  message: Response?.message,
+                  buttonText: undefined,
+                });
+
+                const data = Response?.data;
+                if (!data) {
+                  return;
+                }
+                navigation.navigate('OTPVerificationScreen', {
+                  user_id: data?.id,
+                  mobile: props.route?.params?.mobile ?? '',
+                  is_forgot: 0,
+                  is_regi: 1,
+                });
               } catch (err) {
                 console.error(err);
               }

@@ -2139,12 +2139,12 @@ export const useForgotPwdPOST = (initialArgs = {}, { handlers = {} } = {}) => {
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Forget ', previousValue);
+          return queryClient.setQueryData('Forgot', previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Forget ');
-        queryClient.invalidateQueries('Forget s');
+        queryClient.invalidateQueries('Forgot');
+        queryClient.invalidateQueries('Forgots');
       },
     }
   );
@@ -5332,6 +5332,81 @@ export const FetchResendOTPPOST = ({
   return children({ loading, data, error, refetchResendOTP: refetch });
 };
 
+export const resetPasswordPOST = (
+  Constants,
+  { confirm_password, password, user_id },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/reset-pwd`, {
+    body: JSON.stringify({
+      user_id: user_id,
+      password: password,
+      confirm_password: confirm_password,
+    }),
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useResetPasswordPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => resetPasswordPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Forgot', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Forgot');
+        queryClient.invalidateQueries('Forgots');
+      },
+    }
+  );
+};
+
+export const FetchResetPasswordPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  confirm_password,
+  password,
+  user_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useResetPasswordPOST(
+    { confirm_password, password, user_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchResetPassword: refetch });
+};
+
 export const resetPwdPOST = (
   Constants,
   { confirm_password, password, user_id },
@@ -5483,6 +5558,75 @@ export const FetchShipperCancleReasonPOST = ({
     error,
     refetchShipperCancleReason: refetch,
   });
+};
+
+export const systemChargesPOST = (Constants, { operator_id }, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/system_charges`, {
+    body: JSON.stringify({ operator_id: operator_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useSystemChargesPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => systemChargesPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('System', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('System');
+        queryClient.invalidateQueries('Systems');
+      },
+    }
+  );
+};
+
+export const FetchSystemChargesPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  operator_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useSystemChargesPOST(
+    { operator_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchSystemCharges: refetch });
 };
 
 export const updateBookedDriverPOST = (

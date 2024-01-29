@@ -461,7 +461,7 @@ const ChangePasswordScreen = props => {
           }),
           dimensions.width
         )}
-        title={'Reset'}
+        title={'Change Password'}
       />
     </ScreenContainer>
   );

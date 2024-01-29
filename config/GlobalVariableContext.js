@@ -16,7 +16,7 @@ export const DeviceVariables = {
   showPassword: false,
   __env__: 'Development',
 };
-export const AppVariables = {};
+export const AppVariables = { myURL: '' };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 const keySuffix = '';

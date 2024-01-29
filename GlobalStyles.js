@@ -368,3 +368,6 @@ export const WebViewStyles = theme =>
 
 export const ActivityIndicatorStyles = theme =>
   StyleSheet.create({ 'Activity Indicator': { height: 36, width: 36 } });
+
+export const LinkStyles = theme =>
+  StyleSheet.create({ Link: { color: theme.colors.primary } });

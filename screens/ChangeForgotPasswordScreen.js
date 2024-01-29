@@ -24,7 +24,7 @@ const ChangeForgotPasswordScreen = props => {
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [newPassword, setNewPassword] = React.useState('');
   const [oldPassword, setOldPassword] = React.useState('');
-  const cotruckChangePwdPOST = CotruckApi.useChangePwdPOST();
+  const cotruckResetPasswordPOST = CotruckApi.useResetPasswordPOST();
 
   return (
     <ScreenContainer
@@ -308,10 +308,10 @@ const ChangeForgotPasswordScreen = props => {
             try {
               if (newPassword === confirmPassword) {
                 const changePassword = (
-                  await cotruckChangePwdPOST.mutateAsync({
-                    new_password: confirmPassword,
-                    old_password: oldPassword,
-                    user_id: Constants['AUTH_OWNER_ID'],
+                  await cotruckResetPasswordPOST.mutateAsync({
+                    confirm_password: confirmPassword,
+                    password: newPassword,
+                    user_id: props.route?.params?.user_id ?? '',
                   })
                 )?.json;
                 const message = changePassword?.message;

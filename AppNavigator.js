@@ -87,13 +87,6 @@ function AuthNavigator() {
         })}
       />
       <Stack.Screen
-        name="ChooseLanguageScreen"
-        component={ChooseLanguageScreen}
-        options={({ navigation }) => ({
-          title: 'Choose Language',
-        })}
-      />
-      <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
         options={({ navigation }) => ({
@@ -230,17 +223,10 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="OTPVerificationScreen"
-          component={OTPVerificationScreen}
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
           options={({ navigation }) => ({
-            title: 'OTP Verification',
-          })}
-        />
-        <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-          options={({ navigation }) => ({
-            title: 'Forgot Password',
+            title: 'PickUpDropDetails',
           })}
         />
         <Stack.Screen
@@ -248,6 +234,13 @@ export default function RootAppNavigator() {
           component={PaymentScreen}
           options={({ navigation }) => ({
             title: 'Payment',
+          })}
+        />
+        <Stack.Screen
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
+          options={({ navigation }) => ({
+            title: 'OTP Verification',
           })}
         />
         <Stack.Screen
@@ -300,6 +293,13 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
+          options={({ navigation }) => ({
+            title: 'Forgot Password',
+          })}
+        />
+        <Stack.Screen
           name="FAQsScreen"
           component={FAQsScreen}
           options={({ navigation }) => ({
@@ -318,6 +318,13 @@ export default function RootAppNavigator() {
           component={ChooseLocationZoneScreen}
           options={({ navigation }) => ({
             title: 'Choose Location Zone',
+          })}
+        />
+        <Stack.Screen
+          name="ChooseLanguageScreen"
+          component={ChooseLanguageScreen}
+          options={({ navigation }) => ({
+            title: 'Choose Language',
           })}
         />
         <Stack.Screen
@@ -360,13 +367,6 @@ export default function RootAppNavigator() {
           component={ReferAFriendScreen}
           options={({ navigation }) => ({
             title: 'Refer a friend',
-          })}
-        />
-        <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={({ navigation }) => ({
-            title: 'PickUpDropDetails',
           })}
         />
         <Stack.Screen

@@ -16,6 +16,7 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
+import { FlashList } from '@shopify/flash-list';
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -24,7 +25,7 @@ const ImportNewTripPendingScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const [availabilityTruck, setAvailabilityTruck] = React.useState(1);
+  const [availabilityTruck, setAvailabilityTruck] = React.useState(0);
   const [chooseDriverOptions, setChooseDriverOptions] = React.useState([]);
   const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
     []
@@ -32,6 +33,18 @@ const ImportNewTripPendingScreen = props => {
   const [textInputValue, setTextInputValue] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState(undefined);
   const cotruckAcceptNewTripPOST = CotruckApi.useAcceptNewTripPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      /* 'API Request' action requires configuration: choose an API endpoint */
+      undefined;
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -81,7 +94,7 @@ const ImportNewTripPendingScreen = props => {
                   >
                     <ActivityIndicator
                       animating={true}
-                      color={'rgba(0, 0, 0, 0)'}
+                      color={theme.colors['Primary']}
                       hidesWhenStopped={true}
                       size={'large'}
                       style={StyleSheet.applyWidth(
@@ -622,7 +635,11 @@ const ImportNewTripPendingScreen = props => {
                     onValueChange={newChooseDriverValue => {
                       const pickerValue = newChooseDriverValue;
                       try {
-                        setMultiSelectPickerValue(newChooseDriverValue);
+                        const valueyU36WT4v = newChooseDriverValue;
+                        setMultiSelectPickerValue(valueyU36WT4v);
+                        const asdf = valueyU36WT4v;
+                        setAvailabilityTruck(newChooseDriverValue);
+                        console.log(asdf);
                       } catch (err) {
                         console.error(err);
                       }
@@ -692,7 +709,7 @@ const ImportNewTripPendingScreen = props => {
                                 desc: [],
                                 driver_id: multiSelectPickerValue,
                                 final_total: 12345,
-                                qty: fetchData?.data?.no_of_truck,
+                                qty: multiSelectPickerValue,
                                 sub_total: 780,
                                 user_id: Constants['AUTH_OWNER_ID'],
                               })

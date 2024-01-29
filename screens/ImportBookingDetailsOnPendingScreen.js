@@ -93,6 +93,10 @@ const ImportBookingDetailsOnPendingScreen = props => {
 
       <ScrollView
         bounces={true}
+        contentContainerStyle={StyleSheet.applyWidth(
+          { flex: 1 },
+          dimensions.width
+        )}
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >

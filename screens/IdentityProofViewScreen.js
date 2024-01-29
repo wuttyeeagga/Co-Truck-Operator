@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -19,6 +20,8 @@ import { Fetch } from 'react-request';
 const IdentityProofViewScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [isDLUpload, setIsDLUpload] = React.useState(false);
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
 
@@ -79,11 +82,33 @@ const IdentityProofViewScreen = props => {
         </View>
       </View>
 
-      <CotruckApi.FetchGetIdentifyProofPOST operator_id={125}>
+      <CotruckApi.FetchGetIdentifyProofPOST
+        operator_id={Constants['AUTH_OWNER_ID']}
+      >
         {({ loading, error, data, refetchGetIdentifyProof }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return (
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <ActivityIndicator
+                  animating={true}
+                  color={theme.colors['Primary']}
+                  hidesWhenStopped={true}
+                  size={'large'}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ActivityIndicatorStyles(theme)[
+                      'Activity Indicator'
+                    ],
+                    dimensions.width
+                  )}
+                />
+              </View>
+            );
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {

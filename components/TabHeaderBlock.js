@@ -52,8 +52,7 @@ const TabHeaderBlock = props => {
       <Touchable
         onPress={() => {
           try {
-            navigation.navigate('RootNavigator');
-            console.log('pressed');
+            navigation.navigate('NotificationsScreen');
           } catch (err) {
             console.error(err);
           }

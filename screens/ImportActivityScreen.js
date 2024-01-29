@@ -77,7 +77,7 @@ const ImportActivityScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('RootNavigator');
+              navigation.navigate('NotificationsScreen');
             } catch (err) {
               console.error(err);
             }

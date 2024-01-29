@@ -80,7 +80,7 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('RootNavigator');
+              navigation.navigate('NotificationsScreen');
             } catch (err) {
               console.error(err);
             }
@@ -564,7 +564,7 @@ const SettingsScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('RootNavigator');
+              navigation.navigate('AboutUsScreen');
             } catch (err) {
               console.error(err);
             }

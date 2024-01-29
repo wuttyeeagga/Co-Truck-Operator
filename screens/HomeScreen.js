@@ -103,7 +103,7 @@ const HomeScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('RootNavigator');
+              navigation.navigate('NotificationsScreen');
             } catch (err) {
               console.error(err);
             }
@@ -137,7 +137,7 @@ const HomeScreen = props => {
           <ScrollView
             bounces={true}
             contentContainerStyle={StyleSheet.applyWidth(
-              { paddingBottom: 20 },
+              { flex: 1, paddingBottom: 20 },
               dimensions.width
             )}
             showsHorizontalScrollIndicator={false}
@@ -642,7 +642,7 @@ const HomeScreen = props => {
           <ScrollView
             bounces={true}
             contentContainerStyle={StyleSheet.applyWidth(
-              { paddingBottom: 20 },
+              { flex: 1, paddingBottom: 20 },
               dimensions.width
             )}
             showsHorizontalScrollIndicator={false}

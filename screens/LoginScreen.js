@@ -432,14 +432,14 @@ const LoginScreen = props => {
                     value: data,
                   });
                   console.log('Complete ON_PRESS:9 SET_VARIABLE');
-                  console.log('Start ON_PRESS:10 CONSOLE_LOG');
-                  console.log(Constants['OWNER_INFO']?.certificate);
-                  console.log('Complete ON_PRESS:10 CONSOLE_LOG');
-                  console.log('Start ON_PRESS:11 NAVIGATE');
+                  console.log('Start ON_PRESS:10 NAVIGATE');
                   navigation.navigate('BottomTabNavigator', {
                     screen: 'HomeScreen',
                   });
-                  console.log('Complete ON_PRESS:11 NAVIGATE');
+                  console.log('Complete ON_PRESS:10 NAVIGATE');
+                  console.log('Start ON_PRESS:11 CONSOLE_LOG');
+                  console.log(token);
+                  console.log('Complete ON_PRESS:11 CONSOLE_LOG');
                 } catch (err) {
                   console.error(err);
                   error = err.message ?? err;

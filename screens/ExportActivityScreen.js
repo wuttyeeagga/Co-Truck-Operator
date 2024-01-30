@@ -1087,8 +1087,11 @@ const ExportActivityScreen = props => {
                                       navigation.navigate(
                                         'ExportBookingDetailsOnCompletedScreen',
                                         {
+                                          booking_type: listData?.booking_type,
                                           book_truck_id:
                                             listData?.book_truck_id,
+                                          booking_status: listData?.status,
+                                          paid_status: listData?.paid_status,
                                         }
                                       );
                                     } catch (err) {

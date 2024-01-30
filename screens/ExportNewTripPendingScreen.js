@@ -690,12 +690,10 @@ const ExportNewTripPendingScreen = props => {
                                 booking_id:
                                   props.route?.params?.booking_id ?? '',
                                 charges: 450,
-                                desc: [],
-                                driver_id: multiSelectPickerValue,
                                 final_total: 12345,
+                                operator_id: 120,
                                 qty: fetchData?.data?.no_of_truck,
                                 sub_total: 780,
-                                user_id: Constants['AUTH_OWNER_ID'],
                               })
                             )?.json;
                             navigation.navigate('BottomTabNavigator', {

@@ -5,6 +5,7 @@ import Header2Block from '../components/Header2Block';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -25,28 +26,47 @@ const ImportNewTripPendingScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const [availabilityTruck, setAvailabilityTruck] = React.useState(0);
+  const [chargesOptions, setChargesOptions] = React.useState([]);
   const [chooseDriverOptions, setChooseDriverOptions] = React.useState([]);
-  const [extraCharges, setExtraCharges] = React.useState('');
-  const [extraChargesAmount, setExtraChargesAmount] = React.useState('');
+  const [extraAmount, setExtraAmount] = React.useState(0);
+  const [extraChargesDesc, setExtraChargesDesc] = React.useState([]);
   const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
     []
   );
-  const [subTotal, setSubTotal] = React.useState('');
+  const [selectDriver, setSelectDriver] = React.useState([]);
+  const [selectExtraAmount, setSelectExtraAmount] = React.useState([]);
+  const [subTotal, setSubTotal] = React.useState(0);
   const [textInputValue, setTextInputValue] = React.useState('');
-  const [totalPrice, setTotalPrice] = React.useState('');
-  const [pickerValue, setPickerValue] = React.useState(undefined);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+  const addExtraToTotal = (a, b) => {
+    return a + b;
+  };
+  const cotruckCategoryChargesPOST = CotruckApi.useCategoryChargesPOST();
   const cotruckAcceptNewTripPOST = CotruckApi.useAcceptNewTripPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
-    try {
-      if (!isFocused) {
-        return;
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const extraCharges = (await cotruckCategoryChargesPOST.mutateAsync())
+          ?.json;
+        const result = extraCharges?.data;
+
+        const valueOhYYl5Jw = result;
+        setChargesOptions(valueOhYYl5Jw);
+        const zxd = valueOhYYl5Jw;
+        console.log(
+          extraCharges,
+          zxd,
+          props.route?.params?.book_truck_id ?? ''
+        );
+      } catch (err) {
+        console.error(err);
       }
-      /* 'API Request' action requires configuration: choose an API endpoint */
-      undefined;
-    } catch (err) {
-      console.error(err);
-    }
+    };
+    handler();
   }, [isFocused]);
 
   return (
@@ -67,12 +87,15 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={125}
+          book_truck_id={218}
           handlers={{
             onData: fetchData => {
               try {
                 const asdf = fetchData?.data?.drivers;
                 setChooseDriverOptions(asdf);
+                setSubTotal((fetchData?.data?.sub_total).toString());
+                setTotalPrice((fetchData?.data?.total_price).toString());
+                console.log(fetchData?.data?.book_truck_id);
               } catch (err) {
                 console.error(err);
               }
@@ -116,7 +139,12 @@ const ImportNewTripPendingScreen = props => {
               return (
                 <>
                   {/* Error View */}
-                  <View>
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { alignItems: 'center', justifyContent: 'center' },
+                      dimensions.width
+                    )}
+                  >
                     {/* error */}
                     <Text
                       accessible={true}
@@ -584,6 +612,7 @@ const ImportNewTripPendingScreen = props => {
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
+                        keyboardType={'numeric'}
                         onChangeText={newAvailabilityInputValue => {
                           try {
                             setAvailabilityTruck(newAvailabilityInputValue);
@@ -636,12 +665,10 @@ const ImportNewTripPendingScreen = props => {
                     iconSize={24}
                     leftIconMode={'inset'}
                     onValueChange={newChooseDriverValue => {
-                      const pickerValue = newChooseDriverValue;
                       try {
                         const valueyU36WT4v = newChooseDriverValue;
-                        setMultiSelectPickerValue(valueyU36WT4v);
+                        setSelectDriver(valueyU36WT4v);
                         const asdf = valueyU36WT4v;
-                        setAvailabilityTruck(newChooseDriverValue);
                         console.log(asdf);
                       } catch (err) {
                         console.error(err);
@@ -659,7 +686,7 @@ const ImportNewTripPendingScreen = props => {
                       dimensions.width
                     )}
                     type={'solid'}
-                    value={multiSelectPickerValue}
+                    value={selectDriver}
                   />
                   {/* Sub Total */}
                   <View>
@@ -700,6 +727,7 @@ const ImportNewTripPendingScreen = props => {
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
+                        editable={false}
                         onChangeText={newSubToalInputValue => {
                           try {
                             setSubTotal(newSubToalInputValue);
@@ -753,44 +781,41 @@ const ImportNewTripPendingScreen = props => {
                         {'Extra Charges'}
                       </Text>
                     </View>
-                    {/* View 2 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { margin: 10, marginTop: 0 },
-                        dimensions.width
-                      )}
-                    >
-                      {/* Extra Charges Input */}
-                      <TextInput
-                        allowFontScaling={true}
-                        autoCapitalize={'none'}
-                        changeTextDelay={500}
-                        onChangeText={newExtraChargesInputValue => {
-                          try {
-                            setExtraCharges(newExtraChargesInputValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        placeholder={'Enter a value...'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextInputStyles(theme)['Text Input 3'],
-                            {
-                              borderColor: theme.colors['Light'],
-                              borderRadius: 12,
-                              height: 48,
-                              margin: 10,
-                              paddingLeft: 16,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        value={extraCharges}
-                      />
-                    </View>
                   </View>
+                  {/* Select Extra Charges */}
+                  <MultiSelectPicker
+                    autoDismissKeyboard={true}
+                    dropDownBackgroundColor={theme.colors.background}
+                    dropDownBorderColor={theme.colors.divider}
+                    dropDownBorderRadius={8}
+                    dropDownBorderWidth={1}
+                    dropDownTextColor={theme.colors.strong}
+                    iconSize={24}
+                    leftIconMode={'inset'}
+                    onValueChange={newSelectExtraChargesValue => {
+                      try {
+                        setSelectExtraAmount(newSelectExtraChargesValue);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    options={chargesOptions}
+                    placeholder={'Select an option'}
+                    selectedIconColor={theme.colors.strong}
+                    selectedIconName={'Feather/check'}
+                    selectedIconSize={20}
+                    style={StyleSheet.applyWidth(
+                      {
+                        borderRadius: 12,
+                        marginLeft: 20,
+                        marginRight: 20,
+                        marginTop: 10,
+                      },
+                      dimensions.width
+                    )}
+                    type={'solid'}
+                    value={selectExtraAmount}
+                  />
                   {/* Extra Charges Amount */}
                   <View>
                     <View
@@ -799,7 +824,7 @@ const ImportNewTripPendingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Extra Charges Amount */}
+                      {/* Extra Amount */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -830,14 +855,23 @@ const ImportNewTripPendingScreen = props => {
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
+                        keyboardType={'phone-pad'}
                         onChangeText={newExtraAmountInputValue => {
                           try {
-                            setExtraChargesAmount(newExtraAmountInputValue);
+                            const valueMNqv9sFA = newExtraAmountInputValue;
+                            setExtraAmount(valueMNqv9sFA);
+                            const ewer = valueMNqv9sFA;
+                            const results = addExtraToTotal(ewer, subTotal);
+
+                            const value4us9u2aL = results;
+                            setTotalPrice(value4us9u2aL);
+                            const asdf = value4us9u2aL;
+                            console.log(ewer, asdf);
                           } catch (err) {
                             console.error(err);
                           }
                         }}
-                        placeholder={'Enter a value...'}
+                        placeholder={'extra amount'}
                         placeholderTextColor={theme.colors['TextPlaceholder']}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
@@ -852,7 +886,7 @@ const ImportNewTripPendingScreen = props => {
                           ),
                           dimensions.width
                         )}
-                        value={extraChargesAmount}
+                        value={extraAmount}
                       />
                     </View>
                   </View>
@@ -895,6 +929,7 @@ const ImportNewTripPendingScreen = props => {
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
+                        editable={false}
                         onChangeText={newTotalPriceInputValue => {
                           try {
                             setTotalPrice(newTotalPriceInputValue);
@@ -968,18 +1003,24 @@ const ImportNewTripPendingScreen = props => {
                             const results = (
                               await cotruckAcceptNewTripPOST.mutateAsync({
                                 booking_id: fetchData?.data?.book_truck_id,
-                                charges: extraChargesAmount,
-                                desc: extraCharges,
-                                driver_id: multiSelectPickerValue,
+                                charges: extraAmount,
+                                driver_ids: selectDriver,
+                                extra_charge_desc: selectExtraAmount,
                                 final_total: totalPrice,
-                                qty: multiSelectPickerValue,
+                                operator_id: 125,
+                                qty: availabilityTruck,
                                 sub_total: subTotal,
-                                user_id: 125,
                               })
                             )?.json;
-                            console.log(results);
+                            console.log(results, selectDriver);
                             navigation.navigate('BottomTabNavigator', {
                               screen: 'HomeScreen',
+                            });
+
+                            showAlertUtil({
+                              title: 'Message',
+                              message: fetchData?.message,
+                              buttonText: undefined,
                             });
                           } catch (err) {
                             console.error(err);

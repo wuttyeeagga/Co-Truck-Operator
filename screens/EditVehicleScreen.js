@@ -33,6 +33,7 @@ const EditVehicleScreen = props => {
   const [isRCUpload, setIsRCUpload] = React.useState(false);
   const [isVehicleInsurance, setIsVehicleInsurance] = React.useState(false);
   const [pickerValue, setPickerValue] = React.useState('');
+  const [registerNo, setRegisterNo] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
   const [vehicleTypeList, setVehicleTypeList] = React.useState('');
@@ -48,6 +49,11 @@ const EditVehicleScreen = props => {
         const Response = (await cotruckVehicleTypeListPOST.mutateAsync())?.json;
         const data = Response?.data;
         setVehicleTypeList(data);
+        setPickerValue(props.route?.params?.vehicle_type ?? '');
+        setRegisterNo(props.route?.params?.reg_no ?? '');
+        setRCPhoto(props.route?.params?.registr_rc ?? '');
+        setVehicleInsurancePhoto(props.route?.params?.registr_insurance ?? '');
+        setVehiclePhoto(props.route?.params?.operator_truck_image ?? '');
       } catch (err) {
         console.error(err);
       }
@@ -145,14 +151,14 @@ const EditVehicleScreen = props => {
         ></Picker>
         {/* TextInput View */}
         <View>
+          {/* Reg Input */}
           <TextInput
             allowFontScaling={true}
             autoCapitalize={'none'}
             changeTextDelay={500}
-            onChangeText={newTextInputValue => {
-              const textInputValue = newTextInputValue;
+            onChangeText={newRegInputValue => {
               try {
-                setTextInputValue(newTextInputValue);
+                setRegisterNo(newRegInputValue);
               } catch (err) {
                 console.error(err);
               }
@@ -172,7 +178,7 @@ const EditVehicleScreen = props => {
               ),
               dimensions.width
             )}
-            value={textInputValue}
+            value={registerNo}
           />
         </View>
         {/* RC Container */}
@@ -409,6 +415,7 @@ const EditVehicleScreen = props => {
                   dimensions.width
                 )}
               >
+                {/* Vehicle Image */}
                 <Image
                   resizeMode={'cover'}
                   source={{ uri: `${VehiclePhoto}` }}

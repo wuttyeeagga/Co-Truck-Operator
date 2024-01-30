@@ -143,19 +143,7 @@ const HomeScreen = props => {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           >
-            <CotruckApi.FetchNewLeadsPOST
-              booking_type={'Import'}
-              handlers={{
-                on404: fetchData => {
-                  try {
-                    setNotFound('There is not Found');
-                  } catch (err) {
-                    console.error(err);
-                  }
-                },
-              }}
-              id={Constants['AUTH_OWNER_ID']}
-            >
+            <CotruckApi.FetchNewLeadsPOST booking_type={'Import'} id={125}>
               {({ loading, error, data, refetchNewLeads }) => {
                 const fetchData = data?.json;
                 if (loading) {

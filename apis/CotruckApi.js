@@ -17,12 +17,12 @@ export const acceptNewTripPOST = (
   {
     booking_id,
     charges,
-    desc,
-    driver_id,
+    driver_ids,
+    extra_charge_desc,
     final_total,
+    operator_id,
     qty,
     sub_total,
-    user_id,
   },
   handlers = {}
 ) =>
@@ -30,16 +30,17 @@ export const acceptNewTripPOST = (
     body: JSON.stringify({
       booking_id: booking_id,
       qty: qty,
-      driver_id: driver_id,
+      driver_ids: driver_ids,
       extra_charges: charges,
       sub_total: sub_total,
       final_total: final_total,
-      extra_charge_desc: desc,
-      user_id: user_id,
+      extra_charge_desc: extra_charge_desc,
+      operator_id: operator_id,
     }),
     headers: {
       Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMwNzg3M2ZhYmEwZmIwOTQxOTk0NDc1MjUzNjU1Y2YyNjgxZmIyYzFmMDUzNmUyNjFmODg4OGJlMDM1Yzk2YjdmOWQwZTAxMDRjMTk5YjIzIn0.eyJhdWQiOiIxIiwianRpIjoiYzA3ODczZmFiYTBmYjA5NDE5OTQ0NzUyNTM2NTVjZjI2ODFmYjJjMWYwNTM2ZTI2MWY4ODg4YmUwMzVjOTZiN2Y5ZDBlMDEwNGMxOTliMjMiLCJpYXQiOjE3MDY2MzUyNjMsIm5iZiI6MTcwNjYzNTI2MywiZXhwIjoxNzM4MjU3NjYzLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.YTEWAvSr5YH9qDUxOjb-bjL5ofmxQ6BW1IUH9IRFdUNc7hc8OaQwVx9F96Kr0pazNgPxVaZHLmhb27e2Ll0vhZIQ-X9H9eTG_LasoNNHekwFPEENDBPssjE_V0rvordsX-_dA217TE5StjFkorP9Z9nHm5auAfHthSxwegxwgW_TLStilBh5CyRdt625qVKzqrT7w30PGCbWzr13s7KW0B41scRdrLSZE1TjELuU0tVH_xyNJRSGBQu3pobyfJh0RY7I_4Rg9xGasEiodNnhTQXzsRRB_vp2k0wXeXM_jmcTgec6wEfUPDnXfBDZVbcGIm5D-MxXjKPI-cM7_KYQfZcVhHTRwZi1ztD_PtqUtYu96eP6qjfumnnsxWzwrV6nJZya1f15pWuoKhoNSNO6rG90S8JNwKaRsY9AnACdfxv8WIEtpJfdyAm04HDXEEaOT86pScy7OXMXG_rlwLwl8Ytryyc9uTxGOENJufm4CptqvXkbqRlzHI9JViDSDW-A3cjwI5phjHleDe4YER2JG7kr510zFyihn1Nd_wU1dPQiOMT-p6y4x4_6mhuYvZosq6gDaJpr-qG8AvD72VVcUAEVWflKBIiduwX9lxSDJu1yMcNt8lIfraSedsk733gpDqE3jpf2_OIZ22_Z3M8gpsXWLGnWGNSwKQK42SbTjPo',
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -74,12 +75,12 @@ export const FetchAcceptNewTripPOST = ({
   refetchInterval,
   booking_id,
   charges,
-  desc,
-  driver_id,
+  driver_ids,
+  extra_charge_desc,
   final_total,
+  operator_id,
   qty,
   sub_total,
-  user_id,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -94,12 +95,12 @@ export const FetchAcceptNewTripPOST = ({
     {
       booking_id,
       charges,
-      desc,
-      driver_id,
+      driver_ids,
+      extra_charge_desc,
       final_total,
+      operator_id,
       qty,
       sub_total,
-      user_id,
     },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
@@ -1118,6 +1119,75 @@ export const FetchCancelReasonPOST = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchCancelReason: refetch });
+};
+
+export const categoryChargesPOST = (Constants, _args, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/category-charges`, {
+    body: JSON.stringify({ key: 'value' }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useCategoryChargesPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      categoryChargesPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('New Leads', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('New Lead');
+        queryClient.invalidateQueries('New Leads');
+      },
+    }
+  );
+};
+
+export const FetchCategoryChargesPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useCategoryChargesPOST(
+    {},
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchCategoryCharges: refetch });
 };
 
 export const changePwdPOST = (
@@ -2184,6 +2254,76 @@ export const FetchForgotPwdPOST = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchForgotPwd: refetch });
+};
+
+export const generateInvoicesPOST = (Constants, _args, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/generated-invoices`, {
+    body: JSON.stringify({ key: 'value' }),
+    headers: {
+      Accept: 'application/json',
+      Authorization:
+        'Bearer yJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMwNzg3M2ZhYmEwZmIwOTQxOTk0NDc1MjUzNjU1Y2YyNjgxZmIyYzFmMDUzNmUyNjFmODg4OGJlMDM1Yzk2YjdmOWQwZTAxMDRjMTk5YjIzIn0.eyJhdWQiOiIxIiwianRpIjoiYzA3ODczZmFiYTBmYjA5NDE5OTQ0NzUyNTM2NTVjZjI2ODFmYjJjMWYwNTM2ZTI2MWY4ODg4YmUwMzVjOTZiN2Y5ZDBlMDEwNGMxOTliMjMiLCJpYXQiOjE3MDY2MzUyNjMsIm5iZiI6MTcwNjYzNTI2MywiZXhwIjoxNzM4MjU3NjYzLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.YTEWAvSr5YH9qDUxOjb-bjL5ofmxQ6BW1IUH9IRFdUNc7hc8OaQwVx9F96Kr0pazNgPxVaZHLmhb27e2Ll0vhZIQ-X9H9eTG_LasoNNHekwFPEENDBPssjE_V0rvordsX-_dA217TE5StjFkorP9Z9nHm5auAfHthSxwegxwgW_TLStilBh5CyRdt625qVKzqrT7w30PGCbWzr13s7KW0B41scRdrLSZE1TjELuU0tVH_xyNJRSGBQu3pobyfJh0RY7I_4Rg9xGasEiodNnhTQXzsRRB_vp2k0wXeXM_jmcTgec6wEfUPDnXfBDZVbcGIm5D-MxXjKPI-cM7_KYQfZcVhHTRwZi1ztD_PtqUtYu96eP6qjfumnnsxWzwrV6nJZya1f15pWuoKhoNSNO6rG90S8JNwKaRsY9AnACdfxv8WIEtpJfdyAm04HDXEEaOT86pScy7OXMXG_rlwLwl8Ytryyc9uTxGOENJufm4CptqvXkbqRlzHI9JViDSDW-A3cjwI5phjHleDe4YER2JG7kr510zFyihn1Nd_wU1dPQiOMT-p6y4x4_6mhuYvZosq6gDaJpr-qG8AvD72VVcUAEVWflKBIiduwX9lxSDJu1yMcNt8lIfraSedsk733gpDqE3jpf2_OIZ22_Z3M8gpsXWLGnWGNSwKQK42SbTjPo',
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useGenerateInvoicesPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      generateInvoicesPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('System', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('System');
+        queryClient.invalidateQueries('Systems');
+      },
+    }
+  );
+};
+
+export const FetchGenerateInvoicesPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useGenerateInvoicesPOST(
+    {},
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchGenerateInvoices: refetch });
 };
 
 export const getBidsPOST = (
@@ -3267,7 +3407,8 @@ export const newLeadsPOST = (Constants, { booking_type, id }, handlers = {}) =>
     body: JSON.stringify({ operator_id: id, booking_type: booking_type }),
     headers: {
       Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMwNzg3M2ZhYmEwZmIwOTQxOTk0NDc1MjUzNjU1Y2YyNjgxZmIyYzFmMDUzNmUyNjFmODg4OGJlMDM1Yzk2YjdmOWQwZTAxMDRjMTk5YjIzIn0.eyJhdWQiOiIxIiwianRpIjoiYzA3ODczZmFiYTBmYjA5NDE5OTQ0NzUyNTM2NTVjZjI2ODFmYjJjMWYwNTM2ZTI2MWY4ODg4YmUwMzVjOTZiN2Y5ZDBlMDEwNGMxOTliMjMiLCJpYXQiOjE3MDY2MzUyNjMsIm5iZiI6MTcwNjYzNTI2MywiZXhwIjoxNzM4MjU3NjYzLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.YTEWAvSr5YH9qDUxOjb-bjL5ofmxQ6BW1IUH9IRFdUNc7hc8OaQwVx9F96Kr0pazNgPxVaZHLmhb27e2Ll0vhZIQ-X9H9eTG_LasoNNHekwFPEENDBPssjE_V0rvordsX-_dA217TE5StjFkorP9Z9nHm5auAfHthSxwegxwgW_TLStilBh5CyRdt625qVKzqrT7w30PGCbWzr13s7KW0B41scRdrLSZE1TjELuU0tVH_xyNJRSGBQu3pobyfJh0RY7I_4Rg9xGasEiodNnhTQXzsRRB_vp2k0wXeXM_jmcTgec6wEfUPDnXfBDZVbcGIm5D-MxXjKPI-cM7_KYQfZcVhHTRwZi1ztD_PtqUtYu96eP6qjfumnnsxWzwrV6nJZya1f15pWuoKhoNSNO6rG90S8JNwKaRsY9AnACdfxv8WIEtpJfdyAm04HDXEEaOT86pScy7OXMXG_rlwLwl8Ytryyc9uTxGOENJufm4CptqvXkbqRlzHI9JViDSDW-A3cjwI5phjHleDe4YER2JG7kr510zFyihn1Nd_wU1dPQiOMT-p6y4x4_6mhuYvZosq6gDaJpr-qG8AvD72VVcUAEVWflKBIiduwX9lxSDJu1yMcNt8lIfraSedsk733gpDqE3jpf2_OIZ22_Z3M8gpsXWLGnWGNSwKQK42SbTjPo',
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -3338,7 +3479,8 @@ export const newLeadsDetailsPOST = (
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMwNzg3M2ZhYmEwZmIwOTQxOTk0NDc1MjUzNjU1Y2YyNjgxZmIyYzFmMDUzNmUyNjFmODg4OGJlMDM1Yzk2YjdmOWQwZTAxMDRjMTk5YjIzIn0.eyJhdWQiOiIxIiwianRpIjoiYzA3ODczZmFiYTBmYjA5NDE5OTQ0NzUyNTM2NTVjZjI2ODFmYjJjMWYwNTM2ZTI2MWY4ODg4YmUwMzVjOTZiN2Y5ZDBlMDEwNGMxOTliMjMiLCJpYXQiOjE3MDY2MzUyNjMsIm5iZiI6MTcwNjYzNTI2MywiZXhwIjoxNzM4MjU3NjYzLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.YTEWAvSr5YH9qDUxOjb-bjL5ofmxQ6BW1IUH9IRFdUNc7hc8OaQwVx9F96Kr0pazNgPxVaZHLmhb27e2Ll0vhZIQ-X9H9eTG_LasoNNHekwFPEENDBPssjE_V0rvordsX-_dA217TE5StjFkorP9Z9nHm5auAfHthSxwegxwgW_TLStilBh5CyRdt625qVKzqrT7w30PGCbWzr13s7KW0B41scRdrLSZE1TjELuU0tVH_xyNJRSGBQu3pobyfJh0RY7I_4Rg9xGasEiodNnhTQXzsRRB_vp2k0wXeXM_jmcTgec6wEfUPDnXfBDZVbcGIm5D-MxXjKPI-cM7_KYQfZcVhHTRwZi1ztD_PtqUtYu96eP6qjfumnnsxWzwrV6nJZya1f15pWuoKhoNSNO6rG90S8JNwKaRsY9AnACdfxv8WIEtpJfdyAm04HDXEEaOT86pScy7OXMXG_rlwLwl8Ytryyc9uTxGOENJufm4CptqvXkbqRlzHI9JViDSDW-A3cjwI5phjHleDe4YER2JG7kr510zFyihn1Nd_wU1dPQiOMT-p6y4x4_6mhuYvZosq6gDaJpr-qG8AvD72VVcUAEVWflKBIiduwX9lxSDJu1yMcNt8lIfraSedsk733gpDqE3jpf2_OIZ22_Z3M8gpsXWLGnWGNSwKQK42SbTjPo',
       'Content-Type': 'application/json',
     },
     method: 'POST',

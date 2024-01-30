@@ -28,6 +28,10 @@ const InvoiceGenerateViewScreen = props => {
         const response = (
           await cotruckSystemChargesPOST.mutateAsync({ operator_id: 125 })
         )?.json;
+        const asdf = setGlobalVariableValue({
+          key: 'myURL',
+          value: response,
+        });
         console.log(response);
       } catch (err) {
         console.error(err);
@@ -55,16 +59,6 @@ const InvoiceGenerateViewScreen = props => {
           dimensions.width
         )}
       />
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        style={StyleSheet.applyWidth(
-          GlobalStyles.TextStyles(theme)['Text 2'],
-          dimensions.width
-        )}
-      >
-        {'asdf'}
-      </Text>
     </ScreenContainer>
   );
 };

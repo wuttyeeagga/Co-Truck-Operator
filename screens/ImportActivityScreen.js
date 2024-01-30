@@ -1093,6 +1093,7 @@ const ImportActivityScreen = props => {
                                           book_truck_id:
                                             listData?.book_truck_id,
                                           booking_status: listData?.status,
+                                          paid_status: listData?.paid_status,
                                         }
                                       );
                                     } catch (err) {

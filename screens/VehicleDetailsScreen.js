@@ -26,7 +26,9 @@ const VehicleDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
-      if ((props.route?.params?.vehicle_status ?? '') === 'AVAILABLE') {
+      if (
+        (props.route?.params?.vehicle_status ?? 'AVAILABLE') === 'AVAILABLE'
+      ) {
         setIsShow(true);
       } else {
         setIsShow(false);
@@ -130,9 +132,7 @@ const VehicleDetailsScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
-        <CotruckApi.FetchVehicleDetailPOST
-          vehicle_id={props.route?.params?.id ?? ''}
-        >
+        <CotruckApi.FetchVehicleDetailPOST vehicle_id={34}>
           {({ loading, error, data, refetchVehicleDetail }) => {
             const fetchData = data?.json;
             if (loading) {
@@ -447,6 +447,48 @@ const VehicleDetailsScreen = props => {
                     />
                   </View>
                 </Surface>
+                {/* Surface 3 */}
+                <>
+                  {!isShow ? null : (
+                    <Surface
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.SurfaceStyles(theme)['Surface'],
+                          { margin: 10, marginBottom: 50 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {/* Edit */}
+                      <Button
+                        onPress={() => {
+                          try {
+                            navigation.navigate('EditVehicleScreen', {
+                              reg_no: fetchData?.data?.registr_number,
+                              id: fetchData?.data?.id,
+                              vehicle_type: fetchData?.data?.vehicle_type,
+                              registr_rc: fetchData?.data?.registr_rc,
+                              registr_insurance:
+                                fetchData?.data?.registr_insurance,
+                              operator_truck_image:
+                                fetchData?.data?.operator_truck_image,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.ButtonStyles(theme)['Button'],
+                            { borderRadius: 12, height: 48, margin: 10 }
+                          ),
+                          dimensions.width
+                        )}
+                        title={'Edit'}
+                      />
+                    </Surface>
+                  )}
+                </>
               </>
             );
           }}

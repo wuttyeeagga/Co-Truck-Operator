@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import Header2Block from '../components/Header2Block';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -14,7 +15,13 @@ const InvoiceGenerateIndexScreen = props => {
   const dimensions = useWindowDimensions();
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasBottomSafeArea={true}
+      hasSafeArea={true}
+      scrollable={false}
+    >
+      {/* Header */}
+      <Header2Block title={'Invoice Generate Index'} />
       <CotruckApi.FetchInvoiceGenerateIndexPOST operator_id={125}>
         {({ loading, error, data, refetchInvoiceGenerateIndex }) => {
           const fetchData = data?.json;

@@ -286,6 +286,201 @@ const SettingsScreen = props => {
             style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
           />
         </Touchable>
+        {/* System Charges */}
+        <Touchable
+          onPress={() => {
+            try {
+              navigation.navigate('SystemChargesScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          {/* Row Wrapper */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                flexDirection: 'row',
+                height: 60,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
+          >
+            {/* Left Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flex: 1, flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Text
+                allowFontScaling={true}
+                ellipsizeMode={'tail'}
+                style={StyleSheet.applyWidth(
+                  {
+                    color: theme.colors.strong,
+                    fontFamily: 'System',
+                    fontWeight: '600',
+                    marginLeft: 12,
+                  },
+                  dimensions.width
+                )}
+                textBreakStrategy={'highQuality'}
+              >
+                {'System Charges'}
+              </Text>
+            </View>
+            {/* Right Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon
+                color={theme.colors.strong}
+                name={'MaterialIcons/chevron-right'}
+                size={24}
+              />
+            </View>
+          </View>
+          <Divider
+            color={theme.colors.divider}
+            height={1}
+            style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
+          />
+        </Touchable>
+        {/* Invoice Generate Index */}
+        <Touchable
+          onPress={() => {
+            try {
+              navigation.navigate('InvoiceGenerateIndexScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          {/* Row Wrapper */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                flexDirection: 'row',
+                height: 60,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
+          >
+            {/* Left Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flex: 1, flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Text
+                allowFontScaling={true}
+                ellipsizeMode={'tail'}
+                style={StyleSheet.applyWidth(
+                  {
+                    color: theme.colors.strong,
+                    fontFamily: 'System',
+                    fontWeight: '600',
+                    marginLeft: 12,
+                  },
+                  dimensions.width
+                )}
+                textBreakStrategy={'highQuality'}
+              >
+                {'Invoice Generate Index'}
+              </Text>
+            </View>
+            {/* Right Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon
+                color={theme.colors.strong}
+                name={'MaterialIcons/chevron-right'}
+                size={24}
+              />
+            </View>
+          </View>
+          <Divider
+            color={theme.colors.divider}
+            height={1}
+            style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
+          />
+        </Touchable>
+        {/* System Invoices View */}
+        <Touchable
+          onPress={() => {
+            try {
+              navigation.navigate('SystemInvoicesViewScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          {/* Row Wrapper */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                flexDirection: 'row',
+                height: 60,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
+          >
+            {/* Left Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flex: 1, flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Text
+                allowFontScaling={true}
+                ellipsizeMode={'tail'}
+                style={StyleSheet.applyWidth(
+                  {
+                    color: theme.colors.strong,
+                    fontFamily: 'System',
+                    fontWeight: '600',
+                    marginLeft: 12,
+                  },
+                  dimensions.width
+                )}
+                textBreakStrategy={'highQuality'}
+              >
+                {'System Invoices'}
+              </Text>
+            </View>
+            {/* Right Aligned */}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', flexDirection: 'row' },
+                dimensions.width
+              )}
+            >
+              <Icon
+                color={theme.colors.strong}
+                name={'MaterialIcons/chevron-right'}
+                size={24}
+              />
+            </View>
+          </View>
+          <Divider
+            color={theme.colors.divider}
+            height={1}
+            style={StyleSheet.applyWidth({ height: 1 }, dimensions.width)}
+          />
+        </Touchable>
         {/* Manage Vehicle */}
         <Touchable
           onPress={() => {

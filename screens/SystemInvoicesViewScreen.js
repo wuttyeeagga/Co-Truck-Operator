@@ -1,12 +1,13 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import Header2Block from '../components/Header2Block';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import { ScreenContainer, WebView, withTheme } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const SystemInvoicesViewScreen = props => {
@@ -21,7 +22,19 @@ const SystemInvoicesViewScreen = props => {
       hasTopSafeArea={true}
       scrollable={true}
     >
-      <CotruckApi.FetchGenerateInvoicesGET>
+      {/* Header */}
+      <Header2Block title={'Generated Invoices'} />
+      <CotruckApi.FetchGenerateInvoicesGET
+        handlers={{
+          onData: fetchData => {
+            try {
+              console.log(fetchData, fetchData?.data?.value);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        }}
+      >
         {({ loading, error, data, refetchGenerateInvoices }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -76,7 +89,7 @@ const SystemInvoicesViewScreen = props => {
                 javaScriptEnabled={true}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
-                source={{ uri: `${fetchData}` }}
+                source={{ uri: `${fetchData?.data?.value}` }}
                 style={StyleSheet.applyWidth(
                   GlobalStyles.WebViewStyles(theme)['Web View'],
                   dimensions.width

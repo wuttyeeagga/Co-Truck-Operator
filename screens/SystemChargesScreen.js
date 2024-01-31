@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import Header2Block from '../components/Header2Block';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -47,6 +48,8 @@ const SystemChargesScreen = props => {
       hasTopSafeArea={true}
       scrollable={true}
     >
+      {/* Header */}
+      <Header2Block title={'System Charges'} />
       <CotruckApi.FetchSystemChargesPOST operator_id={125}>
         {({ loading, error, data, refetchSystemCharges }) => {
           const fetchData = data?.json;

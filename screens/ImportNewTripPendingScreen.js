@@ -39,7 +39,8 @@ const ImportNewTripPendingScreen = props => {
   const [textInputValue, setTextInputValue] = React.useState('');
   const [totalPrice, setTotalPrice] = React.useState(0);
   const addExtraToTotal = (a, b) => {
-    return a + b;
+    const d = a + b;
+    return d;
   };
   const cotruckCategoryChargesPOST = CotruckApi.useCategoryChargesPOST();
   const cotruckAcceptNewTripPOST = CotruckApi.useAcceptNewTripPOST();
@@ -57,11 +58,7 @@ const ImportNewTripPendingScreen = props => {
         const valueOhYYl5Jw = result;
         setChargesOptions(valueOhYYl5Jw);
         const zxd = valueOhYYl5Jw;
-        console.log(
-          extraCharges,
-          zxd,
-          props.route?.params?.book_truck_id ?? ''
-        );
+        console.log(extraCharges, zxd);
       } catch (err) {
         console.error(err);
       }
@@ -87,7 +84,7 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={218}
+          book_truck_id={216}
           handlers={{
             onData: fetchData => {
               try {
@@ -856,17 +853,26 @@ const ImportNewTripPendingScreen = props => {
                         autoCapitalize={'none'}
                         changeTextDelay={500}
                         keyboardType={'phone-pad'}
+                        onBlur={() => {
+                          try {
+                            const response = addExtraToTotal(
+                              parseInt(extraAmount, 10),
+                              parseInt(subTotal, 10)
+                            );
+
+                            const valueQVYxlqlx = response;
+                            setSubTotal(valueQVYxlqlx);
+                            const zxcv = valueQVYxlqlx;
+                            console.log(zxcv, response);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
                         onChangeText={newExtraAmountInputValue => {
                           try {
                             const valueMNqv9sFA = newExtraAmountInputValue;
                             setExtraAmount(valueMNqv9sFA);
                             const ewer = valueMNqv9sFA;
-                            const results = addExtraToTotal(ewer, subTotal);
-
-                            const value4us9u2aL = results;
-                            setTotalPrice(value4us9u2aL);
-                            const asdf = value4us9u2aL;
-                            console.log(ewer, asdf);
                           } catch (err) {
                             console.error(err);
                           }
@@ -929,7 +935,6 @@ const ImportNewTripPendingScreen = props => {
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
-                        editable={false}
                         onChangeText={newTotalPriceInputValue => {
                           try {
                             setTotalPrice(newTotalPriceInputValue);

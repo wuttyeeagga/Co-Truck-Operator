@@ -18,8 +18,8 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@draftbit/maps": "48.9.3",
-    "@draftbit/ui": "48.9.3",
+    "@draftbit/maps": "48.9.4",
+    "@draftbit/ui": "48.9.4",
     "@expo/dev-server": "0.3.0",
     "@expo/html-elements": "^0.5.1",
     "@expo/vector-icons": "^13.0.0",

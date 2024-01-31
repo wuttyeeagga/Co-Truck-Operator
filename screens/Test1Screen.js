@@ -10,6 +10,8 @@ import {
   MultiSelectPicker,
   Picker,
   ScreenContainer,
+  SectionList,
+  TextInput,
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
@@ -20,11 +22,19 @@ const Test1Screen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const [list, setList] = React.useState('');
+  const [list, setList] = React.useState([
+    { label: 'one', value: 1 },
+    { label: 'two', value: 2 },
+  ]);
   const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
     []
   );
   const [pickerValue, setPickerValue] = React.useState('');
+  const [pickerValue2, setPickerValue2] = React.useState('');
+  const [sectionList, setSectionList] = React.useState([
+    { name: 'Burger', ' category': 'Lunch' },
+  ]);
+  const [textInputValue, setTextInputValue] = React.useState('');
   const cotruckOperatorVehicleList$available$POST =
     CotruckApi.useOperatorVehicleList$available$POST();
   const isFocused = useIsFocused();
@@ -105,18 +115,36 @@ const Test1Screen = props => {
           onValueChange={newPickerValue => {
             const pickerValue = newPickerValue;
             try {
-              setPickerValue(newPickerValue);
+              setPickerValue2(newPickerValue);
             } catch (err) {
               console.error(err);
             }
           }}
-          options={list}
           placeholder={'Select an option'}
           selectedIconColor={theme.colors.strong}
           selectedIconName={'Feather/check'}
           selectedIconSize={20}
           type={'solid'}
-          value={pickerValue}
+          value={pickerValue2}
+        />
+        <TextInput
+          allowFontScaling={true}
+          autoCapitalize={'none'}
+          changeTextDelay={500}
+          editable={list}
+          onChangeText={newTextInputValue => {
+            try {
+              setTextInputValue(newTextInputValue);
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+          placeholder={'Enter a value...'}
+          style={StyleSheet.applyWidth(
+            GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+            dimensions.width
+          )}
+          value={textInputValue}
         />
       </View>
     </ScreenContainer>

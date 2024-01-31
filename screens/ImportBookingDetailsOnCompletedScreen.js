@@ -1,8 +1,10 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -21,13 +23,17 @@ import { Fetch } from 'react-request';
 const ImportBookingDetailsOnCompletedScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const [isComplete, setIsComplete] = React.useState(false);
+  const cotruckCompleteBookingPOST = CotruckApi.useCompleteBookingPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
       if (!isFocused) {
         return;
       }
-      /* 'Conditional Stop' action requires configuration: select Check Value */
+      console.log(props.route?.params?.book_truck_id ?? '');
     } catch (err) {
       console.error(err);
     }
@@ -82,6 +88,15 @@ const ImportBookingDetailsOnCompletedScreen = props => {
 
       <CotruckApi.FetchBookingDetailPOST
         book_truck_id={props.route?.params?.book_truck_id ?? ''}
+        handlers={{
+          onData: fetchData => {
+            try {
+              console.log(fetchData);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        }}
       >
         {({ loading, error, data, refetchBookingDetail }) => {
           const fetchData = data?.json;
@@ -1170,6 +1185,58 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                   title={'Invoice'}
                 />
               </View>
+              {/* Complete Button View */}
+              <>
+                {isComplete ? null : (
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        marginBottom: 10,
+                        marginLeft: 20,
+                        marginRight: 20,
+                        marginTop: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Complete all ride */}
+                    <Button
+                      onPress={() => {
+                        const handler = async () => {
+                          try {
+                            const results = (
+                              await cotruckCompleteBookingPOST.mutateAsync({
+                                book_truck_id: fetchData?.data?.book_truck_id,
+                                operator_id: Constants['AUTH_OWNER_ID'],
+                              })
+                            )?.json;
+                            setIsComplete(true);
+
+                            showAlertUtil({
+                              title: 'Message',
+                              message: results?.message,
+                              buttonText: undefined,
+                            });
+
+                            console.log(results);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        };
+                        handler();
+                      }}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ButtonStyles(theme)['Button'],
+                          { borderRadius: 12, height: 48, margin: 20 }
+                        ),
+                        dimensions.width
+                      )}
+                      title={'Complete All Ride'}
+                    />
+                  </View>
+                )}
+              </>
             </>
           );
         }}

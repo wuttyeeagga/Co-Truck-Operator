@@ -87,7 +87,7 @@ const LoginScreen = props => {
           >
             {'Login'}
           </Text>
-          {/* Text 2 */}
+
           <Text
             accessible={true}
             allowFontScaling={true}

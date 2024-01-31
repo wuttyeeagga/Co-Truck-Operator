@@ -1403,6 +1403,85 @@ export const FetchCompanyInformationPOST = ({
   return children({ loading, data, error, refetchCompanyInformation: refetch });
 };
 
+export const completeBookingPOST = (
+  Constants,
+  { book_truck_id, operator_id },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/complete-booking`, {
+    body: JSON.stringify({
+      operator_id: operator_id,
+      book_truck_id: book_truck_id,
+    }),
+    headers: {
+      Accept: 'application/json',
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useCompleteBookingPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      completeBookingPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('New Leads', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('New Lead');
+        queryClient.invalidateQueries('New Leads');
+      },
+    }
+  );
+};
+
+export const FetchCompleteBookingPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  book_truck_id,
+  operator_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useCompleteBookingPOST(
+    { book_truck_id, operator_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchCompleteBooking: refetch });
+};
+
 export const deleteDriverPOST = (Constants, { driver_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/delete-driver`, {
     body: JSON.stringify({ driver_id: driver_id }),
@@ -2256,42 +2335,33 @@ export const FetchForgotPwdPOST = ({
   return children({ loading, data, error, refetchForgotPwd: refetch });
 };
 
-export const generateInvoicesPOST = (Constants, _args, handlers = {}) =>
+export const generateInvoicesGET = (Constants, _args, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/generated-invoices`, {
-    body: JSON.stringify({ key: 'value' }),
     headers: {
       Accept: 'application/json',
       Authorization:
-        'Bearer yJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMwNzg3M2ZhYmEwZmIwOTQxOTk0NDc1MjUzNjU1Y2YyNjgxZmIyYzFmMDUzNmUyNjFmODg4OGJlMDM1Yzk2YjdmOWQwZTAxMDRjMTk5YjIzIn0.eyJhdWQiOiIxIiwianRpIjoiYzA3ODczZmFiYTBmYjA5NDE5OTQ0NzUyNTM2NTVjZjI2ODFmYjJjMWYwNTM2ZTI2MWY4ODg4YmUwMzVjOTZiN2Y5ZDBlMDEwNGMxOTliMjMiLCJpYXQiOjE3MDY2MzUyNjMsIm5iZiI6MTcwNjYzNTI2MywiZXhwIjoxNzM4MjU3NjYzLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.YTEWAvSr5YH9qDUxOjb-bjL5ofmxQ6BW1IUH9IRFdUNc7hc8OaQwVx9F96Kr0pazNgPxVaZHLmhb27e2Ll0vhZIQ-X9H9eTG_LasoNNHekwFPEENDBPssjE_V0rvordsX-_dA217TE5StjFkorP9Z9nHm5auAfHthSxwegxwgW_TLStilBh5CyRdt625qVKzqrT7w30PGCbWzr13s7KW0B41scRdrLSZE1TjELuU0tVH_xyNJRSGBQu3pobyfJh0RY7I_4Rg9xGasEiodNnhTQXzsRRB_vp2k0wXeXM_jmcTgec6wEfUPDnXfBDZVbcGIm5D-MxXjKPI-cM7_KYQfZcVhHTRwZi1ztD_PtqUtYu96eP6qjfumnnsxWzwrV6nJZya1f15pWuoKhoNSNO6rG90S8JNwKaRsY9AnACdfxv8WIEtpJfdyAm04HDXEEaOT86pScy7OXMXG_rlwLwl8Ytryyc9uTxGOENJufm4CptqvXkbqRlzHI9JViDSDW-A3cjwI5phjHleDe4YER2JG7kr510zFyihn1Nd_wU1dPQiOMT-p6y4x4_6mhuYvZosq6gDaJpr-qG8AvD72VVcUAEVWflKBIiduwX9lxSDJu1yMcNt8lIfraSedsk733gpDqE3jpf2_OIZ22_Z3M8gpsXWLGnWGNSwKQK42SbTjPo',
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
       'Content-Type': 'application/json',
     },
-    method: 'POST',
   }).then(res => handleResponse(res, handlers));
 
-export const useGenerateInvoicesPOST = (
-  initialArgs = {},
-  { handlers = {} } = {}
+export const useGenerateInvoicesGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
 ) => {
-  const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
-  return useMutation(
-    args =>
-      generateInvoicesPOST(Constants, { ...initialArgs, ...args }, handlers),
+  const queryClient = useQueryClient();
+  return useQuery(
+    ['System', args],
+    () => generateInvoicesGET(Constants, args, handlers),
     {
-      onError: (err, variables, { previousValue }) => {
-        if (previousValue) {
-          return queryClient.setQueryData('System', previousValue);
-        }
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries('System');
-        queryClient.invalidateQueries('Systems');
-      },
+      refetchInterval,
+      onSuccess: () => queryClient.invalidateQueries(['Systems']),
     }
   );
 };
 
-export const FetchGenerateInvoicesPOST = ({
+export const FetchGenerateInvoicesGET = ({
   children,
   onData = () => {},
   handlers = {},
@@ -2305,8 +2375,8 @@ export const FetchGenerateInvoicesPOST = ({
     isLoading: loading,
     data,
     error,
-    mutate: refetch,
-  } = useGenerateInvoicesPOST(
+    refetch,
+  } = useGenerateInvoicesGET(
     {},
     { refetchInterval, handlers: { onData, ...handlers } }
   );
@@ -5707,7 +5777,8 @@ export const systemChargesPOST = (Constants, { operator_id }, handlers = {}) =>
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
       Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
       'Content-Type': 'application/json',
     },
     method: 'POST',

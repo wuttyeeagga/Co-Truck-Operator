@@ -1,8 +1,10 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -21,6 +23,9 @@ import { Fetch } from 'react-request';
 const ExportBookingDetailsOnCompletedScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const cotruckCompleteBookingPOST = CotruckApi.useCompleteBookingPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -1170,6 +1175,64 @@ const ExportBookingDetailsOnCompletedScreen = props => {
                   title={'Invoice'}
                 />
               </View>
+              {/* Complete Button View */}
+              <>
+                {fetchData?.data?.complete_booking ? null : (
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        marginBottom: 10,
+                        marginLeft: 20,
+                        marginRight: 20,
+                        marginTop: 10,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Complete Button */}
+                    <>
+                      {!(fetchData?.data?.paid_status === 'PAID') ? null : (
+                        <Button
+                          onPress={() => {
+                            const handler = async () => {
+                              try {
+                                const result = (
+                                  await cotruckCompleteBookingPOST.mutateAsync({
+                                    book_truck_id:
+                                      fetchData?.data?.book_truck_id,
+                                    operator_id: Constants['AUTH_OWNER_ID'],
+                                  })
+                                )?.json;
+
+                                showAlertUtil({
+                                  title: 'Message',
+                                  message: result?.message,
+                                  buttonText: undefined,
+                                });
+
+                                navigation.navigate('BottomTabNavigator', {
+                                  screen: 'PaidScreen',
+                                });
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            };
+                            handler();
+                          }}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.ButtonStyles(theme)['Button'],
+                              { borderRadius: 12, height: 48, margin: 20 }
+                            ),
+                            dimensions.width
+                          )}
+                          title={'Complete All Ride'}
+                        />
+                      )}
+                    </>
+                  </View>
+                )}
+              </>
             </>
           );
         }}

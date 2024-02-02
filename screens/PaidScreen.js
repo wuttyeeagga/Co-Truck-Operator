@@ -89,7 +89,16 @@ const PaidScreen = props => {
                 return (
                   <>
                     {/* Error */}
-                    <View>
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flex: 1,
+                          justifyContent: 'center',
+                        },
+                        dimensions.width
+                      )}
+                    >
                       {/* error */}
                       <Text
                         accessible={true}
@@ -492,7 +501,16 @@ const PaidScreen = props => {
                 return (
                   <>
                     {/* Error */}
-                    <View>
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flex: 1,
+                          justifyContent: 'center',
+                        },
+                        dimensions.width
+                      )}
+                    >
                       {/* error */}
                       <Text
                         accessible={true}

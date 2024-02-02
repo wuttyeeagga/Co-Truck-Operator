@@ -1187,7 +1187,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
               </View>
               {/* Complete Button View */}
               <>
-                {isComplete ? null : (
+                {fetchData?.data?.complete_booking ? null : (
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -1200,40 +1200,46 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   >
                     {/* Complete all ride */}
-                    <Button
-                      onPress={() => {
-                        const handler = async () => {
-                          try {
-                            const results = (
-                              await cotruckCompleteBookingPOST.mutateAsync({
-                                book_truck_id: fetchData?.data?.book_truck_id,
-                                operator_id: Constants['AUTH_OWNER_ID'],
-                              })
-                            )?.json;
-                            setIsComplete(true);
+                    <>
+                      {!(fetchData?.data?.paid_status === 'PAID') ? null : (
+                        <Button
+                          onPress={() => {
+                            const handler = async () => {
+                              try {
+                                const results = (
+                                  await cotruckCompleteBookingPOST.mutateAsync({
+                                    book_truck_id:
+                                      fetchData?.data?.book_truck_id,
+                                    operator_id: Constants['AUTH_OWNER_ID'],
+                                  })
+                                )?.json;
 
-                            showAlertUtil({
-                              title: 'Message',
-                              message: results?.message,
-                              buttonText: undefined,
-                            });
+                                showAlertUtil({
+                                  title: 'Message',
+                                  message: results?.message,
+                                  buttonText: undefined,
+                                });
 
-                            console.log(results);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        };
-                        handler();
-                      }}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.ButtonStyles(theme)['Button'],
-                          { borderRadius: 12, height: 48, margin: 20 }
-                        ),
-                        dimensions.width
+                                navigation.navigate('BottomTabNavigator', {
+                                  screen: 'PaidScreen',
+                                });
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            };
+                            handler();
+                          }}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.ButtonStyles(theme)['Button'],
+                              { borderRadius: 12, height: 48, margin: 20 }
+                            ),
+                            dimensions.width
+                          )}
+                          title={'Complete All Ridez'}
+                        />
                       )}
-                      title={'Complete All Ride'}
-                    />
+                    </>
                   </View>
                 )}
               </>

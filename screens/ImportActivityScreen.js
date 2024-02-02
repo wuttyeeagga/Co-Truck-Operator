@@ -113,6 +113,10 @@ const ImportActivityScreen = props => {
             >
               <ScrollView
                 bounces={true}
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flex: 1 },
+                  dimensions.width
+                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               >
@@ -545,6 +549,10 @@ const ImportActivityScreen = props => {
             >
               <ScrollView
                 bounces={true}
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flex: 1 },
+                  dimensions.width
+                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               >
@@ -978,15 +986,20 @@ const ImportActivityScreen = props => {
             >
               <ScrollView
                 bounces={true}
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flex: 1 },
+                  dimensions.width
+                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               >
-                <CotruckApi.FetchBookingListPOST
+                <CotruckApi.FetchBookingList$PAID$POST
                   booking_status={'COMPLETED'}
                   booking_type={'Import'}
                   operator={Constants['AUTH_OWNER_ID']}
+                  paid_status={'PENDING'}
                 >
-                  {({ loading, error, data, refetchBookingList }) => {
+                  {({ loading, error, data, refetchBookingList$PAID$ }) => {
                     const fetchData = data?.json;
                     if (loading) {
                       return (
@@ -1402,7 +1415,8 @@ const ImportActivityScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {'Payment Status - Pending'}
+                                        {'Payment Status - '}
+                                        {listData?.paid_status}
                                       </Text>
                                     </View>
                                   </View>
@@ -1416,7 +1430,7 @@ const ImportActivityScreen = props => {
                       />
                     );
                   }}
-                </CotruckApi.FetchBookingListPOST>
+                </CotruckApi.FetchBookingList$PAID$POST>
               </ScrollView>
             </TabViewItem>
           )}

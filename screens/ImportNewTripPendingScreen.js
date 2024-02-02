@@ -84,7 +84,7 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={216}
+          book_truck_id={props.route?.params?.book_truck_id ?? ''}
           handlers={{
             onData: fetchData => {
               try {
@@ -1012,7 +1012,7 @@ const ImportNewTripPendingScreen = props => {
                                 driver_ids: selectDriver,
                                 extra_charge_desc: selectExtraAmount,
                                 final_total: totalPrice,
-                                operator_id: 125,
+                                operator_id: Constants['AUTH_OWNER_ID'],
                                 qty: availabilityTruck,
                                 sub_total: subTotal,
                               })

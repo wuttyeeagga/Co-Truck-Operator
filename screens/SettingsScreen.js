@@ -458,7 +458,7 @@ const SettingsScreen = props => {
                 )}
                 textBreakStrategy={'highQuality'}
               >
-                {'System Invoices'}
+                {'Generated Invoices'}
               </Text>
             </View>
             {/* Right Aligned */}

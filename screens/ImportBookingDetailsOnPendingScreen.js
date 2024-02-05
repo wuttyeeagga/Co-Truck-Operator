@@ -177,7 +177,7 @@ const ImportBookingDetailsOnPendingScreen = props => {
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['Text 2'],
-                        { color: theme.colors['CoTruckPending'] }
+                        { color: theme.colors['Success'] }
                       ),
                       dimensions.width
                     )}

@@ -143,8 +143,12 @@ const HomeScreen = props => {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           >
-            <CotruckApi.FetchNewLeadsPOST booking_type={'Import'} id={125}>
-              {({ loading, error, data, refetchNewLeads }) => {
+            <CotruckApi.FetchNewLeads$Pending$POST
+              booking_type={'Import'}
+              id={Constants['AUTH_OWNER_ID']}
+              owner_status={'PENDING'}
+            >
+              {({ loading, error, data, refetchNewLeads$Pending$ }) => {
                 const fetchData = data?.json;
                 if (loading) {
                   return (
@@ -616,7 +620,7 @@ const HomeScreen = props => {
                   />
                 );
               }}
-            </CotruckApi.FetchNewLeadsPOST>
+            </CotruckApi.FetchNewLeads$Pending$POST>
           </ScrollView>
         </TabViewItem>
         {/* Export */}
@@ -636,7 +640,7 @@ const HomeScreen = props => {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           >
-            <CotruckApi.FetchNewLeadsPOST
+            <CotruckApi.FetchNewLeads$Pending$POST
               booking_type={'Export'}
               handlers={{
                 on404: fetchData => {
@@ -648,8 +652,9 @@ const HomeScreen = props => {
                 },
               }}
               id={Constants['AUTH_OWNER_ID']}
+              owner_status={'PENDING'}
             >
-              {({ loading, error, data, refetchNewLeads }) => {
+              {({ loading, error, data, refetchNewLeads$Pending$ }) => {
                 const fetchData = data?.json;
                 if (loading) {
                   return (
@@ -1121,7 +1126,7 @@ const HomeScreen = props => {
                   />
                 );
               }}
-            </CotruckApi.FetchNewLeadsPOST>
+            </CotruckApi.FetchNewLeads$Pending$POST>
           </ScrollView>
         </TabViewItem>
       </TabView>

@@ -82,7 +82,7 @@ line two` ) and will not work with special characters inside of quotes ( example
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={120}
+          book_truck_id={props.route?.params?.booking_id ?? ''}
           handlers={{
             on2xx: fetchData => {
               try {

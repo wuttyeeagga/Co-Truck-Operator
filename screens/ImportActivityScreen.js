@@ -101,7 +101,7 @@ const ImportActivityScreen = props => {
         tabBarPosition={'top'}
         tabsBackgroundColor={theme.colors.background}
       >
-        {/* Pending Tab View */}
+        {/* Confirmed Tab View */}
         <>
           {!'Pending' ? null : (
             <TabViewItem
@@ -109,7 +109,7 @@ const ImportActivityScreen = props => {
                 GlobalStyles.TabViewItemStyles(theme)['Tab View Item'],
                 dimensions.width
               )}
-              title={'Pending'}
+              title={'Confirmed'}
             >
               <ScrollView
                 bounces={true}
@@ -120,12 +120,17 @@ const ImportActivityScreen = props => {
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               >
-                <CotruckApi.FetchBookingListPOST
-                  booking_status={'PENDING'}
+                <CotruckApi.FetchBookingList$Confirmed$POST
+                  booking_status={'CONFIRMED'}
                   booking_type={'Import'}
                   operator={Constants['AUTH_OWNER_ID']}
                 >
-                  {({ loading, error, data, refetchBookingList }) => {
+                  {({
+                    loading,
+                    error,
+                    data,
+                    refetchBookingList$Confirmed$,
+                  }) => {
                     const fetchData = data?.json;
                     if (loading) {
                       return (
@@ -507,9 +512,7 @@ const ImportActivityScreen = props => {
                                                 {
                                                   alignSelf: 'center',
                                                   color:
-                                                    theme.colors[
-                                                      'CoTruckPending'
-                                                    ],
+                                                    theme.colors['Success'],
                                                   margin: 10,
                                                 }
                                               ),
@@ -532,7 +535,7 @@ const ImportActivityScreen = props => {
                       />
                     );
                   }}
-                </CotruckApi.FetchBookingListPOST>
+                </CotruckApi.FetchBookingList$Confirmed$POST>
               </ScrollView>
             </TabViewItem>
           )}

@@ -39,8 +39,7 @@ export const acceptNewTripPOST = (
     }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMwNzg3M2ZhYmEwZmIwOTQxOTk0NDc1MjUzNjU1Y2YyNjgxZmIyYzFmMDUzNmUyNjFmODg4OGJlMDM1Yzk2YjdmOWQwZTAxMDRjMTk5YjIzIn0.eyJhdWQiOiIxIiwianRpIjoiYzA3ODczZmFiYTBmYjA5NDE5OTQ0NzUyNTM2NTVjZjI2ODFmYjJjMWYwNTM2ZTI2MWY4ODg4YmUwMzVjOTZiN2Y5ZDBlMDEwNGMxOTliMjMiLCJpYXQiOjE3MDY2MzUyNjMsIm5iZiI6MTcwNjYzNTI2MywiZXhwIjoxNzM4MjU3NjYzLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.YTEWAvSr5YH9qDUxOjb-bjL5ofmxQ6BW1IUH9IRFdUNc7hc8OaQwVx9F96Kr0pazNgPxVaZHLmhb27e2Ll0vhZIQ-X9H9eTG_LasoNNHekwFPEENDBPssjE_V0rvordsX-_dA217TE5StjFkorP9Z9nHm5auAfHthSxwegxwgW_TLStilBh5CyRdt625qVKzqrT7w30PGCbWzr13s7KW0B41scRdrLSZE1TjELuU0tVH_xyNJRSGBQu3pobyfJh0RY7I_4Rg9xGasEiodNnhTQXzsRRB_vp2k0wXeXM_jmcTgec6wEfUPDnXfBDZVbcGIm5D-MxXjKPI-cM7_KYQfZcVhHTRwZi1ztD_PtqUtYu96eP6qjfumnnsxWzwrV6nJZya1f15pWuoKhoNSNO6rG90S8JNwKaRsY9AnACdfxv8WIEtpJfdyAm04HDXEEaOT86pScy7OXMXG_rlwLwl8Ytryyc9uTxGOENJufm4CptqvXkbqRlzHI9JViDSDW-A3cjwI5phjHleDe4YER2JG7kr510zFyihn1Nd_wU1dPQiOMT-p6y4x4_6mhuYvZosq6gDaJpr-qG8AvD72VVcUAEVWflKBIiduwX9lxSDJu1yMcNt8lIfraSedsk733gpDqE3jpf2_OIZ22_Z3M8gpsXWLGnWGNSwKQK42SbTjPo',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -730,6 +729,95 @@ export const FetchBookingListPOST = ({
   return children({ loading, data, error, refetchBookingList: refetch });
 };
 
+export const bookingList$Confirmed$POST = (
+  Constants,
+  { booking_status, booking_type, operator },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/booking-list`, {
+    body: JSON.stringify({
+      operator_id: operator,
+      booking_type: booking_type,
+      booking_status: booking_status,
+    }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useBookingList$Confirmed$POST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      bookingList$Confirmed$POST(
+        Constants,
+        { ...initialArgs, ...args },
+        handlers
+      ),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Activity', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Activity');
+        queryClient.invalidateQueries('Activities');
+      },
+    }
+  );
+};
+
+export const FetchBookingList$Confirmed$POST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  booking_status,
+  booking_type,
+  operator,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useBookingList$Confirmed$POST(
+    { booking_status, booking_type, operator },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({
+    loading,
+    data,
+    error,
+    refetchBookingList$Confirmed$: refetch,
+  });
+};
+
 export const bookingList$PAID$POST = (
   Constants,
   { booking_status, booking_type, operator, paid_status },
@@ -1126,8 +1214,7 @@ export const categoryChargesPOST = (Constants, _args, handlers = {}) =>
     body: JSON.stringify({ key: 'value' }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -3564,8 +3651,7 @@ export const newLeadsPOST = (Constants, { booking_type, id }, handlers = {}) =>
     body: JSON.stringify({ operator_id: id, booking_type: booking_type }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMwNzg3M2ZhYmEwZmIwOTQxOTk0NDc1MjUzNjU1Y2YyNjgxZmIyYzFmMDUzNmUyNjFmODg4OGJlMDM1Yzk2YjdmOWQwZTAxMDRjMTk5YjIzIn0.eyJhdWQiOiIxIiwianRpIjoiYzA3ODczZmFiYTBmYjA5NDE5OTQ0NzUyNTM2NTVjZjI2ODFmYjJjMWYwNTM2ZTI2MWY4ODg4YmUwMzVjOTZiN2Y5ZDBlMDEwNGMxOTliMjMiLCJpYXQiOjE3MDY2MzUyNjMsIm5iZiI6MTcwNjYzNTI2MywiZXhwIjoxNzM4MjU3NjYzLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.YTEWAvSr5YH9qDUxOjb-bjL5ofmxQ6BW1IUH9IRFdUNc7hc8OaQwVx9F96Kr0pazNgPxVaZHLmhb27e2Ll0vhZIQ-X9H9eTG_LasoNNHekwFPEENDBPssjE_V0rvordsX-_dA217TE5StjFkorP9Z9nHm5auAfHthSxwegxwgW_TLStilBh5CyRdt625qVKzqrT7w30PGCbWzr13s7KW0B41scRdrLSZE1TjELuU0tVH_xyNJRSGBQu3pobyfJh0RY7I_4Rg9xGasEiodNnhTQXzsRRB_vp2k0wXeXM_jmcTgec6wEfUPDnXfBDZVbcGIm5D-MxXjKPI-cM7_KYQfZcVhHTRwZi1ztD_PtqUtYu96eP6qjfumnnsxWzwrV6nJZya1f15pWuoKhoNSNO6rG90S8JNwKaRsY9AnACdfxv8WIEtpJfdyAm04HDXEEaOT86pScy7OXMXG_rlwLwl8Ytryyc9uTxGOENJufm4CptqvXkbqRlzHI9JViDSDW-A3cjwI5phjHleDe4YER2JG7kr510zFyihn1Nd_wU1dPQiOMT-p6y4x4_6mhuYvZosq6gDaJpr-qG8AvD72VVcUAEVWflKBIiduwX9lxSDJu1yMcNt8lIfraSedsk733gpDqE3jpf2_OIZ22_Z3M8gpsXWLGnWGNSwKQK42SbTjPo',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -3627,6 +3713,86 @@ export const FetchNewLeadsPOST = ({
   return children({ loading, data, error, refetchNewLeads: refetch });
 };
 
+export const newLeads$Pending$POST = (
+  Constants,
+  { booking_type, id, owner_status },
+  handlers = {}
+) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/new-lead-list`, {
+    body: JSON.stringify({
+      operator_id: id,
+      booking_type: booking_type,
+      owner_status: owner_status,
+    }),
+    headers: {
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useNewLeads$Pending$POST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      newLeads$Pending$POST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('operator', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('operator');
+        queryClient.invalidateQueries('operators');
+      },
+    }
+  );
+};
+
+export const FetchNewLeads$Pending$POST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  booking_type,
+  id,
+  owner_status,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useNewLeads$Pending$POST(
+    { booking_type, id, owner_status },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchNewLeads$Pending$: refetch });
+};
+
 export const newLeadsDetailsPOST = (
   Constants,
   { book_truck_id },
@@ -3636,8 +3802,7 @@ export const newLeadsDetailsPOST = (
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMwNzg3M2ZhYmEwZmIwOTQxOTk0NDc1MjUzNjU1Y2YyNjgxZmIyYzFmMDUzNmUyNjFmODg4OGJlMDM1Yzk2YjdmOWQwZTAxMDRjMTk5YjIzIn0.eyJhdWQiOiIxIiwianRpIjoiYzA3ODczZmFiYTBmYjA5NDE5OTQ0NzUyNTM2NTVjZjI2ODFmYjJjMWYwNTM2ZTI2MWY4ODg4YmUwMzVjOTZiN2Y5ZDBlMDEwNGMxOTliMjMiLCJpYXQiOjE3MDY2MzUyNjMsIm5iZiI6MTcwNjYzNTI2MywiZXhwIjoxNzM4MjU3NjYzLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.YTEWAvSr5YH9qDUxOjb-bjL5ofmxQ6BW1IUH9IRFdUNc7hc8OaQwVx9F96Kr0pazNgPxVaZHLmhb27e2Ll0vhZIQ-X9H9eTG_LasoNNHekwFPEENDBPssjE_V0rvordsX-_dA217TE5StjFkorP9Z9nHm5auAfHthSxwegxwgW_TLStilBh5CyRdt625qVKzqrT7w30PGCbWzr13s7KW0B41scRdrLSZE1TjELuU0tVH_xyNJRSGBQu3pobyfJh0RY7I_4Rg9xGasEiodNnhTQXzsRRB_vp2k0wXeXM_jmcTgec6wEfUPDnXfBDZVbcGIm5D-MxXjKPI-cM7_KYQfZcVhHTRwZi1ztD_PtqUtYu96eP6qjfumnnsxWzwrV6nJZya1f15pWuoKhoNSNO6rG90S8JNwKaRsY9AnACdfxv8WIEtpJfdyAm04HDXEEaOT86pScy7OXMXG_rlwLwl8Ytryyc9uTxGOENJufm4CptqvXkbqRlzHI9JViDSDW-A3cjwI5phjHleDe4YER2JG7kr510zFyihn1Nd_wU1dPQiOMT-p6y4x4_6mhuYvZosq6gDaJpr-qG8AvD72VVcUAEVWflKBIiduwX9lxSDJu1yMcNt8lIfraSedsk733gpDqE3jpf2_OIZ22_Z3M8gpsXWLGnWGNSwKQK42SbTjPo',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',

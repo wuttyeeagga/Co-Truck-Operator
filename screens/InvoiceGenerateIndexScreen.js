@@ -8,7 +8,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import { ScreenContainer, WebView, withTheme } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const InvoiceGenerateIndexScreen = props => {
@@ -21,91 +21,80 @@ const InvoiceGenerateIndexScreen = props => {
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      scrollable={false}
+      scrollable={true}
     >
       {/* Header */}
       <Header2Block title={'Invoice Generate Index'} />
-      <ScrollView
-        bounces={true}
-        keyboardShouldPersistTaps={'never'}
-        showsHorizontalScrollIndicator={true}
-        showsVerticalScrollIndicator={true}
+      <CotruckApi.FetchInvoiceGenerateIndexPOST
+        operator_id={Constants['AUTH_OWNER_ID']}
       >
-        <CotruckApi.FetchInvoiceGenerateIndexPOST
-          operator_id={Constants['AUTH_OWNER_ID']}
-        >
-          {({ loading, error, data, refetchInvoiceGenerateIndex }) => {
-            const fetchData = data?.json;
-            if (loading) {
-              return (
-                <>
-                  {/* loading */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        flex: 1,
-                        justifyContent: 'center',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    <ActivityIndicator
-                      animating={true}
-                      color={theme.colors['Primary']}
-                      hidesWhenStopped={true}
-                      size={'large'}
-                      style={StyleSheet.applyWidth(
-                        GlobalStyles.ActivityIndicatorStyles(theme)[
-                          'Activity Indicator'
-                        ],
-                        dimensions.width
-                      )}
-                    />
-                  </View>
-                </>
-              );
-            }
-
-            if (error || data?.status < 200 || data?.status >= 300) {
-              return (
+        {({ loading, error, data, refetchInvoiceGenerateIndex }) => {
+          const fetchData = data?.json;
+          if (loading) {
+            return (
+              <>
+                {/* loading */}
                 <View
                   style={StyleSheet.applyWidth(
                     { alignItems: 'center', flex: 1, justifyContent: 'center' },
                     dimensions.width
                   )}
                 >
-                  {/* error */}
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
+                  <ActivityIndicator
+                    animating={true}
+                    color={theme.colors['Primary']}
+                    hidesWhenStopped={true}
+                    size={'large'}
                     style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      GlobalStyles.ActivityIndicatorStyles(theme)[
+                        'Activity Indicator'
+                      ],
                       dimensions.width
                     )}
-                  >
-                    {fetchData?.message}
-                  </Text>
+                  />
                 </View>
-              );
-            }
+              </>
+            );
+          }
 
+          if (error || data?.status < 200 || data?.status >= 300) {
             return (
-              <WebView
-                cacheEnabled={true}
-                javaScriptEnabled={true}
-                showsHorizontalScrollIndicator={true}
-                showsVerticalScrollIndicator={true}
-                source={{ uri: `${fetchData}` }}
+              <View
                 style={StyleSheet.applyWidth(
-                  GlobalStyles.WebViewStyles(theme)['Web View'],
+                  { alignItems: 'center', flex: 1, justifyContent: 'center' },
                   dimensions.width
                 )}
-              />
+              >
+                {/* error */}
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.TextStyles(theme)['Text 2'],
+                    dimensions.width
+                  )}
+                >
+                  {fetchData?.message}
+                </Text>
+              </View>
             );
-          }}
-        </CotruckApi.FetchInvoiceGenerateIndexPOST>
-      </ScrollView>
+          }
+
+          return (
+            <WebView
+              cacheEnabled={true}
+              javaScriptEnabled={true}
+              showsHorizontalScrollIndicator={true}
+              showsVerticalScrollIndicator={true}
+              source={{ uri: `${fetchData}` }}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.WebViewStyles(theme)['Web View'],
+                dimensions.width
+              )}
+            />
+          );
+        }}
+      </CotruckApi.FetchInvoiceGenerateIndexPOST>
     </ScreenContainer>
   );
 };

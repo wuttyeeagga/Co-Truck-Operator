@@ -222,24 +222,10 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="TestForMapScreen"
-          component={TestForMapScreen}
-          options={({ navigation }) => ({
-            title: 'Test For Map',
-          })}
-        />
-        <Stack.Screen
           name="ImportBookingDetailsOnCompletedScreen"
           component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Completed',
-          })}
-        />
-        <Stack.Screen
-          name="SignUpIdentityProofScreen"
-          component={SignUpIdentityProofScreen}
-          options={({ navigation }) => ({
-            title: 'Sign Up Identity Proof',
           })}
         />
         <Stack.Screen
@@ -254,6 +240,20 @@ export default function RootAppNavigator() {
           component={ImportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Going',
+          })}
+        />
+        <Stack.Screen
+          name="TestForMapScreen"
+          component={TestForMapScreen}
+          options={({ navigation }) => ({
+            title: 'Test For Map',
+          })}
+        />
+        <Stack.Screen
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
+          options={({ navigation }) => ({
+            title: 'Sign Up Identity Proof',
           })}
         />
         <Stack.Screen

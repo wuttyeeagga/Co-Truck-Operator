@@ -29,15 +29,15 @@ const ImportNewTripPendingScreen = props => {
   const [chargesOptions, setChargesOptions] = React.useState([]);
   const [chooseDriverOptions, setChooseDriverOptions] = React.useState([]);
   const [extraAmount, setExtraAmount] = React.useState(0);
+  const [extraCharges, setExtraCharges] = React.useState([]);
   const [extraChargesDesc, setExtraChargesDesc] = React.useState([]);
   const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
     []
   );
   const [selectDriver, setSelectDriver] = React.useState([]);
-  const [selectExtraAmount, setSelectExtraAmount] = React.useState([]);
   const [subTotal, setSubTotal] = React.useState(0);
   const [textInputValue, setTextInputValue] = React.useState('');
-  const [totalPrice, setTotalPrice] = React.useState(0);
+  const [totalPrice, setTotalPrice] = React.useState('');
   const addExtraToTotal = (a, b) => {
     const d = a + b;
     return d;
@@ -84,7 +84,7 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={props.route?.params?.book_truck_id ?? ''}
+          book_truck_id={120}
           handlers={{
             onData: fetchData => {
               try {
@@ -323,42 +323,6 @@ const ImportNewTripPendingScreen = props => {
                       </View>
                     </View>
                   </View>
-                  {/* Type Material View */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { marginLeft: 20 },
-                      dimensions.width
-                    )}
-                  >
-                    {/* Type */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text 2'],
-                          { color: theme.colors['CoTruckGrey'], margin: 10 }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Type of Material'}
-                    </Text>
-                    {/* Material Type */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text 2'],
-                          { color: theme.colors['CoTruckBlack'], margin: 10 }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?.data?.vehicle_type}
-                    </Text>
-                  </View>
                   {/* Divider 4 */}
                   <Divider
                     color={theme.colors['Light']}
@@ -528,7 +492,7 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Type'}
+                        {'Vehicle Type'}
                       </Text>
                       {/* Vehicle type */}
                       <Text
@@ -666,7 +630,8 @@ const ImportNewTripPendingScreen = props => {
                         const valueyU36WT4v = newChooseDriverValue;
                         setSelectDriver(valueyU36WT4v);
                         const asdf = valueyU36WT4v;
-                        console.log(asdf);
+                        console.log(asdf?.length);
+                        setAvailabilityTruck(asdf?.length);
                       } catch (err) {
                         console.error(err);
                       }
@@ -791,13 +756,14 @@ const ImportNewTripPendingScreen = props => {
                     leftIconMode={'inset'}
                     onValueChange={newSelectExtraChargesValue => {
                       try {
-                        setSelectExtraAmount(newSelectExtraChargesValue);
+                        setExtraCharges(newSelectExtraChargesValue);
                       } catch (err) {
                         console.error(err);
                       }
                     }}
                     options={chargesOptions}
-                    placeholder={'Select an option'}
+                    placeholder={'Select extra charges'}
+                    placeholderTextColor={theme.colors['TextPlaceholder']}
                     selectedIconColor={theme.colors.strong}
                     selectedIconName={'Feather/check'}
                     selectedIconSize={20}
@@ -811,7 +777,7 @@ const ImportNewTripPendingScreen = props => {
                       dimensions.width
                     )}
                     type={'solid'}
-                    value={selectExtraAmount}
+                    value={extraCharges}
                   />
                   {/* Extra Charges Amount */}
                   <View>
@@ -853,26 +819,20 @@ const ImportNewTripPendingScreen = props => {
                         autoCapitalize={'none'}
                         changeTextDelay={500}
                         keyboardType={'phone-pad'}
-                        onBlur={() => {
-                          try {
-                            const response = addExtraToTotal(
-                              parseInt(extraAmount, 10),
-                              parseInt(subTotal, 10)
-                            );
-
-                            const valueQVYxlqlx = response;
-                            setSubTotal(valueQVYxlqlx);
-                            const zxcv = valueQVYxlqlx;
-                            console.log(zxcv, response);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
                         onChangeText={newExtraAmountInputValue => {
                           try {
                             const valueMNqv9sFA = newExtraAmountInputValue;
                             setExtraAmount(valueMNqv9sFA);
                             const ewer = valueMNqv9sFA;
+                            const results = addExtraToTotal(
+                              parseInt(ewer, 10),
+                              parseInt(subTotal, 10)
+                            );
+
+                            const value4us9u2aL = results.toString();
+                            setTotalPrice(value4us9u2aL);
+                            const asdf = value4us9u2aL;
+                            console.log(asdf);
                           } catch (err) {
                             console.error(err);
                           }
@@ -935,6 +895,7 @@ const ImportNewTripPendingScreen = props => {
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
+                        editable={false}
                         onChangeText={newTotalPriceInputValue => {
                           try {
                             setTotalPrice(newTotalPriceInputValue);
@@ -942,7 +903,7 @@ const ImportNewTripPendingScreen = props => {
                             console.error(err);
                           }
                         }}
-                        placeholder={'Enter a value...'}
+                        placeholder={'Total Price'}
                         placeholderTextColor={theme.colors['TextPlaceholder']}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
@@ -1010,7 +971,7 @@ const ImportNewTripPendingScreen = props => {
                                 booking_id: fetchData?.data?.book_truck_id,
                                 charges: extraAmount,
                                 driver_ids: selectDriver,
-                                extra_charge_desc: selectExtraAmount,
+                                extra_charge_desc: extraCharges,
                                 final_total: totalPrice,
                                 operator_id: Constants['AUTH_OWNER_ID'],
                                 qty: availabilityTruck,

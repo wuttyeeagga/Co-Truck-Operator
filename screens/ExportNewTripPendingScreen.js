@@ -11,6 +11,7 @@ import {
   Divider,
   Icon,
   MultiSelectPicker,
+  Picker,
   ScreenContainer,
   TextInput,
   withTheme,
@@ -25,13 +26,43 @@ const ExportNewTripPendingScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const [availabilityTruck, setAvailabilityTruck] = React.useState(1);
+  const [chargesOption, setChargesOption] = React.useState([]);
   const [chooseDriverOptions, setChooseDriverOptions] = React.useState([]);
+  const [extraAmount, setExtraAmount] = React.useState(0);
   const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
     []
   );
+  const [subTotal, setSubTotal] = React.useState(0);
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [totalPrice, setTotalPrice] = React.useState(0);
   const [pickerValue, setPickerValue] = React.useState(undefined);
+  const myFunctionName = (a, b) => {
+    // Type the code for the body of your function or hook here.
+    // Functions can be triggered via Button/Touchable actions.
+    // Hooks are run per ReactJS rules.
+    return a + b;
+    /* String line breaks are accomplished with backticks ( example: `line one
+line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
+  };
+  const cotruckCategoryChargesPOST = CotruckApi.useCategoryChargesPOST();
   const cotruckAcceptNewTripPOST = CotruckApi.useAcceptNewTripPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const results = (await cotruckCategoryChargesPOST.mutateAsync())?.json;
+        const asdf = results?.data;
+        console.log(results, asdf);
+        setChargesOption(asdf);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handler();
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -51,8 +82,20 @@ const ExportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={props.route?.params?.booking_id ?? ''}
+          book_truck_id={120}
           handlers={{
+            on2xx: fetchData => {
+              try {
+                setSubTotal(fetchData?.json?.data?.sub_total);
+
+                const valuekPCNgrue = fetchData?.json?.data?.total_price;
+                setTotalPrice(valuekPCNgrue);
+                const idc = valuekPCNgrue;
+                console.log(idc);
+              } catch (err) {
+                console.error(err);
+              }
+            },
             onData: fetchData => {
               try {
                 const asdf = fetchData?.data?.drivers;
@@ -100,7 +143,16 @@ const ExportNewTripPendingScreen = props => {
               return (
                 <>
                   {/* Error View */}
-                  <View>
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        flex: 1,
+                        justifyContent: 'center',
+                      },
+                      dimensions.width
+                    )}
+                  >
                     {/* error */}
                     <Text
                       accessible={true}
@@ -121,6 +173,7 @@ const ExportNewTripPendingScreen = props => {
               <>
                 {/* Main View */}
                 <View>
+                  {/* Ride Zone View */}
                   <View>
                     {/* Ride Zone */}
                     <Text
@@ -641,7 +694,269 @@ const ExportNewTripPendingScreen = props => {
                     type={'solid'}
                     value={multiSelectPickerValue}
                   />
-                  {/* View 2 */}
+                  {/* Sub Total */}
+                  <View>
+                    {/* Sub Total View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginBottom: 0 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Sub Total */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { fontSize: 16, margin: 10 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Sub Total'}
+                      </Text>
+                    </View>
+                    {/* Sub Total Input View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginTop: 0 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Sub Total Input */}
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize={'none'}
+                        changeTextDelay={500}
+                        editable={false}
+                        onChangeText={newSubTotalInputValue => {
+                          try {
+                            setSubTotal(newSubTotalInputValue);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        placeholder={'Sub Total'}
+                        placeholderTextColor={theme.colors['TextPlaceholder']}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                            {
+                              borderColor: theme.colors['Light'],
+                              borderRadius: 12,
+                              height: 48,
+                              margin: 10,
+                              paddingLeft: 16,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        value={subTotal}
+                      />
+                    </View>
+                  </View>
+                  {/* Extra Charges */}
+                  <View>
+                    {/* Extra Charges View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginBottom: 0 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Extra Charges */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            {
+                              color: theme.colors['CoTruckBlack'],
+                              fontSize: 16,
+                              margin: 10,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Extra Charges'}
+                      </Text>
+                    </View>
+                  </View>
+                  <Picker
+                    autoDismissKeyboard={true}
+                    dropDownBackgroundColor={theme.colors.background}
+                    dropDownBorderColor={theme.colors.divider}
+                    dropDownBorderRadius={8}
+                    dropDownBorderWidth={1}
+                    dropDownTextColor={theme.colors.strong}
+                    iconSize={24}
+                    leftIconMode={'inset'}
+                    mode={'native'}
+                    onValueChange={newPickerValue => {
+                      const pickerValue = newPickerValue;
+                      try {
+                        setPickerValue(pickerValue);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    options={chargesOption}
+                    placeholder={'Select an option'}
+                    placeholderTextColor={theme.colors['TextPlaceholder']}
+                    rightIconName={'AntDesign/caretdown'}
+                    selectedIconColor={theme.colors.strong}
+                    selectedIconName={'Feather/check'}
+                    selectedIconSize={20}
+                    style={StyleSheet.applyWidth(
+                      {
+                        borderRadius: 12,
+                        height: 48,
+                        margin: 20,
+                        marginLeft: 20,
+                        marginRight: 20,
+                        marginTop: 10,
+                      },
+                      dimensions.width
+                    )}
+                    type={'solid'}
+                    value={pickerValue}
+                  />
+                  {/* Extra Charges Amount */}
+                  <View>
+                    {/* Extra Charges Amount View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginBottom: 0 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Extra Charges Amount */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            {
+                              color: theme.colors['CoTruckBlack'],
+                              fontSize: 16,
+                              margin: 10,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Extra Charges Amount'}
+                      </Text>
+                    </View>
+                    {/* Extra Charges Amount View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginTop: 0 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Extra Charges Amount Input */}
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize={'none'}
+                        changeTextDelay={500}
+                        onChangeText={newExtraChargesAmountInputValue => {
+                          try {
+                            setExtraAmount(newExtraChargesAmountInputValue);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        placeholder={'Extra Charges Amount'}
+                        placeholderTextColor={theme.colors['TextPlaceholder']}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                            {
+                              borderColor: theme.colors['Light'],
+                              height: 48,
+                              margin: 10,
+                              paddingLeft: 16,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        value={extraAmount}
+                      />
+                    </View>
+                  </View>
+                  {/* Total Price */}
+                  <View>
+                    {/* Total Price View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginBottom: 0 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Total Price */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            {
+                              color: theme.colors['CoTruckBlack'],
+                              fontSize: 16,
+                              margin: 10,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Total Price'}
+                      </Text>
+                    </View>
+                    {/* Total Price View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { margin: 10, marginTop: 0 },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Total Price */}
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize={'none'}
+                        changeTextDelay={500}
+                        onChangeText={newTotalPriceValue => {
+                          try {
+                            setTotalPrice(newTotalPriceValue);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        placeholder={'Total Price'}
+                        placeholderTextColor={theme.colors['TextPlaceholder']}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                            {
+                              borderColor: theme.colors['Light'],
+                              borderRadius: 12,
+                              height: 48,
+                              margin: 10,
+                              paddingLeft: 16,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        value={totalPrice}
+                      />
+                    </View>
+                  </View>
+                  {/* Button Row Wrapper */}
                   <View
                     style={StyleSheet.applyWidth(
                       {

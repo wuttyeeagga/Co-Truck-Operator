@@ -25,6 +25,7 @@ const ImportNewTripPendingScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
+  const [addOnAmount, setAddOnAmount] = React.useState(0);
   const [availabilityTruck, setAvailabilityTruck] = React.useState(0);
   const [chargesOptions, setChargesOptions] = React.useState([]);
   const [chooseDriverOptions, setChooseDriverOptions] = React.useState([]);
@@ -38,6 +39,7 @@ const ImportNewTripPendingScreen = props => {
   const [subTotal, setSubTotal] = React.useState(0);
   const [textInputValue, setTextInputValue] = React.useState('');
   const [totalPrice, setTotalPrice] = React.useState('');
+  const [truckNumbers, setTruckNumbers] = React.useState(0);
   const addExtraToTotal = (a, b) => {
     const d = a + b;
     return d;
@@ -84,7 +86,7 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={props.route?.params?.book_truck_id ?? ''}
+          book_truck_id={120}
           handlers={{
             onData: fetchData => {
               try {
@@ -138,7 +140,11 @@ const ImportNewTripPendingScreen = props => {
                   {/* Error View */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { alignItems: 'center', justifyContent: 'center' },
+                      {
+                        alignItems: 'center',
+                        flex: 1,
+                        justifyContent: 'center',
+                      },
                       dimensions.width
                     )}
                   >
@@ -162,6 +168,7 @@ const ImportNewTripPendingScreen = props => {
               <>
                 {/* Main View */}
                 <View>
+                  {/* Locations View */}
                   <View>
                     {/* Ride Zone */}
                     <Text
@@ -323,7 +330,7 @@ const ImportNewTripPendingScreen = props => {
                       </View>
                     </View>
                   </View>
-                  {/* Divider 4 */}
+                  {/* Divider  */}
                   <Divider
                     color={theme.colors['Light']}
                     style={StyleSheet.applyWidth(
@@ -352,9 +359,10 @@ const ImportNewTripPendingScreen = props => {
                       dimensions.width
                     )}
                   >
+                    {/* Date View */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { alignItems: 'center', width: '35%' },
+                        { alignItems: 'center', width: '30%' },
                         dimensions.width
                       )}
                     >
@@ -384,10 +392,21 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {fetchData?.data?.pickup_date?.split(' ')[0]}
+                        {fetchData?.data?.pickup_date?.split(' ')[0]}{' '}
+                        {
+                          fetchData?.data?.pickup_date
+                            ?.split(' ')[1]
+                            ?.split(':')[0]
+                        }
+                        {':'}
+                        {
+                          fetchData?.data?.pickup_date
+                            ?.split(' ')[1]
+                            ?.split(':')[1]
+                        }
                       </Text>
                     </View>
-                    {/* View 2 */}
+                    {/* Material Type */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', width: '35%' },
@@ -423,14 +442,14 @@ const ImportNewTripPendingScreen = props => {
                         {fetchData?.data?.material_type}
                       </Text>
                     </View>
-                    {/* View 3 */}
+                    {/* Shipper Name View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', width: '35%' },
                         dimensions.width
                       )}
                     >
-                      {/* Price */}
+                      {/* Booked BY */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -442,9 +461,9 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Price'}
+                        {'Booked by'}
                       </Text>
-                      {/* Price Value */}
+                      {/* Shipper Name */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -456,7 +475,7 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'MMK 450'}
+                        {'Shipper Name'}
                       </Text>
                     </View>
                   </View>
@@ -473,7 +492,7 @@ const ImportNewTripPendingScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {/* Type View */}
+                    {/* Vehicle Type */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', width: '35%' },
@@ -545,61 +564,43 @@ const ImportNewTripPendingScreen = props => {
                         {fetchData?.data?.no_of_truck}
                       </Text>
                     </View>
-                    {/* Availability View */}
+                    {/* Weight View */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { alignItems: 'center', width: '40%' },
+                        { alignItems: 'center', width: '35%' },
                         dimensions.width
                       )}
                     >
-                      {/* Text View */}
-                      <View>
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 2'],
-                              { margin: 5 }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'Availability'}
-                        </Text>
-                      </View>
-                      {/* Availability Input */}
-                      <TextInput
+                      {/* Load Weight */}
+                      <Text
+                        accessible={true}
                         allowFontScaling={true}
-                        autoCapitalize={'none'}
-                        changeTextDelay={500}
-                        keyboardType={'numeric'}
-                        onChangeText={newAvailabilityInputValue => {
-                          try {
-                            setAvailabilityTruck(newAvailabilityInputValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        placeholder={'enter number'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
-                            GlobalStyles.TextInputStyles(theme)['Text Input 3'],
-                            {
-                              borderColor: theme.colors['Light'],
-                              margin: 10,
-                              paddingLeft: 20,
-                              width: '50%',
-                            }
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 5 }
                           ),
                           dimensions.width
                         )}
-                        value={availabilityTruck}
-                      />
+                      >
+                        {'Load Weight'}
+                      </Text>
+                      {/* Weight */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            { margin: 5 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'weight'}
+                      </Text>
                     </View>
                   </View>
-                  {/* Divider 2 */}
                   <Divider
                     color={theme.colors['Light']}
                     style={StyleSheet.applyWidth(
@@ -615,6 +616,146 @@ const ImportNewTripPendingScreen = props => {
                       dimensions.width
                     )}
                   />
+                  {/* Address View */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 20 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Pickup Row */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          margin: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Address */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '40%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Address */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            dimensions.width
+                          )}
+                        >
+                          {'Pickup Address'}
+                        </Text>
+                      </View>
+                      {/* Icon View */}
+                      <View>
+                        <Icon
+                          color={theme.colors['CoTruckGrey']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={20}
+                        />
+                      </View>
+                      {/* Address View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '50%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Pickup Address */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 2'],
+                              { marginLeft: 10 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.data?.pickup_address}
+                        </Text>
+                      </View>
+                    </View>
+                    <Divider
+                      color={theme.colors['Light']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { marginBottom: 10, marginTop: 10 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                    {/* Drop Row */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          margin: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Address */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '40%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Address */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            dimensions.width
+                          )}
+                        >
+                          {'Drop Address'}
+                        </Text>
+                      </View>
+                      {/* Icon View */}
+                      <View>
+                        <Icon
+                          color={theme.colors['CoTruckGrey']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={20}
+                        />
+                      </View>
+                      {/* Address View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '50%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Drop Address */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 2'],
+                              { marginLeft: 10 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.data?.drop_address}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
                   {/* Choose Driver */}
                   <MultiSelectPicker
                     autoDismissKeyboard={true}
@@ -630,8 +771,10 @@ const ImportNewTripPendingScreen = props => {
                         const valueyU36WT4v = newChooseDriverValue;
                         setSelectDriver(valueyU36WT4v);
                         const asdf = valueyU36WT4v;
-                        console.log(asdf?.length);
-                        setAvailabilityTruck(asdf?.length);
+                        const valueozrfZm8a = newChooseDriverValue?.length;
+                        setTruckNumbers(valueozrfZm8a);
+                        const ans = valueozrfZm8a;
+                        console.log(asdf, asdf?.length, ans);
                       } catch (err) {
                         console.error(err);
                       }
@@ -779,7 +922,7 @@ const ImportNewTripPendingScreen = props => {
                     type={'solid'}
                     value={extraCharges}
                   />
-                  {/* Extra Charges Amount */}
+                  {/* Add on Amount */}
                   <View>
                     <View
                       style={StyleSheet.applyWidth(
@@ -787,7 +930,7 @@ const ImportNewTripPendingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Extra Amount */}
+                      {/* Add on Amount */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -803,7 +946,7 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Extra Charges Amount'}
+                        {'Add On Amount'}
                       </Text>
                     </View>
                     {/* View 2 */}
@@ -813,16 +956,16 @@ const ImportNewTripPendingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Extra Amount Input */}
+                      {/* Add-on Amount Input */}
                       <TextInput
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
                         keyboardType={'phone-pad'}
-                        onChangeText={newExtraAmountInputValue => {
+                        onChangeText={newAddOnAmountInputValue => {
                           try {
-                            const valueMNqv9sFA = newExtraAmountInputValue;
-                            setExtraAmount(valueMNqv9sFA);
+                            const valueMNqv9sFA = newAddOnAmountInputValue;
+                            setAddOnAmount(valueMNqv9sFA);
                             const ewer = valueMNqv9sFA;
                             const results = addExtraToTotal(
                               parseInt(ewer, 10),
@@ -837,7 +980,7 @@ const ImportNewTripPendingScreen = props => {
                             console.error(err);
                           }
                         }}
-                        placeholder={'extra amount'}
+                        placeholder={'Add on Amount'}
                         placeholderTextColor={theme.colors['TextPlaceholder']}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
@@ -852,7 +995,7 @@ const ImportNewTripPendingScreen = props => {
                           ),
                           dimensions.width
                         )}
-                        value={extraAmount}
+                        value={addOnAmount}
                       />
                     </View>
                   </View>

@@ -859,69 +859,6 @@ const ImportNewTripPendingScreen = props => {
                       />
                     </View>
                   </View>
-                  {/* Extra Charges */}
-                  <View>
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { margin: 10, marginBottom: 0 },
-                        dimensions.width
-                      )}
-                    >
-                      {/* Extra Charges */}
-                      <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['Text 2'],
-                            {
-                              color: theme.colors['CoTruckBlack'],
-                              fontSize: 16,
-                              margin: 10,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'Extra Charges'}
-                      </Text>
-                    </View>
-                  </View>
-                  {/* Select Extra Charges */}
-                  <MultiSelectPicker
-                    autoDismissKeyboard={true}
-                    dropDownBackgroundColor={theme.colors.background}
-                    dropDownBorderColor={theme.colors.divider}
-                    dropDownBorderRadius={8}
-                    dropDownBorderWidth={1}
-                    dropDownTextColor={theme.colors.strong}
-                    iconSize={24}
-                    leftIconMode={'inset'}
-                    onValueChange={newSelectExtraChargesValue => {
-                      try {
-                        setExtraCharges(newSelectExtraChargesValue);
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
-                    options={chargesOptions}
-                    placeholder={'Select extra charges'}
-                    placeholderTextColor={theme.colors['TextPlaceholder']}
-                    selectedIconColor={theme.colors.strong}
-                    selectedIconName={'Feather/check'}
-                    selectedIconSize={20}
-                    style={StyleSheet.applyWidth(
-                      {
-                        borderRadius: 12,
-                        marginLeft: 20,
-                        marginRight: 20,
-                        marginTop: 10,
-                      },
-                      dimensions.width
-                    )}
-                    type={'solid'}
-                    value={extraCharges}
-                  />
                   {/* Add on Amount */}
                   <View>
                     <View
@@ -964,18 +901,28 @@ const ImportNewTripPendingScreen = props => {
                         keyboardType={'phone-pad'}
                         onChangeText={newAddOnAmountInputValue => {
                           try {
-                            const valueMNqv9sFA = newAddOnAmountInputValue;
+                            const valueMNqv9sFA = parseInt(
+                              newAddOnAmountInputValue,
+                              10
+                            );
                             setAddOnAmount(valueMNqv9sFA);
                             const ewer = valueMNqv9sFA;
-                            const results = addExtraToTotal(
-                              parseInt(ewer, 10),
-                              parseInt(subTotal, 10)
-                            );
+                            if (newAddOnAmountInputValue === ' ') {
+                              const valueeiBeF7mh =
+                                fetchData?.data?.total_price;
+                              setTotalPrice(valueeiBeF7mh);
+                              const qwer = valueeiBeF7mh;
+                              console.log(qwer);
+                            } else {
+                              const results = addExtraToTotal(
+                                parseInt(ewer, 10),
+                                parseInt(subTotal, 10)
+                              );
 
-                            const value4us9u2aL = results.toString();
-                            setTotalPrice(value4us9u2aL);
-                            const asdf = value4us9u2aL;
-                            console.log(asdf);
+                              const value4us9u2aL = results.toString();
+                              setTotalPrice(value4us9u2aL);
+                              const asdf = value4us9u2aL;
+                            }
                           } catch (err) {
                             console.error(err);
                           }

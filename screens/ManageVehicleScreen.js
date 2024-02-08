@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as CotruckApi from '../apis/CotruckApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -19,6 +20,8 @@ import { Fetch } from 'react-request';
 const ManageVehicleScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
 
   return (
     <ScreenContainer
@@ -94,7 +97,9 @@ const ManageVehicleScreen = props => {
         />
       </View>
 
-      <CotruckApi.FetchOperatorVehicleListPOST operator_id={125}>
+      <CotruckApi.FetchOperatorVehicleListPOST
+        operator_id={Constants['AUTH_OWNER_ID']}
+      >
         {({ loading, error, data, refetchOperatorVehicleList }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -219,9 +224,9 @@ const ManageVehicleScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {listData?.label}
+                            {listData?.vehicle_type}
                           </Text>
-                          {/* Text 2 */}
+                          {/* Regi Number */}
                           <Text
                             accessible={true}
                             allowFontScaling={true}
@@ -233,7 +238,7 @@ const ManageVehicleScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {listData?.value}
+                            {listData?.label}
                           </Text>
                         </View>
                         {/* Status */}

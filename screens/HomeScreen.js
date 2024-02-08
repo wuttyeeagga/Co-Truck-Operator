@@ -267,7 +267,6 @@ const HomeScreen = props => {
                                     'ImportNewTripPendingScreen',
                                     { book_truck_id: listData?.book_truck_id }
                                   );
-                                  console.log('haha', dimensions.width);
                                 } catch (err) {
                                   console.error(err);
                                 }

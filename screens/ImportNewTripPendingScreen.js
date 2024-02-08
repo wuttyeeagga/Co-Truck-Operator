@@ -60,7 +60,7 @@ const ImportNewTripPendingScreen = props => {
         const valueOhYYl5Jw = result;
         setChargesOptions(valueOhYYl5Jw);
         const zxd = valueOhYYl5Jw;
-        console.log(extraCharges, zxd);
+        console.log(props.route?.params?.book_truck_id ?? '');
       } catch (err) {
         console.error(err);
       }
@@ -86,7 +86,7 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={120}
+          book_truck_id={props.route?.params?.book_truck_id ?? ''}
           handlers={{
             onData: fetchData => {
               try {
@@ -475,7 +475,7 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Shipper Name'}
+                        {fetchData?.data?.shipper_name}
                       </Text>
                     </View>
                   </View>

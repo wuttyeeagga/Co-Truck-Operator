@@ -20,7 +20,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "plugins": [],
+    "plugins": [
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "ALL"
+        }
+      ]
+    ],
     "ios": {
       "bundleIdentifier": "com.draftbit.untitledapp",
       "buildNumber": "1.0.0",

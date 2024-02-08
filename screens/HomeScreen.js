@@ -6,8 +6,8 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
+  AccordionGroup,
   Icon,
-  IconButton,
   ScreenContainer,
   TabView,
   TabViewItem,
@@ -41,6 +41,7 @@ const HomeScreen = props => {
   const [numberOfTruck, setNumberOfTruck] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState('');
   const [pickerValue2, setPickerValue2] = React.useState('');
+  const [pickupDate, setPickupDate] = React.useState('');
   const [pickupValue, setPickupValue] = React.useState('');
   const [productType, setProductType] = React.useState('');
   const [showappointment, setShowappointment] = React.useState(false);
@@ -60,6 +61,10 @@ const HomeScreen = props => {
       hasSafeArea={true}
       hasTopSafeArea={true}
       scrollable={false}
+      style={StyleSheet.applyWidth(
+        { backgroundColor: theme.colors['Surface'] },
+        dimensions.width
+      )}
     >
       {/* Tab Header */}
       <View
@@ -143,13 +148,14 @@ const HomeScreen = props => {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           >
+            {/* Import New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
               booking_type={'Import'}
-              id={Constants['AUTH_OWNER_ID']}
+              id={125}
               owner_status={'PENDING'}
             >
               {({ loading, error, data, refetchNewLeads$Pending$ }) => {
-                const fetchData = data?.json;
+                const importNewLeadsData = data?.json;
                 if (loading) {
                   return (
                     <View
@@ -184,7 +190,12 @@ const HomeScreen = props => {
                       {/* Error View */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { alignSelf: 'center', flex: 1 },
+                          {
+                            alignItems: 'center',
+                            alignSelf: 'center',
+                            flex: 1,
+                            justifyContent: 'center',
+                          },
                           dimensions.width
                         )}
                       >
@@ -200,7 +211,7 @@ const HomeScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.message}
+                          {importNewLeadsData?.message}
                         </Text>
                       </View>
                     </>
@@ -213,7 +224,7 @@ const HomeScreen = props => {
                       { flexDirection: 'column-reverse' },
                       dimensions.width
                     )}
-                    data={fetchData?.data}
+                    data={importNewLeadsData?.data}
                     keyExtractor={listData => listData?.book_truck_id}
                     listKey={'Or2R6bzt'}
                     numColumns={1}
@@ -221,398 +232,443 @@ const HomeScreen = props => {
                     renderItem={({ item, index }) => {
                       const listData = item;
                       return (
-                        <View>
-                          <Touchable
-                            onPress={() => {
-                              try {
-                                if (listData?.owner_status === 'ACCEPTED') {
-                                  navigation.navigate(
-                                    'ImportNewTripAcceptedScreen',
-                                    { book_truck_id: listData?.book_truck_id }
-                                  );
+                        <>
+                          <AccordionGroup
+                            caretSize={24}
+                            expanded={true}
+                            iconSize={24}
+                            label={listData?.pickup_date?.split(' ')[0]}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.AccordionGroupStyles(theme)[
+                                  'Accordion'
+                                ],
+                                {
+                                  marginBottom: 10,
+                                  marginLeft: 20,
+                                  marginRight: 20,
+                                  marginTop: 10,
                                 }
-                                if (listData?.owner_status === 'PENDING') {
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {/* OnPress */}
+                            <Touchable
+                              onPress={() => {
+                                try {
                                   navigation.navigate(
                                     'ImportNewTripPendingScreen',
                                     { book_truck_id: listData?.book_truck_id }
                                   );
+                                  console.log('haha', dimensions.width);
+                                } catch (err) {
+                                  console.error(err);
                                 }
-                                if (listData?.owner_status === 'CANCELLED') {
-                                  navigation.navigate(
-                                    'NewTripCancelledScreen',
-                                    { book_truck_id: listData?.book_truck_id }
-                                  );
-                                }
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                          >
-                            {/* Card */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                {
-                                  borderColor: theme.colors['Light'],
-                                  borderRadius: 12,
-                                  borderWidth: 1,
-                                  margin: 10,
-                                },
-                                dimensions.width
-                              )}
+                              }}
                             >
-                              {/* Locations Row */}
+                              {/* Card */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   {
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    margin: 5,
+                                    backgroundColor: theme.colors['Surface'],
+                                    borderColor: theme.colors['Light'],
+                                    borderRadius: 12,
+                                    borderWidth: 1,
+                                    margin: 10,
                                   },
                                   dimensions.width
                                 )}
                               >
-                                {/* Pick Up View */}
+                                {/* Locations Row */}
                                 <View
                                   style={StyleSheet.applyWidth(
                                     {
                                       alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '30%',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* Pick Up */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        {
-                                          alignSelf: 'center',
-                                          fontSize: 12,
-                                          margin: 5,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.pickup_location}
-                                  </Text>
-                                </View>
-                                {/* Icon View */}
-                                <View>
-                                  <Icon
-                                    color={theme.colors['CoTruckGrey']}
-                                    name={'AntDesign/swap'}
-                                    size={20}
-                                  />
-                                </View>
-                                {/* Drop View */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '30%',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* Drop */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        {
-                                          alignSelf: 'center',
-                                          fontSize: 12,
-                                          margin: 5,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.drop_location}
-                                  </Text>
-                                </View>
-                                {/* Icon View */}
-                                <View>
-                                  <Icon
-                                    color={theme.colors['CoTruckGrey']}
-                                    name={'AntDesign/swap'}
-                                    size={20}
-                                  />
-                                </View>
-                                {/* Depot View */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '30%',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* Depot */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        {
-                                          alignSelf: 'center',
-                                          fontSize: 12,
-                                          margin: 5,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.depot_location}
-                                  </Text>
-                                </View>
-                              </View>
-                              {/* Info Row */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    margin: 5,
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                {/* Date View */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '25%',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* Date */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        { margin: 5 }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.pickup_date?.split(' ')[0]}
-                                  </Text>
-                                </View>
-                                {/* Vehicle Type View */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '25%',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* Vehicle Type */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        { margin: 5 }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.vehicle_type?.split(' ')[0]}
-                                  </Text>
-                                </View>
-                                {/* No Of Truck */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '25%',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* No Of Truck */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        { margin: 5 }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {'Truck - '}
-                                    {listData?.no_of_truck}
-                                  </Text>
-                                </View>
-                                {/* Load Weight View */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '25%',
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* Weight */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
-                                        ],
-                                        { margin: 5 }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.load_weight}
-                                  </Text>
-                                </View>
-                              </View>
-
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  { margin: 5 },
-                                  dimensions.width
-                                )}
-                              >
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'center',
-                                      borderRadius: 8,
                                       flexDirection: 'row',
-                                      justifyContent: 'flex-end',
-                                      margin: 10,
+                                      margin: 5,
                                     },
                                     dimensions.width
                                   )}
                                 >
-                                  {/* Owner Book Status */}
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
+                                  {/* Pickup View */}
+                                  <View
                                     style={StyleSheet.applyWidth(
-                                      GlobalStyles.TextStyles(theme)['Text 2'],
+                                      {
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: '30%',
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    {'Owner Book Status - '}
-                                  </Text>
-                                  {/* Accepted */}
-                                  <>
-                                    {!(
-                                      listData?.owner_status === 'ACCEPTED'
-                                    ) ? null : (
-                                      <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'Text 2'
-                                            ],
-                                            { color: theme.colors['Success'] }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      >
-                                        {listData?.owner_status}
-                                      </Text>
+                                    {/* Pickup  */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 2'
+                                          ],
+                                          {
+                                            color: theme.colors['CoTruckBlack'],
+                                            fontSize: 12,
+                                            margin: 5,
+                                            textAlign: 'center',
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {listData?.pickup_location}
+                                    </Text>
+                                  </View>
+                                  {/* Icon View */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      { alignSelf: 'center' },
+                                      dimensions.width
                                     )}
-                                  </>
-                                  {/* Pending */}
-                                  <>
-                                    {!(
-                                      listData?.owner_status === 'PENDING'
-                                    ) ? null : (
-                                      <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'Text 2'
-                                            ],
-                                            {
-                                              color:
-                                                theme.colors['CoTruckPending'],
-                                            }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      >
-                                        {listData?.owner_status}
-                                      </Text>
+                                  >
+                                    <Icon
+                                      color={theme.colors['CoTruckGrey']}
+                                      name={'AntDesign/swap'}
+                                      size={20}
+                                    />
+                                  </View>
+                                  {/* Drop View */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: '30%',
+                                      },
+                                      dimensions.width
                                     )}
-                                  </>
-                                  {/* Cancelled */}
-                                  <>
-                                    {!(
-                                      listData?.owner_status === 'CANCELLED'
-                                    ) ? null : (
-                                      <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'Text 2'
-                                            ],
-                                            { color: theme.colors['Error'] }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      >
-                                        {listData?.owner_status}
-                                      </Text>
+                                  >
+                                    {/* Drop */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 2'
+                                          ],
+                                          {
+                                            color: theme.colors['CoTruckBlack'],
+                                            fontSize: 12,
+                                            margin: 5,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {listData?.drop_location}
+                                    </Text>
+                                  </View>
+                                  {/* Icon View */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      { alignSelf: 'center' },
+                                      dimensions.width
                                     )}
-                                  </>
+                                  >
+                                    <Icon
+                                      color={theme.colors['CoTruckGrey']}
+                                      name={'AntDesign/swap'}
+                                      size={20}
+                                    />
+                                  </View>
+                                  {/* Depot View */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: '30%',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {/* Depot */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 2'
+                                          ],
+                                          {
+                                            color: theme.colors['CoTruckBlack'],
+                                            fontSize: 12,
+                                            margin: 5,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {listData?.depot_location}
+                                    </Text>
+                                  </View>
+                                </View>
+                                {/* Info Row */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      margin: 5,
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  {/* Shipper Name View */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        alignSelf: 'center',
+                                        justifyContent: 'center',
+                                        width: '25%',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {/* Shipper Name */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 2'
+                                          ],
+                                          {
+                                            fontSize: 12,
+                                            margin: 5,
+                                            textAlign: 'center',
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Shipper Name'}
+                                    </Text>
+                                  </View>
+                                  {/* Vehicle Type View */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        alignSelf: 'center',
+                                        justifyContent: 'center',
+                                        width: '25%',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {/* Vehicle Type */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 2'
+                                          ],
+                                          {
+                                            fontSize: 12,
+                                            margin: 5,
+                                            textAlign: 'center',
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {listData?.vehicle_type?.split(' ')[0]}
+                                    </Text>
+                                  </View>
+                                  {/* No Of Trucks View */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        alignSelf: 'center',
+                                        justifyContent: 'center',
+                                        width: '25%',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {/* No Of Trucks */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 2'
+                                          ],
+                                          {
+                                            fontSize: 12,
+                                            margin: 5,
+                                            textAlign: 'center',
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Truck - '}
+                                      {listData?.no_of_truck}
+                                    </Text>
+                                  </View>
+                                  {/* Load Weight View */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        alignSelf: 'center',
+                                        justifyContent: 'center',
+                                        width: '25%',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {/* Load Weight */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'Text 2'
+                                          ],
+                                          {
+                                            fontSize: 12,
+                                            margin: 5,
+                                            textAlign: 'center',
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {listData?.load_weight}
+                                    </Text>
+                                  </View>
+                                </View>
+
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    { margin: 5 },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        borderRadius: 8,
+                                        flexDirection: 'row',
+                                        justifyContent: 'flex-end',
+                                        margin: 10,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {/* Owner Book Status */}
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      style={StyleSheet.applyWidth(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'Text 2'
+                                        ],
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Owner Book Status - '}
+                                    </Text>
+                                    {/* Accepted */}
+                                    <>
+                                      {!(
+                                        listData?.owner_status === 'ACCEPTED'
+                                      ) ? null : (
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              { color: theme.colors['Success'] }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {listData?.owner_status}
+                                        </Text>
+                                      )}
+                                    </>
+                                    {/* Pending */}
+                                    <>
+                                      {!(
+                                        listData?.owner_status === 'PENDING'
+                                      ) ? null : (
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              {
+                                                color:
+                                                  theme.colors[
+                                                    'CoTruckPending'
+                                                  ],
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {listData?.owner_status}
+                                        </Text>
+                                      )}
+                                    </>
+                                    {/* Cancelled */}
+                                    <>
+                                      {!(
+                                        listData?.owner_status === 'CANCELLED'
+                                      ) ? null : (
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              { color: theme.colors['Error'] }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {listData?.owner_status}
+                                        </Text>
+                                      )}
+                                    </>
+                                  </View>
                                 </View>
                               </View>
-                            </View>
-                          </Touchable>
-                        </View>
+                            </Touchable>
+                          </AccordionGroup>
+                        </>
                       );
                     }}
                     showsHorizontalScrollIndicator={true}
@@ -640,10 +696,11 @@ const HomeScreen = props => {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           >
+            {/* Export New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
               booking_type={'Export'}
               handlers={{
-                on404: fetchData => {
+                on404: exportNewLeadsData => {
                   try {
                     setNotFound('There is not Found');
                   } catch (err) {
@@ -651,11 +708,11 @@ const HomeScreen = props => {
                   }
                 },
               }}
-              id={Constants['AUTH_OWNER_ID']}
+              id={125}
               owner_status={'PENDING'}
             >
               {({ loading, error, data, refetchNewLeads$Pending$ }) => {
-                const fetchData = data?.json;
+                const exportNewLeadsData = data?.json;
                 if (loading) {
                   return (
                     <View
@@ -706,7 +763,7 @@ const HomeScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.message}
+                          {exportNewLeadsData?.message}
                         </Text>
                       </View>
                     </>
@@ -719,7 +776,7 @@ const HomeScreen = props => {
                       { flexDirection: 'column-reverse' },
                       dimensions.width
                     )}
-                    data={fetchData?.data}
+                    data={exportNewLeadsData?.data}
                     keyExtractor={listData => listData?.book_truck_id}
                     listKey={'apFzU50P'}
                     numColumns={1}

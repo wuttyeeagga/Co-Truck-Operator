@@ -818,9 +818,8 @@ const HomeScreen = props => {
                                 try {
                                   navigation.navigate(
                                     'ExportNewTripPendingScreen',
-                                    { booking_id: listData?.book_truck_id }
+                                    { book_truck_id: listData?.book_truck_id }
                                   );
-                                  console.log('haha', dimensions.width);
                                 } catch (err) {
                                   console.error(err);
                                 }

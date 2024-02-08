@@ -86,7 +86,7 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={props.route?.params?.book_truck_id ?? ''}
+          book_truck_id={120}
           handlers={{
             onData: fetchData => {
               try {
@@ -94,7 +94,6 @@ const ImportNewTripPendingScreen = props => {
                 setChooseDriverOptions(asdf);
                 setSubTotal((fetchData?.data?.sub_total).toString());
                 setTotalPrice((fetchData?.data?.total_price).toString());
-                console.log(fetchData?.data?.book_truck_id);
               } catch (err) {
                 console.error(err);
               }
@@ -461,7 +460,7 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Booked by'}
+                        {'Booked By'}
                       </Text>
                       {/* Shipper Name */}
                       <Text
@@ -597,7 +596,7 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'weight'}
+                        {fetchData?.data?.load_weight}
                       </Text>
                     </View>
                   </View>

@@ -11,7 +11,6 @@ import {
   Divider,
   Icon,
   MultiSelectPicker,
-  Picker,
   ScreenContainer,
   TextInput,
   withTheme,
@@ -25,6 +24,7 @@ const ExportNewTripPendingScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
+  const [addOnAmount, setAddOnAmount] = React.useState(0);
   const [availabilityTruck, setAvailabilityTruck] = React.useState(1);
   const [chargesOption, setChargesOption] = React.useState([]);
   const [chooseDriverOptions, setChooseDriverOptions] = React.useState([]);
@@ -55,8 +55,8 @@ line two` ) and will not work with special characters inside of quotes ( example
         }
         const results = (await cotruckCategoryChargesPOST.mutateAsync())?.json;
         const asdf = results?.data;
-        console.log(results, asdf);
         setChargesOption(asdf);
+        console.log(props.route?.params?.book_truck_id ?? '');
       } catch (err) {
         console.error(err);
       }
@@ -82,7 +82,7 @@ line two` ) and will not work with special characters inside of quotes ( example
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={props.route?.params?.booking_id ?? ''}
+          book_truck_id={223}
           handlers={{
             on2xx: fetchData => {
               try {
@@ -100,6 +100,12 @@ line two` ) and will not work with special characters inside of quotes ( example
               try {
                 const asdf = fetchData?.data?.drivers;
                 setChooseDriverOptions(asdf);
+
+                const value8WJTmdjB = (fetchData?.data?.sub_total).toString();
+                setSubTotal(value8WJTmdjB);
+                const zxcv = value8WJTmdjB;
+                setTotalPrice((fetchData?.data?.total_price).toString());
+                console.log(zxcv, totalPrice);
               } catch (err) {
                 console.error(err);
               }
@@ -335,42 +341,6 @@ line two` ) and will not work with special characters inside of quotes ( example
                       </View>
                     </View>
                   </View>
-                  {/* Type Material View */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { marginLeft: 20 },
-                      dimensions.width
-                    )}
-                  >
-                    {/* Type */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text 2'],
-                          { color: theme.colors['CoTruckGrey'], margin: 10 }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Type of Material'}
-                    </Text>
-                    {/* Material Type */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text 2'],
-                          { color: theme.colors['CoTruckBlack'], margin: 10 }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?.data?.vehicle_type}
-                    </Text>
-                  </View>
                   {/* Divider 4 */}
                   <Divider
                     color={theme.colors['Light']}
@@ -432,7 +402,18 @@ line two` ) and will not work with special characters inside of quotes ( example
                           dimensions.width
                         )}
                       >
-                        {fetchData?.data?.pickup_date?.split(' ')[0]}
+                        {fetchData?.data?.pickup_date?.split(' ')[0]}{' '}
+                        {
+                          fetchData?.data?.pickup_date
+                            ?.split(' ')[1]
+                            ?.split(':')[0]
+                        }
+                        {':'}
+                        {
+                          fetchData?.data?.pickup_date
+                            ?.split(' ')[1]
+                            ?.split(':')[1]
+                        }
                       </Text>
                     </View>
                     {/* View 2 */}
@@ -471,14 +452,14 @@ line two` ) and will not work with special characters inside of quotes ( example
                         {fetchData?.data?.material_type}
                       </Text>
                     </View>
-                    {/* View 3 */}
+                    {/* Shipper */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', width: '35%' },
                         dimensions.width
                       )}
                     >
-                      {/* Price */}
+                      {/* Ordered By */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -490,9 +471,9 @@ line two` ) and will not work with special characters inside of quotes ( example
                           dimensions.width
                         )}
                       >
-                        {'Price'}
+                        {'Booked By'}
                       </Text>
-                      {/* Price Value */}
+                      {/* Shipper Name */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -504,7 +485,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                           dimensions.width
                         )}
                       >
-                        {'MMK 450'}
+                        {fetchData?.data?.shipper_name}
                       </Text>
                     </View>
                   </View>
@@ -540,7 +521,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                           dimensions.width
                         )}
                       >
-                        {'Type'}
+                        {'Vehicle Type'}
                       </Text>
                       {/* Vehicle type */}
                       <Text
@@ -616,34 +597,20 @@ line two` ) and will not work with special characters inside of quotes ( example
                           {'Availability'}
                         </Text>
                       </View>
-                      {/* Availability Input */}
-                      <TextInput
-                        allowFontScaling={true}
-                        autoCapitalize={'none'}
-                        changeTextDelay={500}
-                        onChangeText={newAvailabilityInputValue => {
-                          try {
-                            setAvailabilityTruck(newAvailabilityInputValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        placeholder={'enter number'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextInputStyles(theme)['Text Input 3'],
-                            {
-                              borderColor: theme.colors['Light'],
-                              margin: 10,
-                              paddingLeft: 20,
-                              width: '50%',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        value={availabilityTruck}
-                      />
+
+                      <View>
+                        {/* Weight */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['Text 2'],
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.data?.load_weight}
+                        </Text>
+                      </View>
                     </View>
                   </View>
                   {/* Divider 2 */}
@@ -738,7 +705,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                             console.error(err);
                           }
                         }}
-                        placeholder={'Sub Total'}
+                        placeholder={'Enter a value...'}
                         placeholderTextColor={theme.colors['TextPlaceholder']}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
@@ -757,84 +724,16 @@ line two` ) and will not work with special characters inside of quotes ( example
                       />
                     </View>
                   </View>
-                  {/* Extra Charges */}
-                  <View>
-                    {/* Extra Charges View */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { margin: 10, marginBottom: 0 },
-                        dimensions.width
-                      )}
-                    >
-                      {/* Extra Charges */}
-                      <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['Text 2'],
-                            {
-                              color: theme.colors['CoTruckBlack'],
-                              fontSize: 16,
-                              margin: 10,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'Extra Charges'}
-                      </Text>
-                    </View>
-                  </View>
-                  <Picker
-                    autoDismissKeyboard={true}
-                    dropDownBackgroundColor={theme.colors.background}
-                    dropDownBorderColor={theme.colors.divider}
-                    dropDownBorderRadius={8}
-                    dropDownBorderWidth={1}
-                    dropDownTextColor={theme.colors.strong}
-                    iconSize={24}
-                    leftIconMode={'inset'}
-                    mode={'native'}
-                    onValueChange={newPickerValue => {
-                      const pickerValue = newPickerValue;
-                      try {
-                        setPickerValue(pickerValue);
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
-                    options={chargesOption}
-                    placeholder={'Select an option'}
-                    placeholderTextColor={theme.colors['TextPlaceholder']}
-                    rightIconName={'AntDesign/caretdown'}
-                    selectedIconColor={theme.colors.strong}
-                    selectedIconName={'Feather/check'}
-                    selectedIconSize={20}
-                    style={StyleSheet.applyWidth(
-                      {
-                        borderRadius: 12,
-                        height: 48,
-                        margin: 20,
-                        marginLeft: 20,
-                        marginRight: 20,
-                        marginTop: 10,
-                      },
-                      dimensions.width
-                    )}
-                    type={'solid'}
-                    value={pickerValue}
-                  />
                   {/* Extra Charges Amount */}
                   <View>
-                    {/* Extra Charges Amount View */}
+                    {/* Add On Amount View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { margin: 10, marginBottom: 0 },
                         dimensions.width
                       )}
                     >
-                      {/* Extra Charges Amount */}
+                      {/* Add On Amount */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -850,29 +749,29 @@ line two` ) and will not work with special characters inside of quotes ( example
                           dimensions.width
                         )}
                       >
-                        {'Extra Charges Amount'}
+                        {'Add on Amount'}
                       </Text>
                     </View>
-                    {/* Extra Charges Amount View */}
+                    {/* Add on Amount */}
                     <View
                       style={StyleSheet.applyWidth(
                         { margin: 10, marginTop: 0 },
                         dimensions.width
                       )}
                     >
-                      {/* Extra Charges Amount Input */}
+                      {/* Add On Amount Input */}
                       <TextInput
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
-                        onChangeText={newExtraChargesAmountInputValue => {
+                        onChangeText={newAddOnAmountInputValue => {
                           try {
-                            setExtraAmount(newExtraChargesAmountInputValue);
+                            setAddOnAmount(newAddOnAmountInputValue);
                           } catch (err) {
                             console.error(err);
                           }
                         }}
-                        placeholder={'Extra Charges Amount'}
+                        placeholder={'Add on Amount'}
                         placeholderTextColor={theme.colors['TextPlaceholder']}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
@@ -886,7 +785,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                           ),
                           dimensions.width
                         )}
-                        value={extraAmount}
+                        value={addOnAmount}
                       />
                     </View>
                   </View>
@@ -930,14 +829,8 @@ line two` ) and will not work with special characters inside of quotes ( example
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
-                        onChangeText={newTotalPriceValue => {
-                          try {
-                            setTotalPrice(newTotalPriceValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        placeholder={'Total Price'}
+                        defaultValue={fetchData?.data?.total_price}
+                        placeholder={'Enter a value...'}
                         placeholderTextColor={theme.colors['TextPlaceholder']}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
@@ -952,7 +845,6 @@ line two` ) and will not work with special characters inside of quotes ( example
                           ),
                           dimensions.width
                         )}
-                        value={totalPrice}
                       />
                     </View>
                   </View>
@@ -963,6 +855,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                         alignItems: 'center',
                         flexDirection: 'row',
                         justifyContent: 'space-around',
+                        marginBottom: 50,
                       },
                       dimensions.width
                     )}
@@ -973,8 +866,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                       onPress={() => {
                         try {
                           navigation.navigate('ExportReasonForCancelScreen', {
-                            book_truck_id:
-                              props.route?.params?.booking_id ?? '',
+                            book_truck_id: null,
                           });
                         } catch (err) {
                           console.error(err);
@@ -1002,8 +894,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                           try {
                             const results = (
                               await cotruckAcceptNewTripPOST.mutateAsync({
-                                booking_id:
-                                  props.route?.params?.booking_id ?? '',
+                                booking_id: null,
                                 charges: 450,
                                 final_total: 12345,
                                 operator_id: 120,

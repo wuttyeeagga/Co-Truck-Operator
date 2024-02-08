@@ -229,10 +229,17 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
+          name="TestForMapScreen"
+          component={TestForMapScreen}
           options={({ navigation }) => ({
-            title: 'Forgot Password',
+            title: 'Test For Map',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnConfirmedScreen"
+          component={ImportBookingDetailsOnConfirmedScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on  Confirmed',
           })}
         />
         <Stack.Screen
@@ -240,13 +247,6 @@ export default function RootAppNavigator() {
           component={Test1Screen}
           options={({ navigation }) => ({
             title: 'Test1',
-          })}
-        />
-        <Stack.Screen
-          name="OTPVerificationScreen"
-          component={OTPVerificationScreen}
-          options={({ navigation }) => ({
-            title: 'OTP Verification',
           })}
         />
         <Stack.Screen
@@ -264,17 +264,17 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="TestForMapScreen"
-          component={TestForMapScreen}
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
           options={({ navigation }) => ({
-            title: 'Test For Map',
+            title: 'Forgot Password',
           })}
         />
         <Stack.Screen
-          name="ImportBookingDetailsOnConfirmedScreen"
-          component={ImportBookingDetailsOnConfirmedScreen}
+          name="PaymentScreen"
+          component={PaymentScreen}
           options={({ navigation }) => ({
-            title: 'Import Booking Details on  Confirmed',
+            title: 'Payment',
           })}
         />
         <Stack.Screen
@@ -285,31 +285,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="FAQsScreen"
-          component={FAQsScreen}
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
           options={({ navigation }) => ({
-            title: 'FAQs',
-          })}
-        />
-        <Stack.Screen
-          name="CompanyInformationScreen"
-          component={CompanyInformationScreen}
-          options={({ navigation }) => ({
-            title: 'Company Information',
-          })}
-        />
-        <Stack.Screen
-          name="BookingSummaryScreen"
-          component={BookingSummaryScreen}
-          options={({ navigation }) => ({
-            title: 'Booking Summary',
-          })}
-        />
-        <Stack.Screen
-          name="AboutUsScreen"
-          component={AboutUsScreen}
-          options={({ navigation }) => ({
-            title: 'About Us',
+            title: 'OTP Verification',
           })}
         />
         <Stack.Screen
@@ -327,10 +306,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="PaymentScreen"
-          component={PaymentScreen}
+          name="ChooseLanguageScreen"
+          component={ChooseLanguageScreen}
           options={({ navigation }) => ({
-            title: 'Payment',
+            title: 'Choose Language',
           })}
         />
         <Stack.Screen
@@ -338,6 +317,13 @@ export default function RootAppNavigator() {
           component={ReferAFriendScreen}
           options={({ navigation }) => ({
             title: 'Refer a friend',
+          })}
+        />
+        <Stack.Screen
+          name="BookingSummaryScreen"
+          component={BookingSummaryScreen}
+          options={({ navigation }) => ({
+            title: 'Booking Summary',
           })}
         />
         <Stack.Screen
@@ -362,10 +348,24 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ChooseLanguageScreen"
-          component={ChooseLanguageScreen}
+          name="FAQsScreen"
+          component={FAQsScreen}
           options={({ navigation }) => ({
-            title: 'Choose Language',
+            title: 'FAQs',
+          })}
+        />
+        <Stack.Screen
+          name="CompanyInformationScreen"
+          component={CompanyInformationScreen}
+          options={({ navigation }) => ({
+            title: 'Company Information',
+          })}
+        />
+        <Stack.Screen
+          name="AboutUsScreen"
+          component={AboutUsScreen}
+          options={({ navigation }) => ({
+            title: 'About Us',
           })}
         />
         <Stack.Screen

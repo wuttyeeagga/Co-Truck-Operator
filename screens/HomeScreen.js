@@ -462,7 +462,7 @@ const HomeScreen = props => {
                                         dimensions.width
                                       )}
                                     >
-                                      {'Shipper Name'}
+                                      {listData?.shipper_name}
                                     </Text>
                                   </View>
                                   {/* Vehicle Type View */}
@@ -566,13 +566,14 @@ const HomeScreen = props => {
                                     </Text>
                                   </View>
                                 </View>
-
+                                {/* Status View */}
                                 <View
                                   style={StyleSheet.applyWidth(
                                     { margin: 5 },
                                     dimensions.width
                                   )}
                                 >
+                                  {/* Row Wrapper */}
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
@@ -1015,7 +1016,7 @@ const HomeScreen = props => {
                                         dimensions.width
                                       )}
                                     >
-                                      {'Shipper Name'}
+                                      {listData?.shipper_name}
                                     </Text>
                                   </View>
                                   {/* Vehicle Type View */}

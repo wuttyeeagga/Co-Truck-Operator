@@ -34,7 +34,12 @@
       "infoPlist": {
         "UIBackgroundModes": [
           "remote-notification"
-        ]
+        ],
+        "NSPhotoLibraryUsageDescription": "This app uses the photo library to review rich media previously added.",
+        "NSUserTrackingUsageDescription": "This app uses the location to create a list of local services.",
+        "NSPhotoLibraryAddUsageDescription": "This app uses the photo library to add rich media shared from others.",
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to create a list of local services.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses the location to create a list of local services."
       },
       "usesIcloudStorage": false,
       "config": {
@@ -48,7 +53,8 @@
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION",
-        "CAMERA"
+        "CAMERA",
+        "VIBRATE"
       ],
       "adaptiveIcon": {}
     },

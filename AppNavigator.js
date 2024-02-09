@@ -48,7 +48,6 @@ import ImportNewTripPendingScreen from './screens/ImportNewTripPendingScreen';
 import ImportReasonForCancelScreen from './screens/ImportReasonForCancelScreen';
 import InvoiceGenerateIndexScreen from './screens/InvoiceGenerateIndexScreen';
 import InvoiceScreen from './screens/InvoiceScreen';
-import LiveTrackingMapScreen from './screens/LiveTrackingMapScreen';
 import LoginScreen from './screens/LoginScreen';
 import ManageDriverScreen from './screens/ManageDriverScreen';
 import ManageVehicleScreen from './screens/ManageVehicleScreen';
@@ -221,13 +220,6 @@ export default function RootAppNavigator() {
           headerTitle: 'Co Truck',
         })}
       >
-        <Stack.Screen
-          name="LiveTrackingMapScreen"
-          component={LiveTrackingMapScreen}
-          options={({ navigation }) => ({
-            title: 'Live Tracking Map',
-          })}
-        />
         <Stack.Screen
           name="ImportBookingDetailsOnGoingScreen"
           component={ImportBookingDetailsOnGoingScreen}

@@ -100,9 +100,7 @@ const ImportBookingDetailsOnPendingScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
-        <CotruckApi.FetchBookingDetailPOST
-          book_truck_id={props.route?.params?.book_truck_id ?? ''}
-        >
+        <CotruckApi.FetchBookingDetailPOST book_truck_id={219}>
           {({ loading, error, data, refetchBookingDetail }) => {
             const fetchData = data?.json;
             if (loading) {

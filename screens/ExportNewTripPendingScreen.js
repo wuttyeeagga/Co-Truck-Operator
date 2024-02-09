@@ -64,13 +64,10 @@ const ExportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={223}
+          book_truck_id={120}
           handlers={{
             onData: fetchData => {
               try {
-                const asdf = fetchData?.data?.drivers;
-                setChooseDriverOptions(asdf);
-
                 const value8WJTmdjB = (fetchData?.data?.sub_total).toString();
                 setSubTotal(value8WJTmdjB);
                 const zxcv = value8WJTmdjB;
@@ -617,7 +614,7 @@ const ExportNewTripPendingScreen = props => {
                       {/* Pickup Address View */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: '40%' },
+                          { width: '45%' },
                           dimensions.width
                         )}
                       >
@@ -664,6 +661,16 @@ const ExportNewTripPendingScreen = props => {
                         </Text>
                       </View>
                     </View>
+                    <Divider
+                      color={theme.colors['Light']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { marginBottom: 10, marginTop: 10 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
                     {/* Drop Row */}
                     <View
                       style={StyleSheet.applyWidth(
@@ -678,7 +685,7 @@ const ExportNewTripPendingScreen = props => {
                       {/* Drop Address View */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: '40%' },
+                          { width: '45%' },
                           dimensions.width
                         )}
                       >
@@ -1016,10 +1023,12 @@ const ExportNewTripPendingScreen = props => {
                               await cotruckAcceptNewTripPOST.mutateAsync({
                                 booking_id: null,
                                 charges: 450,
-                                final_total: 12345,
-                                operator_id: 120,
-                                qty: fetchData?.data?.no_of_truck,
-                                sub_total: 780,
+                                driver_ids: [],
+                                extra_charge_desc: [],
+                                final_total: totalPrice,
+                                operator_id: Constants['AUTH_OWNER_ID'],
+                                qty: 234,
+                                sub_total: subTotal,
                               })
                             )?.json;
                             navigation.navigate('BottomTabNavigator', {

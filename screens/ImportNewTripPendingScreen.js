@@ -636,7 +636,7 @@ const ImportNewTripPendingScreen = props => {
                       {/* Address */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: '40%' },
+                          { width: '45%' },
                           dimensions.width
                         )}
                       >
@@ -707,7 +707,7 @@ const ImportNewTripPendingScreen = props => {
                       {/* Address */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: '40%' },
+                          { width: '45%' },
                           dimensions.width
                         )}
                       >

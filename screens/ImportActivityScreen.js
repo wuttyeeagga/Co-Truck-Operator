@@ -7,7 +7,6 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   AccordionGroup,
-  Divider,
   Icon,
   ScreenContainer,
   TabView,
@@ -124,7 +123,7 @@ const ImportActivityScreen = props => {
                 <CotruckApi.FetchBookingList$Confirmed$POST
                   booking_status={'CONFIRMED'}
                   booking_type={'Import'}
-                  operator={125}
+                  operator={Constants['AUTH_OWNER_ID']}
                 >
                   {({
                     loading,
@@ -1179,6 +1178,7 @@ const ImportActivityScreen = props => {
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               >
+                {/* Completed Booking List */}
                 <CotruckApi.FetchBookingList$PAID$POST
                   booking_status={'COMPLETED'}
                   booking_type={'Import'}
@@ -1186,7 +1186,7 @@ const ImportActivityScreen = props => {
                   paid_status={'PENDING'}
                 >
                   {({ loading, error, data, refetchBookingList$PAID$ }) => {
-                    const fetchData = data?.json;
+                    const completedBookingListData = data?.json;
                     if (loading) {
                       return (
                         <>
@@ -1243,7 +1243,7 @@ const ImportActivityScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.message}
+                              {completedBookingListData?.message}
                             </Text>
                           </View>
                         </>
@@ -1256,7 +1256,7 @@ const ImportActivityScreen = props => {
                           { flexDirection: 'column-reverse' },
                           dimensions.width
                         )}
-                        data={fetchData?.data}
+                        data={completedBookingListData?.data}
                         keyExtractor={(listData, index) =>
                           listData?.id ?? listData?.uuid ?? index.toString()
                         }

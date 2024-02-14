@@ -13,7 +13,6 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
 import { Image, Text, View } from 'react-native';
 
 const SettingsScreen = props => {
@@ -22,17 +21,6 @@ const SettingsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const cotruckLogOutPOST = CotruckApi.useLogOutPOST();
-  const isFocused = useIsFocused();
-  React.useEffect(() => {
-    try {
-      if (!isFocused) {
-        return;
-      }
-      console.log(Constants['OWNER_INFO']);
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isFocused]);
 
   return (
     <ScreenContainer hasSafeArea={true} scrollable={true}>

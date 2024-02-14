@@ -76,11 +76,12 @@ const ImportBookingDetailsOnGoingScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
+        {/* Booking Details */}
         <CotruckApi.FetchBookingDetailPOST
           book_truck_id={props.route?.params?.book_truck_id ?? ''}
         >
           {({ loading, error, data, refetchBookingDetail }) => {
-            const fetchData = data?.json;
+            const bookingDetailsData = data?.json;
             if (loading) {
               return (
                 <>
@@ -152,7 +153,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                       )}
                     >
                       {'Booking ID : '}
-                      {fetchData?.data?.book_truck_id}
+                      {bookingDetailsData?.data?.book_truck_id}
                     </Text>
                     {/* Status */}
                     <Text
@@ -167,7 +168,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                       )}
                     >
                       {'Status : '}
-                      {fetchData?.data?.status}
+                      {bookingDetailsData?.data?.status}
                     </Text>
                   </View>
                   {/* Shipper Row */}
@@ -198,7 +199,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                         <Image
                           resizeMode={'cover'}
                           source={{
-                            uri: `${fetchData?.data?.shipper_info?.user_image}`,
+                            uri: `${bookingDetailsData?.data?.shipper_info?.user_image}`,
                           }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
@@ -228,7 +229,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.shipper_info?.name}
+                          {bookingDetailsData?.data?.shipper_info?.name}
                         </Text>
                         {/* Mobile */}
                         <Text
@@ -242,7 +243,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.shipper_info?.mobile}
+                          {bookingDetailsData?.data?.shipper_info?.mobile}
                         </Text>
                       </View>
                     </View>
@@ -264,7 +265,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                         onPress={() => {
                           try {
                             Linking.openURL(
-                              `tel:${fetchData?.data?.shipper_info?.mobile}`
+                              `tel:${bookingDetailsData?.data?.shipper_info?.mobile}`
                             );
                           } catch (err) {
                             console.error(err);
@@ -326,7 +327,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                         <Image
                           resizeMode={'cover'}
                           source={{
-                            uri: `${fetchData?.data?.driver_info?.user_image}`,
+                            uri: `${bookingDetailsData?.data?.driver_info?.user_image}`,
                           }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
@@ -356,7 +357,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.driver_info?.name}
+                          {bookingDetailsData?.data?.driver_info?.name}
                         </Text>
                         {/* Driver Phone */}
                         <Text
@@ -370,7 +371,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.driver_info?.mobile}
+                          {bookingDetailsData?.data?.driver_info?.mobile}
                         </Text>
                       </View>
                     </View>
@@ -408,7 +409,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                         onPress={() => {
                           try {
                             Linking.openURL(
-                              `tel:${fetchData?.data?.driver_info?.mobile}`
+                              `tel:${bookingDetailsData?.data?.driver_info?.mobile}`
                             );
                           } catch (err) {
                             console.error(err);
@@ -458,7 +459,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.pickup_location}
+                      {bookingDetailsData?.data?.pickup_location}
                     </Text>
                   </View>
                   {/* Icon View */}
@@ -502,7 +503,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.drop_location}
+                      {bookingDetailsData?.data?.drop_location}
                     </Text>
                   </View>
                   {/* Icon View 2 */}
@@ -546,7 +547,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.depot_location}
+                      {bookingDetailsData?.data?.depot_location}
                     </Text>
                   </View>
                 </View>
@@ -638,7 +639,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.pickup_address}
+                          {bookingDetailsData?.data?.pickup_address}
                         </Text>
                       </View>
                     </View>
@@ -728,7 +729,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.drop_address}
+                          {bookingDetailsData?.data?.drop_address}
                         </Text>
                       </View>
                     </View>
@@ -818,7 +819,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.booking_type}
+                          {bookingDetailsData?.data?.booking_type}
                         </Text>
                       </View>
                     </View>
@@ -907,7 +908,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.vehicle_type}
+                          {bookingDetailsData?.data?.vehicle_type}
                         </Text>
                       </View>
                     </View>
@@ -997,7 +998,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.material_type}
+                          {bookingDetailsData?.data?.material_type}
                         </Text>
                       </View>
                     </View>
@@ -1087,7 +1088,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.load_weight}
+                          {bookingDetailsData?.data?.load_weight}
                         </Text>
                       </View>
                     </View>
@@ -1177,7 +1178,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.no_of_truck}
+                          {bookingDetailsData?.data?.no_of_truck}
                         </Text>
                       </View>
                     </View>
@@ -1267,7 +1268,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.product_category}
+                          {bookingDetailsData?.data?.product_category}
                         </Text>
                       </View>
                     </View>
@@ -1357,15 +1358,15 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.pickup_date?.split(' ')[0]}{' '}
+                          {bookingDetailsData?.data?.pickup_date?.split(' ')[0]}{' '}
                           {
-                            fetchData?.data?.pickup_date
+                            bookingDetailsData?.data?.pickup_date
                               ?.split(' ')[1]
                               ?.split(':')[0]
                           }
                           {':'}
                           {
-                            fetchData?.data?.pickup_date
+                            bookingDetailsData?.data?.pickup_date
                               ?.split(' ')[1]
                               ?.split(':')[1]
                           }

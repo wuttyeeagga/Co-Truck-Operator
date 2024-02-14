@@ -54,6 +54,7 @@ import ManageVehicleScreen from './screens/ManageVehicleScreen';
 import NewTripCancelledScreen from './screens/NewTripCancelledScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import OTPVerificationScreen from './screens/OTPVerificationScreen';
+import OldExportConfirmedDetailsScreen from './screens/OldExportConfirmedDetailsScreen';
 import PaidScreen from './screens/PaidScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PickUpDropDetailsScreen from './screens/PickUpDropDetailsScreen';
@@ -97,8 +98,6 @@ function AuthNavigator() {
 }
 
 function BottomTabNavigator() {
-  const Constants = GlobalVariables.useValues();
-
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
@@ -221,10 +220,10 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="ImportBookingDetailsOnGoingScreen"
-          component={ImportBookingDetailsOnGoingScreen}
+          name="ImportBookingDetailsOnConfirmedScreen"
+          component={ImportBookingDetailsOnConfirmedScreen}
           options={({ navigation }) => ({
-            title: 'Import Booking Details on Going',
+            title: 'Import Booking Details on  Confirmed',
           })}
         />
         <Stack.Screen
@@ -232,6 +231,13 @@ export default function RootAppNavigator() {
           component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Completed',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnGoingScreen"
+          component={ImportBookingDetailsOnGoingScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Going',
           })}
         />
         <Stack.Screen
@@ -260,13 +266,6 @@ export default function RootAppNavigator() {
           component={ForgotPasswordScreen}
           options={({ navigation }) => ({
             title: 'Forgot Password',
-          })}
-        />
-        <Stack.Screen
-          name="ImportBookingDetailsOnConfirmedScreen"
-          component={ImportBookingDetailsOnConfirmedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on  Confirmed',
           })}
         />
         <Stack.Screen
@@ -480,10 +479,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ExportBookingDetailsOnConfirmedScreen"
-          component={ExportBookingDetailsOnConfirmedScreen}
+          name="OldExportConfirmedDetailsScreen"
+          component={OldExportConfirmedDetailsScreen}
           options={({ navigation }) => ({
-            title: 'Export Booking Details on  Confirmed',
+            title: 'Old Export Confirmed Details',
           })}
         />
         <Stack.Screen
@@ -561,6 +560,13 @@ export default function RootAppNavigator() {
           component={InvoiceGenerateIndexScreen}
           options={({ navigation }) => ({
             title: 'Invoice Generate Index',
+          })}
+        />
+        <Stack.Screen
+          name="ExportBookingDetailsOnConfirmedScreen"
+          component={ExportBookingDetailsOnConfirmedScreen}
+          options={({ navigation }) => ({
+            title: 'Export Booking Details on  Confirmed',
           })}
         />
         <Stack.Screen name="AuthNavigator" component={AuthNavigator} />

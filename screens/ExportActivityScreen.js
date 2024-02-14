@@ -644,7 +644,7 @@ const ExportActivityScreen = props => {
               >
                 {/* Ongoing Booking List */}
                 <CotruckApi.FetchBookingListPOST
-                  booking_status={'CONFIRMED'}
+                  booking_status={'ON GOING'}
                   booking_type={'Export'}
                   operator={Constants['AUTH_OWNER_ID']}
                 >

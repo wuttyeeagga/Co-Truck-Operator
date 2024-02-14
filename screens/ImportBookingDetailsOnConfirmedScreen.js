@@ -27,7 +27,10 @@ const ImportBookingDetailsOnConfirmedScreen = props => {
       if (!isFocused) {
         return;
       }
-      /* 'Conditional Stop' action requires configuration: select Check Value */
+      console.log(
+        props.route?.params?.book_truck_id ?? '',
+        props.route?.params?.booking_status ?? ''
+      );
     } catch (err) {
       console.error(err);
     }
@@ -86,7 +89,9 @@ const ImportBookingDetailsOnConfirmedScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
-        <CotruckApi.FetchBookingDetailPOST book_truck_id={120}>
+        <CotruckApi.FetchBookingDetailPOST
+          book_truck_id={props.route?.params?.book_truck_id ?? ''}
+        >
           {({ loading, error, data, refetchBookingDetail }) => {
             const fetchData = data?.json;
             if (loading) {
@@ -169,7 +174,7 @@ const ImportBookingDetailsOnConfirmedScreen = props => {
                       )}
                     >
                       {'Status : '}
-                      {null}
+                      {props.route?.params?.booking_status ?? ''}
                     </Text>
                   </View>
                   {/* Shipper Info Row */}

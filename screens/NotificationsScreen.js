@@ -134,8 +134,8 @@ const NotificationsScreen = props => {
               )}
               data={fetchData?.data}
               inverted={true}
-              keyExtractor={listData =>
-                listData?.id || listData?.uuid || JSON.stringify(listData)
+              keyExtractor={(listData, index) =>
+                listData?.id ?? listData?.uuid ?? index.toString()
               }
               listKey={'jHy0kwrU'}
               numColumns={1}

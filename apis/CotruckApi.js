@@ -586,8 +586,7 @@ export const bookingDetailPOST = (
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -664,8 +663,7 @@ export const bookingListPOST = (
     }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -744,8 +742,7 @@ export const bookingList$Confirmed$POST = (
     }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -835,8 +832,7 @@ export const bookingList$PAID$POST = (
     }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -2430,8 +2426,7 @@ export const generateInvoicesGET = (Constants, _args, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/generated-invoices`, {
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
   }).then(res => handleResponse(res, handlers));
@@ -3729,8 +3724,7 @@ export const newLeads$Pending$POST = (
     }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -3806,8 +3800,7 @@ export const newLeadsDetailsPOST = (
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -6035,8 +6028,7 @@ export const systemChargesPOST = (Constants, { operator_id }, handlers = {}) =>
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNzc3MDIwOWZiYzJmNWJlYjE1ZGIzY2RmNDBiMGRmOGRjM2FmNDFiMWRiOGRjODdlZDgwZWZiZGVkMTczZDFhNTVhYTRiZWE1ZWQ3YTg1In0.eyJhdWQiOiIxIiwianRpIjoiNTA3NzcwMjA5ZmJjMmY1YmViMTVkYjNjZGY0MGIwZGY4ZGMzYWY0MWIxZGI4ZGM4N2VkODBlZmJkZWQxNzNkMWE1NWFhNGJlYTVlZDdhODUiLCJpYXQiOjE3MDYyNTU0MjYsIm5iZiI6MTcwNjI1NTQyNiwiZXhwIjoxNzM3ODc3ODI2LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.EOUp5HUwJXJt8hAHKWfM4UdEsEyfm7sHIr3yeVm6Ik34oMuaa2Q6eAb6IglnTfdQ-6wrW7e89IWx3WVooUCihOeZ8cRGvcnbL-TKmy8xdn2a3lfb4Esma7EemLo3guhXk3y7vnaWxEyLEYus1ji8kCGcFQFKSy0AMLEZsJdn5cGvoeoeIZg5y8f_ebDP2p_qNTksNmFZ-S5A9nRzkJjOsBnH5IDhdxarwjvxT8ZA2Mnz2JCOvhvX2KQclrjNXgOASZgPSPUfmMAODVFw2fSOoy9HiOKLlRld-TJfUtFp1EPZcdA2JLguEOv3M-2tlsyhpdt3Fuht_BwCDDBWmYDCdZWexIXZNj9gO94eOJSXXAATeY8PQ_s47s0EH9RvUAb4ACle5XHWOyxs6jdUBO8kIKdrGNHam4EnpYQ3XKg0sUl-C0BVJE_Bu9Di4qfrRtmp7VHs53gD0h6zUuEBHj4TvMu3TgYzqG_HpdGAS_P2dxsqFE698N0-Jy6adzdAUrbsgxwsne5AJ1nB-uOLCXW3W0tRRiLQR_H1rwwj4WdiqMAzYQuiHq4QYBF8sEppCljDEBiHvoR7cg7rKP-wS-ylIbO734sRXYR3FcTF5BlDbxHOqUGiNBpPmplEeOhJX1aNrIarhNBPIL7KJRCSblb3EbAgna7BkcX-S2KiHyhZnFc',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',

@@ -48,7 +48,7 @@
     },
     "android": {
       "versionCode": 1,
-      "package": "com.draftbit.untitledapp",
+      "package": "com.cotruck.operator",
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

@@ -166,8 +166,8 @@ const ManageVehicleScreen = props => {
                 dimensions.width
               )}
               data={fetchData?.data}
-              keyExtractor={listData =>
-                listData?.id || listData?.uuid || JSON.stringify(listData)
+              keyExtractor={(listData, index) =>
+                listData?.id ?? listData?.uuid ?? index.toString()
               }
               listKey={'1MYH0n2p'}
               numColumns={1}

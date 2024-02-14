@@ -230,7 +230,7 @@ const HomeScreen = props => {
                       dimensions.width
                     )}
                     data={importNewLeadsData?.data}
-                    keyExtractor={listData => listData?.book_truck_id}
+                    keyExtractor={(listData, index) => listData?.book_truck_id}
                     listKey={'Or2R6bzt'}
                     numColumns={1}
                     onEndReachedThreshold={0.5}
@@ -783,7 +783,7 @@ const HomeScreen = props => {
                       dimensions.width
                     )}
                     data={exportNewLeadsData?.data}
-                    keyExtractor={listData => listData?.book_truck_id}
+                    keyExtractor={(listData, index) => listData?.book_truck_id}
                     listKey={'apFzU50P'}
                     numColumns={1}
                     onEndReachedThreshold={0.5}

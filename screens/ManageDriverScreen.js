@@ -160,8 +160,8 @@ const ManageDriverScreen = props => {
                 dimensions.width
               )}
               data={fetchData?.data}
-              keyExtractor={listData =>
-                listData?.id || listData?.uuid || JSON.stringify(listData)
+              keyExtractor={(listData, index) =>
+                listData?.id ?? listData?.uuid ?? index.toString()
               }
               listKey={'PHh3S0pv'}
               numColumns={1}

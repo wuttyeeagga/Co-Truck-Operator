@@ -232,8 +232,9 @@ const ExportActivityScreen = props => {
                                   onPress={() => {
                                     try {
                                       navigation.navigate(
-                                        'ExportBookingDetailsOnPendingScreen',
+                                        'ExportBookingDetailsOnConfirmedScreen',
                                         {
+                                          booking_status: listData?.status,
                                           booking_type: listData?.booking_type,
                                           book_truck_id:
                                             listData?.book_truck_id,

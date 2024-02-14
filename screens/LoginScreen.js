@@ -437,9 +437,6 @@ const LoginScreen = props => {
                     screen: 'HomeScreen',
                   });
                   console.log('Complete ON_PRESS:10 NAVIGATE');
-                  console.log('Start ON_PRESS:11 CONSOLE_LOG');
-                  console.log(token);
-                  console.log('Complete ON_PRESS:11 CONSOLE_LOG');
                 } catch (err) {
                   console.error(err);
                   error = err.message ?? err;

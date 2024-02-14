@@ -203,10 +203,8 @@ const ImportActivityScreen = props => {
                           dimensions.width
                         )}
                         data={confirmedBookingListData?.data}
-                        keyExtractor={listData =>
-                          listData?.id ||
-                          listData?.uuid ||
-                          JSON.stringify(listData)
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
                         }
                         listKey={'YRhqroU2'}
                         numColumns={1}
@@ -235,7 +233,7 @@ const ImportActivityScreen = props => {
                                   onPress={() => {
                                     try {
                                       navigation.navigate(
-                                        'ImportBookingDetailsOnPendingScreen',
+                                        'ImportBookingDetailsOnConfirmedScreen',
                                         {
                                           booking_type: 'Import',
                                           book_truck_id:
@@ -653,9 +651,9 @@ const ImportActivityScreen = props => {
               >
                 {/* Ongoing Booking List */}
                 <CotruckApi.FetchBookingList$Confirmed$POST
-                  booking_status={'PENDING'}
+                  booking_status={'ON GOING'}
                   booking_type={'Import'}
-                  operator={125}
+                  operator={Constants['AUTH_OWNER_ID']}
                 >
                   {({
                     loading,
@@ -736,10 +734,8 @@ const ImportActivityScreen = props => {
                           dimensions.width
                         )}
                         data={ongoingBookingListData?.data}
-                        keyExtractor={listData =>
-                          listData?.id ||
-                          listData?.uuid ||
-                          JSON.stringify(listData)
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
                         }
                         listKey={'UPIoiSOn'}
                         numColumns={1}
@@ -770,8 +766,6 @@ const ImportActivityScreen = props => {
                                       navigation.navigate(
                                         'ImportBookingDetailsOnGoingScreen',
                                         {
-                                          booking_status: listData?.status,
-                                          booking_type: 'Import',
                                           book_truck_id:
                                             listData?.book_truck_id,
                                         }
@@ -1263,10 +1257,8 @@ const ImportActivityScreen = props => {
                           dimensions.width
                         )}
                         data={fetchData?.data}
-                        keyExtractor={listData =>
-                          listData?.id ||
-                          listData?.uuid ||
-                          JSON.stringify(listData)
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
                         }
                         listKey={'bPIPLeay'}
                         numColumns={1}

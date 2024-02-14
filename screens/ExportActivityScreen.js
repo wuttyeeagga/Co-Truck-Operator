@@ -7,7 +7,6 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   AccordionGroup,
-  Divider,
   Icon,
   ScreenContainer,
   TabView,
@@ -120,6 +119,7 @@ const ExportActivityScreen = props => {
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               >
+                {/* Confirmed Booking List */}
                 <CotruckApi.FetchBookingList$Confirmed$POST
                   booking_status={'CONFIRMED'}
                   booking_type={'Export'}
@@ -131,39 +131,42 @@ const ExportActivityScreen = props => {
                     data,
                     refetchBookingList$Confirmed$,
                   }) => {
-                    const fetchData = data?.json;
+                    const confirmedBookingListData = data?.json;
                     if (loading) {
                       return (
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              flex: 1,
-                              justifyContent: 'center',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <ActivityIndicator
-                            animating={true}
-                            color={theme.colors['Primary']}
-                            hidesWhenStopped={true}
-                            size={'large'}
+                        <>
+                          {/* loading */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              GlobalStyles.ActivityIndicatorStyles(theme)[
-                                'Activity Indicator'
-                              ],
+                              {
+                                alignItems: 'center',
+                                flex: 1,
+                                justifyContent: 'center',
+                              },
                               dimensions.width
                             )}
-                          />
-                        </View>
+                          >
+                            <ActivityIndicator
+                              animating={true}
+                              color={theme.colors['Primary']}
+                              hidesWhenStopped={true}
+                              size={'large'}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.ActivityIndicatorStyles(theme)[
+                                  'Activity Indicator'
+                                ],
+                                dimensions.width
+                              )}
+                            />
+                          </View>
+                        </>
                       );
                     }
 
                     if (error || data?.status < 200 || data?.status >= 300) {
                       return (
                         <>
-                          {/* View 2 */}
+                          {/* error */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -185,7 +188,7 @@ const ExportActivityScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.message}
+                              {confirmedBookingListData?.message}
                             </Text>
                           </View>
                         </>
@@ -198,11 +201,9 @@ const ExportActivityScreen = props => {
                           { flexDirection: 'column-reverse' },
                           dimensions.width
                         )}
-                        data={fetchData?.data}
-                        keyExtractor={listData =>
-                          listData?.id ||
-                          listData?.uuid ||
-                          JSON.stringify(listData)
+                        data={confirmedBookingListData?.data}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
                         }
                         listKey={'KE4pbbMa'}
                         numColumns={1}
@@ -270,6 +271,8 @@ const ExportActivityScreen = props => {
                                           {
                                             alignItems: 'center',
                                             flexDirection: 'row',
+                                            marginBottom: 10,
+                                            marginTop: 10,
                                           },
                                           dimensions.width
                                         )}
@@ -405,35 +408,56 @@ const ExportActivityScreen = props => {
                                           </Text>
                                         </View>
                                       </View>
-                                      <Divider
-                                        color={theme.colors['Light']}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.DividerStyles(theme)[
-                                              'Divider'
-                                            ],
-                                            { marginBottom: 5, marginTop: 5 }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      />
                                       {/* Info Row */}
                                       <View
                                         style={StyleSheet.applyWidth(
                                           {
                                             alignItems: 'center',
                                             flexDirection: 'row',
+                                            marginBottom: 10,
+                                            marginTop: 10,
                                           },
                                           dimensions.width
                                         )}
                                       >
+                                        {/* Shipper Name View */}
+                                        <View
+                                          style={StyleSheet.applyWidth(
+                                            {
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              width: '25%',
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {/* Shipper Name */}
+                                          <Text
+                                            accessible={true}
+                                            allowFontScaling={true}
+                                            style={StyleSheet.applyWidth(
+                                              StyleSheet.compose(
+                                                GlobalStyles.TextStyles(theme)[
+                                                  'Text 2'
+                                                ],
+                                                {
+                                                  alignSelf: 'center',
+                                                  margin: 10,
+                                                }
+                                              ),
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.shipper_name}
+                                          </Text>
+                                        </View>
                                         {/* Vehicle Type View */}
                                         <View
                                           style={StyleSheet.applyWidth(
                                             {
                                               alignItems: 'center',
                                               justifyContent: 'center',
-                                              width: '35%',
+                                              width: '25%',
                                             },
                                             dimensions.width
                                           )}
@@ -462,14 +486,18 @@ const ExportActivityScreen = props => {
                                             }
                                           </Text>
                                         </View>
-                                        {/* Weight View */}
+                                        {/* Load Weight View */}
                                         <View
                                           style={StyleSheet.applyWidth(
-                                            { width: '35%' },
+                                            {
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              width: '25%',
+                                            },
                                             dimensions.width
                                           )}
                                         >
-                                          {/* Weight */}
+                                          {/* Load Weight */}
                                           <Text
                                             accessible={true}
                                             allowFontScaling={true}
@@ -489,18 +517,18 @@ const ExportActivityScreen = props => {
                                             {listData?.load_weight}
                                           </Text>
                                         </View>
-                                        {/* Status View */}
+                                        {/* No of Trucks View */}
                                         <View
                                           style={StyleSheet.applyWidth(
                                             {
                                               alignItems: 'center',
                                               justifyContent: 'center',
-                                              width: '35%',
+                                              width: '25%',
                                             },
                                             dimensions.width
                                           )}
                                         >
-                                          {/* Status */}
+                                          {/* No of Trucks */}
                                           <Text
                                             accessible={true}
                                             allowFontScaling={true}
@@ -511,17 +539,72 @@ const ExportActivityScreen = props => {
                                                 ],
                                                 {
                                                   alignSelf: 'center',
-                                                  color:
-                                                    theme.colors['Success'],
                                                   margin: 10,
                                                 }
                                               ),
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.status}
+                                            {'Truck-'}
+                                            {listData?.no_of_truck}
                                           </Text>
                                         </View>
+                                      </View>
+                                    </View>
+                                    {/* Status View */}
+                                    <View>
+                                      {/* Row */}
+                                      <View
+                                        style={StyleSheet.applyWidth(
+                                          {
+                                            alignItems: 'center',
+                                            flexDirection: 'row',
+                                            justifyContent: 'flex-end',
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {/* Status */}
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              {
+                                                margin: 10,
+                                                marginRight: 0,
+                                                textAlign: 'right',
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {'Status -'}
+                                        </Text>
+                                        {/* Status Value */}
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              {
+                                                color: theme.colors['Success'],
+                                                margin: 10,
+                                                marginLeft: 0,
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {' '}
+                                          {listData?.status}
+                                        </Text>
                                       </View>
                                     </View>
                                   </View>
@@ -559,45 +642,49 @@ const ExportActivityScreen = props => {
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               >
+                {/* Ongoing Booking List */}
                 <CotruckApi.FetchBookingListPOST
-                  booking_status={'ON GOING'}
+                  booking_status={'CONFIRMED'}
                   booking_type={'Export'}
                   operator={Constants['AUTH_OWNER_ID']}
                 >
                   {({ loading, error, data, refetchBookingList }) => {
-                    const fetchData = data?.json;
+                    const ongoingBookingListData = data?.json;
                     if (loading) {
                       return (
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              flex: 1,
-                              justifyContent: 'center',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <ActivityIndicator
-                            animating={true}
-                            color={theme.colors['Primary']}
-                            hidesWhenStopped={true}
-                            size={'large'}
+                        <>
+                          {/* loading */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              GlobalStyles.ActivityIndicatorStyles(theme)[
-                                'Activity Indicator'
-                              ],
+                              {
+                                alignItems: 'center',
+                                flex: 1,
+                                justifyContent: 'center',
+                              },
                               dimensions.width
                             )}
-                          />
-                        </View>
+                          >
+                            <ActivityIndicator
+                              animating={true}
+                              color={theme.colors['Primary']}
+                              hidesWhenStopped={true}
+                              size={'large'}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.ActivityIndicatorStyles(theme)[
+                                  'Activity Indicator'
+                                ],
+                                dimensions.width
+                              )}
+                            />
+                          </View>
+                        </>
                       );
                     }
 
                     if (error || data?.status < 200 || data?.status >= 300) {
                       return (
                         <>
-                          {/* View 2 */}
+                          {/* error */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -619,7 +706,7 @@ const ExportActivityScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.message}
+                              {ongoingBookingListData?.message}
                             </Text>
                           </View>
                         </>
@@ -632,11 +719,9 @@ const ExportActivityScreen = props => {
                           { flexDirection: 'column-reverse' },
                           dimensions.width
                         )}
-                        data={fetchData?.data}
-                        keyExtractor={listData =>
-                          listData?.id ||
-                          listData?.uuid ||
-                          JSON.stringify(listData)
+                        data={ongoingBookingListData?.data}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
                         }
                         listKey={'sk64L3xU'}
                         numColumns={1}
@@ -645,7 +730,7 @@ const ExportActivityScreen = props => {
                           const listData = item;
                           return (
                             <>
-                              {/* Date */}
+                              {/* Date  */}
                               <AccordionGroup
                                 caretSize={24}
                                 expanded={true}
@@ -665,9 +750,8 @@ const ExportActivityScreen = props => {
                                   onPress={() => {
                                     try {
                                       navigation.navigate(
-                                        'ExportBookingDetailsOnGoingScreen',
+                                        'ExportBookingDetailsOnPendingScreen',
                                         {
-                                          booking_status: listData?.status,
                                           booking_type: listData?.booking_type,
                                           book_truck_id:
                                             listData?.book_truck_id,
@@ -705,6 +789,8 @@ const ExportActivityScreen = props => {
                                           {
                                             alignItems: 'center',
                                             flexDirection: 'row',
+                                            marginBottom: 10,
+                                            marginTop: 10,
                                           },
                                           dimensions.width
                                         )}
@@ -840,35 +926,56 @@ const ExportActivityScreen = props => {
                                           </Text>
                                         </View>
                                       </View>
-                                      <Divider
-                                        color={theme.colors['Light']}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.DividerStyles(theme)[
-                                              'Divider'
-                                            ],
-                                            { marginBottom: 5, marginTop: 5 }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      />
                                       {/* Info Row */}
                                       <View
                                         style={StyleSheet.applyWidth(
                                           {
                                             alignItems: 'center',
                                             flexDirection: 'row',
+                                            marginBottom: 10,
+                                            marginTop: 10,
                                           },
                                           dimensions.width
                                         )}
                                       >
+                                        {/* Shipper Name View */}
+                                        <View
+                                          style={StyleSheet.applyWidth(
+                                            {
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              width: '25%',
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {/* Shipper Name */}
+                                          <Text
+                                            accessible={true}
+                                            allowFontScaling={true}
+                                            style={StyleSheet.applyWidth(
+                                              StyleSheet.compose(
+                                                GlobalStyles.TextStyles(theme)[
+                                                  'Text 2'
+                                                ],
+                                                {
+                                                  alignSelf: 'center',
+                                                  margin: 10,
+                                                }
+                                              ),
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.shipper_name}
+                                          </Text>
+                                        </View>
                                         {/* Vehicle Type View */}
                                         <View
                                           style={StyleSheet.applyWidth(
                                             {
                                               alignItems: 'center',
                                               justifyContent: 'center',
-                                              width: '35%',
+                                              width: '25%',
                                             },
                                             dimensions.width
                                           )}
@@ -897,14 +1004,18 @@ const ExportActivityScreen = props => {
                                             }
                                           </Text>
                                         </View>
-                                        {/* Weight View */}
+                                        {/* Load Weight View */}
                                         <View
                                           style={StyleSheet.applyWidth(
-                                            { width: '35%' },
+                                            {
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              width: '25%',
+                                            },
                                             dimensions.width
                                           )}
                                         >
-                                          {/* Weight */}
+                                          {/* Load Weight */}
                                           <Text
                                             accessible={true}
                                             allowFontScaling={true}
@@ -924,18 +1035,18 @@ const ExportActivityScreen = props => {
                                             {listData?.load_weight}
                                           </Text>
                                         </View>
-                                        {/* Status View */}
+                                        {/* No of Trucks View */}
                                         <View
                                           style={StyleSheet.applyWidth(
                                             {
                                               alignItems: 'center',
                                               justifyContent: 'center',
-                                              width: '35%',
+                                              width: '25%',
                                             },
                                             dimensions.width
                                           )}
                                         >
-                                          {/* Status */}
+                                          {/* No of Trucks */}
                                           <Text
                                             accessible={true}
                                             allowFontScaling={true}
@@ -946,17 +1057,72 @@ const ExportActivityScreen = props => {
                                                 ],
                                                 {
                                                   alignSelf: 'center',
-                                                  color:
-                                                    theme.colors['Success'],
                                                   margin: 10,
                                                 }
                                               ),
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.status}
+                                            {'Truck-'}
+                                            {listData?.no_of_truck}
                                           </Text>
                                         </View>
+                                      </View>
+                                    </View>
+                                    {/* Status View */}
+                                    <View>
+                                      {/* Row */}
+                                      <View
+                                        style={StyleSheet.applyWidth(
+                                          {
+                                            alignItems: 'center',
+                                            flexDirection: 'row',
+                                            justifyContent: 'flex-end',
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {/* Status */}
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              {
+                                                margin: 10,
+                                                marginRight: 0,
+                                                textAlign: 'right',
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {'Status -'}
+                                        </Text>
+                                        {/* Status Value */}
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              {
+                                                color: theme.colors['Success'],
+                                                margin: 10,
+                                                marginLeft: 0,
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {' '}
+                                          {listData?.status}
+                                        </Text>
                                       </View>
                                     </View>
                                   </View>
@@ -994,6 +1160,7 @@ const ExportActivityScreen = props => {
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               >
+                {/* Completed Booking List */}
                 <CotruckApi.FetchBookingList$PAID$POST
                   booking_status={'COMPLETED'}
                   booking_type={'Export'}
@@ -1001,39 +1168,42 @@ const ExportActivityScreen = props => {
                   paid_status={'PENDING'}
                 >
                   {({ loading, error, data, refetchBookingList$PAID$ }) => {
-                    const fetchData = data?.json;
+                    const completedBookingListData = data?.json;
                     if (loading) {
                       return (
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              flex: 1,
-                              justifyContent: 'center',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <ActivityIndicator
-                            animating={true}
-                            color={theme.colors['Primary']}
-                            hidesWhenStopped={true}
-                            size={'large'}
+                        <>
+                          {/* loading */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              GlobalStyles.ActivityIndicatorStyles(theme)[
-                                'Activity Indicator'
-                              ],
+                              {
+                                alignItems: 'center',
+                                flex: 1,
+                                justifyContent: 'center',
+                              },
                               dimensions.width
                             )}
-                          />
-                        </View>
+                          >
+                            <ActivityIndicator
+                              animating={true}
+                              color={theme.colors['Primary']}
+                              hidesWhenStopped={true}
+                              size={'large'}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.ActivityIndicatorStyles(theme)[
+                                  'Activity Indicator'
+                                ],
+                                dimensions.width
+                              )}
+                            />
+                          </View>
+                        </>
                       );
                     }
 
                     if (error || data?.status < 200 || data?.status >= 300) {
                       return (
                         <>
-                          {/* View 2 */}
+                          {/* error */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -1055,7 +1225,7 @@ const ExportActivityScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.message}
+                              {completedBookingListData?.message}
                             </Text>
                           </View>
                         </>
@@ -1068,11 +1238,9 @@ const ExportActivityScreen = props => {
                           { flexDirection: 'column-reverse' },
                           dimensions.width
                         )}
-                        data={fetchData?.data}
-                        keyExtractor={listData =>
-                          listData?.id ||
-                          listData?.uuid ||
-                          JSON.stringify(listData)
+                        data={completedBookingListData?.data}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
                         }
                         listKey={'TgwV1RPh'}
                         numColumns={1}
@@ -1081,7 +1249,7 @@ const ExportActivityScreen = props => {
                           const listData = item;
                           return (
                             <>
-                              {/* Date */}
+                              {/* Date  */}
                               <AccordionGroup
                                 caretSize={24}
                                 expanded={true}
@@ -1101,13 +1269,11 @@ const ExportActivityScreen = props => {
                                   onPress={() => {
                                     try {
                                       navigation.navigate(
-                                        'ExportBookingDetailsOnCompletedScreen',
+                                        'ExportBookingDetailsOnPendingScreen',
                                         {
                                           booking_type: listData?.booking_type,
                                           book_truck_id:
                                             listData?.book_truck_id,
-                                          booking_status: listData?.status,
-                                          paid_status: listData?.paid_status,
                                         }
                                       );
                                     } catch (err) {
@@ -1142,6 +1308,8 @@ const ExportActivityScreen = props => {
                                           {
                                             alignItems: 'center',
                                             flexDirection: 'row',
+                                            marginBottom: 10,
+                                            marginTop: 10,
                                           },
                                           dimensions.width
                                         )}
@@ -1277,35 +1445,56 @@ const ExportActivityScreen = props => {
                                           </Text>
                                         </View>
                                       </View>
-                                      <Divider
-                                        color={theme.colors['Light']}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.DividerStyles(theme)[
-                                              'Divider'
-                                            ],
-                                            { marginBottom: 5, marginTop: 5 }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      />
                                       {/* Info Row */}
                                       <View
                                         style={StyleSheet.applyWidth(
                                           {
                                             alignItems: 'center',
                                             flexDirection: 'row',
+                                            marginBottom: 10,
+                                            marginTop: 10,
                                           },
                                           dimensions.width
                                         )}
                                       >
+                                        {/* Shipper Name View */}
+                                        <View
+                                          style={StyleSheet.applyWidth(
+                                            {
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              width: '25%',
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {/* Shipper Name */}
+                                          <Text
+                                            accessible={true}
+                                            allowFontScaling={true}
+                                            style={StyleSheet.applyWidth(
+                                              StyleSheet.compose(
+                                                GlobalStyles.TextStyles(theme)[
+                                                  'Text 2'
+                                                ],
+                                                {
+                                                  alignSelf: 'center',
+                                                  margin: 10,
+                                                }
+                                              ),
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.shipper_name}
+                                          </Text>
+                                        </View>
                                         {/* Vehicle Type View */}
                                         <View
                                           style={StyleSheet.applyWidth(
                                             {
                                               alignItems: 'center',
                                               justifyContent: 'center',
-                                              width: '35%',
+                                              width: '25%',
                                             },
                                             dimensions.width
                                           )}
@@ -1334,14 +1523,18 @@ const ExportActivityScreen = props => {
                                             }
                                           </Text>
                                         </View>
-                                        {/* Weight View */}
+                                        {/* Load Weight View */}
                                         <View
                                           style={StyleSheet.applyWidth(
-                                            { width: '35%' },
+                                            {
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              width: '25%',
+                                            },
                                             dimensions.width
                                           )}
                                         >
-                                          {/* Weight */}
+                                          {/* Load Weight */}
                                           <Text
                                             accessible={true}
                                             allowFontScaling={true}
@@ -1361,18 +1554,18 @@ const ExportActivityScreen = props => {
                                             {listData?.load_weight}
                                           </Text>
                                         </View>
-                                        {/* Status View */}
+                                        {/* No of Trucks View */}
                                         <View
                                           style={StyleSheet.applyWidth(
                                             {
                                               alignItems: 'center',
                                               justifyContent: 'center',
-                                              width: '35%',
+                                              width: '25%',
                                             },
                                             dimensions.width
                                           )}
                                         >
-                                          {/* Status */}
+                                          {/* No of Trucks */}
                                           <Text
                                             accessible={true}
                                             allowFontScaling={true}
@@ -1383,20 +1576,75 @@ const ExportActivityScreen = props => {
                                                 ],
                                                 {
                                                   alignSelf: 'center',
-                                                  color:
-                                                    theme.colors['Success'],
                                                   margin: 10,
                                                 }
                                               ),
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.status}
+                                            {'Truck-'}
+                                            {listData?.no_of_truck}
                                           </Text>
                                         </View>
                                       </View>
                                     </View>
-                                    {/* Payment Status */}
+                                    {/* Status View */}
+                                    <View>
+                                      {/* Row */}
+                                      <View
+                                        style={StyleSheet.applyWidth(
+                                          {
+                                            alignItems: 'center',
+                                            flexDirection: 'row',
+                                            justifyContent: 'flex-end',
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {/* Status */}
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              {
+                                                margin: 10,
+                                                marginRight: 0,
+                                                textAlign: 'right',
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {'Status -'}
+                                        </Text>
+                                        {/* Status Value */}
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'Text 2'
+                                              ],
+                                              {
+                                                color: theme.colors['Success'],
+                                                margin: 10,
+                                                marginLeft: 0,
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {' '}
+                                          {listData?.status}
+                                        </Text>
+                                      </View>
+                                    </View>
+
                                     <View>
                                       {/* Payment Status */}
                                       <Text

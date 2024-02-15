@@ -6,7 +6,9 @@
     "description": "This app powered by AGGA.io",
     "privacy": "unlisted",
     "platforms": [
-      "android"
+      "ios",
+      "android",
+      "web"
     ],
     "version": "1.0.0",
     "orientation": "default",
@@ -56,7 +58,10 @@
         "CAMERA",
         "VIBRATE"
       ],
-      "adaptiveIcon": {}
+      "adaptiveIcon": {
+        "foregroundImage": "https://assets.draftbit.app/apps/rBdmLtaz/assets/P5D78SBO0p6TiP3KyhDLp",
+        "backgroundColor": "#ffffff"
+      }
     },
     "androidStatusBar": {
       "barStyle": "light-content"

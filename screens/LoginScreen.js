@@ -58,7 +58,7 @@ const LoginScreen = props => {
         >
           <Image
             resizeMode={'cover'}
-            source={Images.Icon}
+            source={Images.Logo}
             style={StyleSheet.applyWidth(
               { height: 150, marginBottom: 10, marginTop: 10, width: 150 },
               dimensions.width
@@ -376,10 +376,7 @@ const LoginScreen = props => {
           <Button
             onPress={() => {
               const handler = async () => {
-                console.log('Login ON_PRESS Start');
-                let error = null;
                 try {
-                  console.log('Start ON_PRESS:0 FETCH_REQUEST');
                   const loginResponse = (
                     await cotruckLoginPOST.mutateAsync({
                       email: email,
@@ -387,64 +384,38 @@ const LoginScreen = props => {
                       user_type: 'OWNER',
                     })
                   )?.json;
-                  console.log('Complete ON_PRESS:0 FETCH_REQUEST', {
-                    loginResponse,
-                  });
-                  console.log('Start ON_PRESS:1 EXTRACT_KEY');
                   const message = loginResponse?.message;
-                  console.log('Complete ON_PRESS:1 EXTRACT_KEY', { message });
-                  console.log('Start ON_PRESS:2 SHOW_ALERT');
+
                   showAlertUtil({
                     title: 'Message',
                     message: message,
                     buttonText: undefined,
                   });
-                  console.log('Complete ON_PRESS:2 SHOW_ALERT');
-                  console.log('Start ON_PRESS:3 EXTRACT_KEY');
+
                   const token = loginResponse?.token;
-                  console.log('Complete ON_PRESS:3 EXTRACT_KEY', { token });
-                  console.log('Start ON_PRESS:4 CONDITIONAL_STOP');
                   if (!token) {
                     return;
                   }
-                  console.log('Complete ON_PRESS:4 CONDITIONAL_STOP');
-                  console.log('Start ON_PRESS:5 EXTRACT_KEY');
                   const userid = loginResponse?.data.id;
-                  console.log('Complete ON_PRESS:5 EXTRACT_KEY', { userid });
-                  console.log('Start ON_PRESS:6 SET_VARIABLE');
                   setGlobalVariableValue({
                     key: 'AUTH_OWNER_ID',
                     value: userid,
                   });
-                  console.log('Complete ON_PRESS:6 SET_VARIABLE');
-                  console.log('Start ON_PRESS:7 SET_VARIABLE');
                   setGlobalVariableValue({
                     key: 'AUTH_BEAR_TOKEN',
                     value: 'Bearer ' + token,
                   });
-                  console.log('Complete ON_PRESS:7 SET_VARIABLE');
-                  console.log('Start ON_PRESS:8 EXTRACT_KEY');
                   const data = loginResponse?.data;
-                  console.log('Complete ON_PRESS:8 EXTRACT_KEY', { data });
-                  console.log('Start ON_PRESS:9 SET_VARIABLE');
                   setGlobalVariableValue({
                     key: 'OWNER_INFO',
                     value: data,
                   });
-                  console.log('Complete ON_PRESS:9 SET_VARIABLE');
-                  console.log('Start ON_PRESS:10 NAVIGATE');
                   navigation.navigate('BottomTabNavigator', {
                     screen: 'HomeScreen',
                   });
-                  console.log('Complete ON_PRESS:10 NAVIGATE');
                 } catch (err) {
                   console.error(err);
-                  error = err.message ?? err;
                 }
-                console.log(
-                  'Login ON_PRESS Complete',
-                  error ? { error } : 'no error'
-                );
               };
               handler();
             }}

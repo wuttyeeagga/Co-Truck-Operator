@@ -24,4 +24,6 @@ export default {
   _30ft: require('../assets/images/30ft.jpg'),
   _40ft: require('../assets/images/40ft.jpg'),
   MapsAndFlags: require('../assets/images/MapsAndFlags.png'),
+  Logo: require('../assets/images/Logo.png'),
+  Splash: require('../assets/images/Splash.png'),
 };

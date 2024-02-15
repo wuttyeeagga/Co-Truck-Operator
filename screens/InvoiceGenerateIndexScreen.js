@@ -26,6 +26,15 @@ const InvoiceGenerateIndexScreen = props => {
       {/* Header */}
       <Header2Block title={'Invoice Generate Index'} />
       <CotruckApi.FetchInvoiceGenerateIndexPOST
+        handlers={{
+          onData: fetchData => {
+            try {
+              console.log(fetchData);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        }}
         operator_id={Constants['AUTH_OWNER_ID']}
       >
         {({ loading, error, data, refetchInvoiceGenerateIndex }) => {

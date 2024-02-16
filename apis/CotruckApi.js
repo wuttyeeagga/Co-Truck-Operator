@@ -2422,36 +2422,50 @@ export const FetchForgotPwdPOST = ({
   return children({ loading, data, error, refetchForgotPwd: refetch });
 };
 
-export const generateInvoicesGET = (Constants, _args, handlers = {}) =>
+export const generatedInvoicesPOST = (
+  Constants,
+  { operator_id },
+  handlers = {}
+) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/generated-invoices`, {
+    body: JSON.stringify({ operator_id: operator_id }),
     headers: {
       Accept: 'application/json',
       Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
+    method: 'POST',
   }).then(res => handleResponse(res, handlers));
 
-export const useGenerateInvoicesGET = (
-  args = {},
-  { refetchInterval, handlers = {} } = {}
+export const useGeneratedInvoicesPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
 ) => {
-  const Constants = GlobalVariables.useValues();
   const queryClient = useQueryClient();
-  return useQuery(
-    ['System', args],
-    () => generateInvoicesGET(Constants, args, handlers),
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      generatedInvoicesPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
-      refetchInterval,
-      onSuccess: () => queryClient.invalidateQueries(['Systems']),
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('System', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('System');
+        queryClient.invalidateQueries('Systems');
+      },
     }
   );
 };
 
-export const FetchGenerateInvoicesGET = ({
+export const FetchGeneratedInvoicesPOST = ({
   children,
   onData = () => {},
   handlers = {},
   refetchInterval,
+  operator_id,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -2461,9 +2475,9 @@ export const FetchGenerateInvoicesGET = ({
     isLoading: loading,
     data,
     error,
-    refetch,
-  } = useGenerateInvoicesGET(
-    {},
+    mutate: refetch,
+  } = useGeneratedInvoicesPOST(
+    { operator_id },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -2479,7 +2493,7 @@ export const FetchGenerateInvoicesGET = ({
       console.error(error);
     }
   }, [error]);
-  return children({ loading, data, error, refetchGenerateInvoices: refetch });
+  return children({ loading, data, error, refetchGeneratedInvoices: refetch });
 };
 
 export const getBidsPOST = (

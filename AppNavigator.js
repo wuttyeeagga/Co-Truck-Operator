@@ -1,7 +1,7 @@
 import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import { Icon, Touchable } from '@draftbit/ui';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import theme from './themes/Draftbit.js';
@@ -80,17 +80,17 @@ function AuthNavigator() {
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={({ navigation }) => ({
-          title: 'Login',
-        })}
-      />
-      <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
         options={({ navigation }) => ({
           title: 'Register',
+        })}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={({ navigation }) => ({
+          title: 'Login',
         })}
       />
     </Stack.Navigator>
@@ -201,7 +201,16 @@ export default function RootAppNavigator() {
   const Constants = GlobalVariables.useValues();
 
   return (
-    <NavigationContainer linking={LinkingConfiguration}>
+    <NavigationContainer
+      theme={{
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          background: '#FBFCFD',
+        },
+      }}
+      linking={LinkingConfiguration}
+    >
       <Stack.Navigator
         initialRouteName="AuthNavigator"
         screenOptions={({ navigation }) => ({
@@ -219,62 +228,6 @@ export default function RootAppNavigator() {
           headerTitle: 'Co Truck',
         })}
       >
-        <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-          options={({ navigation }) => ({
-            title: 'Forgot Password',
-          })}
-        />
-        <Stack.Screen
-          name="PaymentScreen"
-          component={PaymentScreen}
-          options={({ navigation }) => ({
-            title: 'Payment',
-          })}
-        />
-        <Stack.Screen
-          name="ImportReasonForCancelScreen"
-          component={ImportReasonForCancelScreen}
-          options={({ navigation }) => ({
-            title: 'Import Reason for cancel',
-          })}
-        />
-        <Stack.Screen
-          name="Test1Screen"
-          component={Test1Screen}
-          options={({ navigation }) => ({
-            title: 'Test1',
-          })}
-        />
-        <Stack.Screen
-          name="OTPVerificationScreen"
-          component={OTPVerificationScreen}
-          options={({ navigation }) => ({
-            title: 'OTP Verification',
-          })}
-        />
-        <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={({ navigation }) => ({
-            title: 'PickUpDropDetails',
-          })}
-        />
-        <Stack.Screen
-          name="ChooseLocationZoneScreen"
-          component={ChooseLocationZoneScreen}
-          options={({ navigation }) => ({
-            title: 'Choose Location Zone',
-          })}
-        />
-        <Stack.Screen
-          name="ChooseLanguageScreen"
-          component={ChooseLanguageScreen}
-          options={({ navigation }) => ({
-            title: 'Choose Language',
-          })}
-        />
         <Stack.Screen
           name="SignUpIdentityProofScreen"
           component={SignUpIdentityProofScreen}
@@ -304,10 +257,52 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="FAQsScreen"
-          component={FAQsScreen}
+          name="ChooseLocationZoneScreen"
+          component={ChooseLocationZoneScreen}
           options={({ navigation }) => ({
-            title: 'FAQs',
+            title: 'Choose Location Zone',
+          })}
+        />
+        <Stack.Screen
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'PickUpDropDetails',
+          })}
+        />
+        <Stack.Screen
+          name="InvoiceScreen"
+          component={InvoiceScreen}
+          options={({ navigation }) => ({
+            title: 'Invoice',
+          })}
+        />
+        <Stack.Screen
+          name="NotificationsScreen"
+          component={NotificationsScreen}
+          options={({ navigation }) => ({
+            title: 'Notifications',
+          })}
+        />
+        <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
+          options={({ navigation }) => ({
+            title: 'Forgot Password',
+          })}
+        />
+        <Stack.Screen
+          name="ReferAFriendScreen"
+          component={ReferAFriendScreen}
+          options={({ navigation }) => ({
+            title: 'Refer a friend',
+          })}
+        />
+        <Stack.Screen
+          name="PaymentScreen"
+          component={PaymentScreen}
+          options={({ navigation }) => ({
+            title: 'Payment',
           })}
         />
         <Stack.Screen
@@ -315,6 +310,48 @@ export default function RootAppNavigator() {
           component={BookingSummaryScreen}
           options={({ navigation }) => ({
             title: 'Booking Summary',
+          })}
+        />
+        <Stack.Screen
+          name="ImportReasonForCancelScreen"
+          component={ImportReasonForCancelScreen}
+          options={({ navigation }) => ({
+            title: 'Import Reason for cancel',
+          })}
+        />
+        <Stack.Screen
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
+          options={({ navigation }) => ({
+            title: 'OTP Verification',
+          })}
+        />
+        <Stack.Screen
+          name="HospitalOnMapScreen"
+          component={HospitalOnMapScreen}
+          options={({ navigation }) => ({
+            title: 'Hospital on Map',
+          })}
+        />
+        <Stack.Screen
+          name="ChooseLanguageScreen"
+          component={ChooseLanguageScreen}
+          options={({ navigation }) => ({
+            title: 'Choose Language',
+          })}
+        />
+        <Stack.Screen
+          name="Test1Screen"
+          component={Test1Screen}
+          options={({ navigation }) => ({
+            title: 'Test1',
+          })}
+        />
+        <Stack.Screen
+          name="FAQsScreen"
+          component={FAQsScreen}
+          options={({ navigation }) => ({
+            title: 'FAQs',
           })}
         />
         <Stack.Screen
@@ -329,34 +366,6 @@ export default function RootAppNavigator() {
           component={AboutUsScreen}
           options={({ navigation }) => ({
             title: 'About Us',
-          })}
-        />
-        <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
-          options={({ navigation }) => ({
-            title: 'Invoice',
-          })}
-        />
-        <Stack.Screen
-          name="ReferAFriendScreen"
-          component={ReferAFriendScreen}
-          options={({ navigation }) => ({
-            title: 'Refer a friend',
-          })}
-        />
-        <Stack.Screen
-          name="HospitalOnMapScreen"
-          component={HospitalOnMapScreen}
-          options={({ navigation }) => ({
-            title: 'Hospital on Map',
-          })}
-        />
-        <Stack.Screen
-          name="NotificationsScreen"
-          component={NotificationsScreen}
-          options={({ navigation }) => ({
-            title: 'Notifications',
           })}
         />
         <Stack.Screen

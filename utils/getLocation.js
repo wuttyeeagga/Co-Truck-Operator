@@ -6,7 +6,9 @@ async function getLocation() {
     return;
   }
 
-  const { coords } = await Location.getCurrentPositionAsync({});
+  const { coords } = await Location.getCurrentPositionAsync({
+    accuracy: Location.Accuracy.Highest,
+  });
   return coords;
 }
 

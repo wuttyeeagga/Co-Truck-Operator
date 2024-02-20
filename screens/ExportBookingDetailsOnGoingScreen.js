@@ -208,7 +208,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* View 2 */}
+                      {/* Info */}
                       <View
                         style={StyleSheet.applyWidth(
                           { marginLeft: 5, marginRight: 5 },
@@ -239,7 +239,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         </Text>
                       </View>
                     </View>
-                    {/* View 2 */}
+                    {/* Action View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', flexDirection: 'row' },
@@ -303,7 +303,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* View 2 */}
+                      {/* Info */}
                       <View
                         style={StyleSheet.applyWidth(
                           { marginLeft: 10 },
@@ -321,7 +321,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         >
                           {fetchData?.data?.driver_info?.name}
                         </Text>
-                        {/* Text 2 */}
+                        {/* Driver Mobile */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -334,14 +334,27 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         </Text>
                       </View>
                     </View>
-                    {/* View 2 */}
+                    {/* Action View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { alignItems: 'center', flexDirection: 'row' },
                         dimensions.width
                       )}
                     >
-                      {/* Call */}
+                      {/* Live Track */}
+                      <IconButton
+                        color={theme.colors['Success']}
+                        icon={'Feather/map-pin'}
+                        onPress={() => {
+                          try {
+                            navigation.navigate('ExportLiveTrackScreen');
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        size={32}
+                      />
+                      {/*  Call Button */}
                       <IconButton
                         icon={'Feather/phone'}
                         onPress={() => {

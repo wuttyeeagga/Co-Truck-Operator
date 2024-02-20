@@ -154,7 +154,7 @@ const PickUpDropDetailsScreen = props => {
                 let error = null;
                 try {
                   console.log('Start ON_PRESS:1 NAVIGATE');
-                  navigation.navigate('ChooseLocationZoneScreen');
+                  navigation.navigate('ImportLiveTrackScreen');
                   console.log('Complete ON_PRESS:1 NAVIGATE');
                 } catch (err) {
                   console.error(err);
@@ -346,7 +346,7 @@ const PickUpDropDetailsScreen = props => {
             <Pressable
               onPress={() => {
                 try {
-                  navigation.navigate('ChooseLocationZoneScreen');
+                  navigation.navigate('ImportLiveTrackScreen');
                 } catch (err) {
                   console.error(err);
                 }

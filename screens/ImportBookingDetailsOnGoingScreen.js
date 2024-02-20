@@ -392,7 +392,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                         icon={'Feather/map-pin'}
                         onPress={() => {
                           try {
-                            console.log('pressed hahaha');
+                            navigation.navigate('ImportLiveTrackScreen');
                           } catch (err) {
                             console.error(err);
                           }

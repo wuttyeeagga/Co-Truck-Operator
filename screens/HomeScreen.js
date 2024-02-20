@@ -156,7 +156,7 @@ const HomeScreen = props => {
                   }
                 },
               }}
-              id={125}
+              id={Constants['AUTH_OWNER_ID']}
               owner_status={'PENDING'}
             >
               {({ loading, error, data, refetchNewLeads$Pending$ }) => {

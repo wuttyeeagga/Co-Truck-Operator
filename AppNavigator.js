@@ -18,7 +18,6 @@ import BookingSummaryScreen from './screens/BookingSummaryScreen';
 import ChangeForgotPasswordScreen from './screens/ChangeForgotPasswordScreen';
 import ChangePasswordScreen from './screens/ChangePasswordScreen';
 import ChooseLanguageScreen from './screens/ChooseLanguageScreen';
-import ChooseLocationZoneScreen from './screens/ChooseLocationZoneScreen';
 import CompanyInformationScreen from './screens/CompanyInformationScreen';
 import DriverDetailsScreen from './screens/DriverDetailsScreen';
 import EditDriverScreen from './screens/EditDriverScreen';
@@ -29,13 +28,13 @@ import ExportBookingDetailsOnCompletedScreen from './screens/ExportBookingDetail
 import ExportBookingDetailsOnConfirmedScreen from './screens/ExportBookingDetailsOnConfirmedScreen';
 import ExportBookingDetailsOnGoingScreen from './screens/ExportBookingDetailsOnGoingScreen';
 import ExportBookingDetailsOnPendingScreen from './screens/ExportBookingDetailsOnPendingScreen';
+import ExportLiveTrackScreen from './screens/ExportLiveTrackScreen';
 import ExportNewTripAcceptedScreen from './screens/ExportNewTripAcceptedScreen';
 import ExportNewTripPendingScreen from './screens/ExportNewTripPendingScreen';
 import ExportReasonForCancelScreen from './screens/ExportReasonForCancelScreen';
 import FAQsScreen from './screens/FAQsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import HomeScreen from './screens/HomeScreen';
-import HospitalOnMapScreen from './screens/HospitalOnMapScreen';
 import IdentityProofEditScreen from './screens/IdentityProofEditScreen';
 import IdentityProofViewScreen from './screens/IdentityProofViewScreen';
 import ImportActivityScreen from './screens/ImportActivityScreen';
@@ -43,6 +42,7 @@ import ImportBookingDetailsOnCompletedScreen from './screens/ImportBookingDetail
 import ImportBookingDetailsOnConfirmedScreen from './screens/ImportBookingDetailsOnConfirmedScreen';
 import ImportBookingDetailsOnGoingScreen from './screens/ImportBookingDetailsOnGoingScreen';
 import ImportBookingDetailsOnPendingScreen from './screens/ImportBookingDetailsOnPendingScreen';
+import ImportLiveTrackScreen from './screens/ImportLiveTrackScreen';
 import ImportNewTripAcceptedScreen from './screens/ImportNewTripAcceptedScreen';
 import ImportNewTripPendingScreen from './screens/ImportNewTripPendingScreen';
 import ImportReasonForCancelScreen from './screens/ImportReasonForCancelScreen';
@@ -65,7 +65,6 @@ import SignUpIdentityProofScreen from './screens/SignUpIdentityProofScreen';
 import SystemChargesScreen from './screens/SystemChargesScreen';
 import SystemInvoicesViewScreen from './screens/SystemInvoicesViewScreen';
 import TermsInRegisterScreen from './screens/TermsInRegisterScreen';
-import Test1Screen from './screens/Test1Screen';
 import VehicleDetailsScreen from './screens/VehicleDetailsScreen';
 import VehicleProofScreen from './screens/VehicleProofScreen';
 
@@ -229,6 +228,27 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="ImportBookingDetailsOnGoingScreen"
+          component={ImportBookingDetailsOnGoingScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Going',
+          })}
+        />
+        <Stack.Screen
+          name="ImportLiveTrackScreen"
+          component={ImportLiveTrackScreen}
+          options={({ navigation }) => ({
+            title: 'Import Live Track',
+          })}
+        />
+        <Stack.Screen
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'PickUpDropDetails',
+          })}
+        />
+        <Stack.Screen
           name="SignUpIdentityProofScreen"
           component={SignUpIdentityProofScreen}
           options={({ navigation }) => ({
@@ -243,31 +263,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ImportBookingDetailsOnGoingScreen"
-          component={ImportBookingDetailsOnGoingScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Going',
-          })}
-        />
-        <Stack.Screen
           name="ImportBookingDetailsOnCompletedScreen"
           component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Completed',
-          })}
-        />
-        <Stack.Screen
-          name="ChooseLocationZoneScreen"
-          component={ChooseLocationZoneScreen}
-          options={({ navigation }) => ({
-            title: 'Choose Location Zone',
-          })}
-        />
-        <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={({ navigation }) => ({
-            title: 'PickUpDropDetails',
           })}
         />
         <Stack.Screen
@@ -327,24 +326,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="HospitalOnMapScreen"
-          component={HospitalOnMapScreen}
-          options={({ navigation }) => ({
-            title: 'Hospital on Map',
-          })}
-        />
-        <Stack.Screen
           name="ChooseLanguageScreen"
           component={ChooseLanguageScreen}
           options={({ navigation }) => ({
             title: 'Choose Language',
-          })}
-        />
-        <Stack.Screen
-          name="Test1Screen"
-          component={Test1Screen}
-          options={({ navigation }) => ({
-            title: 'Test1',
           })}
         />
         <Stack.Screen
@@ -576,6 +561,13 @@ export default function RootAppNavigator() {
           component={ExportBookingDetailsOnConfirmedScreen}
           options={({ navigation }) => ({
             title: 'Export Booking Details on  Confirmed',
+          })}
+        />
+        <Stack.Screen
+          name="ExportLiveTrackScreen"
+          component={ExportLiveTrackScreen}
+          options={({ navigation }) => ({
+            title: 'Export Live Track ',
           })}
         />
         <Stack.Screen name="AuthNavigator" component={AuthNavigator} />

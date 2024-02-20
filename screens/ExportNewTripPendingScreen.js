@@ -890,7 +890,7 @@ const ExportNewTripPendingScreen = props => {
                             console.error(err);
                           }
                         }}
-                        placeholder={'Add on Amount'}
+                        placeholder={'add on amount'}
                         placeholderTextColor={theme.colors['TextPlaceholder']}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(

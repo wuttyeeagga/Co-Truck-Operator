@@ -694,13 +694,6 @@ const PickUpDropDetailsScreen = props => {
           )}
         >
           <Button
-            onPress={() => {
-              try {
-                navigation.navigate('BookingSummaryScreen');
-              } catch (err) {
-                console.error(err);
-              }
-            }}
             style={StyleSheet.applyWidth(
               GlobalStyles.ButtonStyles(theme)['Button'],
               dimensions.width

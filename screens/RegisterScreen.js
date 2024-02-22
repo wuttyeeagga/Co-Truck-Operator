@@ -63,7 +63,6 @@ const RegisterScreen = props => {
         const results = (await cotruckPreferredPathsPOST.mutateAsync())?.json;
         const asdf = results?.data;
         setPathsOptions(asdf);
-        console.log(asdf);
       } catch (err) {
         console.error(err);
       }
@@ -454,7 +453,9 @@ const RegisterScreen = props => {
             type={'solid'}
             value={multiSelectPickerValue2}
           >
-            <PickerItem />
+            <PickerItem
+              style={StyleSheet.applyWidth({ margin: 5 }, dimensions.width)}
+            />
           </MultiSelectPicker>
           <Divider
             color={theme.colors.divider}

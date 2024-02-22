@@ -14,7 +14,6 @@ import useWindowDimensions from './utils/useWindowDimensions';
 import AboutUsScreen from './screens/AboutUsScreen';
 import AddNewDriverScreen from './screens/AddNewDriverScreen';
 import AddNewVehicleScreen from './screens/AddNewVehicleScreen';
-import BookingSummaryScreen from './screens/BookingSummaryScreen';
 import ChangeForgotPasswordScreen from './screens/ChangeForgotPasswordScreen';
 import ChangePasswordScreen from './screens/ChangePasswordScreen';
 import ChooseLanguageScreen from './screens/ChooseLanguageScreen';
@@ -228,6 +227,20 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
+          options={({ navigation }) => ({
+            title: 'Forgot Password',
+          })}
+        />
+        <Stack.Screen
+          name="CompanyInformationScreen"
+          component={CompanyInformationScreen}
+          options={({ navigation }) => ({
+            title: 'Company Information',
+          })}
+        />
+        <Stack.Screen
           name="ImportBookingDetailsOnGoingScreen"
           component={ImportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
@@ -242,24 +255,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="PickUpDropDetailsScreen"
-          component={PickUpDropDetailsScreen}
-          options={({ navigation }) => ({
-            title: 'PickUpDropDetails',
-          })}
-        />
-        <Stack.Screen
           name="SignUpIdentityProofScreen"
           component={SignUpIdentityProofScreen}
           options={({ navigation }) => ({
             title: 'Sign Up Identity Proof',
-          })}
-        />
-        <Stack.Screen
-          name="ImportBookingDetailsOnConfirmedScreen"
-          component={ImportBookingDetailsOnConfirmedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on  Confirmed',
           })}
         />
         <Stack.Screen
@@ -270,31 +269,24 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="ImportBookingDetailsOnConfirmedScreen"
+          component={ImportBookingDetailsOnConfirmedScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on  Confirmed',
+          })}
+        />
+        <Stack.Screen
+          name="PickUpDropDetailsScreen"
+          component={PickUpDropDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'PickUpDropDetails',
+          })}
+        />
+        <Stack.Screen
           name="InvoiceScreen"
           component={InvoiceScreen}
           options={({ navigation }) => ({
             title: 'Invoice',
-          })}
-        />
-        <Stack.Screen
-          name="NotificationsScreen"
-          component={NotificationsScreen}
-          options={({ navigation }) => ({
-            title: 'Notifications',
-          })}
-        />
-        <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-          options={({ navigation }) => ({
-            title: 'Forgot Password',
-          })}
-        />
-        <Stack.Screen
-          name="ReferAFriendScreen"
-          component={ReferAFriendScreen}
-          options={({ navigation }) => ({
-            title: 'Refer a friend',
           })}
         />
         <Stack.Screen
@@ -305,10 +297,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="BookingSummaryScreen"
-          component={BookingSummaryScreen}
+          name="ReferAFriendScreen"
+          component={ReferAFriendScreen}
           options={({ navigation }) => ({
-            title: 'Booking Summary',
+            title: 'Refer a friend',
           })}
         />
         <Stack.Screen
@@ -333,17 +325,17 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="NotificationsScreen"
+          component={NotificationsScreen}
+          options={({ navigation }) => ({
+            title: 'Notifications',
+          })}
+        />
+        <Stack.Screen
           name="FAQsScreen"
           component={FAQsScreen}
           options={({ navigation }) => ({
             title: 'FAQs',
-          })}
-        />
-        <Stack.Screen
-          name="CompanyInformationScreen"
-          component={CompanyInformationScreen}
-          options={({ navigation }) => ({
-            title: 'Company Information',
           })}
         />
         <Stack.Screen

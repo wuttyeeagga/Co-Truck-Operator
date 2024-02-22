@@ -4,6 +4,7 @@ import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import getLocationUtil from '../utils/getLocation';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   MapCallout,
@@ -132,29 +133,6 @@ const ExportLiveTrackScreen = props => {
         loadingIndicatorColor={theme.colors['Success']}
         longitude={myLocation?.longitude}
         moveOnMarkerPress={true}
-        onPress={(latitude, longitude) => {
-          console.log('Map View ON_PRESS Start');
-          let error = null;
-          try {
-            console.log('Start ON_PRESS:0 UPDATE_MAP_LOCATION');
-            mapViewmdiy2cOMRef.current.animateToLocation({
-              latitude: latitude,
-              longitude: longitude,
-              zoom: 13,
-            });
-            console.log('Complete ON_PRESS:0 UPDATE_MAP_LOCATION');
-            console.log('Start ON_PRESS:1 CONSOLE_LOG');
-            console.log(latitude, longitude);
-            console.log('Complete ON_PRESS:1 CONSOLE_LOG');
-          } catch (err) {
-            console.error(err);
-            error = err.message ?? err;
-          }
-          console.log(
-            'Map View ON_PRESS Complete',
-            error ? { error } : 'no error'
-          );
-        }}
         provider={'google'}
         ref={mapViewmdiy2cOMRef}
         rotateEnabled={false}
@@ -172,35 +150,79 @@ const ExportLiveTrackScreen = props => {
           {/* Pickup Marker */}
           <MapMarker
             androidUseDefaultIconImplementation={true}
+            description={'pickup marker'}
             flat={true}
-            latitude={16.782193}
-            longitude={96.141405}
-            pinColor={theme.colors['CoTruckPending']}
+            latitude={props.route?.params?.pickup_lat ?? ''}
+            longitude={props.route?.params?.pickup_long ?? ''}
+            onPress={(latitude, longitude) => {
+              console.log('Pickup Marker ON_PRESS Start');
+              let error = null;
+              try {
+                console.log('Start ON_PRESS:0 SHOW_ALERT');
+                showAlertUtil({
+                  title: undefined,
+                  message: 'Pickup Marker',
+                  buttonText: 'Cancel',
+                });
+                console.log('Complete ON_PRESS:0 SHOW_ALERT');
+              } catch (err) {
+                console.error(err);
+                error = err.message ?? err;
+              }
+              console.log(
+                'Pickup Marker ON_PRESS Complete',
+                error ? { error } : 'no error'
+              );
+            }}
+            pinColor={theme.colors['Error']}
             pinImageSize={50}
-            title={'a'}
+            title={'Picker Marker'}
             tracksViewChanges={true}
           >
             <MapCallout showTooltip={true} />
           </MapMarker>
           {/* Driver Marker */}
           <MapMarker
+            description={'driver marker'}
             flat={true}
             latitude={16.790791}
             longitude={96.141157}
             pinImage={Images._40ft}
             pinImageSize={50}
-            title={'drop marker'}
+            title={'Driver Marker'}
             tracksViewChanges={true}
           >
             <MapCallout showTooltip={true} />
           </MapMarker>
           {/* Drop Marker */}
           <MapMarker
+            description={'drop marker'}
             flat={true}
-            latitude={16.825298}
-            longitude={96.130988}
+            latitude={props.route?.params?.drop_lat ?? ''}
+            longitude={props.route?.params?.drop_long ?? ''}
+            onPress={(latitude, longitude) => {
+              console.log('Drop Marker ON_PRESS Start');
+              let error = null;
+              try {
+                console.log('Start ON_PRESS:0 SHOW_ALERT');
+                showAlertUtil({
+                  title: undefined,
+                  message: 'Drop Marker',
+                  buttonText: 'Cancel',
+                });
+                console.log('Complete ON_PRESS:0 SHOW_ALERT');
+              } catch (err) {
+                console.error(err);
+                error = err.message ?? err;
+              }
+              console.log(
+                'Drop Marker ON_PRESS Complete',
+                error ? { error } : 'no error'
+              );
+            }}
             pinColor={theme.colors['Success']}
             pinImageSize={50}
+            title={'Drop Marker'}
             tracksViewChanges={true}
           >
             <MapCallout showTooltip={true} />

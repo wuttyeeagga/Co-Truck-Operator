@@ -42,7 +42,7 @@ const VehicleDetailsScreen = props => {
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      scrollable={true}
+      scrollable={false}
       style={StyleSheet.applyWidth(
         { backgroundColor: theme.colors['Surface'] },
         dimensions.width
@@ -480,7 +480,7 @@ const VehicleDetailsScreen = props => {
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.ButtonStyles(theme)['Button'],
-                            { borderRadius: 12, height: 48, margin: 10 }
+                            { borderRadius: 12, height: 48, margin: 20 }
                           ),
                           dimensions.width
                         )}

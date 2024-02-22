@@ -16,7 +16,6 @@ const SystemChargesScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [url, setUrl] = React.useState([]);
   const cotruckSystemChargesPOST = CotruckApi.useSystemChargesPOST();
   const isFocused = useIsFocused();
@@ -29,10 +28,6 @@ const SystemChargesScreen = props => {
         const response = (
           await cotruckSystemChargesPOST.mutateAsync({ operator_id: 125 })
         )?.json;
-        const asdf = setGlobalVariableValue({
-          key: 'myURL',
-          value: response,
-        });
         console.log(response);
       } catch (err) {
         console.error(err);
@@ -64,7 +59,7 @@ const SystemChargesScreen = props => {
             if (loading) {
               return (
                 <>
-                  {/* View 2 */}
+                  {/* loading */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -94,18 +89,21 @@ const SystemChargesScreen = props => {
 
             if (error || data?.status < 200 || data?.status >= 300) {
               return (
-                <View>
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['Text 2'],
-                      dimensions.width
-                    )}
-                  >
-                    {fetchData}
-                  </Text>
-                </View>
+                <>
+                  {/* error */}
+                  <View>
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData}
+                    </Text>
+                  </View>
+                </>
               );
             }
 

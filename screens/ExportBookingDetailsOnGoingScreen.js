@@ -76,11 +76,12 @@ const ExportBookingDetailsOnGoingScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
+        {/* Export Booking Details */}
         <CotruckApi.FetchBookingDetailPOST
           book_truck_id={props.route?.params?.book_truck_id ?? ''}
         >
           {({ loading, error, data, refetchBookingDetail }) => {
-            const fetchData = data?.json;
+            const exportBookingDetailsData = data?.json;
             if (loading) {
               return (
                 <>
@@ -152,7 +153,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     >
                       {'Booking ID : '}
-                      {fetchData?.data?.book_truck_id}
+                      {exportBookingDetailsData?.data?.book_truck_id}
                     </Text>
                     {/* Status */}
                     <Text
@@ -167,7 +168,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     >
                       {'Status : '}
-                      {fetchData?.data?.status}
+                      {exportBookingDetailsData?.data?.status}
                     </Text>
                   </View>
                   {/* Shipper Row */}
@@ -197,7 +198,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         <Image
                           resizeMode={'cover'}
                           source={{
-                            uri: `${fetchData?.data?.shipper_info?.user_image}`,
+                            uri: `${exportBookingDetailsData?.data?.shipper_info?.user_image}`,
                           }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
@@ -224,7 +225,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.shipper_info?.name}
+                          {exportBookingDetailsData?.data?.shipper_info?.name}
                         </Text>
                         {/* Shipper Mobile */}
                         <Text
@@ -235,7 +236,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.shipper_info?.mobile}
+                          {exportBookingDetailsData?.data?.shipper_info?.mobile}
                         </Text>
                       </View>
                     </View>
@@ -252,7 +253,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         onPress={() => {
                           try {
                             Linking.openURL(
-                              `tel:${fetchData?.data?.shipper_info?.mobile}`
+                              `tel:${exportBookingDetailsData?.data?.shipper_info?.mobile}`
                             );
                           } catch (err) {
                             console.error(err);
@@ -292,7 +293,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         <Image
                           resizeMode={'cover'}
                           source={{
-                            uri: `${fetchData?.data?.driver_info?.user_image}`,
+                            uri: `${exportBookingDetailsData?.data?.driver_info?.user_image}`,
                           }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
@@ -319,7 +320,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.driver_info?.name}
+                          {exportBookingDetailsData?.data?.driver_info?.name}
                         </Text>
                         {/* Driver Mobile */}
                         <Text
@@ -330,7 +331,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.driver_info?.mobile}
+                          {exportBookingDetailsData?.data?.driver_info?.mobile}
                         </Text>
                       </View>
                     </View>
@@ -347,7 +348,17 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         icon={'Feather/map-pin'}
                         onPress={() => {
                           try {
-                            navigation.navigate('ExportLiveTrackScreen');
+                            navigation.navigate('ExportLiveTrackScreen', {
+                              pickup_lat:
+                                exportBookingDetailsData?.data?.pickup_latitude,
+                              pickup_long:
+                                exportBookingDetailsData?.data
+                                  ?.pickup_longitude,
+                              drop_lat:
+                                exportBookingDetailsData?.data?.drop_latitude,
+                              drop_long:
+                                exportBookingDetailsData?.data?.drop_longitude,
+                            });
                           } catch (err) {
                             console.error(err);
                           }
@@ -360,7 +371,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         onPress={() => {
                           try {
                             Linking.openURL(
-                              `tel:${fetchData?.data?.driver_info?.mobile}`
+                              `tel:${exportBookingDetailsData?.data?.driver_info?.mobile}`
                             );
                           } catch (err) {
                             console.error(err);
@@ -410,7 +421,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.depot_location}
+                      {exportBookingDetailsData?.data?.depot_location}
                     </Text>
                   </View>
                   {/* Icon View */}
@@ -454,7 +465,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.pickup_location}
+                      {exportBookingDetailsData?.data?.pickup_location}
                     </Text>
                   </View>
                   {/* Icon View 2 */}
@@ -498,7 +509,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.drop_location}
+                      {exportBookingDetailsData?.data?.drop_location}
                     </Text>
                   </View>
                 </View>
@@ -585,7 +596,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.vehicle_type}
+                          {exportBookingDetailsData?.data?.vehicle_type}
                         </Text>
                       </View>
                     </View>
@@ -669,7 +680,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.material_type}
+                          {exportBookingDetailsData?.data?.material_type}
                         </Text>
                       </View>
                     </View>
@@ -753,7 +764,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.load_weight}
+                          {exportBookingDetailsData?.data?.load_weight}
                         </Text>
                       </View>
                     </View>
@@ -837,7 +848,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.no_of_truck}
+                          {exportBookingDetailsData?.data?.no_of_truck}
                         </Text>
                       </View>
                     </View>
@@ -921,7 +932,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.product_category}
+                          {exportBookingDetailsData?.data?.product_category}
                         </Text>
                       </View>
                     </View>
@@ -1005,7 +1016,11 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.pickup_date?.split(' ')[0]}
+                          {
+                            exportBookingDetailsData?.data?.pickup_date?.split(
+                              ' '
+                            )[0]
+                          }
                         </Text>
                       </View>
                     </View>
@@ -1020,29 +1035,6 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     />
                   </View>
-                </View>
-                {/* Button Container */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    {
-                      marginBottom: 10,
-                      marginLeft: 20,
-                      marginRight: 20,
-                      marginTop: 10,
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <Button
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.ButtonStyles(theme)['Button'],
-                        { borderRadius: 12, height: 48, margin: 20 }
-                      ),
-                      dimensions.width
-                    )}
-                    title={'Invoices'}
-                  />
                 </View>
               </>
             );

@@ -28,7 +28,7 @@ const SystemInvoicesViewScreen = props => {
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      hasTopSafeArea={true}
+      hasTopSafeArea={false}
       scrollable={false}
     >
       {/* Header */}

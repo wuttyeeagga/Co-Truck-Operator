@@ -15,8 +15,7 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const CompanyInformationScreen = props => {
@@ -45,7 +44,7 @@ const CompanyInformationScreen = props => {
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      scrollable={true}
+      scrollable={false}
     >
       {/* My Header */}
       <View
@@ -90,20 +89,15 @@ const CompanyInformationScreen = props => {
         </Text>
       </View>
 
-      <KeyboardAwareScrollView
+      <ScrollView
+        bounces={true}
         contentContainerStyle={StyleSheet.applyWidth(
-          {
-            flex: 1,
-            justifyContent: 'space-between',
-            paddingBottom: 20,
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingTop: 20,
-          },
+          { margin: 20, paddingBottom: 50 },
           dimensions.width
         )}
         keyboardShouldPersistTaps={'never'}
-        showsVerticalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
       >
         <CotruckApi.FetchCompanyInformationPOST id={Constants['AUTH_OWNER_ID']}>
           {({ loading, error, data, refetchCompanyInformation }) => {
@@ -795,8 +789,10 @@ const CompanyInformationScreen = props => {
                       borderRadius: 12,
                       fontFamily: 'System',
                       fontWeight: '700',
-                      height: 52,
-                      marginTop: 20,
+                      height: 48,
+                      margin: 20,
+                      marginBottom: 40,
+                      marginTop: 40,
                       textAlign: 'center',
                     },
                     dimensions.width
@@ -807,7 +803,7 @@ const CompanyInformationScreen = props => {
             );
           }}
         </CotruckApi.FetchCompanyInformationPOST>
-      </KeyboardAwareScrollView>
+      </ScrollView>
     </ScreenContainer>
   );
 };

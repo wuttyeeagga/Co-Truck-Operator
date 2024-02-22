@@ -6,16 +6,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const DeviceVariables = {
   AUTH_BEAR_TOKEN: '',
   AUTH_OWNER_ID: '',
+  CANCELREASONS: [
+    { label: 'Change in schedule', value: 1 },
+    { label: 'Goods not available', value: 2 },
+    { label: 'Technical issue', value: 3 },
+    { label: 'Goods not ready', value: 4 },
+    { label: 'Others', value: 5 },
+  ],
   OWNER_INFO: '',
   VehicleImage: '',
-  VehicleInsuranceImage: '',
   confirmPwdShown: false,
   newPwdShown: false,
   oldPwdShown: false,
   showPassword: false,
   __env__: 'Development',
 };
-export const AppVariables = { myURL: '' };
+export const AppVariables = {};
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 const keySuffix = '';

@@ -28,7 +28,7 @@ const ForgotPasswordScreen = props => {
 
   return (
     <ScreenContainer
-      hasSafeArea={false}
+      hasSafeArea={true}
       hasTopSafeArea={true}
       scrollable={false}
     >
@@ -211,7 +211,8 @@ const ForgotPasswordScreen = props => {
                 color: theme.colors['Custom Color_4'],
                 fontFamily: 'Poppins_500Medium',
                 fontSize: 17,
-                height: 46,
+                height: 48,
+                margin: 10,
                 marginTop: 40,
               }
             ),

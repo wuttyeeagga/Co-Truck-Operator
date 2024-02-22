@@ -586,7 +586,8 @@ export const bookingDetailPOST = (
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM2MDJkMWQwMmM3Nzk2MDI3MGZmNWVhY2RjY2ZkZGRhNWZkYmRjOTUxOTIyZTEwY2I0OWM4ZjMzOWJkZTYzZTBkOGMyYmQ1NDkxY2NkMDg2In0.eyJhdWQiOiIxIiwianRpIjoiMzYwMmQxZDAyYzc3OTYwMjcwZmY1ZWFjZGNjZmRkZGE1ZmRiZGM5NTE5MjJlMTBjYjQ5YzhmMzM5YmRlNjNlMGQ4YzJiZDU0OTFjY2QwODYiLCJpYXQiOjE3MDcxMjYzNDEsIm5iZiI6MTcwNzEyNjM0MSwiZXhwIjoxNzM4NzQ4NzQxLCJzdWIiOiIyMTMiLCJzY29wZXMiOltdfQ.YNtWy6AQoaGxJcmcl8Nqinc0P7UL-ikmNo9rKva5lg3qf0_t4vZwTd5MGBNvS1vzwOZMADnxBv5dwYW1x7B6YiK-sufEa7OHn7MFYpaLmLuruQAaKqJ44U4ODThSeMt90EbcExJ_x4U-KnjN_v4aunjz6b0BW5dStgc5aYBniRZ6vVP8A51pg95v9VpuRznQ2g1im8JZzw3QrWj_lO8O7Ym5cSxb5A6XnVxXhrbHqXZmhZUgBkzfRY5J8MYb_QY7PBBJ4p4Ck7s6Gy5mTmgh9-CbFvHMpDtaSk-gWjbAfr0QW9mCSaBImMQMsBw5XBhoIEj-EyTxDh1ZI9r95nARhhfYA-3Yfk0rzL6b8P8_zFf0dDrRlxgLahcghTMPMARLsnyftKw5g2goWno8-y_m5Ue7a3OjvtFu0PVKIdMz_em7iVXCE9hdx0kLARKjvcmPzeyXWpa-yDlX5zHAY1pDdLdBywFAC5ARo0edvb2up46lYkvbAf7MQ0wZlhALQeuShh0ksWk2p3lfk0Drd-vZxaRZDX0StotktQpGOXVyc1Vf-qkdLIkXJX5tAukoWQOC8Xp0DErpwfg4Gzl_T9qswGLhWeYax3vvzLGNaUKVRAhLnatCJ4zIrIbQyRh0nNOPQyCe9LQHQPBj6puvnx7nMHBXi-U1bHI5d2bvl1F0nQI',
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -832,7 +833,8 @@ export const bookingList$PAID$POST = (
     }),
     headers: {
       Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM2MDJkMWQwMmM3Nzk2MDI3MGZmNWVhY2RjY2ZkZGRhNWZkYmRjOTUxOTIyZTEwY2I0OWM4ZjMzOWJkZTYzZTBkOGMyYmQ1NDkxY2NkMDg2In0.eyJhdWQiOiIxIiwianRpIjoiMzYwMmQxZDAyYzc3OTYwMjcwZmY1ZWFjZGNjZmRkZGE1ZmRiZGM5NTE5MjJlMTBjYjQ5YzhmMzM5YmRlNjNlMGQ4YzJiZDU0OTFjY2QwODYiLCJpYXQiOjE3MDcxMjYzNDEsIm5iZiI6MTcwNzEyNjM0MSwiZXhwIjoxNzM4NzQ4NzQxLCJzdWIiOiIyMTMiLCJzY29wZXMiOltdfQ.YNtWy6AQoaGxJcmcl8Nqinc0P7UL-ikmNo9rKva5lg3qf0_t4vZwTd5MGBNvS1vzwOZMADnxBv5dwYW1x7B6YiK-sufEa7OHn7MFYpaLmLuruQAaKqJ44U4ODThSeMt90EbcExJ_x4U-KnjN_v4aunjz6b0BW5dStgc5aYBniRZ6vVP8A51pg95v9VpuRznQ2g1im8JZzw3QrWj_lO8O7Ym5cSxb5A6XnVxXhrbHqXZmhZUgBkzfRY5J8MYb_QY7PBBJ4p4Ck7s6Gy5mTmgh9-CbFvHMpDtaSk-gWjbAfr0QW9mCSaBImMQMsBw5XBhoIEj-EyTxDh1ZI9r95nARhhfYA-3Yfk0rzL6b8P8_zFf0dDrRlxgLahcghTMPMARLsnyftKw5g2goWno8-y_m5Ue7a3OjvtFu0PVKIdMz_em7iVXCE9hdx0kLARKjvcmPzeyXWpa-yDlX5zHAY1pDdLdBywFAC5ARo0edvb2up46lYkvbAf7MQ0wZlhALQeuShh0ksWk2p3lfk0Drd-vZxaRZDX0StotktQpGOXVyc1Vf-qkdLIkXJX5tAukoWQOC8Xp0DErpwfg4Gzl_T9qswGLhWeYax3vvzLGNaUKVRAhLnatCJ4zIrIbQyRh0nNOPQyCe9LQHQPBj6puvnx7nMHBXi-U1bHI5d2bvl1F0nQI',
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -7984,55 +7986,6 @@ export const FetchWaitingBookingSummaryAllOwnerPOST = ({
     error,
     refetchWaitingBookingSummaryAllOwner: refetch,
   });
-};
-
-export const testGET = (Constants, _args, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/test`, {
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-  }).then(res => handleResponse(res, handlers));
-
-export const useTestGET = (
-  args = {},
-  { refetchInterval, handlers = {} } = {}
-) => {
-  const Constants = GlobalVariables.useValues();
-  const queryClient = useQueryClient();
-  return useQuery(['test', args], () => testGET(Constants, args, handlers), {
-    refetchInterval,
-    onSuccess: () => queryClient.invalidateQueries(['tests']),
-  });
-};
-
-export const FetchTestGET = ({
-  children,
-  onData = () => {},
-  handlers = {},
-  refetchInterval,
-}) => {
-  const Constants = GlobalVariables.useValues();
-  const isFocused = useIsFocused();
-  const prevIsFocused = usePrevious(isFocused);
-
-  const {
-    isLoading: loading,
-    data,
-    error,
-    refetch,
-  } = useTestGET({}, { refetchInterval, handlers: { onData, ...handlers } });
-
-  React.useEffect(() => {
-    if (!prevIsFocused && isFocused) {
-      refetch();
-    }
-  }, [isFocused, prevIsFocused]);
-
-  React.useEffect(() => {
-    if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
-      console.error(error);
-    }
-  }, [error]);
-  return children({ loading, data, error, refetchTest: refetch });
 };
 
 export const vehiclesPOST = (Constants, { vehicle_group_id }, handlers = {}) =>

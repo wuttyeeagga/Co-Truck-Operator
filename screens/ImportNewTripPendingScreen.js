@@ -60,7 +60,6 @@ const ImportNewTripPendingScreen = props => {
         const valueOhYYl5Jw = result;
         setChargesOptions(valueOhYYl5Jw);
         const zxd = valueOhYYl5Jw;
-        console.log(props.route?.params?.book_truck_id ?? '');
       } catch (err) {
         console.error(err);
       }

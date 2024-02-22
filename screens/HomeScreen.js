@@ -29,27 +29,6 @@ const HomeScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const [checkboxRow2Value, setCheckboxRow2Value] = React.useState('');
-  const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
-  const [containerWeight, setContainerWeight] = React.useState('');
-  const [depotValue, setDepotValue] = React.useState('');
-  const [dropOffValue, setDropOffValue] = React.useState('');
-  const [isExport, setIsExport] = React.useState(false);
-  const [isImport, setIsImport] = React.useState(true);
-  const [materialType, setMaterialType] = React.useState('');
-  const [notFound, setNotFound] = React.useState('');
-  const [numberOfTruck, setNumberOfTruck] = React.useState('');
-  const [pickerValue, setPickerValue] = React.useState('');
-  const [pickerValue2, setPickerValue2] = React.useState('');
-  const [pickupDate, setPickupDate] = React.useState('');
-  const [pickupValue, setPickupValue] = React.useState('');
-  const [productType, setProductType] = React.useState('');
-  const [showappointment, setShowappointment] = React.useState(false);
-  const [switchRowValue, setSwitchRowValue] = React.useState(false);
-  const [switchValue, setSwitchValue] = React.useState(false);
-  const [switchValue2, setSwitchValue2] = React.useState(false);
-  const [switchValue4, setSwitchValue4] = React.useState(false);
-  const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
     <ScreenContainer
@@ -147,15 +126,6 @@ const HomeScreen = props => {
             {/* Import New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
               booking_type={'Import'}
-              handlers={{
-                onData: importNewLeadsData => {
-                  try {
-                    setPickupDate(importNewLeadsData?.data?.pickup_date);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                },
-              }}
               id={Constants['AUTH_OWNER_ID']}
               owner_status={'PENDING'}
             >
@@ -705,16 +675,7 @@ const HomeScreen = props => {
             {/* Export New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
               booking_type={'Export'}
-              handlers={{
-                on404: exportNewLeadsData => {
-                  try {
-                    setNotFound('There is not Found');
-                  } catch (err) {
-                    console.error(err);
-                  }
-                },
-              }}
-              id={125}
+              id={Constants['AUTH_OWNER_ID']}
               owner_status={'PENDING'}
             >
               {({ loading, error, data, refetchNewLeads$Pending$ }) => {

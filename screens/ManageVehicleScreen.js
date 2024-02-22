@@ -14,7 +14,13 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 
 const ManageVehicleScreen = props => {
@@ -27,7 +33,7 @@ const ManageVehicleScreen = props => {
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
-      scrollable={true}
+      scrollable={false}
     >
       {/* Header */}
       <View
@@ -97,181 +103,196 @@ const ManageVehicleScreen = props => {
         />
       </View>
 
-      <CotruckApi.FetchOperatorVehicleListPOST
-        operator_id={Constants['AUTH_OWNER_ID']}
+      <ScrollView
+        bounces={true}
+        keyboardShouldPersistTaps={'never'}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
       >
-        {({ loading, error, data, refetchOperatorVehicleList }) => {
-          const fetchData = data?.json;
-          if (loading) {
-            return (
-              <>
-                {/* Loading View */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
-                    dimensions.width
-                  )}
-                >
-                  {/* loading */}
-                  <ActivityIndicator
-                    animating={true}
-                    color={theme.colors['Primary']}
-                    hidesWhenStopped={true}
-                    size={'large'}
+        <CotruckApi.FetchOperatorVehicleListPOST
+          operator_id={Constants['AUTH_OWNER_ID']}
+        >
+          {({ loading, error, data, refetchOperatorVehicleList }) => {
+            const fetchData = data?.json;
+            if (loading) {
+              return (
+                <>
+                  {/* Loading View */}
+                  <View
                     style={StyleSheet.applyWidth(
-                      GlobalStyles.ActivityIndicatorStyles(theme)[
-                        'Activity Indicator'
-                      ],
+                      {
+                        alignItems: 'center',
+                        flex: 1,
+                        justifyContent: 'center',
+                      },
                       dimensions.width
                     )}
-                  />
-                </View>
-              </>
-            );
-          }
+                  >
+                    {/* loading */}
+                    <ActivityIndicator
+                      animating={true}
+                      color={theme.colors['Primary']}
+                      hidesWhenStopped={true}
+                      size={'large'}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.ActivityIndicatorStyles(theme)[
+                          'Activity Indicator'
+                        ],
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                </>
+              );
+            }
 
-          if (error || data?.status < 200 || data?.status >= 300) {
-            return (
-              <>
-                {/* error */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
-                    dimensions.width
-                  )}
-                >
+            if (error || data?.status < 200 || data?.status >= 300) {
+              return (
+                <>
                   {/* error */}
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
+                  <View
                     style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
-                        { fontSize: 16 }
-                      ),
+                      {
+                        alignItems: 'center',
+                        flex: 1,
+                        justifyContent: 'center',
+                      },
                       dimensions.width
                     )}
                   >
-                    {fetchData?.message}
-                  </Text>
-                </View>
-              </>
-            );
-          }
-
-          return (
-            <FlatList
-              contentContainerStyle={StyleSheet.applyWidth(
-                { flexDirection: 'column' },
-                dimensions.width
-              )}
-              data={fetchData?.data}
-              keyExtractor={(listData, index) =>
-                listData?.id ?? listData?.uuid ?? index.toString()
-              }
-              listKey={'1MYH0n2p'}
-              numColumns={1}
-              onEndReachedThreshold={0.5}
-              renderItem={({ item, index }) => {
-                const listData = item;
-                return (
-                  <Touchable
-                    onPress={() => {
-                      try {
-                        navigation.navigate('VehicleDetailsScreen', {
-                          vehicle_status: listData?.status_of_vechile,
-                          id: listData?.id,
-                        });
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
-                  >
-                    <Surface
+                    {/* error */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.SurfaceStyles(theme)['Surface'],
-                          {
-                            alignItems: 'stretch',
-                            flexDirection: 'column',
-                            margin: 20,
-                            padding: 10,
-                          }
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          { fontSize: 16 }
                         ),
                         dimensions.width
                       )}
                     >
-                      <View
+                      {fetchData?.message}
+                    </Text>
+                  </View>
+                </>
+              );
+            }
+
+            return (
+              <FlatList
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flexDirection: 'column' },
+                  dimensions.width
+                )}
+                data={fetchData?.data}
+                keyExtractor={(listData, index) =>
+                  listData?.id ?? listData?.uuid ?? index.toString()
+                }
+                listKey={'1MYH0n2p'}
+                numColumns={1}
+                onEndReachedThreshold={0.5}
+                renderItem={({ item, index }) => {
+                  const listData = item;
+                  return (
+                    <Touchable
+                      onPress={() => {
+                        try {
+                          navigation.navigate('VehicleDetailsScreen', {
+                            vehicle_status: listData?.status_of_vechile,
+                            id: listData?.id,
+                          });
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Surface
                         style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                          },
+                          StyleSheet.compose(
+                            GlobalStyles.SurfaceStyles(theme)['Surface'],
+                            {
+                              alignItems: 'stretch',
+                              flexDirection: 'column',
+                              margin: 20,
+                              padding: 10,
+                            }
+                          ),
                           dimensions.width
                         )}
                       >
-                        <View>
-                          {/* Vehicle Type */}
-                          <Text
-                            accessible={true}
-                            allowFontScaling={true}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['Text 2'],
-                                { margin: 10 }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {listData?.vehicle_type}
-                          </Text>
-                          {/* Regi Number */}
-                          <Text
-                            accessible={true}
-                            allowFontScaling={true}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['Text 2'],
-                                { margin: 10 }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {listData?.label}
-                          </Text>
-                        </View>
-                        {/* Status */}
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 2'],
-                              {
-                                color: theme.colors['CoTruckPending'],
-                                fontFamily: 'System',
-                                fontSize: 14,
-                                fontWeight: '400',
-                                margin: 10,
-                              }
-                            ),
+                            {
+                              alignItems: 'center',
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                            },
                             dimensions.width
                           )}
                         >
-                          {listData?.status_of_vechile}
-                        </Text>
-                      </View>
-                    </Surface>
-                  </Touchable>
-                );
-              }}
-              showsHorizontalScrollIndicator={true}
-              showsVerticalScrollIndicator={true}
-            />
-          );
-        }}
-      </CotruckApi.FetchOperatorVehicleListPOST>
+                          <View>
+                            {/* Vehicle Type */}
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  { margin: 10 }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.vehicle_type}
+                            </Text>
+                            {/* Regi Number */}
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  { margin: 10 }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.label}
+                            </Text>
+                          </View>
+                          {/* Status */}
+                          <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['Text 2'],
+                                {
+                                  color: theme.colors['CoTruckPending'],
+                                  fontFamily: 'System',
+                                  fontSize: 14,
+                                  fontWeight: '400',
+                                  margin: 10,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.status_of_vechile}
+                          </Text>
+                        </View>
+                      </Surface>
+                    </Touchable>
+                  );
+                }}
+                showsHorizontalScrollIndicator={true}
+                showsVerticalScrollIndicator={true}
+              />
+            );
+          }}
+        </CotruckApi.FetchOperatorVehicleListPOST>
+      </ScrollView>
     </ScreenContainer>
   );
 };

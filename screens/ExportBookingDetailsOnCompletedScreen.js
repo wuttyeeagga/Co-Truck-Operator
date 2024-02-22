@@ -26,17 +26,6 @@ const ExportBookingDetailsOnCompletedScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const cotruckCompleteBookingPOST = CotruckApi.useCompleteBookingPOST();
-  const isFocused = useIsFocused();
-  React.useEffect(() => {
-    try {
-      if (!isFocused) {
-        return;
-      }
-      /* 'Conditional Stop' action requires configuration: select Check Value */
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isFocused]);
 
   return (
     <ScreenContainer

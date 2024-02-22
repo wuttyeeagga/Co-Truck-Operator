@@ -227,6 +227,13 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="ImportReasonForCancelScreen"
+          component={ImportReasonForCancelScreen}
+          options={({ navigation }) => ({
+            title: 'Import Reason for cancel',
+          })}
+        />
+        <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
           options={({ navigation }) => ({
@@ -301,13 +308,6 @@ export default function RootAppNavigator() {
           component={ReferAFriendScreen}
           options={({ navigation }) => ({
             title: 'Refer a friend',
-          })}
-        />
-        <Stack.Screen
-          name="ImportReasonForCancelScreen"
-          component={ImportReasonForCancelScreen}
-          options={({ navigation }) => ({
-            title: 'Import Reason for cancel',
           })}
         />
         <Stack.Screen

@@ -967,7 +967,9 @@ const ImportBookingDetailsOnPendingScreen = props => {
                   <Button
                     onPress={() => {
                       try {
-                        navigation.navigate('ImportReasonForCancelScreen');
+                        navigation.navigate('ImportReasonForCancelScreen', {
+                          book_truck_id: fetchData?.data?.book_truck_id,
+                        });
                       } catch (err) {
                         console.error(err);
                       }

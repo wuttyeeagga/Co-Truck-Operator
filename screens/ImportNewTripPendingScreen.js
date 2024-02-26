@@ -1059,10 +1059,10 @@ const ImportNewTripPendingScreen = props => {
                                 booking_id: fetchData?.data?.book_truck_id,
                                 charges: extraAmount,
                                 driver_ids: selectDriver,
-                                extra_charge_desc: extraCharges,
+                                extra_charge_desc: [],
                                 final_total: totalPrice,
                                 operator_id: Constants['AUTH_OWNER_ID'],
-                                qty: availabilityTruck,
+                                qty: fetchData?.data?.no_of_truck,
                                 sub_total: subTotal,
                               })
                             )?.json;

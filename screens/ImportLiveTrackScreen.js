@@ -123,7 +123,7 @@ const ImportLiveTrackScreen = props => {
       </View>
 
       <MapView
-        apiKey={'AIzaSyBzktToWosjNgrrUawZnbslB9NSXSXCkwo'}
+        apiKey={'AIzaSyCJ1VkTz9Y_EEj9nVLNSkOw4yPc90gp9J0'}
         autoClusterMarkers={true}
         autoClusterMarkersDistanceMeters={10000}
         customMapStyle={'Beautiful West Coast Villa'}

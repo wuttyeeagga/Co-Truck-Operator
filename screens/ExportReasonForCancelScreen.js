@@ -7,8 +7,6 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
-  CheckboxRow,
-  Divider,
   Icon,
   Picker,
   PickerItem,

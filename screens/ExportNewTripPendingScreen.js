@@ -26,9 +26,9 @@ const ExportNewTripPendingScreen = props => {
   const Variables = Constants;
   const [addOnAmount, setAddOnAmount] = React.useState(0);
   const [chooseDriverOptions, setChooseDriverOptions] = React.useState([]);
+  const [selectDrivers, setSelectDrivers] = React.useState([]);
   const [subTotal, setSubTotal] = React.useState(0);
   const [totalPrice, setTotalPrice] = React.useState(0);
-  const [pickerValue, setPickerValue] = React.useState(undefined);
   const addFunction = (a, b) => {
     const d = a + b;
     return d;
@@ -744,9 +744,8 @@ const ExportNewTripPendingScreen = props => {
                     iconSize={24}
                     leftIconMode={'inset'}
                     onValueChange={newChooseDriverValue => {
-                      const pickerValue = newChooseDriverValue;
                       try {
-                        setPickerValue(pickerValue);
+                        setSelectDrivers(newChooseDriverValue);
                       } catch (err) {
                         console.error(err);
                       }
@@ -763,7 +762,7 @@ const ExportNewTripPendingScreen = props => {
                       dimensions.width
                     )}
                     type={'solid'}
-                    value={pickerValue}
+                    value={selectDrivers}
                   />
                   {/* Sub Total */}
                   <View>
@@ -1023,11 +1022,11 @@ const ExportNewTripPendingScreen = props => {
                               await cotruckAcceptNewTripPOST.mutateAsync({
                                 booking_id: null,
                                 charges: 450,
-                                driver_ids: [],
+                                driver_ids: chooseDriverOptions,
                                 extra_charge_desc: [],
                                 final_total: totalPrice,
                                 operator_id: Constants['AUTH_OWNER_ID'],
-                                qty: 234,
+                                qty: fetchData?.data?.no_of_truck,
                                 sub_total: subTotal,
                               })
                             )?.json;

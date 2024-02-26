@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "CoTruck Operator",
-    "slug": "co-truck-operator",
-    "scheme": "untitled-app",
+    "slug": "CoTruck-Operator",
+    "scheme": "CoTruck-Operator",
     "description": "This app powered by AGGA.io",
     "privacy": "unlisted",
     "platforms": [

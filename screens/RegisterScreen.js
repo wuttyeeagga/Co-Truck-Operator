@@ -4,7 +4,7 @@ import * as CotruckApi from '../apis/CotruckApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
-import openImagePickerUtil from '../utils/openImagePicker';
+import selectFileUtil from '../utils/selectFile';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -12,13 +12,14 @@ import {
   Icon,
   MultiSelectPicker,
   PickerItem,
+  Pressable,
   ScreenContainer,
   TextInput,
   Touchable,
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { Image, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const RegisterScreen = props => {
@@ -27,17 +28,19 @@ const RegisterScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const [agentLicense, setAgentLicense] = React.useState('');
+  const [agentLicenseFile, setAgentLicenseFile] = React.useState([]);
   const [agentName, setAgentName] = React.useState('');
   const [companyName, setCompanyName] = React.useState('');
   const [companyPhone, setCompanyPhone] = React.useState('');
-  const [companyiRegisterNumber, setCompanyiRegisterNumber] =
-    React.useState('');
+  const [companyRegNo, setCompanyRegNo] = React.useState('');
+  const [companyRegisterFile, setCompanyRegisterFile] = React.useState([]);
   const [contactPersonEmail, setContactPersonEmail] = React.useState('');
   const [contactPersonName, setContactPersonName] = React.useState('');
   const [contactPersonPassword, setContactPersonPassword] = React.useState('');
   const [contactPersonPhone, setContactPersonPhone] = React.useState('');
-  const [datePickerValue, setDatePickerValue] = React.useState(new Date());
   const [emailInput, setEmailInput] = React.useState('');
+  const [isAgentFile, setIsAgentFile] = React.useState(false);
+  const [isCompanyFile, setIsCompanyFile] = React.useState(false);
   const [isPhotoUploaded, setIsPhotoUploaded] = React.useState(false);
   const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
     []
@@ -47,11 +50,8 @@ const RegisterScreen = props => {
   );
   const [numberInputValue, setNumberInputValue] = React.useState('');
   const [pathsOptions, setPathsOptions] = React.useState([]);
-  const [photoUploaded, setPhotoUploaded] = React.useState('');
-  const [pickerValue, setPickerValue] = React.useState('');
   const [referCode, setReferCode] = React.useState('');
-  const [textAreaValue, setTextAreaValue] = React.useState('');
-  const [textInputValue, setTextInputValue] = React.useState('');
+  const [pickerValue, setPickerValue] = React.useState(undefined);
   const cotruckPreferredPathsPOST = CotruckApi.usePreferredPathsPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -168,7 +168,7 @@ const RegisterScreen = props => {
               }
             }}
             placeholder={'Company Name'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholderTextColor={theme.colors['TextPlaceholder']}
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -194,6 +194,7 @@ const RegisterScreen = props => {
           <TextInput
             autoCapitalize={'none'}
             keyboardType={'phone-pad'}
+            maxLength={11}
             onChangeText={newCompanyPhoneValue => {
               try {
                 setCompanyPhone(newCompanyPhoneValue);
@@ -201,8 +202,8 @@ const RegisterScreen = props => {
                 console.error(err);
               }
             }}
-            placeholder={'Company Phone Number'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholder={'+95 Company Phone'}
+            placeholderTextColor={theme.colors['TextPlaceholder']}
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -227,15 +228,16 @@ const RegisterScreen = props => {
           {/* Company Registration Number */}
           <TextInput
             autoCapitalize={'none'}
+            maxLength={9}
             onChangeText={newCompanyRegistrationNumberValue => {
               try {
-                setCompanyiRegisterNumber(newCompanyRegistrationNumberValue);
+                setCompanyRegNo(newCompanyRegistrationNumberValue);
               } catch (err) {
                 console.error(err);
               }
             }}
             placeholder={'Company Registration Number'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholderTextColor={theme.colors['TextPlaceholder']}
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -255,134 +257,309 @@ const RegisterScreen = props => {
               },
               dimensions.width
             )}
-            value={companyiRegisterNumber}
+            value={companyRegNo}
           />
-          {/* Upload Certificate */}
-          <Button
-            icon={'AntDesign/pluscircle'}
-            onPress={() => {
-              const handler = async () => {
-                console.log('Upload Certificate ON_PRESS Start');
-                let error = null;
-                try {
-                  console.log('Start ON_PRESS:0 OPEN_IMAGE_PICKER');
-                  const result = await openImagePickerUtil({
-                    mediaTypes: 'All',
-                    allowsEditing: false,
-                    quality: 0.2,
-                  });
-                  console.log('Complete ON_PRESS:0 OPEN_IMAGE_PICKER', {
-                    result,
-                  });
-                  console.log('Start ON_PRESS:1 SET_VARIABLE');
-                  setPhotoUploaded(result);
-                  console.log('Complete ON_PRESS:1 SET_VARIABLE');
-                  console.log('Start ON_PRESS:2 SET_VARIABLE');
-                  const valuegkXwmERR = true;
-                  setIsPhotoUploaded(valuegkXwmERR);
-                  const condition = valuegkXwmERR;
-                  console.log('Complete ON_PRESS:2 SET_VARIABLE');
-                  console.log('Start ON_PRESS:3 CONSOLE_LOG');
-                  console.log(result, 'conditon');
-                  console.log('Complete ON_PRESS:3 CONSOLE_LOG');
-                } catch (err) {
-                  console.error(err);
-                  error = err.message ?? err;
-                }
-                console.log(
-                  'Upload Certificate ON_PRESS Complete',
-                  error ? { error } : 'no error'
-                );
-              };
-              handler();
-            }}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
-                backgroundColor: theme.colors['CoTruckGrey'],
-                borderRadius: 12,
-                height: 48,
-                margin: 20,
-              }),
-              dimensions.width
-            )}
-            title={'Upload Certificate'}
-          />
-          {/* Certificate View */}
-          <>
-            {!isPhotoUploaded ? null : (
-              <View
+          {/* Company Registration Document */}
+          <View>
+            {/* Sub Title View */}
+            <View>
+              {/* Sub Title */}
+              <Text
+                accessible={true}
+                allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                    justifyContent: 'center',
-                  },
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                    margin: 10,
+                  }),
                   dimensions.width
                 )}
               >
-                {/* Certificat Image */}
-                <Image
-                  resizeMode={'cover'}
-                  source={{ uri: `${photoUploaded}` }}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.ImageStyles(theme)['Image 2'],
-                      {
-                        borderBottomLeftRadius: 2,
-                        borderBottomRightRadius: 2,
-                        borderTopLeftRadius: 2,
-                        borderTopRightRadius: 2,
-                        height: [
-                          { minWidth: Breakpoints.Mobile, value: 160 },
-                          { minWidth: Breakpoints.Tablet, value: 150 },
-                        ],
-                        marginBottom: 10,
-                        marginTop: 10,
-                        width: [
-                          { minWidth: Breakpoints.Mobile, value: 160 },
-                          { minWidth: Breakpoints.Tablet, value: 150 },
-                        ],
+                {'Company Registration Document'}
+              </Text>
+            </View>
+            {/* Upload Registration File */}
+            <>
+              {isCompanyFile ? null : (
+                <Pressable
+                  onPress={() => {
+                    const handler = async () => {
+                      console.log('Upload Registration File ON_PRESS Start');
+                      let error = null;
+                      try {
+                        console.log('Start ON_PRESS:0 SELECT_FILE');
+                        const fileResults = await selectFileUtil({
+                          returnNameAndValue: true,
+                        });
+                        console.log('Complete ON_PRESS:0 SELECT_FILE', {
+                          fileResults,
+                        });
+                        console.log('Start ON_PRESS:1 SET_VARIABLE');
+                        setCompanyRegisterFile(fileResults);
+                        console.log('Complete ON_PRESS:1 SET_VARIABLE');
+                        console.log('Start ON_PRESS:2 SET_VARIABLE');
+                        setIsCompanyFile(true);
+                        console.log('Complete ON_PRESS:2 SET_VARIABLE');
+                        console.log('Start ON_PRESS:3 CONSOLE_LOG');
+                        console.log(fileResults);
+                        console.log('Complete ON_PRESS:3 CONSOLE_LOG');
+                      } catch (err) {
+                        console.error(err);
+                        error = err.message ?? err;
                       }
-                    ),
-                    dimensions.width
-                  )}
-                />
-              </View>
-            )}
-          </>
-          {/* Agent License */}
-          <TextInput
-            autoCapitalize={'none'}
-            onChangeText={newAgentLicenseValue => {
-              try {
-                setAgentLicense(newAgentLicenseValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            placeholder={'Agent License'}
-            placeholderTextColor={theme.colors['Light']}
+                      console.log(
+                        'Upload Registration File ON_PRESS Complete',
+                        error ? { error } : 'no error'
+                      );
+                    };
+                    handler();
+                  }}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        borderColor: theme.colors['Light'],
+                        borderRadius: 12,
+                        borderStyle: 'dashed',
+                        borderWidth: 1,
+                        justifyContent: 'center',
+                        margin: 20,
+                        padding: 20,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Plus Icon */}
+                    <Icon
+                      color={theme.colors['CoTruckBlack']}
+                      name={'AntDesign/pluscircle'}
+                      size={24}
+                    />
+                    {/* Upload */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Upload'}
+                    </Text>
+                  </View>
+                </Pressable>
+              )}
+            </>
+            {/* Registration File Value */}
+            <>
+              {!isCompanyFile ? null : (
+                <Pressable
+                  onPress={() => {
+                    console.log('Registration File Value ON_PRESS Start');
+                    let error = null;
+                    try {
+                      console.log('Start ON_PRESS:0 SET_VARIABLE');
+                      setIsCompanyFile(false);
+                      console.log('Complete ON_PRESS:0 SET_VARIABLE');
+                      console.log('Start ON_PRESS:1 CONSOLE_LOG');
+                      console.log();
+                      console.log('Complete ON_PRESS:1 CONSOLE_LOG');
+                    } catch (err) {
+                      console.error(err);
+                      error = err.message ?? err;
+                    }
+                    console.log(
+                      'Registration File Value ON_PRESS Complete',
+                      error ? { error } : 'no error'
+                    );
+                  }}
+                >
+                  {/* Value View */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        borderColor: theme.colors['Light'],
+                        borderRadius: 12,
+                        borderStyle: 'dashed',
+                        borderWidth: 1,
+                        justifyContent: 'center',
+                        margin: 20,
+                        padding: 20,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Company File Name */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {companyRegisterFile?.name}
+                    </Text>
+                  </View>
+                </Pressable>
+              )}
+            </>
+          </View>
+          {/* Divider 2 */}
+          <Divider
+            color={theme.colors['Error']}
             style={StyleSheet.applyWidth(
-              {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
-                borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
-                borderLeftWidth: 1,
-                borderRadius: 12,
-                borderRightWidth: 1,
-                borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
-                height: 48,
-                margin: 20,
-                paddingBottom: 8,
-                paddingLeft: 12,
-                paddingRight: 8,
-                paddingTop: 8,
-              },
+              StyleSheet.compose(GlobalStyles.DividerStyles(theme)['Divider'], {
+                marginBottom: 10,
+                marginTop: 10,
+              }),
               dimensions.width
             )}
-            value={agentLicense}
           />
+          {/* Agent License Document */}
+          <View>
+            {/* Sub Title View */}
+            <View>
+              {/* Sub Title */}
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                    margin: 10,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Agent License Document'}
+              </Text>
+            </View>
+            {/* Upload Agent License */}
+            <>
+              {isAgentFile ? null : (
+                <Pressable
+                  onPress={() => {
+                    const handler = async () => {
+                      console.log('Upload Agent License ON_PRESS Start');
+                      let error = null;
+                      try {
+                        console.log('Start ON_PRESS:0 SELECT_FILE');
+                        const fileResults = await selectFileUtil({
+                          returnNameAndValue: true,
+                        });
+                        console.log('Complete ON_PRESS:0 SELECT_FILE', {
+                          fileResults,
+                        });
+                        console.log('Start ON_PRESS:1 SET_VARIABLE');
+                        setAgentLicenseFile(fileResults);
+                        console.log('Complete ON_PRESS:1 SET_VARIABLE');
+                        console.log('Start ON_PRESS:2 CONSOLE_LOG');
+                        console.log(fileResults);
+                        console.log('Complete ON_PRESS:2 CONSOLE_LOG');
+                        console.log('Start ON_PRESS:3 SET_VARIABLE');
+                        setIsAgentFile(true);
+                        console.log('Complete ON_PRESS:3 SET_VARIABLE');
+                      } catch (err) {
+                        console.error(err);
+                        error = err.message ?? err;
+                      }
+                      console.log(
+                        'Upload Agent License ON_PRESS Complete',
+                        error ? { error } : 'no error'
+                      );
+                    };
+                    handler();
+                  }}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        borderColor: theme.colors['Light'],
+                        borderRadius: 12,
+                        borderStyle: 'dashed',
+                        borderWidth: 1,
+                        justifyContent: 'center',
+                        margin: 20,
+                        padding: 20,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Plus Icon */}
+                    <Icon
+                      color={theme.colors['CoTruckBlack']}
+                      name={'AntDesign/pluscircle'}
+                      size={24}
+                    />
+                    {/* Upload */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {'Upload'}
+                    </Text>
+                  </View>
+                </Pressable>
+              )}
+            </>
+            {/* License View */}
+            <>
+              {!isAgentFile ? null : (
+                <Pressable
+                  onPress={() => {
+                    console.log('License View ON_PRESS Start');
+                    let error = null;
+                    try {
+                      console.log('Start ON_PRESS:0 SET_VARIABLE');
+                      setIsAgentFile(false);
+                      console.log('Complete ON_PRESS:0 SET_VARIABLE');
+                    } catch (err) {
+                      console.error(err);
+                      error = err.message ?? err;
+                    }
+                    console.log(
+                      'License View ON_PRESS Complete',
+                      error ? { error } : 'no error'
+                    );
+                  }}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        borderColor: theme.colors['Light'],
+                        borderRadius: 12,
+                        borderStyle: 'dashed',
+                        borderWidth: 1,
+                        justifyContent: 'center',
+                        margin: 20,
+                        padding: 20,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Agent File Name */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {agentLicenseFile?.name}
+                    </Text>
+                  </View>
+                </Pressable>
+              )}
+            </>
+          </View>
           {/* Agent Name */}
           <TextInput
             autoCapitalize={'none'}
@@ -557,7 +734,7 @@ const RegisterScreen = props => {
                 console.error(err);
               }
             }}
-            placeholder={'Mobile Number'}
+            placeholder={'+95 Mobile Number'}
             placeholderTextColor={theme.colors['Light']}
             style={StyleSheet.applyWidth(
               {
@@ -654,8 +831,7 @@ const RegisterScreen = props => {
                 navigation.navigate('SignUpIdentityProofScreen', {
                   comp_name: companyName,
                   comp_phone: companyPhone,
-                  comp_regi: companyiRegisterNumber,
-                  certificate: photoUploaded,
+                  comp_regi: companyRegNo,
                   agent_license: agentLicense,
                   agent_name: agentName,
                   prefer_paths: multiSelectPickerValue2,
@@ -665,7 +841,6 @@ const RegisterScreen = props => {
                   refer_code: referCode,
                   name: contactPersonName,
                 });
-                console.log(multiSelectPickerValue2);
               } catch (err) {
                 console.error(err);
               }

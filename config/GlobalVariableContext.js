@@ -14,7 +14,6 @@ export const DeviceVariables = {
     { label: 'Others', value: 5 },
   ],
   OWNER_INFO: '',
-  VehicleImage: '',
   confirmPwdShown: false,
   newPwdShown: false,
   oldPwdShown: false,

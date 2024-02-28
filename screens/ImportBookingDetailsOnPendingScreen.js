@@ -93,12 +93,9 @@ const ImportBookingDetailsOnPendingScreen = props => {
 
       <ScrollView
         bounces={true}
-        contentContainerStyle={StyleSheet.applyWidth(
-          { flex: 1 },
-          dimensions.width
-        )}
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
+        style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
       >
         <CotruckApi.FetchBookingDetailPOST
           book_truck_id={props.route?.params?.book_truck_id ?? ''}

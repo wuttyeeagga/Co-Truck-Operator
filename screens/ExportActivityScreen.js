@@ -102,22 +102,19 @@ const ExportActivityScreen = props => {
       >
         {/* Confirmed Tab View */}
         <>
-          {!'Pending' ? null : (
+          {!'Accepted' ? null : (
             <TabViewItem
               style={StyleSheet.applyWidth(
                 GlobalStyles.TabViewItemStyles(theme)['Tab View Item'],
                 dimensions.width
               )}
-              title={'Confirmed'}
+              title={'Accepted'}
             >
               <ScrollView
                 bounces={true}
-                contentContainerStyle={StyleSheet.applyWidth(
-                  { flex: 1 },
-                  dimensions.width
-                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
+                style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
                 {/* Confirmed Booking List */}
                 <CotruckApi.FetchBookingList$Confirmed$POST
@@ -603,8 +600,7 @@ const ExportActivityScreen = props => {
                                             dimensions.width
                                           )}
                                         >
-                                          {' '}
-                                          {listData?.status}
+                                          {'Accepted'}
                                         </Text>
                                       </View>
                                     </View>
@@ -636,12 +632,9 @@ const ExportActivityScreen = props => {
             >
               <ScrollView
                 bounces={true}
-                contentContainerStyle={StyleSheet.applyWidth(
-                  { flex: 1 },
-                  dimensions.width
-                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
+                style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
                 {/* Ongoing Booking List */}
                 <CotruckApi.FetchBookingListPOST
@@ -1155,12 +1148,9 @@ const ExportActivityScreen = props => {
             >
               <ScrollView
                 bounces={true}
-                contentContainerStyle={StyleSheet.applyWidth(
-                  { flex: 1 },
-                  dimensions.width
-                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
+                style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
                 {/* Completed Booking List */}
                 <CotruckApi.FetchBookingList$PAID$POST
@@ -1646,30 +1636,6 @@ const ExportActivityScreen = props => {
                                           {listData?.status}
                                         </Text>
                                       </View>
-                                    </View>
-
-                                    <View>
-                                      {/* Payment Status */}
-                                      <Text
-                                        accessible={true}
-                                        allowFontScaling={true}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'Text 2'
-                                            ],
-                                            {
-                                              color: theme.colors['Primary'],
-                                              margin: 20,
-                                              textAlign: 'right',
-                                            }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      >
-                                        {'Payment Status - '}
-                                        {listData?.paid_status}
-                                      </Text>
                                     </View>
                                   </View>
                                 </Touchable>

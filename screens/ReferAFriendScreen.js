@@ -11,6 +11,7 @@ import { Image, Text, View } from 'react-native';
 const ReferAFriendScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
     <ScreenContainer
@@ -148,7 +149,7 @@ const ReferAFriendScreen = props => {
           {'----------------Share your promo code-------------'}
         </Text>
       </View>
-      {/* View 4 */}
+
       <View
         style={StyleSheet.applyWidth(
           { alignItems: 'center', justifyContent: 'center', marginTop: 20 },
@@ -168,6 +169,7 @@ const ReferAFriendScreen = props => {
             dimensions.width
           )}
         >
+          {/* Refer Code */}
           <Text
             accessible={true}
             allowFontScaling={true}
@@ -195,10 +197,11 @@ const ReferAFriendScreen = props => {
           dimensions.width
         )}
       >
+        {/* Facebook */}
         <Touchable
           onPress={() => {
             try {
-              /* 'Open App Link' action requires configuration: select URL */
+              Linking.openURL('https://www.facebook.com');
             } catch (err) {
               console.error(err);
             }
@@ -216,12 +219,11 @@ const ReferAFriendScreen = props => {
             )}
           />
         </Touchable>
-        {/* Touchable 2 */}
+        {/* Instagram */}
         <Touchable
           onPress={() => {
             try {
-              /* 'Open App Link' action requires configuration: select URL */
-              /* 'Open App Link' action requires configuration: select URL */
+              Linking.openURL('https://www.instagram.com');
             } catch (err) {
               console.error(err);
             }
@@ -243,8 +245,7 @@ const ReferAFriendScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              /* 'Open App Link' action requires configuration: select URL */
-              /* 'Open App Link' action requires configuration: select URL */
+              Linking.openURL('https://twitter.com');
             } catch (err) {
               console.error(err);
             }
@@ -262,12 +263,11 @@ const ReferAFriendScreen = props => {
             )}
           />
         </Touchable>
-        {/* Touchable 4 */}
+        {/* WeChat */}
         <Touchable
           onPress={() => {
             try {
-              /* 'Open App Link' action requires configuration: select URL */
-              /* 'Open App Link' action requires configuration: select URL */
+              Linking.openURL('https://www.wechat.com');
             } catch (err) {
               console.error(err);
             }

@@ -78,17 +78,17 @@ function AuthNavigator() {
       screenOptions={({ navigation }) => ({ headerShown: false })}
     >
       <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={({ navigation }) => ({
-          title: 'Login',
-        })}
-      />
-      <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
         options={({ navigation }) => ({
           title: 'Register',
+        })}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={({ navigation }) => ({
+          title: 'Login',
         })}
       />
     </Stack.Navigator>
@@ -227,24 +227,17 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="ImportLiveTrackScreen"
-          component={ImportLiveTrackScreen}
-          options={({ navigation }) => ({
-            title: 'Import Live Track',
-          })}
-        />
-        <Stack.Screen
-          name="SignUpIdentityProofScreen"
-          component={SignUpIdentityProofScreen}
-          options={({ navigation }) => ({
-            title: 'Sign Up Identity Proof',
-          })}
-        />
-        <Stack.Screen
           name="ImportBookingDetailsOnGoingScreen"
           component={ImportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Going',
+          })}
+        />
+        <Stack.Screen
+          name="ImportLiveTrackScreen"
+          component={ImportLiveTrackScreen}
+          options={({ navigation }) => ({
+            title: 'Import Live Track',
           })}
         />
         <Stack.Screen
@@ -255,31 +248,24 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
+          options={({ navigation }) => ({
+            title: 'Sign Up Identity Proof',
+          })}
+        />
+        <Stack.Screen
+          name="ReferAFriendScreen"
+          component={ReferAFriendScreen}
+          options={({ navigation }) => ({
+            title: 'Refer a friend',
+          })}
+        />
+        <Stack.Screen
           name="ImportBookingDetailsOnCompletedScreen"
           component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Completed',
-          })}
-        />
-        <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
-          options={({ navigation }) => ({
-            title: 'Invoice',
-          })}
-        />
-        <Stack.Screen
-          name="PaymentScreen"
-          component={PaymentScreen}
-          options={({ navigation }) => ({
-            title: 'Payment',
-          })}
-        />
-        <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-          options={({ navigation }) => ({
-            title: 'Forgot Password',
           })}
         />
         <Stack.Screen
@@ -290,24 +276,31 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="CompanyInformationScreen"
-          component={CompanyInformationScreen}
+          name="InvoiceScreen"
+          component={InvoiceScreen}
           options={({ navigation }) => ({
-            title: 'Company Information',
+            title: 'Invoice',
           })}
         />
         <Stack.Screen
-          name="FAQsScreen"
-          component={FAQsScreen}
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
           options={({ navigation }) => ({
-            title: 'FAQs',
+            title: 'Forgot Password',
           })}
         />
         <Stack.Screen
-          name="ReferAFriendScreen"
-          component={ReferAFriendScreen}
+          name="PaymentScreen"
+          component={PaymentScreen}
           options={({ navigation }) => ({
-            title: 'Refer a friend',
+            title: 'Payment',
+          })}
+        />
+        <Stack.Screen
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
+          options={({ navigation }) => ({
+            title: 'OTP Verification',
           })}
         />
         <Stack.Screen
@@ -332,17 +325,24 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="CompanyInformationScreen"
+          component={CompanyInformationScreen}
+          options={({ navigation }) => ({
+            title: 'Company Information',
+          })}
+        />
+        <Stack.Screen
+          name="FAQsScreen"
+          component={FAQsScreen}
+          options={({ navigation }) => ({
+            title: 'FAQs',
+          })}
+        />
+        <Stack.Screen
           name="AboutUsScreen"
           component={AboutUsScreen}
           options={({ navigation }) => ({
             title: 'About Us',
-          })}
-        />
-        <Stack.Screen
-          name="OTPVerificationScreen"
-          component={OTPVerificationScreen}
-          options={({ navigation }) => ({
-            title: 'OTP Verification',
           })}
         />
         <Stack.Screen

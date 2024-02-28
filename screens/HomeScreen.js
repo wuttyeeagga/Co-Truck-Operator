@@ -116,12 +116,13 @@ const HomeScreen = props => {
         >
           <ScrollView
             bounces={true}
-            contentContainerStyle={StyleSheet.applyWidth(
-              { flex: 1, paddingBottom: 20 },
-              dimensions.width
-            )}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
+            style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
+            contentContainerStyle={StyleSheet.applyWidth(
+              { paddingBottom: 20 },
+              dimensions.width
+            )}
           >
             {/* Import New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
@@ -555,7 +556,7 @@ const HomeScreen = props => {
                                       dimensions.width
                                     )}
                                   >
-                                    {/* Owner Book Status */}
+                                    {/* Booking Status */}
                                     <Text
                                       accessible={true}
                                       allowFontScaling={true}
@@ -566,7 +567,7 @@ const HomeScreen = props => {
                                         dimensions.width
                                       )}
                                     >
-                                      {'Status - '}
+                                      {'Booking Status - '}
                                     </Text>
                                     {/* Accepted */}
                                     <>
@@ -665,12 +666,13 @@ const HomeScreen = props => {
         >
           <ScrollView
             bounces={true}
-            contentContainerStyle={StyleSheet.applyWidth(
-              { flex: 1, paddingBottom: 20 },
-              dimensions.width
-            )}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
+            style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
+            contentContainerStyle={StyleSheet.applyWidth(
+              { paddingBottom: 20 },
+              dimensions.width
+            )}
           >
             {/* Export New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
@@ -1098,7 +1100,7 @@ const HomeScreen = props => {
                                       dimensions.width
                                     )}
                                   >
-                                    {/* Owner Book Status */}
+                                    {/* Booking Status */}
                                     <Text
                                       accessible={true}
                                       allowFontScaling={true}
@@ -1109,7 +1111,7 @@ const HomeScreen = props => {
                                         dimensions.width
                                       )}
                                     >
-                                      {'Status - '}
+                                      {'Booking Status - '}
                                     </Text>
                                     {/* Accepted */}
                                     <>

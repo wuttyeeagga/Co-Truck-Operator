@@ -113,9 +113,11 @@ const EditProfileScreen = props => {
       </View>
 
       <KeyboardAwareScrollView
+        keyboardShouldPersistTaps={'never'}
+        showsVerticalScrollIndicator={true}
+        style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
         contentContainerStyle={StyleSheet.applyWidth(
           {
-            flex: 1,
             justifyContent: 'space-between',
             paddingBottom: 20,
             paddingLeft: 20,
@@ -124,8 +126,6 @@ const EditProfileScreen = props => {
           },
           dimensions.width
         )}
-        keyboardShouldPersistTaps={'never'}
-        showsVerticalScrollIndicator={true}
       >
         <View>
           <CotruckApi.FetchEditProfilePOST

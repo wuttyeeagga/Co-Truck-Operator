@@ -91,13 +91,14 @@ const CompanyInformationScreen = props => {
 
       <ScrollView
         bounces={true}
-        contentContainerStyle={StyleSheet.applyWidth(
-          { margin: 20, paddingBottom: 50 },
-          dimensions.width
-        )}
         keyboardShouldPersistTaps={'never'}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
+        style={StyleSheet.applyWidth({ margin: 20 }, dimensions.width)}
+        contentContainerStyle={StyleSheet.applyWidth(
+          { paddingBottom: 50 },
+          dimensions.width
+        )}
       >
         <CotruckApi.FetchCompanyInformationPOST id={Constants['AUTH_OWNER_ID']}>
           {({ loading, error, data, refetchCompanyInformation }) => {

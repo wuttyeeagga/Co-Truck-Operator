@@ -96,6 +96,7 @@ const ImportActivityScreen = props => {
         indicatorColor={theme.colors.primary}
         keyboardDismissMode={'auto'}
         pressColor={theme.colors.primary}
+        scrollEnabled={true}
         swipeEnabled={true}
         tabBarPosition={'top'}
         tabsBackgroundColor={theme.colors.background}
@@ -180,7 +181,7 @@ const ImportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16 }
+                                  { fontSize: 16, marginTop: 100 }
                                 ),
                                 dimensions.width
                               )}
@@ -605,8 +606,7 @@ const ImportActivityScreen = props => {
                                             dimensions.width
                                           )}
                                         >
-                                          {' '}
-                                          {listData?.status}
+                                          {' Accepted'}
                                         </Text>
                                       </View>
                                     </View>
@@ -708,7 +708,7 @@ const ImportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16, margin: 20 }
+                                  { fontSize: 16, margin: 20, marginTop: 100 }
                                 ),
                                 dimensions.width
                               )}
@@ -1229,7 +1229,7 @@ const ImportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16 }
+                                  { fontSize: 16, marginTop: 100 }
                                 ),
                                 dimensions.width
                               )}

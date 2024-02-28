@@ -102,6 +102,7 @@ const HomeScreen = props => {
         indicatorColor={theme.colors.primary}
         keyboardDismissMode={'auto'}
         pressColor={theme.colors.primary}
+        scrollEnabled={false}
         swipeEnabled={true}
         tabBarPosition={'top'}
         tabsBackgroundColor={theme.colors.background}

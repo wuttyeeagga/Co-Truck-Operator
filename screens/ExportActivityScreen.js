@@ -96,6 +96,7 @@ const ExportActivityScreen = props => {
         indicatorColor={theme.colors.primary}
         keyboardDismissMode={'auto'}
         pressColor={theme.colors.primary}
+        scrollEnabled={true}
         swipeEnabled={true}
         tabBarPosition={'top'}
         tabsBackgroundColor={theme.colors.background}
@@ -180,7 +181,7 @@ const ExportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16 }
+                                  { fontSize: 16, marginTop: 100 }
                                 ),
                                 dimensions.width
                               )}
@@ -600,7 +601,7 @@ const ExportActivityScreen = props => {
                                             dimensions.width
                                           )}
                                         >
-                                          {'Accepted'}
+                                          {' Accepted'}
                                         </Text>
                                       </View>
                                     </View>
@@ -695,7 +696,12 @@ const ExportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16 }
+                                  {
+                                    alignSelf: 'center',
+                                    flex: 1,
+                                    fontSize: 16,
+                                    marginTop: 100,
+                                  }
                                 ),
                                 dimensions.width
                               )}
@@ -1212,7 +1218,7 @@ const ExportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16 }
+                                  { fontSize: 16, marginTop: 100 }
                                 ),
                                 dimensions.width
                               )}

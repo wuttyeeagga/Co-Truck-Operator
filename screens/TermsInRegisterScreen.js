@@ -85,6 +85,7 @@ const TermsInRegisterScreen = props => {
 
       <ScrollView
         bounces={true}
+        contentContainerStyle={{ minHeight: '100%', minWidth: '100%' }}
         keyboardShouldPersistTaps={'never'}
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
@@ -138,7 +139,7 @@ const TermsInRegisterScreen = props => {
             >
               {'Please read the following terms'}
             </Text>
-            {/* Text 2 */}
+            {/* Text Two */}
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -236,6 +237,8 @@ const TermsInRegisterScreen = props => {
             }}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+                borderRadius: 12,
+                height: 48,
                 margin: 20,
                 marginTop: 40,
               }),

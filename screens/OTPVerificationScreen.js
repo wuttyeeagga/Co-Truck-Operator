@@ -94,7 +94,7 @@ const OTPVerificationScreen = props => {
           {props.route?.params?.mobile ?? ''}
         </Text>
       </View>
-      {/* View 2 */}
+      {/* PIn View */}
       <View
         style={StyleSheet.applyWidth(
           { backgroundColor: theme.colors['Surface'], margin: 20 },
@@ -168,6 +168,9 @@ const OTPVerificationScreen = props => {
                     user_id: props.route?.params?.user_id ?? '',
                   });
                 }
+                navigation.navigate('BottomTabNavigator', {
+                  screen: 'PaidScreen',
+                });
               } catch (err) {
                 console.error(err);
               }

@@ -445,7 +445,7 @@ const ChangePasswordScreen = props => {
               } else {
                 showAlertUtil({
                   title: 'Message',
-                  message: 'Invalid password',
+                  message: 'New passwords are not the same!',
                   buttonText: undefined,
                 });
               }

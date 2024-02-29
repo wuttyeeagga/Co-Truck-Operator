@@ -28,6 +28,7 @@ const VehicleProofScreen = props => {
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [textInputValue2, setTextInputValue2] = React.useState('');
   const [vehicleInsurance, setVehicleInsurance] = React.useState({});
   const [vehicleList, setVehicleList] = React.useState([
     { label: '20ft Container Truck', value: 8 },
@@ -211,6 +212,54 @@ const VehicleProofScreen = props => {
               dimensions.width
             )}
             value={textInputValue}
+          />
+        </View>
+
+        <View>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                color: theme.colors['CoTruckBlack'],
+                fontSize: 16,
+                margin: 20,
+                marginBottom: 0,
+                marginTop: 0,
+              }),
+              dimensions.width
+            )}
+          >
+            {'Driver License'}
+          </Text>
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize={'none'}
+            changeTextDelay={500}
+            onChangeText={newTextInputValue => {
+              const textInputValue = newTextInputValue;
+              try {
+                setTextInputValue2(newTextInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            placeholder={'Driver License'}
+            placeholderTextColor={theme.colors['TextPlaceholder']}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                {
+                  borderColor: theme.colors['Light'],
+                  borderRadius: 12,
+                  height: 48,
+                  margin: 20,
+                  paddingLeft: 12,
+                }
+              ),
+              dimensions.width
+            )}
+            value={textInputValue2}
           />
         </View>
         {/* NRC Container */}
@@ -446,13 +495,14 @@ const VehicleProofScreen = props => {
                 name: props.route?.params?.name ?? '',
                 vehicle_rc: vehicleRC,
               });
-              console.log(vehicleInsurance, vehicleRC);
             } catch (err) {
               console.error(err);
             }
           }}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+              borderRadius: 12,
+              height: 48,
               margin: 20,
             }),
             dimensions.width

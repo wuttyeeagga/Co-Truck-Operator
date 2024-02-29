@@ -10,6 +10,7 @@ import {
   Button,
   Divider,
   Icon,
+  IconButton,
   MultiSelectPicker,
   PickerItem,
   Pressable,
@@ -27,29 +28,21 @@ const RegisterScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const [agentLicense, setAgentLicense] = React.useState('');
   const [agentLicenseFile, setAgentLicenseFile] = React.useState([]);
   const [agentName, setAgentName] = React.useState('');
   const [companyName, setCompanyName] = React.useState('');
   const [companyPhone, setCompanyPhone] = React.useState('');
   const [companyRegNo, setCompanyRegNo] = React.useState('');
   const [companyRegisterFile, setCompanyRegisterFile] = React.useState([]);
-  const [contactPersonEmail, setContactPersonEmail] = React.useState('');
-  const [contactPersonName, setContactPersonName] = React.useState('');
-  const [contactPersonPassword, setContactPersonPassword] = React.useState('');
-  const [contactPersonPhone, setContactPersonPhone] = React.useState('');
-  const [emailInput, setEmailInput] = React.useState('');
+  const [contactEmail, setContactEmail] = React.useState('');
+  const [contactName, setContactName] = React.useState('');
+  const [contactPhone, setContactPhone] = React.useState('');
+  const [contactPwd, setContactPwd] = React.useState('');
   const [isAgentFile, setIsAgentFile] = React.useState(false);
   const [isCompanyFile, setIsCompanyFile] = React.useState(false);
-  const [isPhotoUploaded, setIsPhotoUploaded] = React.useState(false);
-  const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
-    []
-  );
-  const [multiSelectPickerValue2, setMultiSelectPickerValue2] = React.useState(
-    []
-  );
-  const [numberInputValue, setNumberInputValue] = React.useState('');
+  const [isPwdShown, setIsPwdShown] = React.useState(false);
   const [pathsOptions, setPathsOptions] = React.useState([]);
+  const [preferPaths, setPreferPaths] = React.useState([]);
   const [referCode, setReferCode] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState(undefined);
   const cotruckPreferredPathsPOST = CotruckApi.usePreferredPathsPOST();
@@ -128,6 +121,7 @@ const RegisterScreen = props => {
       </View>
 
       <KeyboardAwareScrollView
+        contentContainerStyle={{ minHeight: '100%', minWidth: '100%' }}
         keyboardShouldPersistTaps={'never'}
         showsVerticalScrollIndicator={true}
       >
@@ -202,7 +196,7 @@ const RegisterScreen = props => {
                 console.error(err);
               }
             }}
-            placeholder={'+95 Company Phone'}
+            placeholder={'Company Phone (09xxxxxxxxx)'}
             placeholderTextColor={theme.colors['TextPlaceholder']}
             style={StyleSheet.applyWidth(
               {
@@ -406,17 +400,6 @@ const RegisterScreen = props => {
               )}
             </>
           </View>
-          {/* Divider 2 */}
-          <Divider
-            color={theme.colors['Error']}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.DividerStyles(theme)['Divider'], {
-                marginBottom: 10,
-                marginTop: 10,
-              }),
-              dimensions.width
-            )}
-          />
           {/* Agent License Document */}
           <View>
             {/* Sub Title View */}
@@ -605,7 +588,7 @@ const RegisterScreen = props => {
             onValueChange={newMultiSelectPickerValue => {
               const pickerValue = newMultiSelectPickerValue;
               try {
-                setMultiSelectPickerValue2(newMultiSelectPickerValue);
+                setPreferPaths(newMultiSelectPickerValue);
               } catch (err) {
                 console.error(err);
               }
@@ -628,7 +611,7 @@ const RegisterScreen = props => {
               dimensions.width
             )}
             type={'solid'}
-            value={multiSelectPickerValue2}
+            value={preferPaths}
           >
             <PickerItem
               style={StyleSheet.applyWidth({ margin: 5 }, dimensions.width)}
@@ -658,12 +641,12 @@ const RegisterScreen = props => {
           >
             {'Contact Person Details'}
           </Text>
-          {/* Contact Person Name */}
+          {/* Contact Name */}
           <TextInput
             autoCapitalize={'none'}
-            onChangeText={newContactPersonNameValue => {
+            onChangeText={newContactNameValue => {
               try {
-                setContactPersonName(newContactPersonNameValue);
+                setContactName(newContactNameValue);
               } catch (err) {
                 console.error(err);
               }
@@ -689,14 +672,14 @@ const RegisterScreen = props => {
               },
               dimensions.width
             )}
-            value={contactPersonName}
+            value={contactName}
           />
-          {/* Contact Person Email */}
+          {/* Contact Email */}
           <TextInput
             autoCapitalize={'none'}
-            onChangeText={newContactPersonEmailValue => {
+            onChangeText={newContactEmailValue => {
               try {
-                setContactPersonEmail(newContactPersonEmailValue);
+                setContactEmail(newContactEmailValue);
               } catch (err) {
                 console.error(err);
               }
@@ -722,19 +705,21 @@ const RegisterScreen = props => {
               },
               dimensions.width
             )}
-            value={contactPersonEmail}
+            value={contactEmail}
           />
-          {/* Contact Person Phone */}
+          {/* Contact Phone */}
           <TextInput
             autoCapitalize={'none'}
-            onChangeText={newContactPersonPhoneValue => {
+            keyboardType={'phone-pad'}
+            maxLength={11}
+            onChangeText={newContactPhoneValue => {
               try {
-                setContactPersonPhone(newContactPersonPhoneValue);
+                setContactPhone(newContactPhoneValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'+95 Mobile Number'}
+            placeholder={'Mobile Number (09xxxxxxxxx)'}
             placeholderTextColor={theme.colors['Light']}
             style={StyleSheet.applyWidth(
               {
@@ -755,42 +740,128 @@ const RegisterScreen = props => {
               },
               dimensions.width
             )}
-            value={contactPersonPhone}
+            value={contactPhone}
           />
-          {/* Contact Person Password */}
-          <TextInput
-            autoCapitalize={'none'}
-            onChangeText={newContactPersonPasswordValue => {
-              try {
-                setContactPersonPassword(newContactPersonPasswordValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            placeholder={'Password'}
-            placeholderTextColor={theme.colors['Light']}
-            secureTextEntry={true}
-            style={StyleSheet.applyWidth(
-              {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
-                borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
-                borderLeftWidth: 1,
-                borderRadius: 12,
-                borderRightWidth: 1,
-                borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
-                height: 48,
-                margin: 20,
-                paddingBottom: 8,
-                paddingLeft: 12,
-                paddingRight: 8,
-                paddingTop: 8,
-              },
-              dimensions.width
-            )}
-            value={contactPersonPassword}
-          />
+          <View>
+            {/* Contact Password */}
+            <>
+              {isPwdShown ? null : (
+                <TextInput
+                  autoCapitalize={'none'}
+                  onChangeText={newContactPasswordValue => {
+                    try {
+                      setContactPwd(newContactPasswordValue);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  placeholder={'Password'}
+                  placeholderTextColor={theme.colors['Light']}
+                  secureTextEntry={true}
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      borderBottomWidth: 1,
+                      borderColor: theme.colors['Light'],
+                      borderLeftWidth: 1,
+                      borderRadius: 12,
+                      borderRightWidth: 1,
+                      borderTopWidth: 1,
+                      fontFamily: 'Inter_400Regular',
+                      height: 48,
+                      margin: 20,
+                      paddingBottom: 8,
+                      paddingLeft: 12,
+                      paddingRight: 8,
+                      paddingTop: 8,
+                    },
+                    dimensions.width
+                  )}
+                  value={contactPwd}
+                />
+              )}
+            </>
+            {/* Contact Password 2 */}
+            <>
+              {!isPwdShown ? null : (
+                <TextInput
+                  autoCapitalize={'none'}
+                  onChangeText={newContactPassword2Value => {
+                    try {
+                      setContactPwd(newContactPassword2Value);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  placeholder={'Password'}
+                  placeholderTextColor={theme.colors['Light']}
+                  secureTextEntry={false}
+                  style={StyleSheet.applyWidth(
+                    {
+                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      borderBottomWidth: 1,
+                      borderColor: theme.colors['Light'],
+                      borderLeftWidth: 1,
+                      borderRadius: 12,
+                      borderRightWidth: 1,
+                      borderTopWidth: 1,
+                      fontFamily: 'Inter_400Regular',
+                      height: 48,
+                      margin: 20,
+                      paddingBottom: 8,
+                      paddingLeft: 12,
+                      paddingRight: 8,
+                      paddingTop: 8,
+                    },
+                    dimensions.width
+                  )}
+                  value={contactPwd}
+                />
+              )}
+            </>
+            {/* Eye Icon */}
+            <>
+              {isPwdShown ? null : (
+                <IconButton
+                  color={theme.colors['CoTruckBlack']}
+                  icon={'Ionicons/ios-eye-off-outline'}
+                  onPress={() => {
+                    try {
+                      setIsPwdShown(!isPwdShown);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  size={32}
+                  style={StyleSheet.applyWidth(
+                    { position: 'absolute', right: 30, top: 27 },
+                    dimensions.width
+                  )}
+                />
+              )}
+            </>
+            {/* Eye Icon 2 */}
+            <>
+              {!isPwdShown ? null : (
+                <IconButton
+                  color={theme.colors['CoTruckBlack']}
+                  icon={'Ionicons/ios-eye-outline'}
+                  onPress={() => {
+                    try {
+                      setIsPwdShown(!isPwdShown);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  size={32}
+                  style={StyleSheet.applyWidth(
+                    { position: 'absolute', right: 30, top: 27 },
+                    dimensions.width
+                  )}
+                />
+              )}
+            </>
+          </View>
           {/* Referral Code */}
           <TextInput
             autoCapitalize={'none'}
@@ -832,14 +903,15 @@ const RegisterScreen = props => {
                   comp_name: companyName,
                   comp_phone: companyPhone,
                   comp_regi: companyRegNo,
-                  agent_license: agentLicense,
                   agent_name: agentName,
-                  prefer_paths: multiSelectPickerValue2,
-                  email: contactPersonEmail,
-                  mobile: contactPersonPhone,
-                  password: contactPersonPassword,
+                  prefer_paths: preferPaths,
+                  email: contactEmail,
+                  mobile: contactPhone,
+                  password: contactPwd,
                   refer_code: referCode,
-                  name: contactPersonName,
+                  name: contactName,
+                  agent_license_file: agentLicenseFile,
+                  company_file: companyRegisterFile,
                 });
               } catch (err) {
                 console.error(err);

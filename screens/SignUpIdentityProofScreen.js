@@ -84,6 +84,7 @@ const SignUpIdentityProofScreen = props => {
 
       <ScrollView
         bounces={true}
+        contentContainerStyle={{ minHeight: '100%', minWidth: '100%' }}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
@@ -354,8 +355,7 @@ const SignUpIdentityProofScreen = props => {
                   comp_name: props.route?.params?.comp_name ?? '',
                   comp_phone: props.route?.params?.comp_phone ?? '',
                   comp_regi: props.route?.params?.comp_regi ?? '',
-                  certificate: props.route?.params?.certificate ?? '',
-                  agent_license: props.route?.params?.agent_license ?? '',
+                  agent_license: props.route?.params?.agent_license_file ?? '',
                   agent_name: props.route?.params?.agent_name ?? '',
                   prefer_paths: props.route?.params?.prefer_paths ?? '',
                   mobile: props.route?.params?.mobile ?? '',
@@ -363,9 +363,7 @@ const SignUpIdentityProofScreen = props => {
                   password: props.route?.params?.password ?? '',
                   refer_code: props.route?.params?.refer_code ?? '',
                   NRC: nrcFront,
-                  driving_license: dlFront,
                   NRC_back: nrcBack,
-                  driving_license_back: dlBack,
                   name: props.route?.params?.name ?? '',
                 });
               } catch (err) {

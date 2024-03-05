@@ -1377,7 +1377,7 @@ const ImportBookingDetailsAcceptedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'product type lo ml'}
+                          {fetchData?.data?.product_category}
                         </Text>
                       </View>
                     </View>

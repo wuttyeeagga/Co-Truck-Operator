@@ -41,6 +41,7 @@ const ExportNewTripPendingScreen = props => {
         return;
       }
       console.log(props.route?.params?.book_truck_id ?? '');
+      /* 'If/Else' action requires configuration: select If Condition */
     } catch (err) {
       console.error(err);
     }
@@ -64,7 +65,7 @@ const ExportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={props.route?.params?.book_truck_id ?? ''}
+          book_truck_id={321}
           handlers={{
             onData: fetchData => {
               try {

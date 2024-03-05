@@ -42,7 +42,6 @@ import ImportBookingDetailsOnCompletedScreen from './screens/ImportBookingDetail
 import ImportBookingDetailsOnGoingScreen from './screens/ImportBookingDetailsOnGoingScreen';
 import ImportBookingDetailsOnPendingScreen from './screens/ImportBookingDetailsOnPendingScreen';
 import ImportLiveTrackScreen from './screens/ImportLiveTrackScreen';
-import ImportNewTripAcceptedScreen from './screens/ImportNewTripAcceptedScreen';
 import ImportNewTripPendingScreen from './screens/ImportNewTripPendingScreen';
 import ImportReasonForCancelScreen from './screens/ImportReasonForCancelScreen';
 import InvoiceGenerateIndexScreen from './screens/InvoiceGenerateIndexScreen';
@@ -227,17 +226,17 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="ImportBookingDetailsAcceptedScreen"
-          component={ImportBookingDetailsAcceptedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details Accepted',
-          })}
-        />
-        <Stack.Screen
           name="ImportBookingDetailsOnCompletedScreen"
           component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Completed',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsAcceptedScreen"
+          component={ImportBookingDetailsAcceptedScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details Accepted',
           })}
         />
         <Stack.Screen
@@ -427,13 +426,6 @@ export default function RootAppNavigator() {
           component={ChangePasswordScreen}
           options={({ navigation }) => ({
             title: 'Change Password',
-          })}
-        />
-        <Stack.Screen
-          name="ImportNewTripAcceptedScreen"
-          component={ImportNewTripAcceptedScreen}
-          options={({ navigation }) => ({
-            title: 'Import New Trip Accepted',
           })}
         />
         <Stack.Screen

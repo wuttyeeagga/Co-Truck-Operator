@@ -1200,7 +1200,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Per Container Weight (Ton)'}
+                          {'Weight (Tons)'}
                         </Text>
                       </View>
                       {/* Icvon View */}

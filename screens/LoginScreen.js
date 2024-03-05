@@ -413,6 +413,7 @@ const LoginScreen = props => {
                   navigation.navigate('BottomTabNavigator', {
                     screen: 'HomeScreen',
                   });
+                  console.log(token);
                 } catch (err) {
                   console.error(err);
                 }

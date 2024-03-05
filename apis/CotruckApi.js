@@ -586,7 +586,8 @@ export const bookingDetailPOST = (
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE1MmRjZDc0MDI5ZTdkNjQ5OGU2ZjllZDAzZGJjNjRhZDcwMmI1Mjc4NzdiZDU0ZDViZmY3MWFmYjExOGFkMWVjNzgxYmY1NjdlMmM0ZDJiIn0.eyJhdWQiOiIxIiwianRpIjoiMTUyZGNkNzQwMjllN2Q2NDk4ZTZmOWVkMDNkYmM2NGFkNzAyYjUyNzg3N2JkNTRkNWJmZjcxYWZiMTE4YWQxZWM3ODFiZjU2N2UyYzRkMmIiLCJpYXQiOjE3MDk2MjU4MDgsIm5iZiI6MTcwOTYyNTgwOCwiZXhwIjoxNzQxMTYxODA4LCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.KWnfsCuP3j5INMbqc0ZWRtnh7M9a4Fy_r-olwoKvnNgIi4u0Z0sF3yHusO4GAg8eUmLP0mQXljjg88d8wAJkJIbUg-O5jOnlglZ5YgRsIV34tTsKWIzR7_KV_CF1uZCo5usbtZcpuFz4jipdN8Dw1FsRYJSQITHQ9AT0K8R1Pqm8h6Yg1SmbCkXw-oFd2A-I77SbNyl1YQa1dpGt7ZTlUUz7rsndDRNY1i4bkPnCG8hNKipwlUeD5bHLLJyECYFllqi6fwGN_b99JCjouBIJwiL4Ejum6lZWUsyAdWwT-clmIj25YQ_l8knXIvzxOF5TA29WPNwB8d2kLS_rsoY_D03IXqLaZNIvrkbFzRlbPRdCunnoJseMM5v3J2laBJe32vA6h2bXpk2dxmp2xsovU9QUVM53BvdW1SaZJYgAcWmkuBViX55Ag7O8ogHYgxDnS1ePJ49brCr2mHKyLaU2Ho1cUP7Mf6purYP6-Fbj_r5YL1CQrP_7XgMcoA8WKHz5RLhJgD1nYI8A57p7-TJOm6m4EJDuWimwIDLc31dwVLtzsHdYREDQJZELDBoxQi6eY8IxTzLXN9ZLpILPIFaOU7PJqhTlys0g1EftNspVWSKDHqPmYzz0G4KC8UqBTWYqJCXIfF25Stf0lzreu5CAG7CYG8ctBWX8MlW66WWAvzo',
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -1352,73 +1353,6 @@ export const FetchChangePwdPOST = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchChangePwd: refetch });
-};
-
-export const checkFcmPOST = (
-  Constants,
-  { fcm_token, user_id },
-  handlers = {}
-) =>
-  fetch(`https://dev.cotruck.co/index.php/api/checkfcm`, {
-    body: JSON.stringify({ user_id: user_id, fcm_token: fcm_token }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
-
-export const useCheckFcmPOST = (initialArgs = {}, { handlers = {} } = {}) => {
-  const queryClient = useQueryClient();
-  const Constants = GlobalVariables.useValues();
-  return useMutation(
-    args => checkFcmPOST(Constants, { ...initialArgs, ...args }, handlers),
-    {
-      onError: (err, variables, { previousValue }) => {
-        if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
-        }
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
-      },
-    }
-  );
-};
-
-export const FetchCheckFcmPOST = ({
-  children,
-  onData = () => {},
-  handlers = {},
-  refetchInterval,
-  fcm_token,
-  user_id,
-}) => {
-  const Constants = GlobalVariables.useValues();
-  const isFocused = useIsFocused();
-  const prevIsFocused = usePrevious(isFocused);
-
-  const {
-    isLoading: loading,
-    data,
-    error,
-    mutate: refetch,
-  } = useCheckFcmPOST(
-    { fcm_token, user_id },
-    { refetchInterval, handlers: { onData, ...handlers } }
-  );
-
-  React.useEffect(() => {
-    if (!prevIsFocused && isFocused) {
-      refetch();
-    }
-  }, [isFocused, prevIsFocused]);
-
-  React.useEffect(() => {
-    if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
-      console.error(error);
-    }
-  }, [error]);
-  return children({ loading, data, error, refetchCheckFcm: refetch });
 };
 
 export const companyInformationPOST = (Constants, { id }, handlers = {}) =>
@@ -2496,52 +2430,51 @@ export const FetchGeneratedInvoicesPOST = ({
   return children({ loading, data, error, refetchGeneratedInvoices: refetch });
 };
 
-export const getBidsPOST = (
+export const getDriverLocationsPOST = (
   Constants,
-  { bids, desc, id, user_id, vehicle },
+  { driver_job_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/mybooking`, {
-    body: JSON.stringify({
-      user_id: user_id,
-      bids: bids,
-      vehicle: vehicle,
-      id: id,
-      desc: desc,
-    }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+  fetch(`https://dev.cotruck.co/index.php/api/driver-live-track`, {
+    body: JSON.stringify({ driver_job_id: driver_job_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM2MDJkMWQwMmM3Nzk2MDI3MGZmNWVhY2RjY2ZkZGRhNWZkYmRjOTUxOTIyZTEwY2I0OWM4ZjMzOWJkZTYzZTBkOGMyYmQ1NDkxY2NkMDg2In0.eyJhdWQiOiIxIiwianRpIjoiMzYwMmQxZDAyYzc3OTYwMjcwZmY1ZWFjZGNjZmRkZGE1ZmRiZGM5NTE5MjJlMTBjYjQ5YzhmMzM5YmRlNjNlMGQ4YzJiZDU0OTFjY2QwODYiLCJpYXQiOjE3MDcxMjYzNDEsIm5iZiI6MTcwNzEyNjM0MSwiZXhwIjoxNzM4NzQ4NzQxLCJzdWIiOiIyMTMiLCJzY29wZXMiOltdfQ.YNtWy6AQoaGxJcmcl8Nqinc0P7UL-ikmNo9rKva5lg3qf0_t4vZwTd5MGBNvS1vzwOZMADnxBv5dwYW1x7B6YiK-sufEa7OHn7MFYpaLmLuruQAaKqJ44U4ODThSeMt90EbcExJ_x4U-KnjN_v4aunjz6b0BW5dStgc5aYBniRZ6vVP8A51pg95v9VpuRznQ2g1im8JZzw3QrWj_lO8O7Ym5cSxb5A6XnVxXhrbHqXZmhZUgBkzfRY5J8MYb_QY7PBBJ4p4Ck7s6Gy5mTmgh9-CbFvHMpDtaSk-gWjbAfr0QW9mCSaBImMQMsBw5XBhoIEj-EyTxDh1ZI9r95nARhhfYA-3Yfk0rzL6b8P8_zFf0dDrRlxgLahcghTMPMARLsnyftKw5g2goWno8-y_m5Ue7a3OjvtFu0PVKIdMz_em7iVXCE9hdx0kLARKjvcmPzeyXWpa-yDlX5zHAY1pDdLdBywFAC5ARo0edvb2up46lYkvbAf7MQ0wZlhALQeuShh0ksWk2p3lfk0Drd-vZxaRZDX0StotktQpGOXVyc1Vf-qkdLIkXJX5tAukoWQOC8Xp0DErpwfg4Gzl_T9qswGLhWeYax3vvzLGNaUKVRAhLnatCJ4zIrIbQyRh0nNOPQyCe9LQHQPBj6puvnx7nMHBXi-U1bHI5d2bvl1F0nQI',
+      'Content-Type': 'application/json',
+    },
     method: 'POST',
   }).then(res => handleResponse(res, handlers));
 
-export const useGetBidsPOST = (initialArgs = {}, { handlers = {} } = {}) => {
+export const useGetDriverLocationsPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => getBidsPOST(Constants, { ...initialArgs, ...args }, handlers),
+    args =>
+      getDriverLocationsPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData('live track', previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries('live track');
+        queryClient.invalidateQueries('live tracks');
       },
     }
   );
 };
 
-export const FetchGetBidsPOST = ({
+export const FetchGetDriverLocationsPOST = ({
   children,
   onData = () => {},
   handlers = {},
   refetchInterval,
-  bids,
-  desc,
-  id,
-  user_id,
-  vehicle,
+  driver_job_id,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -2552,8 +2485,8 @@ export const FetchGetBidsPOST = ({
     data,
     error,
     mutate: refetch,
-  } = useGetBidsPOST(
-    { bids, desc, id, user_id, vehicle },
+  } = useGetDriverLocationsPOST(
+    { driver_job_id },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -2569,7 +2502,7 @@ export const FetchGetBidsPOST = ({
       console.error(error);
     }
   }, [error]);
-  return children({ loading, data, error, refetchGetBids: refetch });
+  return children({ loading, data, error, refetchGetDriverLocations: refetch });
 };
 
 export const getIdentifyProofPOST = (

@@ -5,7 +5,6 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
-  Button,
   Divider,
   Icon,
   IconButton,
@@ -77,9 +76,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         {/* Export Booking Details */}
-        <CotruckApi.FetchBookingDetailPOST
-          book_truck_id={props.route?.params?.book_truck_id ?? ''}
-        >
+        <CotruckApi.FetchBookingDetailPOST book_truck_id={321}>
           {({ loading, error, data, refetchBookingDetail }) => {
             const exportBookingDetailsData = data?.json;
             if (loading) {
@@ -358,12 +355,21 @@ const ExportBookingDetailsOnGoingScreen = props => {
                                 exportBookingDetailsData?.data?.drop_latitude,
                               drop_long:
                                 exportBookingDetailsData?.data?.drop_longitude,
+                              driver_lat:
+                                exportBookingDetailsData?.data?.driver_latitude,
+                              driver_long:
+                                exportBookingDetailsData?.data
+                                  ?.driver_longitude,
                             });
                           } catch (err) {
                             console.error(err);
                           }
                         }}
                         size={32}
+                        style={StyleSheet.applyWidth(
+                          { marginLeft: 5, marginRight: 5 },
+                          dimensions.width
+                        )}
                       />
                       {/*  Call Button */}
                       <IconButton
@@ -526,6 +532,364 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     dimensions.width
                   )}
                 >
+                  {/* Pickup Date Info */}
+                  <View>
+                    {/* Row View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          marginBottom: 10,
+                          marginTop: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Pickup Date */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Pickup Date'}
+                        </Text>
+                      </View>
+                      {/* View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['Light']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={16}
+                        />
+                      </View>
+                      {/* View 3 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Pickup Date */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              { fontSize: 16, marginLeft: 10 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {
+                            exportBookingDetailsData?.data?.pickup_date?.split(
+                              ' '
+                            )[0]
+                          }{' '}
+                          {
+                            exportBookingDetailsData?.data?.pickup_date
+                              ?.split(' ')[1]
+                              ?.split(':')[0]
+                          }
+                          {':'}
+                          {
+                            exportBookingDetailsData?.data?.pickup_date
+                              ?.split(' ')[1]
+                              ?.split(':')[1]
+                          }
+                        </Text>
+                      </View>
+                    </View>
+                    <Divider
+                      color={theme.colors['Tab_Divider']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { height: 2, marginTop: 5 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                  {/* Pickup Address */}
+                  <View>
+                    {/* Row View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          marginBottom: 10,
+                          marginTop: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Pickup Address View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Pickup Address */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Pickup Address'}
+                        </Text>
+                      </View>
+                      {/* View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['Light']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={16}
+                        />
+                      </View>
+                      {/* Pickup Address View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Pickup Date */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              { fontSize: 16, marginLeft: 10 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {exportBookingDetailsData?.data?.pickup_address}
+                        </Text>
+                      </View>
+                    </View>
+                    <Divider
+                      color={theme.colors['Tab_Divider']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { height: 2, marginTop: 5 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                  {/* Drop Address */}
+                  <View>
+                    {/* Row View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          marginBottom: 10,
+                          marginTop: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Drop Address View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Drop Address */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Drop Address'}
+                        </Text>
+                      </View>
+                      {/* Icon View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['Light']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={16}
+                        />
+                      </View>
+                      {/* Drop Address View  */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Drop Address */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              { fontSize: 16, marginLeft: 10 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {exportBookingDetailsData?.data?.drop_address}
+                        </Text>
+                      </View>
+                    </View>
+                    <Divider
+                      color={theme.colors['Tab_Divider']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { height: 2, marginTop: 5 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                  {/* Booking Type */}
+                  <View>
+                    {/* Row View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          marginBottom: 10,
+                          marginTop: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Booking Type View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Booking Type */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Booking Type'}
+                        </Text>
+                      </View>
+                      {/* Icon View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['Light']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={16}
+                        />
+                      </View>
+                      {/* Booking Type View  */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Booking Type */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              { fontSize: 16, marginLeft: 10 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {exportBookingDetailsData?.data?.booking_type}
+                        </Text>
+                      </View>
+                    </View>
+                    <Divider
+                      color={theme.colors['Tab_Divider']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { height: 2, marginTop: 5 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
                   {/* Truck Type Info */}
                   <View>
                     {/* Row View */}
@@ -554,7 +918,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
                               {
-                                color: theme.colors['TextPlaceholder'],
+                                color: theme.colors['CoTruckBlack'],
                                 fontSize: 16,
                               }
                             ),
@@ -591,7 +955,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16 }
+                              { fontSize: 16, marginLeft: 10 }
                             ),
                             dimensions.width
                           )}
@@ -625,12 +989,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Material Type View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
+                        {/* Material Type */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -638,14 +1004,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
                               {
-                                color: theme.colors['TextPlaceholder'],
+                                color: theme.colors['CoTruckBlack'],
                                 fontSize: 16,
                               }
                             ),
                             dimensions.width
                           )}
                         >
-                          {'Type of material'}
+                          {'Material Type'}
                         </Text>
                       </View>
                       {/* View 2 */}
@@ -661,7 +1027,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* View 3 */}
+                      {/* Material Type View  */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
@@ -675,7 +1041,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16 }
+                              { fontSize: 16, marginLeft: 10 }
                             ),
                             dimensions.width
                           )}
@@ -709,12 +1075,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Weight View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
+                        {/* Weight */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -722,17 +1090,17 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
                               {
-                                color: theme.colors['TextPlaceholder'],
+                                color: theme.colors['CoTruckBlack'],
                                 fontSize: 16,
                               }
                             ),
                             dimensions.width
                           )}
                         >
-                          {'Per Container Weight (Ton)'}
+                          {'Weight (Tons)'}
                         </Text>
                       </View>
-                      {/* View 2 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '5%' },
@@ -745,7 +1113,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* View 3 */}
+                      {/* Weight View  */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
@@ -759,7 +1127,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16 }
+                              { fontSize: 16, marginLeft: 10 }
                             ),
                             dimensions.width
                           )}
@@ -779,7 +1147,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     />
                   </View>
-                  {/* N0. Truck Info */}
+                  {/* No Of Trucks */}
                   <View>
                     {/* Row View */}
                     <View
@@ -806,14 +1174,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
                               {
-                                color: theme.colors['TextPlaceholder'],
+                                color: theme.colors['CoTruckBlack'],
                                 fontSize: 16,
                               }
                             ),
                             dimensions.width
                           )}
                         >
-                          {'No of container'}
+                          {'No of Trucks'}
                         </Text>
                       </View>
                       {/* View 2 */}
@@ -843,7 +1211,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16 }
+                              { fontSize: 16, marginLeft: 10 }
                             ),
                             dimensions.width
                           )}
@@ -890,7 +1258,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
                               {
-                                color: theme.colors['TextPlaceholder'],
+                                color: theme.colors['CoTruckBlack'],
                                 fontSize: 16,
                               }
                             ),
@@ -927,100 +1295,12 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16 }
+                              { fontSize: 16, marginLeft: 10 }
                             ),
                             dimensions.width
                           )}
                         >
                           {exportBookingDetailsData?.data?.product_category}
-                        </Text>
-                      </View>
-                    </View>
-                    <Divider
-                      color={theme.colors['Tab_Divider']}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.DividerStyles(theme)['Divider'],
-                          { height: 2, marginTop: 5 }
-                        ),
-                        dimensions.width
-                      )}
-                    />
-                  </View>
-                  {/* Pickup Date Info */}
-                  <View>
-                    {/* Row View */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                          marginBottom: 10,
-                          marginTop: 10,
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: '45%' },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 3'],
-                              {
-                                color: theme.colors['TextPlaceholder'],
-                                fontSize: 16,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'Pickup Date'}
-                        </Text>
-                      </View>
-                      {/* View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: '5%' },
-                          dimensions.width
-                        )}
-                      >
-                        <Icon
-                          color={theme.colors['Light']}
-                          name={'Entypo/dots-two-vertical'}
-                          size={16}
-                        />
-                      </View>
-                      {/* View 3 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: '45%' },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Pickup Date */}
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16 }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {
-                            exportBookingDetailsData?.data?.pickup_date?.split(
-                              ' '
-                            )[0]
-                          }
                         </Text>
                       </View>
                     </View>

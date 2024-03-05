@@ -6,12 +6,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import getLocationUtil from '../utils/getLocation';
 import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import {
-  MapCallout,
-  MapMarker,
-  MapMarkerCluster,
-  MapView,
-} from '@draftbit/maps';
+import { MapMarker, MapMarkerCluster, MapView } from '@draftbit/maps';
 import { Icon, ScreenContainer, Touchable, withTheme } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
 import { Text, View } from 'react-native';
@@ -48,6 +43,12 @@ const ExportLiveTrackScreen = props => {
         console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
         setMyLocation(MYLOCATION);
         console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+        console.log('Start ON_SCREEN_FOCUS:3 CONSOLE_LOG');
+        console.log(
+          props.route?.params?.driver_lat ?? '',
+          props.route?.params?.driver_long ?? ''
+        );
+        console.log('Complete ON_SCREEN_FOCUS:3 CONSOLE_LOG');
       } catch (err) {
         console.error(err);
         error = err.message ?? err;
@@ -150,7 +151,6 @@ const ExportLiveTrackScreen = props => {
           {/* Pickup Marker */}
           <MapMarker
             androidUseDefaultIconImplementation={true}
-            description={'pickup marker'}
             flat={true}
             latitude={props.route?.params?.pickup_lat ?? ''}
             longitude={props.route?.params?.pickup_long ?? ''}
@@ -178,25 +178,19 @@ const ExportLiveTrackScreen = props => {
             pinImageSize={50}
             title={'Picker Marker'}
             tracksViewChanges={true}
-          >
-            <MapCallout showTooltip={true} />
-          </MapMarker>
+          />
           {/* Driver Marker */}
           <MapMarker
-            description={'driver marker'}
             flat={true}
-            latitude={16.790791}
-            longitude={96.141157}
+            latitude={props.route?.params?.driver_lat ?? ''}
+            longitude={props.route?.params?.driver_long ?? ''}
             pinImage={Images._40ft}
             pinImageSize={50}
             title={'Driver Marker'}
             tracksViewChanges={true}
-          >
-            <MapCallout showTooltip={true} />
-          </MapMarker>
+          />
           {/* Drop Marker */}
           <MapMarker
-            description={'drop marker'}
             flat={true}
             latitude={props.route?.params?.drop_lat ?? ''}
             longitude={props.route?.params?.drop_long ?? ''}
@@ -222,11 +216,9 @@ const ExportLiveTrackScreen = props => {
             }}
             pinColor={theme.colors['Success']}
             pinImageSize={50}
-            title={'Drop Marker'}
+            title={'Drop Off Marker'}
             tracksViewChanges={true}
-          >
-            <MapCallout showTooltip={true} />
-          </MapMarker>
+          />
         </MapMarkerCluster>
       </MapView>
     </ScreenContainer>

@@ -5,7 +5,6 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
-  Button,
   Divider,
   Icon,
   IconButton,
@@ -413,6 +412,11 @@ const ImportBookingDetailsOnGoingScreen = props => {
                                 importBookingDetailsData?.data?.drop_latitude,
                               drop_long:
                                 importBookingDetailsData?.data?.drop_longitude,
+                              driver_lat:
+                                importBookingDetailsData?.data?.driver_latitude,
+                              driver_long:
+                                importBookingDetailsData?.data
+                                  ?.driver_longitude,
                             });
                           } catch (err) {
                             console.error(err);
@@ -585,6 +589,111 @@ const ImportBookingDetailsOnGoingScreen = props => {
                     dimensions.width
                   )}
                 >
+                  {/* Pickup Date */}
+                  <View>
+                    {/* Row View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          marginBottom: 10,
+                          marginTop: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Date View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Date */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Pickup Date'}
+                        </Text>
+                      </View>
+                      {/* Icon View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['CoTruckGrey']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={16}
+                        />
+                      </View>
+                      {/* Pickup Date View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Pickup Date */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {
+                            importBookingDetailsData?.data?.pickup_date?.split(
+                              ' '
+                            )[0]
+                          }{' '}
+                          {
+                            importBookingDetailsData?.data?.pickup_date
+                              ?.split(' ')[1]
+                              ?.split(':')[0]
+                          }
+                          {':'}
+                          {
+                            importBookingDetailsData?.data?.pickup_date
+                              ?.split(' ')[1]
+                              ?.split(':')[1]
+                          }
+                        </Text>
+                      </View>
+                    </View>
+                    <Divider
+                      color={theme.colors['Tab_Divider']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { height: 2, marginTop: 5 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
                   {/* Pickup Address */}
                   <View>
                     {/* Row View */}
@@ -696,7 +805,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {/* Drop Address */}
+                        {/* Drop Off Address */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -980,7 +1089,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Type of material'}
+                          {'Material Type'}
                         </Text>
                       </View>
                       {/* Icon View */}
@@ -1070,7 +1179,7 @@ const ImportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Load Weight (Ton)'}
+                          {'Weight (Tons)'}
                         </Text>
                       </View>
                       {/* Icon View */}
@@ -1290,111 +1399,6 @@ const ImportBookingDetailsOnGoingScreen = props => {
                           )}
                         >
                           {importBookingDetailsData?.data?.product_category}
-                        </Text>
-                      </View>
-                    </View>
-                    <Divider
-                      color={theme.colors['Tab_Divider']}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.DividerStyles(theme)['Divider'],
-                          { height: 2, marginTop: 5 }
-                        ),
-                        dimensions.width
-                      )}
-                    />
-                  </View>
-                  {/* Pickup Date */}
-                  <View>
-                    {/* Row View */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                          marginBottom: 10,
-                          marginTop: 10,
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      {/* Date View */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: '45%' },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Date */}
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 3'],
-                              {
-                                color: theme.colors['CoTruckBlack'],
-                                fontSize: 16,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'Pickup Date'}
-                        </Text>
-                      </View>
-                      {/* Icon View */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: '5%' },
-                          dimensions.width
-                        )}
-                      >
-                        <Icon
-                          color={theme.colors['CoTruckGrey']}
-                          name={'Entypo/dots-two-vertical'}
-                          size={16}
-                        />
-                      </View>
-                      {/* Pickup Date View */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: '45%' },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Pickup Date */}
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 3'],
-                              {
-                                color: theme.colors['CoTruckBlack'],
-                                fontSize: 16,
-                                marginLeft: 10,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {
-                            importBookingDetailsData?.data?.pickup_date?.split(
-                              ' '
-                            )[0]
-                          }{' '}
-                          {
-                            importBookingDetailsData?.data?.pickup_date
-                              ?.split(' ')[1]
-                              ?.split(':')[0]
-                          }
-                          {':'}
-                          {
-                            importBookingDetailsData?.data?.pickup_date
-                              ?.split(' ')[1]
-                              ?.split(':')[1]
-                          }
                         </Text>
                       </View>
                     </View>

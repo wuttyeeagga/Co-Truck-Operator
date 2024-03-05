@@ -8,13 +8,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import { ScreenContainer, WebView, withTheme } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import {
-  ActivityIndicator,
-  FlatList,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const SystemInvoicesViewScreen = props => {

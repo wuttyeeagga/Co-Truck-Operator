@@ -23,8 +23,8 @@ import EditDriverScreen from './screens/EditDriverScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import EditVehicleScreen from './screens/EditVehicleScreen';
 import ExportActivityScreen from './screens/ExportActivityScreen';
+import ExportBookingDetailsAcceptedScreen from './screens/ExportBookingDetailsAcceptedScreen';
 import ExportBookingDetailsOnCompletedScreen from './screens/ExportBookingDetailsOnCompletedScreen';
-import ExportBookingDetailsOnConfirmedScreen from './screens/ExportBookingDetailsOnConfirmedScreen';
 import ExportBookingDetailsOnGoingScreen from './screens/ExportBookingDetailsOnGoingScreen';
 import ExportBookingDetailsOnPendingScreen from './screens/ExportBookingDetailsOnPendingScreen';
 import ExportLiveTrackScreen from './screens/ExportLiveTrackScreen';
@@ -37,8 +37,8 @@ import HomeScreen from './screens/HomeScreen';
 import IdentityProofEditScreen from './screens/IdentityProofEditScreen';
 import IdentityProofViewScreen from './screens/IdentityProofViewScreen';
 import ImportActivityScreen from './screens/ImportActivityScreen';
+import ImportBookingDetailsAcceptedScreen from './screens/ImportBookingDetailsAcceptedScreen';
 import ImportBookingDetailsOnCompletedScreen from './screens/ImportBookingDetailsOnCompletedScreen';
-import ImportBookingDetailsOnConfirmedScreen from './screens/ImportBookingDetailsOnConfirmedScreen';
 import ImportBookingDetailsOnGoingScreen from './screens/ImportBookingDetailsOnGoingScreen';
 import ImportBookingDetailsOnPendingScreen from './screens/ImportBookingDetailsOnPendingScreen';
 import ImportLiveTrackScreen from './screens/ImportLiveTrackScreen';
@@ -227,6 +227,27 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="ImportBookingDetailsAcceptedScreen"
+          component={ImportBookingDetailsAcceptedScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details Accepted',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnCompletedScreen"
+          component={ImportBookingDetailsOnCompletedScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Completed',
+          })}
+        />
+        <Stack.Screen
+          name="InvoiceScreen"
+          component={InvoiceScreen}
+          options={({ navigation }) => ({
+            title: 'Invoice',
+          })}
+        />
+        <Stack.Screen
           name="ImportBookingDetailsOnGoingScreen"
           component={ImportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
@@ -255,13 +276,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ImportBookingDetailsOnConfirmedScreen"
-          component={ImportBookingDetailsOnConfirmedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on  Confirmed',
-          })}
-        />
-        <Stack.Screen
           name="ReferAFriendScreen"
           component={ReferAFriendScreen}
           options={({ navigation }) => ({
@@ -269,24 +283,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ImportBookingDetailsOnCompletedScreen"
-          component={ImportBookingDetailsOnCompletedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Completed',
-          })}
-        />
-        <Stack.Screen
           name="ImportReasonForCancelScreen"
           component={ImportReasonForCancelScreen}
           options={({ navigation }) => ({
             title: 'Import Reason for cancel',
-          })}
-        />
-        <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
-          options={({ navigation }) => ({
-            title: 'Invoice',
           })}
         />
         <Stack.Screen
@@ -549,10 +549,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ExportBookingDetailsOnConfirmedScreen"
-          component={ExportBookingDetailsOnConfirmedScreen}
+          name="ExportBookingDetailsAcceptedScreen"
+          component={ExportBookingDetailsAcceptedScreen}
           options={({ navigation }) => ({
-            title: 'Export Booking Details on  Confirmed',
+            title: 'Export Booking Details Accepted',
           })}
         />
         <Stack.Screen

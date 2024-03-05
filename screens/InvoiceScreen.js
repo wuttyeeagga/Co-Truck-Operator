@@ -71,7 +71,7 @@ const InvoiceScreen = props => {
               dimensions.width
             )}
           >
-            {'Invoices'}
+            {'Invoices (API lo)'}
           </Text>
         </View>
       </View>

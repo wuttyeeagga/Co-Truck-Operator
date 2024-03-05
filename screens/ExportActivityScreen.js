@@ -113,9 +113,12 @@ const ExportActivityScreen = props => {
             >
               <ScrollView
                 bounces={true}
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flex: 1 },
+                  dimensions.width
+                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
-                style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
                 {/* Confirmed Booking List */}
                 <CotruckApi.FetchBookingList$Confirmed$POST
@@ -230,7 +233,7 @@ const ExportActivityScreen = props => {
                                   onPress={() => {
                                     try {
                                       navigation.navigate(
-                                        'ExportBookingDetailsOnConfirmedScreen',
+                                        'ExportBookingDetailsAcceptedScreen',
                                         {
                                           booking_status: listData?.status,
                                           booking_type: listData?.booking_type,
@@ -633,9 +636,12 @@ const ExportActivityScreen = props => {
             >
               <ScrollView
                 bounces={true}
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flex: 1 },
+                  dimensions.width
+                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
-                style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
                 {/* Ongoing Booking List */}
                 <CotruckApi.FetchBookingListPOST
@@ -1154,9 +1160,12 @@ const ExportActivityScreen = props => {
             >
               <ScrollView
                 bounces={true}
+                contentContainerStyle={StyleSheet.applyWidth(
+                  { flex: 1 },
+                  dimensions.width
+                )}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
-                style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
                 {/* Completed Booking List */}
                 <CotruckApi.FetchBookingList$PAID$POST

@@ -5,6 +5,7 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
+  Button,
   Divider,
   Icon,
   IconButton,
@@ -17,16 +18,29 @@ import * as Linking from 'expo-linking';
 import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
-const ExportBookingDetailsOnGoingScreen = props => {
+const ImportBookingDetailsAcceptedScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      console.log(
+        props.route?.params?.book_truck_id ?? '',
+        props.route?.params?.booking_status ?? ''
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer
       hasBottomSafeArea={true}
       hasSafeArea={true}
       scrollable={false}
-      style={StyleSheet.applyWidth({ borderRadius: 12 }, dimensions.width)}
     >
       {/* My Header */}
       <View
@@ -53,7 +67,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
         >
           <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
         </Touchable>
-        {/* Title */}
+
         <Text
           accessible={true}
           allowFontScaling={true}
@@ -75,41 +89,32 @@ const ExportBookingDetailsOnGoingScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
-        {/* Export Booking Details */}
         <CotruckApi.FetchBookingDetailPOST
           book_truck_id={props.route?.params?.book_truck_id ?? ''}
         >
           {({ loading, error, data, refetchBookingDetail }) => {
-            const exportBookingDetailsData = data?.json;
+            const fetchData = data?.json;
             if (loading) {
               return (
-                <>
-                  {/* loading View */}
-                  <View
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                    dimensions.width
+                  )}
+                >
+                  <ActivityIndicator
+                    animating={true}
+                    color={theme.colors['Primary']}
+                    hidesWhenStopped={true}
+                    size={'large'}
                     style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        flex: 1,
-                        justifyContent: 'center',
-                      },
+                      GlobalStyles.ActivityIndicatorStyles(theme)[
+                        'Activity Indicator'
+                      ],
                       dimensions.width
                     )}
-                  >
-                    {/* loading */}
-                    <ActivityIndicator
-                      animating={true}
-                      color={theme.colors['Primary']}
-                      hidesWhenStopped={true}
-                      size={'large'}
-                      style={StyleSheet.applyWidth(
-                        GlobalStyles.ActivityIndicatorStyles(theme)[
-                          'Activity Indicator'
-                        ],
-                        dimensions.width
-                      )}
-                    />
-                  </View>
-                </>
+                  />
+                </View>
               );
             }
 
@@ -119,12 +124,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
 
             return (
               <>
+                {/* Main View */}
                 <View
                   style={StyleSheet.applyWidth(
                     { marginLeft: 20, marginRight: 20 },
                     dimensions.width
                   )}
                 >
+                  {/* Status View */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -139,20 +146,20 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {/* Booking ID */}
+                    {/* Id */}
                     <Text
                       accessible={true}
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['Text 3'],
-                          { color: theme.colors['Custom Color_9'] }
+                          { color: theme.colors['CoTruckGrey'], margin: 5 }
                         ),
                         dimensions.width
                       )}
                     >
                       {'Booking ID : '}
-                      {exportBookingDetailsData?.data?.book_truck_id}
+                      {fetchData?.data?.book_truck_id}
                     </Text>
                     {/* Status */}
                     <Text
@@ -161,16 +168,16 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['Text 3'],
-                          { color: theme.colors['Success'] }
+                          { color: theme.colors['Success'], margin: 5 }
                         ),
                         dimensions.width
                       )}
                     >
                       {'Status : '}
-                      {exportBookingDetailsData?.data?.status}
+                      {fetchData?.data?.status}
                     </Text>
                   </View>
-                  {/* Shipper Row */}
+                  {/* Shipper Info Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -183,21 +190,21 @@ const ExportBookingDetailsOnGoingScreen = props => {
                   >
                     <View
                       style={StyleSheet.applyWidth(
-                        { alignItems: 'center', flexDirection: 'row' },
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        },
                         dimensions.width
                       )}
                     >
                       {/* Shipper Image View */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
-                          dimensions.width
-                        )}
-                      >
+                      <View>
+                        {/* Shipper Image */}
                         <Image
                           resizeMode={'cover'}
                           source={{
-                            uri: `${exportBookingDetailsData?.data?.shipper_info?.user_image}`,
+                            uri: `${fetchData?.data?.shipper_info?.user_image}`,
                           }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
@@ -208,10 +215,10 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* Info */}
+                      {/* Shipper Info */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
+                          { justifyContent: 'space-between', marginLeft: 5 },
                           dimensions.width
                         )}
                       >
@@ -220,53 +227,76 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['Text 3'],
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                marginBottom: 5,
+                              }
+                            ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.shipper_info?.name}
+                          {fetchData?.data?.shipper_info?.name}
                         </Text>
                         {/* Shipper Mobile */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['Text 3'],
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 12,
+                                marginTop: 5,
+                              }
+                            ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.shipper_info?.mobile}
+                          {fetchData?.data?.shipper_info?.mobile}
                         </Text>
                       </View>
                     </View>
                     {/* Action View */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { alignItems: 'center', flexDirection: 'row' },
-                        dimensions.width
-                      )}
-                    >
-                      {/* Call */}
-                      <IconButton
-                        icon={'Feather/phone'}
-                        onPress={() => {
-                          try {
-                            Linking.openURL(
-                              `tel:${exportBookingDetailsData?.data?.shipper_info?.mobile}`
-                            );
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        size={32}
-                        style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
-                          dimensions.width
-                        )}
-                      />
+                    <View>
+                      {/* Call View */}
+                      <View>
+                        {/* Call Icon */}
+                        <IconButton
+                          color={theme.colors['Primary']}
+                          icon={'Feather/phone'}
+                          onPress={() => {
+                            try {
+                              Linking.openURL(
+                                `tel:${fetchData?.data?.shipper_info?.mobile}`
+                              );
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
+                          size={25}
+                          style={StyleSheet.applyWidth(
+                            { marginRight: 20 },
+                            dimensions.width
+                          )}
+                        />
+                      </View>
                     </View>
                   </View>
-                  {/* Driver Row */}
+                  {/* Divider 2 */}
+                  <Divider
+                    color={theme.colors.divider}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.DividerStyles(theme)['Divider'],
+                        { marginBottom: 5, marginTop: 5 }
+                      ),
+                      dimensions.width
+                    )}
+                  />
+                  {/* Driver Info Row */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -279,20 +309,26 @@ const ExportBookingDetailsOnGoingScreen = props => {
                   >
                     <View
                       style={StyleSheet.applyWidth(
-                        { alignItems: 'center', flexDirection: 'row' },
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        },
                         dimensions.width
                       )}
                     >
+                      {/* Driver Image View */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
+                          { marginLeft: 20 },
                           dimensions.width
                         )}
                       >
+                        {/* Driver Image */}
                         <Image
                           resizeMode={'cover'}
                           source={{
-                            uri: `${exportBookingDetailsData?.data?.driver_info?.user_image}`,
+                            uri: `${fetchData?.data?.driver_info?.user_image}`,
                           }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
@@ -303,10 +339,10 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           )}
                         />
                       </View>
-                      {/* Info */}
+                      {/* Driver Info */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { marginLeft: 10 },
+                          { justifyContent: 'space-between', marginLeft: 5 },
                           dimensions.width
                         )}
                       >
@@ -315,22 +351,36 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['Text 3'],
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                marginBottom: 5,
+                              }
+                            ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.driver_info?.name}
+                          {fetchData?.data?.driver_info?.name}
                         </Text>
                         {/* Driver Mobile */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['Text 3'],
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 12,
+                                marginLeft: 5,
+                                marginTop: 5,
+                              }
+                            ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.driver_info?.mobile}
+                          {fetchData?.data?.driver_info?.mobile}
                         </Text>
                       </View>
                     </View>
@@ -341,116 +391,64 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Live Track */}
-                      <IconButton
-                        color={theme.colors['Success']}
-                        icon={'Feather/map-pin'}
-                        onPress={() => {
-                          try {
-                            navigation.navigate('ExportLiveTrackScreen', {
-                              pickup_lat:
-                                exportBookingDetailsData?.data?.pickup_latitude,
-                              pickup_long:
-                                exportBookingDetailsData?.data
-                                  ?.pickup_longitude,
-                              drop_lat:
-                                exportBookingDetailsData?.data?.drop_latitude,
-                              drop_long:
-                                exportBookingDetailsData?.data?.drop_longitude,
-                              driver_lat:
-                                exportBookingDetailsData?.data?.driver_latitude,
-                              driver_long:
-                                exportBookingDetailsData?.data
-                                  ?.driver_longitude,
-                            });
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        size={32}
-                        style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
-                          dimensions.width
-                        )}
-                      />
-                      {/*  Call Button */}
-                      <IconButton
-                        icon={'Feather/phone'}
-                        onPress={() => {
-                          try {
-                            Linking.openURL(
-                              `tel:${exportBookingDetailsData?.data?.driver_info?.mobile}`
-                            );
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        size={32}
-                        style={StyleSheet.applyWidth(
-                          { marginLeft: 5, marginRight: 5 },
-                          dimensions.width
-                        )}
-                      />
+                      {/* Call View */}
+                      <View>
+                        {/* Call Icon */}
+                        <IconButton
+                          color={theme.colors['Primary']}
+                          icon={'Feather/phone'}
+                          onPress={() => {
+                            try {
+                              Linking.openURL(
+                                `tel:${fetchData?.data?.driver_info?.mobile}`
+                              );
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
+                          size={25}
+                          style={StyleSheet.applyWidth(
+                            { marginRight: 20 },
+                            dimensions.width
+                          )}
+                        />
+                      </View>
                     </View>
                   </View>
+                  {/* Divider 3 */}
+                  <Divider
+                    color={theme.colors.divider}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.DividerStyles(theme)['Divider'],
+                        { marginBottom: 5, marginTop: 5 }
+                      ),
+                      dimensions.width
+                    )}
+                  />
                 </View>
                 {/* Location Container */}
                 <View
                   style={StyleSheet.applyWidth(
-                    { alignItems: 'center', flexDirection: 'row', margin: 20 },
+                    {
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      marginBottom: 10,
+                      marginLeft: 20,
+                      marginRight: 20,
+                      marginTop: 10,
+                    },
                     dimensions.width
                   )}
                 >
-                  {/* Depot Location */}
+                  {/* Pickup View */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
                         alignItems: 'center',
                         justifyContent: 'center',
-                        width: '30%',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    {/* Depot */}
-                    <Text
-                      accessible={true}
-                      allowFontScaling={true}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text 3'],
-                          {
-                            fontFamily: 'System',
-                            fontSize: 12,
-                            fontWeight: '400',
-                            margin: 5,
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {exportBookingDetailsData?.data?.depot_location}
-                    </Text>
-                  </View>
-                  {/* Icon View */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { width: '5%' },
-                      dimensions.width
-                    )}
-                  >
-                    <Icon
-                      color={theme.colors['CoTruckGrey']}
-                      name={'AntDesign/swap'}
-                      size={20}
-                    />
-                  </View>
-                  {/* Pickup Location */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        marginBottom: 10,
+                        marginTop: 10,
                         width: '30%',
                       },
                       dimensions.width
@@ -464,22 +462,26 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['Text 3'],
                           {
+                            color: theme.colors['CoTruckBlack'],
                             fontFamily: 'System',
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: '400',
-                            margin: 5,
                           }
                         ),
                         dimensions.width
                       )}
                     >
-                      {exportBookingDetailsData?.data?.pickup_location}
+                      {fetchData?.data?.pickup_location}
                     </Text>
                   </View>
-                  {/* Icon View 2 */}
+                  {/* Icon View */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { width: '5%' },
+                      {
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '5%',
+                      },
                       dimensions.width
                     )}
                   >
@@ -489,7 +491,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       size={20}
                     />
                   </View>
-                  {/* Drop Location */}
+                  {/* Drop View */}
                   <View
                     style={StyleSheet.applyWidth(
                       {
@@ -506,22 +508,57 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text 3'],
-                          {
-                            fontFamily: 'System',
-                            fontSize: 12,
-                            fontWeight: '400',
-                            margin: 5,
-                          }
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          { color: theme.colors['CoTruckBlack'] }
                         ),
                         dimensions.width
                       )}
                     >
-                      {exportBookingDetailsData?.data?.drop_location}
+                      {fetchData?.data?.drop_location}
+                    </Text>
+                  </View>
+                  {/* Icon View 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '5%',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      color={theme.colors['CoTruckGrey']}
+                      name={'AntDesign/swap'}
+                      size={20}
+                    />
+                  </View>
+                  {/* Depot View */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '30%',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Depot */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.data?.depot_location}
                     </Text>
                   </View>
                 </View>
-                {/* Invoice */}
+                {/* Booking Info View */}
                 <View
                   style={StyleSheet.applyWidth(
                     {
@@ -534,9 +571,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     dimensions.width
                   )}
                 >
-                  {/* Pickup Date Info */}
+                  {/* Pickup Date */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -548,6 +585,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Pickup Date View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
@@ -572,7 +610,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           {'Pickup Date'}
                         </Text>
                       </View>
-                      {/* View 2 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '5%' },
@@ -585,7 +623,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* View 3 */}
+                      {/* Pickup Date View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
@@ -599,24 +637,24 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
+                          {fetchData?.data?.pickup_date?.split(' ')[0]}{' '}
                           {
-                            exportBookingDetailsData?.data?.pickup_date?.split(
-                              ' '
-                            )[0]
-                          }{' '}
-                          {
-                            exportBookingDetailsData?.data?.pickup_date
+                            fetchData?.data?.pickup_date
                               ?.split(' ')[1]
                               ?.split(':')[0]
                           }
                           {':'}
                           {
-                            exportBookingDetailsData?.data?.pickup_date
+                            fetchData?.data?.pickup_date
                               ?.split(' ')[1]
                               ?.split(':')[1]
                           }
@@ -636,7 +674,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                   </View>
                   {/* Pickup Address */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -673,7 +711,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           {'Pickup Address'}
                         </Text>
                       </View>
-                      {/* View 2 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '5%' },
@@ -686,26 +724,30 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* Pickup Address View */}
+                      {/* Pickup Address */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
-                        {/* Pickup Date */}
+                        {/* Pickup Address */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.pickup_address}
+                          {fetchData?.data?.pickup_address}
                         </Text>
                       </View>
                     </View>
@@ -722,7 +764,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                   </View>
                   {/* Drop Address */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -772,7 +814,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* Drop Address View  */}
+                      {/* Drop Address View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
@@ -786,12 +828,16 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.drop_address}
+                          {fetchData?.data?.drop_address}
                         </Text>
                       </View>
                     </View>
@@ -808,7 +854,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                   </View>
                   {/* Booking Type */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -858,7 +904,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* Booking Type View  */}
+                      {/* Booking Type View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
@@ -872,12 +918,16 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.booking_type}
+                          {fetchData?.data?.booking_type}
                         </Text>
                       </View>
                     </View>
@@ -892,9 +942,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     />
                   </View>
-                  {/* Truck Type Info */}
+                  {/* Truck Type  */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -906,13 +956,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Vehicle Type View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
-                        {/* Truck Type */}
+                        {/* Vehicle Type */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -930,7 +981,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           {'Truck Type'}
                         </Text>
                       </View>
-                      {/* View 2 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '5%' },
@@ -943,26 +994,30 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* View 3 */}
+                      {/* Vehicle Type View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
-                        {/* Truck Type */}
+                        {/* Vehicle Type */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.vehicle_type}
+                          {fetchData?.data?.vehicle_type}
                         </Text>
                       </View>
                     </View>
@@ -977,9 +1032,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     />
                   </View>
-                  {/* Material Info */}
+                  {/* Material Type */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -1013,10 +1068,10 @@ const ExportBookingDetailsOnGoingScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Material Type'}
+                          {'Type of material'}
                         </Text>
                       </View>
-                      {/* View 2 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '5%' },
@@ -1029,26 +1084,30 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* Material Type View  */}
+                      {/* Material Type View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
-                        {/* Type Material */}
+                        {/* Material Type */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.material_type}
+                          {fetchData?.data?.material_type}
                         </Text>
                       </View>
                     </View>
@@ -1063,9 +1122,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     />
                   </View>
-                  {/* Load Weight Info */}
+                  {/* Load Weight */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -1077,14 +1136,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Weight View */}
+                      {/* Load Weight View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
-                        {/* Weight */}
+                        {/* Load Weight */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -1115,7 +1174,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* Weight View  */}
+                      {/* Load Weight View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
@@ -1129,12 +1188,16 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.load_weight}
+                          {fetchData?.data?.load_weight}
                         </Text>
                       </View>
                     </View>
@@ -1149,9 +1212,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     />
                   </View>
-                  {/* No Of Trucks */}
+                  {/* No of Container */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -1163,12 +1226,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* No of Container */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
+                        {/* No of Container */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -1186,7 +1251,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           {'No of Trucks'}
                         </Text>
                       </View>
-                      {/* View 2 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '5%' },
@@ -1199,26 +1264,30 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* View 3 */}
+                      {/* No of Container */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
-                        {/* No. truck */}
+                        {/* No of Container */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.no_of_truck}
+                          {fetchData?.data?.no_of_truck}
                         </Text>
                       </View>
                     </View>
@@ -1233,9 +1302,9 @@ const ExportBookingDetailsOnGoingScreen = props => {
                       )}
                     />
                   </View>
-                  {/* Product Info */}
+                  {/* Product Type */}
                   <View>
-                    {/* Row View */}
+                    {/* Row Wrapper */}
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -1247,12 +1316,14 @@ const ExportBookingDetailsOnGoingScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Product Type View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
                           dimensions.width
                         )}
                       >
+                        {/* Product Type */}
                         <Text
                           accessible={true}
                           allowFontScaling={true}
@@ -1270,7 +1341,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           {'Product type'}
                         </Text>
                       </View>
-                      {/* View 2 */}
+                      {/* Icon View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '5%' },
@@ -1283,7 +1354,7 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           size={16}
                         />
                       </View>
-                      {/* View 3 */}
+                      {/* Product Type View */}
                       <View
                         style={StyleSheet.applyWidth(
                           { width: '45%' },
@@ -1297,12 +1368,16 @@ const ExportBookingDetailsOnGoingScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 3'],
-                              { fontSize: 16, marginLeft: 10 }
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                                marginLeft: 10,
+                              }
                             ),
                             dimensions.width
                           )}
                         >
-                          {exportBookingDetailsData?.data?.product_category}
+                          {'product type lo ml'}
                         </Text>
                       </View>
                     </View>
@@ -1318,6 +1393,37 @@ const ExportBookingDetailsOnGoingScreen = props => {
                     />
                   </View>
                 </View>
+                {/* Button Container */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      marginBottom: 10,
+                      marginLeft: 20,
+                      marginRight: 20,
+                      marginTop: 10,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Cancel */}
+                  <Button
+                    onPress={() => {
+                      try {
+                        navigation.navigate('ImportReasonForCancelScreen');
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ButtonStyles(theme)['Button'],
+                        { borderRadius: 12, height: 48, margin: 20 }
+                      ),
+                      dimensions.width
+                    )}
+                    title={'Cancel'}
+                  />
+                </View>
               </>
             );
           }}
@@ -1327,4 +1433,4 @@ const ExportBookingDetailsOnGoingScreen = props => {
   );
 };
 
-export default withTheme(ExportBookingDetailsOnGoingScreen);
+export default withTheme(ImportBookingDetailsAcceptedScreen);

@@ -44,28 +44,7 @@ const ImportNewTripPendingScreen = props => {
     const d = a + b;
     return d;
   };
-  const cotruckCategoryChargesPOST = CotruckApi.useCategoryChargesPOST();
   const cotruckAcceptNewTripPOST = CotruckApi.useAcceptNewTripPOST();
-  const isFocused = useIsFocused();
-  React.useEffect(() => {
-    const handler = async () => {
-      try {
-        if (!isFocused) {
-          return;
-        }
-        const extraCharges = (await cotruckCategoryChargesPOST.mutateAsync())
-          ?.json;
-        const result = extraCharges?.data;
-
-        const valueOhYYl5Jw = result;
-        setChargesOptions(valueOhYYl5Jw);
-        const zxd = valueOhYYl5Jw;
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    handler();
-  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -85,12 +64,12 @@ const ImportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={120}
+          book_truck_id={props.route?.params?.book_truck_id ?? ''}
           handlers={{
             onData: fetchData => {
               try {
-                const asdf = fetchData?.data?.drivers;
-                setChooseDriverOptions(asdf);
+                const DRIVERS = fetchData?.data?.drivers;
+                setChooseDriverOptions(DRIVERS);
                 setSubTotal((fetchData?.data?.sub_total).toString());
                 setTotalPrice((fetchData?.data?.total_price).toString());
               } catch (err) {
@@ -772,7 +751,7 @@ const ImportNewTripPendingScreen = props => {
                         const valueozrfZm8a = newChooseDriverValue?.length;
                         setTruckNumbers(valueozrfZm8a);
                         const ans = valueozrfZm8a;
-                        console.log(asdf, asdf?.length, ans);
+                        console.log(asdf);
                       } catch (err) {
                         console.error(err);
                       }
@@ -905,12 +884,14 @@ const ImportNewTripPendingScreen = props => {
                             );
                             setAddOnAmount(valueMNqv9sFA);
                             const ewer = valueMNqv9sFA;
-                            if (newAddOnAmountInputValue === ' ') {
+                            if (newAddOnAmountInputValue === '') {
+                              const valuetH3yI2lk = 0;
+                              setAddOnAmount(valuetH3yI2lk);
+                              const qwerqwer = valuetH3yI2lk;
                               const valueeiBeF7mh =
-                                fetchData?.data?.total_price;
+                                (fetchData?.data?.total_price).toString();
                               setTotalPrice(valueeiBeF7mh);
                               const qwer = valueeiBeF7mh;
-                              console.log(qwer);
                             } else {
                               const results = addExtraToTotal(
                                 parseInt(ewer, 10),
@@ -1054,28 +1035,36 @@ const ImportNewTripPendingScreen = props => {
                       onPress={() => {
                         const handler = async () => {
                           try {
-                            const results = (
-                              await cotruckAcceptNewTripPOST.mutateAsync({
-                                booking_id: fetchData?.data?.book_truck_id,
-                                charges: extraAmount,
-                                driver_ids: selectDriver,
-                                extra_charge_desc: [],
-                                final_total: totalPrice,
-                                operator_id: Constants['AUTH_OWNER_ID'],
-                                qty: fetchData?.data?.no_of_truck,
-                                sub_total: subTotal,
-                              })
-                            )?.json;
-                            console.log(results, selectDriver);
-                            navigation.navigate('BottomTabNavigator', {
-                              screen: 'HomeScreen',
-                            });
+                            if (chooseDriverOptions?.length === '') {
+                              showAlertUtil({
+                                title: 'Message',
+                                message: 'Drivers and Trucks are not enough.',
+                                buttonText: undefined,
+                              });
+                            } else {
+                              const results = (
+                                await cotruckAcceptNewTripPOST.mutateAsync({
+                                  addon_amount: addOnAmount,
+                                  booking_id: fetchData?.data?.book_truck_id,
+                                  driver_ids: selectDriver,
+                                  final_total: totalPrice,
+                                  operator_id: Constants['AUTH_OWNER_ID'],
+                                  qty: fetchData?.data?.no_of_truck,
+                                  sub_total: fetchData?.data?.sub_total,
+                                })
+                              )?.json;
 
-                            showAlertUtil({
-                              title: 'Message',
-                              message: fetchData?.message,
-                              buttonText: undefined,
-                            });
+                              showAlertUtil({
+                                title: 'Message',
+                                message: results?.message,
+                                buttonText: undefined,
+                              });
+
+                              navigation.navigate('BottomTabNavigator', {
+                                screen: 'HomeScreen',
+                              });
+                              console.log(results, selectDriver);
+                            }
                           } catch (err) {
                             console.error(err);
                           }

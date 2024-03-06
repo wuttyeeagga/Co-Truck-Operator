@@ -5,6 +5,7 @@ import Header2Block from '../components/Header2Block';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -41,7 +42,6 @@ const ExportNewTripPendingScreen = props => {
         return;
       }
       console.log(props.route?.params?.book_truck_id ?? '');
-      /* 'If/Else' action requires configuration: select If Condition */
     } catch (err) {
       console.error(err);
     }
@@ -65,7 +65,7 @@ const ExportNewTripPendingScreen = props => {
         showsVerticalScrollIndicator={true}
       >
         <CotruckApi.FetchNewLeadsDetailsPOST
-          book_truck_id={321}
+          book_truck_id={props.route?.params?.book_truck_id ?? ''}
           handlers={{
             onData: fetchData => {
               try {
@@ -73,6 +73,7 @@ const ExportNewTripPendingScreen = props => {
                 setSubTotal(value8WJTmdjB);
                 const zxcv = value8WJTmdjB;
                 setTotalPrice((fetchData?.data?.total_price).toString());
+                const DRIVERS = fetchData?.data?.drivers;
               } catch (err) {
                 console.error(err);
               }
@@ -877,14 +878,22 @@ const ExportNewTripPendingScreen = props => {
                             );
                             setAddOnAmount(valuem1lWIUmm);
                             const qwer = valuem1lWIUmm;
-                            const results = addFunction(
-                              parseInt(qwer, 10),
-                              parseInt(subTotal, 10)
-                            );
+                            if (newAddOnAmountInputValue === '') {
+                              setAddOnAmount(0);
+                              setTotalPrice(
+                                (fetchData?.data?.total_price).toString()
+                              );
+                            } else {
+                              const results = addFunction(
+                                parseInt(qwer, 10),
+                                parseInt(subTotal, 10)
+                              );
 
-                            const valueQKV0aUfS = results.toString();
-                            setTotalPrice(valueQKV0aUfS);
-                            const asdf = valueQKV0aUfS;
+                              const valueQKV0aUfS = results.toString();
+                              setTotalPrice(valueQKV0aUfS);
+                              const asdf = valueQKV0aUfS;
+                            }
+
                             console.log(results, asdf);
                           } catch (err) {
                             console.error(err);
@@ -1021,10 +1030,9 @@ const ExportNewTripPendingScreen = props => {
                           try {
                             const results = (
                               await cotruckAcceptNewTripPOST.mutateAsync({
+                                addon_amount: addOnAmount,
                                 booking_id: null,
-                                charges: 450,
                                 driver_ids: chooseDriverOptions,
-                                extra_charge_desc: [],
                                 final_total: totalPrice,
                                 operator_id: Constants['AUTH_OWNER_ID'],
                                 qty: fetchData?.data?.no_of_truck,

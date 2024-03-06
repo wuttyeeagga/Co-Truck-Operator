@@ -15,10 +15,9 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 export const acceptNewTripPOST = (
   Constants,
   {
+    addon_amount,
     booking_id,
-    charges,
     driver_ids,
-    extra_charge_desc,
     final_total,
     operator_id,
     qty,
@@ -31,11 +30,10 @@ export const acceptNewTripPOST = (
       booking_id: booking_id,
       qty: qty,
       driver_ids: driver_ids,
-      extra_charges: charges,
       sub_total: sub_total,
       final_total: final_total,
-      extra_charge_desc: extra_charge_desc,
       operator_id: operator_id,
+      addon_amount: addon_amount,
     }),
     headers: {
       Accept: 'application/json',
@@ -72,10 +70,9 @@ export const FetchAcceptNewTripPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  addon_amount,
   booking_id,
-  charges,
   driver_ids,
-  extra_charge_desc,
   final_total,
   operator_id,
   qty,
@@ -92,10 +89,9 @@ export const FetchAcceptNewTripPOST = ({
     mutate: refetch,
   } = useAcceptNewTripPOST(
     {
+      addon_amount,
       booking_id,
-      charges,
       driver_ids,
-      extra_charge_desc,
       final_total,
       operator_id,
       qty,
@@ -3412,8 +3408,7 @@ export const newLeadsDetailsPOST = (
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYyOWI1ZThiNThkYzU5MDg2MGU3MjRlMTY0MWUyNzZjMDExMWEyMWYxODk0MGFiYzc2ZGZmY2E0ODFmNTRiMDljNTkyNThmNGJjY2VlMjMyIn0.eyJhdWQiOiIxIiwianRpIjoiZjI5YjVlOGI1OGRjNTkwODYwZTcyNGUxNjQxZTI3NmMwMTExYTIxZjE4OTQwYWJjNzZkZmZjYTQ4MWY1NGIwOWM1OTI1OGY0YmNjZWUyMzIiLCJpYXQiOjE3MDk2Mjk1NTIsIm5iZiI6MTcwOTYyOTU1MiwiZXhwIjoxNzQxMTY1NTUyLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.Pr2sdonxw9Prrc9c9ea2nxeu5D0RCuVf5uCcwHxC7afYC09lRvHgMPvlxkKjPHFhMvWK4RA7UOH26EeX264cAAWyouNL5-4sjMfYS2-gVRKGBcOsXlllo4s-87RHB3H_yhMSgvUEJYb38YTYjmyhD1FD5mMigxCH0PWv3SGy6qmnRNJR-m6sUDpwECTdo2OJHHu1BQ1_buezg7yN8CmeRJyJDIlEJKq_j-PQ7hpMwmaIPG7EuW1E3ULfZ9zvFUh-g3f8C9QM9BbrB6ehOpr9gccMld8heLUZawzFxEHPnrWZxgr3bMzGVEeJ0FFFNFoWKSjCHGD7Gj0dKd25alRM_sBa967LCERiUFc4vd4GFR_DT13_4Ore20ZuAt_yhN24YNm4pODnJ9vGZfC6MtojkAVREh0GSEFZ8wkzM_cDQd3IZMbBOjn5-uxlMPtzJY8wIV8Fa3FOh7OQoPcxgxCCO9oOma1g-dzlmrRIcffJ_c9L4xw2IlxuRonT0L7eUEOT7Xbk1fYJ4nagGWZNznhAYuSwGAiruztoOwI182OEOyqLlzkjni7RZy0ttn5vBvYQvRk7LZfizimERPEuDleE0nReUopEOVezvDTdL_HAYF5ZgP--AboKPGjh-yWtvjCOwMhGvk0SaTFQLgIDzrqRWZ27BM8MHFMrNBJc7fnTtUo',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',

@@ -56,7 +56,8 @@
         "ACCESS_FINE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION",
         "CAMERA",
-        "VIBRATE"
+        "VIBRATE",
+        "READ_CONTACTS"
       ],
       "adaptiveIcon": {
         "foregroundImage": "https://assets.draftbit.app/apps/rBdmLtaz/assets/P5D78SBO0p6TiP3KyhDLp",

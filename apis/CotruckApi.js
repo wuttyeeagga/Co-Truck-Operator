@@ -7043,6 +7043,76 @@ export const FetchVerifyOTPPOST = ({
   return children({ loading, data, error, refetchVerifyOTP: refetch });
 };
 
+export const viewInvoicePOST = (Constants, { book_truck_id }, handlers = {}) =>
+  fetch(`https://dev.cotruck.co/index.php/api/operator/view-invoice`, {
+    body: JSON.stringify({ book_truck_id: book_truck_id }),
+    headers: {
+      Accept: 'application/json',
+      Authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU5MWJiOTA2NTJlYzYzNGZlMzVlMzBkMjhjY2MwYWVkZTFkNTc5NGI1MzY0ZjE5ZTFiZmQwMzViMzRhZWQ2Y2NhNGY0NzViZDM1MDYxZTU1In0.eyJhdWQiOiIxIiwianRpIjoiNTkxYmI5MDY1MmVjNjM0ZmUzNWUzMGQyOGNjYzBhZWRlMWQ1Nzk0YjUzNjRmMTllMWJmZDAzNWIzNGFlZDZjY2E0ZjQ3NWJkMzUwNjFlNTUiLCJpYXQiOjE3MDU2NTk0ODMsIm5iZiI6MTcwNTY1OTQ4MywiZXhwIjoxNzM3MjgxODgzLCJzdWIiOiIxMjAiLCJzY29wZXMiOltdfQ.BpLx6brm2aeW7hOYM1F8bv1z0cSnzzJzaDrKsKhyr7d2T1NPZbKhn47QxaVlvx1vvatYeNrEGrboQyLveeuWQPpv3ovERCtY-VUlm96BlJpu5HdmbBQy8H_-JEdkfpQybRBsAaSMBVcjF0itDerbEAiR91zCVcy-Q6IuoUZZYfsj__jXV8Fkf2dIiJ3hW75DZzHmKZG1Ht4boRZ2-zpmoNEMXLdu_eF0iLsimvErNNtVBbOzGJI_bgs07NHDp8XU8VoEIcqUqHK9rWgoKnNxq5nTslx_IilAXoBpT1igpO22j9zu74DCenW58rVMPsYbGz7Jcm31ut7r-nUFY7lNYezO1VWzQROVcbLuyUe2IRM2mRHlANCSUY_bMAHKbu9MWbUCKqNNOtvlXgn9eIOfSTmydhPfhHZ3PiF2Txz02ZgWspmoWda4ygKt6r2yX8W3pMJAuImr96XqNPP0HF3_rk0Yd2Hp1j3dxYnS3WrEuIwFOrC77lzgewRp1pON01WlcbKhFwHzSClyTd1NbCZYJZ7xnLiqEZTZOhR7jLv26l_UkQb8KvqGjX70V2miZMOJHOA52Rf5zKnJv3vRmTxruL7NGJsm3K2jIbL8VNXUvTVzmxd0Q-Zrrme6gf8TjHcy5o-aJElnzjyeWIYAaJUgebF-VrJvBsOsvhk-mqMEd2Y',
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  }).then(res => handleResponse(res, handlers));
+
+export const useViewInvoicePOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => viewInvoicePOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Invoice', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Invoice');
+        queryClient.invalidateQueries('Invoices');
+      },
+    }
+  );
+};
+
+export const FetchViewInvoicePOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  book_truck_id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useViewInvoicePOST(
+    { book_truck_id },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchViewInvoice: refetch });
+};
+
 export const waitingBookingSummaryPOST = (Constants, { id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/booking-summary`, {
     body: JSON.stringify({ id: id }),

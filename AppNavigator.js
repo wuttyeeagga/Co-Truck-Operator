@@ -226,6 +226,13 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="InvoiceScreen"
+          component={InvoiceScreen}
+          options={({ navigation }) => ({
+            title: 'Invoice',
+          })}
+        />
+        <Stack.Screen
           name="ImportBookingDetailsOnCompletedScreen"
           component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
@@ -237,13 +244,6 @@ export default function RootAppNavigator() {
           component={ImportBookingDetailsAcceptedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details Accepted',
-          })}
-        />
-        <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
-          options={({ navigation }) => ({
-            title: 'Invoice',
           })}
         />
         <Stack.Screen

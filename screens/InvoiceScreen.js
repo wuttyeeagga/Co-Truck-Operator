@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CotruckApi from '../apis/CotruckApi.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -12,7 +13,9 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Text, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { Fetch } from 'react-request';
 
 const InvoiceScreen = props => {
   const { theme, navigation } = props;
@@ -71,291 +74,342 @@ const InvoiceScreen = props => {
               dimensions.width
             )}
           >
-            {'Invoices (API lo)'}
+            {'Invoices'}
           </Text>
         </View>
       </View>
-      {/* Booking Id & Status View */}
-      <View
-        style={StyleSheet.applyWidth(
-          {
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            margin: 20,
-            padding: 10,
-          },
-          dimensions.width
-        )}
+      {/* View Invoice */}
+      <CotruckApi.FetchViewInvoicePOST
+        book_truck_id={props.route?.params?.book_truck_id ?? ''}
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          style={StyleSheet.applyWidth(
-            GlobalStyles.TextStyles(theme)['Text 3'],
-            dimensions.width
-          )}
-        >
-          {'Booking ID: 29'}
-        </Text>
-        {/* Text 2 */}
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-              color: theme.colors['Error'],
-            }),
-            dimensions.width
-          )}
-        >
-          {'Status: COMPLETED'}
-        </Text>
-      </View>
-      {/* Row Wrapper */}
-      <View
-        style={StyleSheet.applyWidth(
-          {
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            margin: 10,
-          },
-          dimensions.width
-        )}
-      >
-        <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
-          {/* Details */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                color: theme.colors['CoTruckBlack'],
-                fontSize: 16,
-                margin: 5,
-              }),
-              dimensions.width
-            )}
-          >
-            {"Sender's Details"}
-          </Text>
-          {/* Sender's Name */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                color: theme.colors['CoTruckBlack'],
-                fontSize: 16,
-                margin: 5,
-              }),
-              dimensions.width
-            )}
-          >
-            {'kham'}
-          </Text>
-          {/* Sender's Mobile */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                margin: 5,
-              }),
-              dimensions.width
-            )}
-          >
-            {'9672005000'}
-          </Text>
-        </View>
-        {/* View 2 */}
-        <View style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}>
-          {/* Details */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                color: theme.colors['CoTruckBlack'],
-                fontSize: 16,
-                margin: 5,
-              }),
-              dimensions.width
-            )}
-          >
-            {"Sender's Details"}
-          </Text>
-          {/* Sender's Name */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                color: theme.colors['CoTruckBlack'],
-                fontSize: 16,
-                margin: 5,
-              }),
-              dimensions.width
-            )}
-          >
-            {'kham'}
-          </Text>
-          {/* Sender's Mobile */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                margin: 5,
-              }),
-              dimensions.width
-            )}
-          >
-            {'9672005000'}
-          </Text>
-        </View>
-      </View>
-      {/* Table 2 */}
-      <Table
-        borderColor={theme.colors.divider}
-        borderStyle={'solid'}
-        borderWidth={1}
-        cellHorizontalPadding={10}
-        cellVerticalPadding={10}
-        drawTopBorder={true}
-        showsVerticalScrollIndicator={true}
-        style={StyleSheet.applyWidth(
-          StyleSheet.compose(GlobalStyles.TableStyles(theme)['Table'], {
-            marginBottom: 10,
-            marginLeft: 10,
-            marginRight: 10,
-            marginTop: 10,
-          }),
-          dimensions.width
-        )}
-      >
-        {/* Table Row 3 */}
-        <TableRow drawBottomBorder={true} drawStartBorder={true}>
-          <TableCell
-            drawEndBorder={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'Total Price'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 2 */}
-          <TableCell
-            drawEndBorder={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'500'}
-            </Text>
-          </TableCell>
-        </TableRow>
+        {({ loading, error, data, refetchViewInvoice }) => {
+          const viewInvoiceData = data?.json;
+          if (loading) {
+            return (
+              <>
+                {/* loading */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                    dimensions.width
+                  )}
+                >
+                  <ActivityIndicator
+                    animating={true}
+                    color={theme.colors['Primary']}
+                    hidesWhenStopped={true}
+                    size={'large'}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.ActivityIndicatorStyles(theme)[
+                        'Activity Indicator'
+                      ],
+                      dimensions.width
+                    )}
+                  />
+                </View>
+              </>
+            );
+          }
 
-        <TableRow drawBottomBorder={true} drawStartBorder={true}>
-          <TableCell
-            drawEndBorder={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'Extra Charges'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 2 */}
-          <TableCell
-            drawEndBorder={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'0'}
-            </Text>
-          </TableCell>
-        </TableRow>
-        {/* Table Row 2 */}
-        <TableRow drawBottomBorder={true} drawStartBorder={true}>
-          <TableCell
-            drawEndBorder={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'Final Total'}
-            </Text>
-          </TableCell>
-          {/* Table Cell 2 */}
-          <TableCell
-            drawEndBorder={true}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.TableCellStyles(theme)['Table Cell'],
-              dimensions.width
-            )}
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text 3'],
-                dimensions.width
-              )}
-            >
-              {'500'}
-            </Text>
-          </TableCell>
-        </TableRow>
-      </Table>
+          if (error || data?.status < 200 || data?.status >= 300) {
+            return (
+              <>
+                {/* Error View */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                    dimensions.width
+                  )}
+                >
+                  {/* error */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      dimensions.width
+                    )}
+                  >
+                    {viewInvoiceData?.message}
+                  </Text>
+                </View>
+              </>
+            );
+          }
+
+          return (
+            <>
+              {/* Main View */}
+              <View
+                style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
+              >
+                {/* Booking Id & Status View */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      margin: 20,
+                      padding: 10,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Book Truck ID */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['Text 3'],
+                      dimensions.width
+                    )}
+                  >
+                    {'Booking ID : '}
+                    {viewInvoiceData?.data?.book_truck_id}
+                  </Text>
+                  {/* Status */}
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text 3'],
+                        { color: theme.colors['Error'] }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Status : '}
+                    {viewInvoiceData?.data?.status}
+                  </Text>
+                </View>
+                {/* Row Wrapper */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      margin: 10,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { margin: 10 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Details */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          {
+                            color: theme.colors['CoTruckBlack'],
+                            fontSize: 16,
+                            margin: 5,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {"Shipper's Details"}
+                    </Text>
+                    {/* Sender's Name */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          {
+                            color: theme.colors['CoTruckBlack'],
+                            fontSize: 16,
+                            margin: 5,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {viewInvoiceData?.data?.shipper_name}
+                    </Text>
+                    {/* Sender's Mobile */}
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          { margin: 5 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {viewInvoiceData?.data?.shipper_mobile}
+                    </Text>
+                  </View>
+                </View>
+                {/* Table 2 */}
+                <Table
+                  borderColor={theme.colors['Light']}
+                  borderStyle={'solid'}
+                  borderWidth={1}
+                  cellHorizontalPadding={10}
+                  cellVerticalPadding={10}
+                  drawTopBorder={true}
+                  showsVerticalScrollIndicator={true}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TableStyles(theme)['Table'],
+                      {
+                        marginBottom: 10,
+                        marginLeft: 10,
+                        marginRight: 10,
+                        marginTop: 10,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <TableRow drawBottomBorder={true} drawStartBorder={true}>
+                    {/* Sub Total Cell */}
+                    <TableCell
+                      drawEndBorder={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TableCellStyles(theme)['Table Cell'],
+                        dimensions.width
+                      )}
+                    >
+                      {/* Sub Total */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 3'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Sub Total'}
+                      </Text>
+                    </TableCell>
+                    {/* Sub Total Cell */}
+                    <TableCell
+                      drawEndBorder={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TableCellStyles(theme)['Table Cell'],
+                        dimensions.width
+                      )}
+                    >
+                      {/* Sub Total */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 3'],
+                          dimensions.width
+                        )}
+                      >
+                        {viewInvoiceData?.data?.sub_total}
+                      </Text>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow drawBottomBorder={true} drawStartBorder={true}>
+                    {/* Add On Amount Cell */}
+                    <TableCell
+                      drawEndBorder={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TableCellStyles(theme)['Table Cell'],
+                        dimensions.width
+                      )}
+                    >
+                      {/* Add On Amount */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 3'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Add On Amount'}
+                      </Text>
+                    </TableCell>
+                    {/* Add On Amount Cell */}
+                    <TableCell
+                      drawEndBorder={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TableCellStyles(theme)['Table Cell'],
+                        dimensions.width
+                      )}
+                    >
+                      {/* Add On Amount */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 3'],
+                          dimensions.width
+                        )}
+                      >
+                        {viewInvoiceData?.data?.addon_amount}
+                      </Text>
+                    </TableCell>
+                  </TableRow>
+                  {/* Table Row 2 */}
+                  <TableRow drawBottomBorder={true} drawStartBorder={true}>
+                    {/* Final Total Cell */}
+                    <TableCell
+                      drawEndBorder={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TableCellStyles(theme)['Table Cell'],
+                        dimensions.width
+                      )}
+                    >
+                      {/* Final Total */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 3'],
+                          dimensions.width
+                        )}
+                      >
+                        {'Final Total'}
+                      </Text>
+                    </TableCell>
+                    {/* Final Total Cell */}
+                    <TableCell
+                      drawEndBorder={true}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.TableCellStyles(theme)['Table Cell'],
+                        dimensions.width
+                      )}
+                    >
+                      {/* Final Total */}
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['Text 3'],
+                          dimensions.width
+                        )}
+                      >
+                        {'500'}
+                      </Text>
+                    </TableCell>
+                  </TableRow>
+                </Table>
+              </View>
+            </>
+          );
+        }}
+      </CotruckApi.FetchViewInvoicePOST>
     </ScreenContainer>
   );
 };

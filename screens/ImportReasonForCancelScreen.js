@@ -156,37 +156,6 @@ const ImportReasonForCancelScreen = props => {
             value={reason}
           />
         </View>
-        {/* Warning View */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              backgroundColor: theme.colors['CoTruckLightGrey'],
-              borderRadius: 12,
-              marginBottom: 20,
-              marginLeft: 20,
-              marginRight: 20,
-              marginTop: 20,
-              padding: 10,
-            },
-            dimensions.width
-          )}
-        >
-          {/* Warning */}
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-                margin: 10,
-              }),
-              dimensions.width
-            )}
-          >
-            {
-              'Warning: On confirming cancellation Rs.600 to be charged from your wallet...'
-            }
-          </Text>
-        </View>
         {/* Confirm */}
         <Button
           onPress={() => {

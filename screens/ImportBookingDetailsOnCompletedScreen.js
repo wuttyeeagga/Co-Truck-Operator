@@ -1448,25 +1448,29 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                   )}
                 >
                   {/* Invoice */}
-                  <Button
-                    onPress={() => {
-                      try {
-                        navigation.navigate('InvoiceScreen', {
-                          book_truck_id: fetchData?.data?.book_truck_id,
-                        });
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.ButtonStyles(theme)['Button'],
-                        { borderRadius: 12, height: 48, margin: 20 }
-                      ),
-                      dimensions.width
+                  <>
+                    {!(fetchData?.data?.inv_status === false) ? null : (
+                      <Button
+                        onPress={() => {
+                          try {
+                            navigation.navigate('InvoiceScreen', {
+                              book_truck_id: fetchData?.data?.book_truck_id,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.ButtonStyles(theme)['Button'],
+                            { borderRadius: 12, height: 48, margin: 20 }
+                          ),
+                          dimensions.width
+                        )}
+                        title={'Invoice'}
+                      />
                     )}
-                    title={'Invoice'}
-                  />
+                  </>
                 </View>
                 {/* Complete Button View */}
                 <>

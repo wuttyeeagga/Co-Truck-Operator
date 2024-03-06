@@ -516,8 +516,7 @@ export const bookingDetailPOST = (
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYyOWI1ZThiNThkYzU5MDg2MGU3MjRlMTY0MWUyNzZjMDExMWEyMWYxODk0MGFiYzc2ZGZmY2E0ODFmNTRiMDljNTkyNThmNGJjY2VlMjMyIn0.eyJhdWQiOiIxIiwianRpIjoiZjI5YjVlOGI1OGRjNTkwODYwZTcyNGUxNjQxZTI3NmMwMTExYTIxZjE4OTQwYWJjNzZkZmZjYTQ4MWY1NGIwOWM1OTI1OGY0YmNjZWUyMzIiLCJpYXQiOjE3MDk2Mjk1NTIsIm5iZiI6MTcwOTYyOTU1MiwiZXhwIjoxNzQxMTY1NTUyLCJzdWIiOiIxMjUiLCJzY29wZXMiOltdfQ.Pr2sdonxw9Prrc9c9ea2nxeu5D0RCuVf5uCcwHxC7afYC09lRvHgMPvlxkKjPHFhMvWK4RA7UOH26EeX264cAAWyouNL5-4sjMfYS2-gVRKGBcOsXlllo4s-87RHB3H_yhMSgvUEJYb38YTYjmyhD1FD5mMigxCH0PWv3SGy6qmnRNJR-m6sUDpwECTdo2OJHHu1BQ1_buezg7yN8CmeRJyJDIlEJKq_j-PQ7hpMwmaIPG7EuW1E3ULfZ9zvFUh-g3f8C9QM9BbrB6ehOpr9gccMld8heLUZawzFxEHPnrWZxgr3bMzGVEeJ0FFFNFoWKSjCHGD7Gj0dKd25alRM_sBa967LCERiUFc4vd4GFR_DT13_4Ore20ZuAt_yhN24YNm4pODnJ9vGZfC6MtojkAVREh0GSEFZ8wkzM_cDQd3IZMbBOjn5-uxlMPtzJY8wIV8Fa3FOh7OQoPcxgxCCO9oOma1g-dzlmrRIcffJ_c9L4xw2IlxuRonT0L7eUEOT7Xbk1fYJ4nagGWZNznhAYuSwGAiruztoOwI182OEOyqLlzkjni7RZy0ttn5vBvYQvRk7LZfizimERPEuDleE0nReUopEOVezvDTdL_HAYF5ZgP--AboKPGjh-yWtvjCOwMhGvk0SaTFQLgIDzrqRWZ27BM8MHFMrNBJc7fnTtUo',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -7048,8 +7047,7 @@ export const viewInvoicePOST = (Constants, { book_truck_id }, handlers = {}) =>
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: 'application/json',
-      Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU5MWJiOTA2NTJlYzYzNGZlMzVlMzBkMjhjY2MwYWVkZTFkNTc5NGI1MzY0ZjE5ZTFiZmQwMzViMzRhZWQ2Y2NhNGY0NzViZDM1MDYxZTU1In0.eyJhdWQiOiIxIiwianRpIjoiNTkxYmI5MDY1MmVjNjM0ZmUzNWUzMGQyOGNjYzBhZWRlMWQ1Nzk0YjUzNjRmMTllMWJmZDAzNWIzNGFlZDZjY2E0ZjQ3NWJkMzUwNjFlNTUiLCJpYXQiOjE3MDU2NTk0ODMsIm5iZiI6MTcwNTY1OTQ4MywiZXhwIjoxNzM3MjgxODgzLCJzdWIiOiIxMjAiLCJzY29wZXMiOltdfQ.BpLx6brm2aeW7hOYM1F8bv1z0cSnzzJzaDrKsKhyr7d2T1NPZbKhn47QxaVlvx1vvatYeNrEGrboQyLveeuWQPpv3ovERCtY-VUlm96BlJpu5HdmbBQy8H_-JEdkfpQybRBsAaSMBVcjF0itDerbEAiR91zCVcy-Q6IuoUZZYfsj__jXV8Fkf2dIiJ3hW75DZzHmKZG1Ht4boRZ2-zpmoNEMXLdu_eF0iLsimvErNNtVBbOzGJI_bgs07NHDp8XU8VoEIcqUqHK9rWgoKnNxq5nTslx_IilAXoBpT1igpO22j9zu74DCenW58rVMPsYbGz7Jcm31ut7r-nUFY7lNYezO1VWzQROVcbLuyUe2IRM2mRHlANCSUY_bMAHKbu9MWbUCKqNNOtvlXgn9eIOfSTmydhPfhHZ3PiF2Txz02ZgWspmoWda4ygKt6r2yX8W3pMJAuImr96XqNPP0HF3_rk0Yd2Hp1j3dxYnS3WrEuIwFOrC77lzgewRp1pON01WlcbKhFwHzSClyTd1NbCZYJZ7xnLiqEZTZOhR7jLv26l_UkQb8KvqGjX70V2miZMOJHOA52Rf5zKnJv3vRmTxruL7NGJsm3K2jIbL8VNXUvTVzmxd0Q-Zrrme6gf8TjHcy5o-aJElnzjyeWIYAaJUgebF-VrJvBsOsvhk-mqMEd2Y',
+      Authorization: Constants['AUTH_BEAR_TOKEN'],
       'Content-Type': 'application/json',
     },
     method: 'POST',

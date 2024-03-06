@@ -1366,26 +1366,32 @@ const ExportBookingDetailsOnCompletedScreen = props => {
                   )}
                 >
                   {/* Invoice */}
-                  <Button
-                    onPress={() => {
-                      try {
-                        navigation.navigate('InvoiceScreen', {
-                          book_truck_id:
-                            bookingDetailsData?.data?.book_truck_id,
-                        });
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.ButtonStyles(theme)['Button'],
-                        { borderRadius: 12, height: 48, margin: 20 }
-                      ),
-                      dimensions.width
+                  <>
+                    {!(
+                      bookingDetailsData?.data?.inv_status === false
+                    ) ? null : (
+                      <Button
+                        onPress={() => {
+                          try {
+                            navigation.navigate('InvoiceScreen', {
+                              book_truck_id:
+                                bookingDetailsData?.data?.book_truck_id,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.ButtonStyles(theme)['Button'],
+                            { borderRadius: 12, height: 48, margin: 20 }
+                          ),
+                          dimensions.width
+                        )}
+                        title={'Invoice'}
+                      />
                     )}
-                    title={'Invoice'}
-                  />
+                  </>
                 </View>
                 {/* Complete Button View */}
                 <>

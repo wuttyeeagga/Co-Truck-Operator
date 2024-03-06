@@ -226,10 +226,10 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
-          name="InvoiceScreen"
-          component={InvoiceScreen}
+          name="ImportReasonForCancelScreen"
+          component={ImportReasonForCancelScreen}
           options={({ navigation }) => ({
-            title: 'Invoice',
+            title: 'Import Reason for cancel',
           })}
         />
         <Stack.Screen
@@ -237,6 +237,13 @@ export default function RootAppNavigator() {
           component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Completed',
+          })}
+        />
+        <Stack.Screen
+          name="InvoiceScreen"
+          component={InvoiceScreen}
+          options={({ navigation }) => ({
+            title: 'Invoice',
           })}
         />
         <Stack.Screen
@@ -279,13 +286,6 @@ export default function RootAppNavigator() {
           component={ReferAFriendScreen}
           options={({ navigation }) => ({
             title: 'Refer a friend',
-          })}
-        />
-        <Stack.Screen
-          name="ImportReasonForCancelScreen"
-          component={ImportReasonForCancelScreen}
-          options={({ navigation }) => ({
-            title: 'Import Reason for cancel',
           })}
         />
         <Stack.Screen

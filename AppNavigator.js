@@ -60,11 +60,11 @@ import ReferAFriendScreen from './screens/ReferAFriendScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import SignUpIdentityProofScreen from './screens/SignUpIdentityProofScreen';
+import SignUpVehicleProofScreen from './screens/SignUpVehicleProofScreen';
 import SystemChargesScreen from './screens/SystemChargesScreen';
 import SystemInvoicesViewScreen from './screens/SystemInvoicesViewScreen';
 import TermsInRegisterScreen from './screens/TermsInRegisterScreen';
 import VehicleDetailsScreen from './screens/VehicleDetailsScreen';
-import VehicleProofScreen from './screens/VehicleProofScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -95,6 +95,13 @@ function AuthNavigator() {
 }
 
 function BottomTabNavigator() {
+  const tabBarIcons = {
+    HomeScreen: 'Ionicons/ios-home-outline',
+    ImportActivityScreen: 'MaterialCommunityIcons/calendar-clock',
+    ExportActivityScreen: 'MaterialCommunityIcons/calendar-clock',
+    PaidScreen: 'Foundation/dollar-bill',
+    SettingsScreen: 'Ionicons/ios-settings-outline',
+  };
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
@@ -226,6 +233,13 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
+          options={({ navigation }) => ({
+            title: 'Sign Up Identity Proof',
+          })}
+        />
+        <Stack.Screen
           name="ImportReasonForCancelScreen"
           component={ImportReasonForCancelScreen}
           options={({ navigation }) => ({
@@ -272,13 +286,6 @@ export default function RootAppNavigator() {
           component={OTPVerificationScreen}
           options={({ navigation }) => ({
             title: 'OTP Verification',
-          })}
-        />
-        <Stack.Screen
-          name="SignUpIdentityProofScreen"
-          component={SignUpIdentityProofScreen}
-          options={({ navigation }) => ({
-            title: 'Sign Up Identity Proof',
           })}
         />
         <Stack.Screen
@@ -345,10 +352,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="VehicleProofScreen"
-          component={VehicleProofScreen}
+          name="SignUpVehicleProofScreen"
+          component={SignUpVehicleProofScreen}
           options={({ navigation }) => ({
-            title: 'Vehicle Proof',
+            title: 'Sign Up Vehicle Proof',
           })}
         />
         <Stack.Screen

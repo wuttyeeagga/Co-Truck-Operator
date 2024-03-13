@@ -14,6 +14,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { ScrollView, Text, View } from 'react-native';
 
 const TermsInRegisterScreen = props => {
@@ -26,6 +27,32 @@ const TermsInRegisterScreen = props => {
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const cotruckRegisterPOST = CotruckApi.useRegisterPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      console.log(
+        'data ====> ',
+        props.route?.params?.certificate ?? null,
+        props.route?.params?.vehicle_reg_certificate ?? null,
+        props.route?.params?.nrc_front ?? null,
+        props.route?.params?.nrc_back ?? null,
+        props.route?.params?.preferred_paths ?? null,
+        props.route?.params?.vehicle_reg_certificate ?? null,
+        props.route?.params?.vehicle_insurance ?? null
+      );
+
+      showAlertUtil({
+        title: 'Message',
+        message: 'alert',
+        buttonText: undefined,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -85,7 +112,6 @@ const TermsInRegisterScreen = props => {
 
       <ScrollView
         bounces={true}
-        contentContainerStyle={{ minHeight: '100%', minWidth: '100%' }}
         keyboardShouldPersistTaps={'never'}
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
@@ -111,7 +137,7 @@ const TermsInRegisterScreen = props => {
               {'Step 4 of 4 - Terms & Conditions'}
             </Text>
           </View>
-
+          {/* Surface View */}
           <Surface
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.SurfaceStyles(theme)['Surface'], {
@@ -123,6 +149,7 @@ const TermsInRegisterScreen = props => {
               dimensions.width
             )}
           >
+            {/* Sub Title */}
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -131,7 +158,7 @@ const TermsInRegisterScreen = props => {
                   color: theme.colors['CoTruckBlack'],
                   fontFamily: 'System',
                   fontSize: 16,
-                  fontWeight: '400',
+                  fontWeight: '600',
                   margin: 10,
                 }),
                 dimensions.width
@@ -162,56 +189,32 @@ const TermsInRegisterScreen = props => {
                 try {
                   const Response = (
                     await cotruckRegisterPOST.mutateAsync({
-                      agent_license: props.route?.params?.agent_license ?? '',
-                      agent_name: props.route?.params?.agent_name ?? '',
-                      certificate: props.route?.params?.certificate ?? '',
-                      comp_name: props.route?.params?.comp_name ?? '',
-                      comp_phone: props.route?.params?.comp_phone ?? '',
-                      comp_reg_no: props.route?.params?.comp_regi ?? '',
-                      driving_license_back:
-                        props.route?.params?.driving_license_back ?? '',
-                      driving_license_front:
-                        props.route?.params?.driving_license ?? '',
-                      email: props.route?.params?.email ?? '',
-                      mobile: props.route?.params?.mobile ?? '',
-                      name: props.route?.params?.name ?? '',
-                      nrc_back: props.route?.params?.NRC_back ?? '',
-                      nrc_front: props.route?.params?.NRC ?? '',
-                      password: props.route?.params?.password ?? '',
-                      paths: props.route?.params?.prefer_paths ?? '',
-                      referral_code: props.route?.params?.refer_code ?? '',
+                      agent_license: props.route?.params?.agent_license ?? null,
+                      agent_name: props.route?.params?.agent_name ?? null,
+                      certificate: props.route?.params?.certificate ?? null,
+                      comp_name: props.route?.params?.comp_name ?? null,
+                      comp_phone: props.route?.params?.comp_phone ?? null,
+                      comp_reg_no: props.route?.params?.comp_reg_no ?? null,
+                      email: props.route?.params?.email ?? null,
+                      mobile: props.route?.params?.mobile ?? null,
+                      name: props.route?.params?.name ?? null,
+                      nrc_back: props.route?.params?.nrc_back ?? null,
+                      nrc_front: props.route?.params?.nrc_front ?? null,
+                      password: props.route?.params?.password ?? null,
+                      paths: props.route?.params?.preferred_paths ?? null,
+                      referral_code: props.route?.params?.referral_code ?? null,
                       user_type: 'OWNER',
                       vehicle_insurance:
-                        props.route?.params?.vehicle_insurance ?? '',
+                        props.route?.params?.vehicle_insurance ?? null,
+                      vehicle_reamark:
+                        props.route?.params?.vehicle_remark ?? null,
                       vehicle_reg_certificate:
-                        props.route?.params?.vehicle_rc ?? '',
-                      vehicle_reg_no: props.route?.params?.regi_no ?? '',
-                      vehicle_type: props.route?.params?.vehicle_type ?? '',
+                        props.route?.params?.vehicle_reg_certificate ?? null,
+                      vehicle_reg_no:
+                        props.route?.params?.vehicle_reg_no ?? null,
+                      vehicle_type: props.route?.params?.vehicle_type ?? null,
                     })
                   )?.json;
-                  console.log(Response);
-                  console.log(
-                    props.route?.params?.comp_name ?? '',
-                    props.route?.params?.comp_phone ?? '',
-                    props.route?.params?.comp_regi ?? '',
-                    props.route?.params?.agent_license ?? '',
-                    props.route?.params?.agent_name ?? '',
-                    props.route?.params?.name ?? '',
-                    props.route?.params?.email ?? '',
-                    props.route?.params?.password ?? '',
-                    props.route?.params?.vehicle_type ?? '',
-                    props.route?.params?.regi_no ?? '',
-                    props.route?.params?.mobile ?? ''
-                  );
-                  console.log(
-                    props.route?.params?.certificate ?? '',
-                    props.route?.params?.NRC_back ?? '',
-                    props.route?.params?.NRC ?? '',
-                    props.route?.params?.vehicle_rc ?? '',
-                    props.route?.params?.vehicle_insurance ?? '',
-                    props.route?.params?.driving_license ?? '',
-                    props.route?.params?.driving_license_back ?? ''
-                  );
 
                   showAlertUtil({
                     title: 'Message',
@@ -225,10 +228,17 @@ const TermsInRegisterScreen = props => {
                   }
                   navigation.navigate('OTPVerificationScreen', {
                     user_id: data?.id,
-                    mobile: props.route?.params?.mobile ?? '',
+                    mobile: props.route?.params?.mobile ?? null,
                     is_forgot: 0,
                     is_regi: 1,
                   });
+                  console.log(
+                    Response,
+                    data,
+                    Response?.message,
+                    'data is responding',
+                    'Response'?.data
+                  );
                 } catch (err) {
                   console.error(err);
                 }

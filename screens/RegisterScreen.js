@@ -5,6 +5,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import selectFileUtil from '../utils/selectFile';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -12,7 +13,6 @@ import {
   Icon,
   IconButton,
   MultiSelectPicker,
-  PickerItem,
   Pressable,
   ScreenContainer,
   TextInput,
@@ -56,6 +56,7 @@ const RegisterScreen = props => {
         const results = (await cotruckPreferredPathsPOST.mutateAsync())?.json;
         const asdf = results?.data;
         setPathsOptions(asdf);
+        console.log(pathsOptions, asdf, results);
       } catch (err) {
         console.error(err);
       }
@@ -121,7 +122,6 @@ const RegisterScreen = props => {
       </View>
 
       <KeyboardAwareScrollView
-        contentContainerStyle={{ minHeight: '100%', minWidth: '100%' }}
         keyboardShouldPersistTaps={'never'}
         showsVerticalScrollIndicator={true}
       >
@@ -293,9 +293,6 @@ const RegisterScreen = props => {
                         console.log('Start ON_PRESS:2 SET_VARIABLE');
                         setIsCompanyFile(true);
                         console.log('Complete ON_PRESS:2 SET_VARIABLE');
-                        console.log('Start ON_PRESS:3 CONSOLE_LOG');
-                        console.log(fileResults);
-                        console.log('Complete ON_PRESS:3 CONSOLE_LOG');
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;
@@ -437,12 +434,9 @@ const RegisterScreen = props => {
                         console.log('Start ON_PRESS:1 SET_VARIABLE');
                         setAgentLicenseFile(fileResults);
                         console.log('Complete ON_PRESS:1 SET_VARIABLE');
-                        console.log('Start ON_PRESS:2 CONSOLE_LOG');
-                        console.log(fileResults);
-                        console.log('Complete ON_PRESS:2 CONSOLE_LOG');
-                        console.log('Start ON_PRESS:3 SET_VARIABLE');
+                        console.log('Start ON_PRESS:2 SET_VARIABLE');
                         setIsAgentFile(true);
-                        console.log('Complete ON_PRESS:3 SET_VARIABLE');
+                        console.log('Complete ON_PRESS:2 SET_VARIABLE');
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;
@@ -612,11 +606,7 @@ const RegisterScreen = props => {
             )}
             type={'solid'}
             value={preferPaths}
-          >
-            <PickerItem
-              style={StyleSheet.applyWidth({ margin: 5 }, dimensions.width)}
-            />
-          </MultiSelectPicker>
+          />
           <Divider
             color={theme.colors.divider}
             style={StyleSheet.applyWidth(
@@ -899,6 +889,23 @@ const RegisterScreen = props => {
           <Button
             onPress={() => {
               try {
+                if (companyName === '') {
+                  showAlertUtil({
+                    title: 'Message',
+                    message: 'Please enter company name',
+                    buttonText: undefined,
+                  });
+                } else {
+                  if (companyPhone === '') {
+                    showAlertUtil({
+                      title: 'Message',
+                      message: 'Please enter company phone.',
+                      buttonText: undefined,
+                    });
+                  } else {
+                  }
+                }
+
                 navigation.navigate('SignUpIdentityProofScreen', {
                   comp_name: companyName,
                   comp_phone: companyPhone,

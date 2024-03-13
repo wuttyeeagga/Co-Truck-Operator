@@ -27,9 +27,9 @@ const LoginScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
   const [condi, setCondi] = React.useState('');
-  const [email, setEmail] = React.useState('toperator2@gmail.com');
+  const [email, setEmail] = React.useState('aggaop@gmail.com');
   const [msg, setMsg] = React.useState('Message');
-  const [password, setPassword] = React.useState('demo');
+  const [password, setPassword] = React.useState('aggaop');
   const [successMsg, setSuccessMsg] = React.useState('Success');
   const cotruckLoginPOST = CotruckApi.useLoginPOST();
 
@@ -56,6 +56,7 @@ const LoginScreen = props => {
             dimensions.width
           )}
         >
+          {/* Logo */}
           <Image
             resizeMode={'cover'}
             source={Images.Logo}
@@ -72,6 +73,7 @@ const LoginScreen = props => {
             dimensions.width
           )}
         >
+          {/* Login */}
           <Text
             accessible={true}
             allowFontScaling={true}

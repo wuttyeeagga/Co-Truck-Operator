@@ -84,7 +84,6 @@ const SignUpIdentityProofScreen = props => {
 
       <ScrollView
         bounces={true}
-        contentContainerStyle={{ minHeight: '100%', minWidth: '100%' }}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
@@ -175,11 +174,11 @@ const SignUpIdentityProofScreen = props => {
                           mediaTypes: 'Images',
                           allowsEditing: false,
                           quality: 0.2,
+                          allowsMultipleSelection: false,
                         });
 
                         setIsNRCFront(true);
                         setNrcFront(results);
-                        console.log(results);
                       } catch (err) {
                         console.error(err);
                       }
@@ -293,6 +292,7 @@ const SignUpIdentityProofScreen = props => {
                           mediaTypes: 'Images',
                           allowsEditing: false,
                           quality: 0.2,
+                          allowsMultipleSelection: false,
                         });
 
                         setNrcBack(results);
@@ -351,20 +351,21 @@ const SignUpIdentityProofScreen = props => {
           <Button
             onPress={() => {
               try {
-                navigation.navigate('VehicleProofScreen', {
-                  comp_name: props.route?.params?.comp_name ?? '',
+                navigation.navigate('SignUpVehicleProofScreen', {
                   comp_phone: props.route?.params?.comp_phone ?? '',
                   comp_regi: props.route?.params?.comp_regi ?? '',
+                  certificate: props.route?.params?.company_file ?? '',
                   agent_license: props.route?.params?.agent_license_file ?? '',
                   agent_name: props.route?.params?.agent_name ?? '',
                   prefer_paths: props.route?.params?.prefer_paths ?? '',
                   mobile: props.route?.params?.mobile ?? '',
                   email: props.route?.params?.email ?? '',
-                  password: props.route?.params?.password ?? '',
                   refer_code: props.route?.params?.refer_code ?? '',
                   NRC: nrcFront,
                   NRC_back: nrcBack,
                   name: props.route?.params?.name ?? '',
+                  comp_name: props.route?.params?.comp_name ?? '',
+                  password: props.route?.params?.password ?? '',
                 });
               } catch (err) {
                 console.error(err);

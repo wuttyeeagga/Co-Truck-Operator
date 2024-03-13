@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
-import * as FileSystem from 'expo-file-system';
+import assetToBase64 from './assetToBase64';
 
 const selectFile = async ({ returnNameAndValue = false }) => {
   try {
@@ -23,15 +23,7 @@ const selectFile = async ({ returnNameAndValue = false }) => {
       return;
     }
 
-    let value;
-    if (Platform.OS === 'web') {
-      value = asset.uri;
-    } else {
-      const fileBase64 = await FileSystem.readAsStringAsync(asset.uri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-      value = 'data:' + asset.mimeType + ';base64,' + fileBase64;
-    }
+    let value = await assetToBase64(asset);
 
     return returnNameAndValue ? { name: asset.name, value } : value;
   } catch (error) {

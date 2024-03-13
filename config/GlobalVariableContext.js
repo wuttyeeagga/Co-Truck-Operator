@@ -18,6 +18,8 @@ export const DeviceVariables = {
   newPwdShown: false,
   oldPwdShown: false,
   showPassword: false,
+  vehicleTypeOptions:
+    '[{label:"20ft Container Truck",value:8}, {label:"40ft Container Truck",value:9}]',
   __env__: 'Development',
 };
 export const AppVariables = {};

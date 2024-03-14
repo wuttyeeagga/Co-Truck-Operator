@@ -294,7 +294,12 @@ const RegisterScreen = props => {
                         setIsCompanyFile(true);
                         console.log('Complete ON_PRESS:2 SET_VARIABLE');
                         console.log('Start ON_PRESS:3 CONSOLE_LOG');
-                        console.log(fileResults, file);
+                        console.log(
+                          fileResults,
+                          file,
+                          companyRegisterFile,
+                          companyRegisterFile?.name
+                        );
                         console.log('Complete ON_PRESS:3 CONSOLE_LOG');
                       } catch (err) {
                         console.error(err);

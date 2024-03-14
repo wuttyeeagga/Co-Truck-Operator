@@ -233,6 +233,13 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
+          options={({ navigation }) => ({
+            title: 'Forgot Password',
+          })}
+        />
+        <Stack.Screen
           name="ImportLiveTrackScreen"
           component={ImportLiveTrackScreen}
           options={({ navigation }) => ({
@@ -293,13 +300,6 @@ export default function RootAppNavigator() {
           component={ReferAFriendScreen}
           options={({ navigation }) => ({
             title: 'Refer a friend',
-          })}
-        />
-        <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-          options={({ navigation }) => ({
-            title: 'Forgot Password',
           })}
         />
         <Stack.Screen

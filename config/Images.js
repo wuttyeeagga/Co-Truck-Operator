@@ -26,4 +26,5 @@ export default {
   MapsAndFlags: require('../assets/images/MapsAndFlags.png'),
   Logo: require('../assets/images/Logo.png'),
   Splash: require('../assets/images/Splash.png'),
+  CotruckTruck: require('../assets/images/CotruckTruck.png'),
 };

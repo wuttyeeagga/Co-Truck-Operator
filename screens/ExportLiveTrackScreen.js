@@ -184,7 +184,7 @@ const ExportLiveTrackScreen = props => {
             flat={true}
             latitude={props.route?.params?.driver_lat ?? ''}
             longitude={props.route?.params?.driver_long ?? ''}
-            pinImage={Images._40ft}
+            pinImage={Images.CotruckTruck}
             pinImageSize={50}
             title={'Driver Marker'}
             tracksViewChanges={true}

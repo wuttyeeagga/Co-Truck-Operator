@@ -233,6 +233,13 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="ImportLiveTrackScreen"
+          component={ImportLiveTrackScreen}
+          options={({ navigation }) => ({
+            title: 'Import Live Track',
+          })}
+        />
+        <Stack.Screen
           name="SignUpIdentityProofScreen"
           component={SignUpIdentityProofScreen}
           options={({ navigation }) => ({
@@ -272,13 +279,6 @@ export default function RootAppNavigator() {
           component={ImportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Going',
-          })}
-        />
-        <Stack.Screen
-          name="ImportLiveTrackScreen"
-          component={ImportLiveTrackScreen}
-          options={({ navigation }) => ({
-            title: 'Import Live Track',
           })}
         />
         <Stack.Screen

@@ -266,7 +266,7 @@ const SignUpVehicleProofScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
+                    mediaTypes: 'Images',
                     allowsEditing: false,
                     quality: 0.2,
                     allowsMultipleSelection: false,
@@ -373,7 +373,7 @@ const SignUpVehicleProofScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
+                    mediaTypes: 'Images',
                     allowsEditing: false,
                     quality: 0.2,
                     allowsMultipleSelection: false,

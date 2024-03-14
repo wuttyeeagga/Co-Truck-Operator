@@ -233,6 +233,13 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="SignUpIdentityProofScreen"
+          component={SignUpIdentityProofScreen}
+          options={({ navigation }) => ({
+            title: 'Sign Up Identity Proof',
+          })}
+        />
+        <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
           options={({ navigation }) => ({
@@ -244,13 +251,6 @@ export default function RootAppNavigator() {
           component={ImportLiveTrackScreen}
           options={({ navigation }) => ({
             title: 'Import Live Track',
-          })}
-        />
-        <Stack.Screen
-          name="SignUpIdentityProofScreen"
-          component={SignUpIdentityProofScreen}
-          options={({ navigation }) => ({
-            title: 'Sign Up Identity Proof',
           })}
         />
         <Stack.Screen

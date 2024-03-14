@@ -36,12 +36,6 @@ const TermsInRegisterScreen = props => {
       console.log(
         'data ====> ',
         props.route?.params?.certificate ?? null,
-        props.route?.params?.vehicle_reg_certificate ?? null,
-        props.route?.params?.nrc_front ?? null,
-        props.route?.params?.nrc_back ?? null,
-        props.route?.params?.preferred_paths ?? null,
-        props.route?.params?.vehicle_reg_certificate ?? null,
-        props.route?.params?.vehicle_insurance ?? null,
         props.route?.params?.agent_license ?? null
       );
     } catch (err) {
@@ -181,7 +175,10 @@ const TermsInRegisterScreen = props => {
           <Button
             onPress={() => {
               const handler = async () => {
+                console.log('Agree and Submit ON_PRESS Start');
+                let error = null;
                 try {
+                  console.log('Start ON_PRESS:0 FETCH_REQUEST');
                   const Response = (
                     await cotruckRegisterPOST.mutateAsync({
                       agent_license: props.route?.params?.agent_license ?? null,
@@ -210,33 +207,43 @@ const TermsInRegisterScreen = props => {
                       vehicle_type: props.route?.params?.vehicle_type ?? null,
                     })
                   )?.json;
-
+                  console.log('Complete ON_PRESS:0 FETCH_REQUEST', {
+                    Response,
+                  });
+                  console.log('Start ON_PRESS:1 SHOW_ALERT');
                   showAlertUtil({
                     title: 'Message',
                     message: Response?.message,
                     buttonText: undefined,
                   });
-
+                  console.log('Complete ON_PRESS:1 SHOW_ALERT');
+                  console.log('Start ON_PRESS:2 EXTRACT_KEY');
                   const data = Response?.data;
+                  console.log('Complete ON_PRESS:2 EXTRACT_KEY', { data });
+                  console.log('Start ON_PRESS:3 CONDITIONAL_STOP');
                   if (!data) {
                     return;
                   }
+                  console.log('Complete ON_PRESS:3 CONDITIONAL_STOP');
+                  console.log('Start ON_PRESS:4 NAVIGATE');
                   navigation.navigate('OTPVerificationScreen', {
                     user_id: data?.id,
                     mobile: props.route?.params?.mobile ?? null,
                     is_forgot: 0,
                     is_regi: 1,
                   });
-                  console.log(
-                    JSON.parse(Response),
-                    data,
-                    Response?.message,
-                    'data is responding',
-                    'Response'?.data
-                  );
+                  console.log('Complete ON_PRESS:4 NAVIGATE');
+                  console.log('Start ON_PRESS:5 CONSOLE_LOG');
+                  console.log(Response, data, JSON.parse(Response));
+                  console.log('Complete ON_PRESS:5 CONSOLE_LOG');
                 } catch (err) {
                   console.error(err);
+                  error = err.message ?? err;
                 }
+                console.log(
+                  'Agree and Submit ON_PRESS Complete',
+                  error ? { error } : 'no error'
+                );
               };
               handler();
             }}

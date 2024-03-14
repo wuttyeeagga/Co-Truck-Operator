@@ -10,9 +10,7 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   Icon,
-  NumberInput,
   Picker,
-  PickerItem,
   ScreenContainer,
   TextInput,
   Touchable,
@@ -31,16 +29,13 @@ const AddNewDriverScreen = props => {
   const [Password, setPassword] = React.useState('');
   const [dlBack, setDlBack] = React.useState({});
   const [dlFront, setDlFront] = React.useState({});
+  const [drivingLicense, setDrivingLicense] = React.useState('');
   const [isDLBack, setIsDLBack] = React.useState(false);
   const [isDLFront, setIsDLFront] = React.useState(false);
   const [isNRCBack, setIsNRCBack] = React.useState(false);
   const [isNRCFront, setIsNRCFront] = React.useState(false);
   const [nrcBack, setNrcBack] = React.useState({});
   const [nrcFront, setNrcFront] = React.useState({});
-  const [numberInputValue, setNumberInputValue] = React.useState('');
-  const [textInputValue, setTextInputValue] = React.useState('');
-  const [textInputValue2, setTextInputValue2] = React.useState('');
-  const [textInputValue3, setTextInputValue3] = React.useState('');
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
   const [vehicleOptions, setVehicleOptions] = React.useState([]);
   const [vehicleTypePicker, setVehicleTypePicker] = React.useState('');
@@ -212,7 +207,7 @@ const AddNewDriverScreen = props => {
               }
             }}
             placeholder={'Enter Password'}
-            placeholderTextColor={theme.colors['CoTruckGrey']}
+            placeholderTextColor={theme.colors['TextPlaceholder']}
             secureTextEntry={true}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
@@ -272,7 +267,39 @@ const AddNewDriverScreen = props => {
           )}
           type={'solid'}
           value={vehicleTypePicker}
-        ></Picker>
+        />
+        {/* Driving License Input View */}
+        <View>
+          {/* License Input */}
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize={'none'}
+            changeTextDelay={500}
+            onChangeText={newLicenseInputValue => {
+              try {
+                setDrivingLicense(newLicenseInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            placeholder={'Driving License No'}
+            placeholderTextColor={theme.colors['text placeholder']}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                {
+                  borderColor: theme.colors['Light'],
+                  borderRadius: 12,
+                  height: 48,
+                  margin: 10,
+                  paddingLeft: 16,
+                }
+              ),
+              dimensions.width
+            )}
+            value={drivingLicense}
+          />
+        </View>
         {/* Front Driving License View */}
         <View>
           {/* Sub Title */}
@@ -325,6 +352,7 @@ const AddNewDriverScreen = props => {
                     mediaTypes: 'Images',
                     allowsEditing: false,
                     quality: 0.2,
+                    allowsMultipleSelection: false,
                   });
 
                   setDlFront(results);
@@ -429,6 +457,7 @@ const AddNewDriverScreen = props => {
                     mediaTypes: 'Images',
                     allowsEditing: false,
                     quality: 0.2,
+                    allowsMultipleSelection: false,
                   });
 
                   setDlBack(results);
@@ -533,6 +562,7 @@ const AddNewDriverScreen = props => {
                     mediaTypes: 'All',
                     allowsEditing: false,
                     quality: 0.2,
+                    allowsMultipleSelection: false,
                   });
 
                   setNrcFront(results);
@@ -637,6 +667,7 @@ const AddNewDriverScreen = props => {
                     mediaTypes: 'All',
                     allowsEditing: false,
                     quality: 0.2,
+                    allowsMultipleSelection: false,
                   });
 
                   setNrcBack(results);
@@ -696,6 +727,7 @@ const AddNewDriverScreen = props => {
               try {
                 const results = (
                   await cotruckAddNewDriverPOST.mutateAsync({
+                    driver_license_no: drivingLicense,
                     driving_license_back: dlBack,
                     driving_license_front: dlFront,
                     mobile: Mobile,
@@ -715,7 +747,7 @@ const AddNewDriverScreen = props => {
                 });
 
                 navigation.navigate('ManageDriverScreen');
-                console.log(results, Mobile);
+                console.log(results, drivingLicense);
               } catch (err) {
                 console.error(err);
               }

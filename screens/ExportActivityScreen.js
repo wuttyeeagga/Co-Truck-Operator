@@ -702,12 +702,7 @@ const ExportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  {
-                                    alignSelf: 'center',
-                                    flex: 1,
-                                    fontSize: 16,
-                                    marginTop: 100,
-                                  }
+                                  { fontSize: 16, marginTop: 100 }
                                 ),
                                 dimensions.width
                               )}

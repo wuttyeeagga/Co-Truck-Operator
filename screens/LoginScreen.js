@@ -56,7 +56,7 @@ const LoginScreen = props => {
             dimensions.width
           )}
         >
-          {/* Logo */}
+          {/* Logo Image */}
           <Image
             resizeMode={'cover'}
             source={Images.Logo}

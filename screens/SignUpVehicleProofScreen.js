@@ -50,7 +50,10 @@ const SignUpVehicleProofScreen = props => {
         const valueNFLO2wkt = data;
         setVehicleTypeList(valueNFLO2wkt);
         const asdf = valueNFLO2wkt;
-        console.log(data, vehicleTypeList, vehicleLists, asdf);
+        console.log(
+          props.route?.params?.certificate ?? '',
+          props.route?.params?.agent_license ?? ''
+        );
       } catch (err) {
         console.error(err);
       }

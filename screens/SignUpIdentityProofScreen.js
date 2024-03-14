@@ -12,6 +12,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { Image, ScrollView, Text, View } from 'react-native';
 
 const SignUpIdentityProofScreen = props => {
@@ -25,6 +26,20 @@ const SignUpIdentityProofScreen = props => {
   const [isNRCFront, setIsNRCFront] = React.useState(false);
   const [nrcBack, setNrcBack] = React.useState({});
   const [nrcFront, setNrcFront] = React.useState({});
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      console.log(
+        props.route?.params?.company_file ?? '',
+        props.route?.params?.agent_license_file ?? ''
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer

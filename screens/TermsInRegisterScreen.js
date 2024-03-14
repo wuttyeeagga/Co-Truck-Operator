@@ -41,14 +41,9 @@ const TermsInRegisterScreen = props => {
         props.route?.params?.nrc_back ?? null,
         props.route?.params?.preferred_paths ?? null,
         props.route?.params?.vehicle_reg_certificate ?? null,
-        props.route?.params?.vehicle_insurance ?? null
+        props.route?.params?.vehicle_insurance ?? null,
+        props.route?.params?.agent_license ?? null
       );
-
-      showAlertUtil({
-        title: 'Message',
-        message: 'alert',
-        buttonText: undefined,
-      });
     } catch (err) {
       console.error(err);
     }
@@ -233,7 +228,7 @@ const TermsInRegisterScreen = props => {
                     is_regi: 1,
                   });
                   console.log(
-                    Response,
+                    JSON.parse(Response),
                     data,
                     Response?.message,
                     'data is responding',

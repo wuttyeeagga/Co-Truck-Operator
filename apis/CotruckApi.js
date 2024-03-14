@@ -118,6 +118,7 @@ export const FetchAcceptNewTripPOST = ({
 export const addNewDriverPOST = (
   Constants,
   {
+    driver_license_no,
     driving_license_back,
     driving_license_front,
     mobile,
@@ -141,6 +142,7 @@ export const addNewDriverPOST = (
       driving_license_back: driving_license_back,
       nrc_front: nrc_front,
       nrc_back: nrc_back,
+      driver_license_no: driver_license_no,
     }),
     headers: {
       Accept: 'application/json',
@@ -177,6 +179,7 @@ export const FetchAddNewDriverPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  driver_license_no,
   driving_license_back,
   driving_license_front,
   mobile,
@@ -198,6 +201,7 @@ export const FetchAddNewDriverPOST = ({
     mutate: refetch,
   } = useAddNewDriverPOST(
     {
+      driver_license_no,
       driving_license_back,
       driving_license_front,
       mobile,

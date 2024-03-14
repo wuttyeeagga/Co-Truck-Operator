@@ -117,13 +117,12 @@ const HomeScreen = props => {
         >
           <ScrollView
             bounces={true}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
             contentContainerStyle={StyleSheet.applyWidth(
-              { paddingBottom: 20 },
+              { flex: 1, paddingBottom: 20 },
               dimensions.width
             )}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
           >
             {/* Import New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
@@ -169,7 +168,6 @@ const HomeScreen = props => {
                         style={StyleSheet.applyWidth(
                           {
                             alignItems: 'center',
-                            alignSelf: 'center',
                             flex: 1,
                             justifyContent: 'center',
                           },
@@ -183,7 +181,7 @@ const HomeScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 2'],
-                              { flex: 1, fontSize: 16 }
+                              { fontSize: 16 }
                             ),
                             dimensions.width
                           )}
@@ -667,13 +665,12 @@ const HomeScreen = props => {
         >
           <ScrollView
             bounces={true}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
             contentContainerStyle={StyleSheet.applyWidth(
-              { paddingBottom: 20 },
+              { flex: 1, paddingBottom: 20 },
               dimensions.width
             )}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
           >
             {/* Export New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
@@ -717,7 +714,11 @@ const HomeScreen = props => {
                       {/* Error View */}
                       <View
                         style={StyleSheet.applyWidth(
-                          { alignSelf: 'center', flex: 1 },
+                          {
+                            alignItems: 'center',
+                            flex: 1,
+                            justifyContent: 'center',
+                          },
                           dimensions.width
                         )}
                       >
@@ -728,7 +729,7 @@ const HomeScreen = props => {
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['Text 2'],
-                              { flex: 1, fontSize: 16 }
+                              { fontSize: 16 }
                             ),
                             dimensions.width
                           )}

@@ -272,8 +272,11 @@ const SignUpVehicleProofScreen = props => {
                     allowsMultipleSelection: false,
                   });
 
-                  setVehicleRCImage(results);
+                  const valueJrDZbJE7 = results;
+                  setVehicleRCImage(valueJrDZbJE7);
+                  const adsf = valueJrDZbJE7;
                   setIsNRCUpload(true);
+                  console.log(adsf, results);
                 } catch (err) {
                   console.error(err);
                 }

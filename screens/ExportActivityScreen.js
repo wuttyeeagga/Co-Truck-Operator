@@ -184,7 +184,7 @@ const ExportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16, marginTop: 100 }
+                                  { fontSize: 16 }
                                 ),
                                 dimensions.width
                               )}
@@ -702,7 +702,7 @@ const ExportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16, marginTop: 100 }
+                                  { fontSize: 16 }
                                 ),
                                 dimensions.width
                               )}
@@ -1222,7 +1222,7 @@ const ExportActivityScreen = props => {
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['Text 2'],
-                                  { fontSize: 16, marginTop: 100 }
+                                  { fontSize: 16 }
                                 ),
                                 dimensions.width
                               )}

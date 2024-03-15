@@ -139,7 +139,25 @@ const ImportBookingDetailsOnCompletedScreen = props => {
             }
 
             if (error || data?.status < 200 || data?.status >= 300) {
-              return <ActivityIndicator />;
+              return (
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', flex: 1, justifyContent: 'center' },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['Text 2'],
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?.message}
+                  </Text>
+                </View>
+              );
             }
 
             return (

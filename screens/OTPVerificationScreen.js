@@ -168,9 +168,6 @@ const OTPVerificationScreen = props => {
                     user_id: props.route?.params?.user_id ?? '',
                   });
                 }
-                navigation.navigate('BottomTabNavigator', {
-                  screen: 'PaidScreen',
-                });
               } catch (err) {
                 console.error(err);
               }

@@ -14,7 +14,6 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
 import { ScrollView, Text, View } from 'react-native';
 
 const TermsInRegisterScreen = props => {
@@ -27,21 +26,6 @@ const TermsInRegisterScreen = props => {
   const [pickerValue, setPickerValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
   const cotruckRegisterPOST = CotruckApi.useRegisterPOST();
-  const isFocused = useIsFocused();
-  React.useEffect(() => {
-    try {
-      if (!isFocused) {
-        return;
-      }
-      console.log(
-        'data ====> ',
-        props.route?.params?.certificate ?? null,
-        props.route?.params?.agent_license ?? null
-      );
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -220,11 +204,6 @@ const TermsInRegisterScreen = props => {
                   console.log('Start ON_PRESS:2 EXTRACT_KEY');
                   const data = Response?.data;
                   console.log('Complete ON_PRESS:2 EXTRACT_KEY', { data });
-                  console.log('Start ON_PRESS:3 CONDITIONAL_STOP');
-                  if (!data) {
-                    return;
-                  }
-                  console.log('Complete ON_PRESS:3 CONDITIONAL_STOP');
                   console.log('Start ON_PRESS:4 NAVIGATE');
                   navigation.navigate('OTPVerificationScreen', {
                     user_id: data?.id,

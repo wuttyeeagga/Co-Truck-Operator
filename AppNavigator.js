@@ -233,6 +233,20 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
+          options={({ navigation }) => ({
+            title: 'OTP Verification',
+          })}
+        />
+        <Stack.Screen
+          name="ImportBookingDetailsOnCompletedScreen"
+          component={ImportBookingDetailsOnCompletedScreen}
+          options={({ navigation }) => ({
+            title: 'Import Booking Details on Completed',
+          })}
+        />
+        <Stack.Screen
           name="SignUpIdentityProofScreen"
           component={SignUpIdentityProofScreen}
           options={({ navigation }) => ({
@@ -261,13 +275,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ImportBookingDetailsOnCompletedScreen"
-          component={ImportBookingDetailsOnCompletedScreen}
-          options={({ navigation }) => ({
-            title: 'Import Booking Details on Completed',
-          })}
-        />
-        <Stack.Screen
           name="InvoiceScreen"
           component={InvoiceScreen}
           options={({ navigation }) => ({
@@ -286,13 +293,6 @@ export default function RootAppNavigator() {
           component={ImportBookingDetailsOnGoingScreen}
           options={({ navigation }) => ({
             title: 'Import Booking Details on Going',
-          })}
-        />
-        <Stack.Screen
-          name="OTPVerificationScreen"
-          component={OTPVerificationScreen}
-          options={({ navigation }) => ({
-            title: 'OTP Verification',
           })}
         />
         <Stack.Screen

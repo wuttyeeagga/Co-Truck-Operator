@@ -5,6 +5,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import selectFileUtil from '../utils/selectFile';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -45,6 +46,7 @@ const RegisterScreen = props => {
   const [referCode, setReferCode] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState(undefined);
   const cotruckPreferredPathsPOST = CotruckApi.usePreferredPathsPOST();
+  const cotruckRegisterPOST = CotruckApi.useRegisterPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     const handler = async () => {
@@ -185,7 +187,7 @@ const RegisterScreen = props => {
           {/* Company Phone */}
           <TextInput
             autoCapitalize={'none'}
-            keyboardType={'phone-pad'}
+            keyboardType={'numeric'}
             maxLength={11}
             onChangeText={newCompanyPhoneValue => {
               try {
@@ -294,12 +296,7 @@ const RegisterScreen = props => {
                         setIsCompanyFile(true);
                         console.log('Complete ON_PRESS:2 SET_VARIABLE');
                         console.log('Start ON_PRESS:3 CONSOLE_LOG');
-                        console.log(
-                          fileResults,
-                          file,
-                          companyRegisterFile,
-                          companyRegisterFile?.name
-                        );
+                        console.log(fileResults);
                         console.log('Complete ON_PRESS:3 CONSOLE_LOG');
                       } catch (err) {
                         console.error(err);
@@ -708,7 +705,7 @@ const RegisterScreen = props => {
           {/* Contact Phone */}
           <TextInput
             autoCapitalize={'none'}
-            keyboardType={'phone-pad'}
+            keyboardType={'numeric'}
             maxLength={11}
             onChangeText={newContactPhoneValue => {
               try {
@@ -718,7 +715,7 @@ const RegisterScreen = props => {
               }
             }}
             placeholder={'Mobile Number (09xxxxxxxxx)'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholderTextColor={theme.colors['TextPlaceholder']}
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: 'rgba(0, 0, 0, 0)',

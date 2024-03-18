@@ -233,6 +233,13 @@ export default function RootAppNavigator() {
         })}
       >
         <Stack.Screen
+          name="ImportLiveTrackScreen"
+          component={ImportLiveTrackScreen}
+          options={({ navigation }) => ({
+            title: 'Import Live Track',
+          })}
+        />
+        <Stack.Screen
           name="ImportBookingDetailsOnCompletedScreen"
           component={ImportBookingDetailsOnCompletedScreen}
           options={({ navigation }) => ({
@@ -258,13 +265,6 @@ export default function RootAppNavigator() {
           component={ForgotPasswordScreen}
           options={({ navigation }) => ({
             title: 'Forgot Password',
-          })}
-        />
-        <Stack.Screen
-          name="ImportLiveTrackScreen"
-          component={ImportLiveTrackScreen}
-          options={({ navigation }) => ({
-            title: 'Import Live Track',
           })}
         />
         <Stack.Screen

@@ -149,8 +149,8 @@ const ImportLiveTrackScreen = props => {
           <MapMarker
             androidUseDefaultIconImplementation={true}
             flat={true}
-            latitude={props.route?.params?.pickup_lat ?? ''}
-            longitude={props.route?.params?.pickup_long ?? ''}
+            latitude={parseFloat(props.route?.params?.pickup_lat ?? '', 10)}
+            longitude={parseFloat(props.route?.params?.pickup_long ?? '', 10)}
             pinColor={theme.colors['Error']}
             pinImageSize={50}
             title={'Pickup Marker'}
@@ -159,8 +159,8 @@ const ImportLiveTrackScreen = props => {
           {/* Driver Marker */}
           <MapMarker
             flat={true}
-            latitude={props.route?.params?.driver_lat ?? ''}
-            longitude={props.route?.params?.driver_long ?? ''}
+            latitude={parseFloat(props.route?.params?.driver_lat ?? '', 10)}
+            longitude={parseFloat(props.route?.params?.driver_long ?? '', 10)}
             pinImage={Images.CotruckTruck}
             pinImageSize={50}
             title={'Driver'}
@@ -169,8 +169,8 @@ const ImportLiveTrackScreen = props => {
           {/* Drop Marker */}
           <MapMarker
             flat={true}
-            latitude={props.route?.params?.drop_lat ?? ''}
-            longitude={props.route?.params?.drop_long ?? ''}
+            latitude={parseFloat(props.route?.params?.drop_lat ?? '', 10)}
+            longitude={parseFloat(props.route?.params?.drop_long ?? '', 10)}
             pinColor={theme.colors['Success']}
             pinImageSize={50}
             title={'Drop Marker'}

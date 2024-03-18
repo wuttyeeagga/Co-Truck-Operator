@@ -8,7 +8,6 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   AccordionGroup,
-  Divider,
   Icon,
   ScreenContainer,
   TabView,

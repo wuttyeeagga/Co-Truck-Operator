@@ -27,9 +27,7 @@ const LoginScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
   const [condi, setCondi] = React.useState('');
-  const [email, setEmail] = React.useState('aggaop@gmail.com');
   const [msg, setMsg] = React.useState('Message');
-  const [password, setPassword] = React.useState('aggaop');
   const [successMsg, setSuccessMsg] = React.useState('Success');
   const cotruckLoginPOST = CotruckApi.useLoginPOST();
 
@@ -124,7 +122,10 @@ const LoginScreen = props => {
             keyboardType={'default'}
             onChangeText={newEmailValue => {
               try {
-                setEmail(newEmailValue);
+                setGlobalVariableValue({
+                  key: 'email',
+                  value: newEmailValue,
+                });
               } catch (err) {
                 console.error(err);
               }
@@ -150,7 +151,7 @@ const LoginScreen = props => {
               ),
               dimensions.width
             )}
-            value={email}
+            value={Constants['email']}
           />
           {/* Password */}
           <>
@@ -165,7 +166,10 @@ const LoginScreen = props => {
                 keyboardType={'default'}
                 onChangeText={newPasswordValue => {
                   try {
-                    setPassword(newPasswordValue);
+                    setGlobalVariableValue({
+                      key: 'password',
+                      value: newPasswordValue,
+                    });
                   } catch (err) {
                     console.error(err);
                   }
@@ -190,7 +194,7 @@ const LoginScreen = props => {
                   ),
                   dimensions.width
                 )}
-                value={password}
+                value={Constants['password']}
               />
             )}
           </>
@@ -207,7 +211,10 @@ const LoginScreen = props => {
                 keyboardType={'default'}
                 onChangeText={newPassword2Value => {
                   try {
-                    setPassword(newPassword2Value);
+                    setGlobalVariableValue({
+                      key: 'password',
+                      value: newPassword2Value,
+                    });
                   } catch (err) {
                     console.error(err);
                   }
@@ -232,7 +239,7 @@ const LoginScreen = props => {
                   ),
                   dimensions.width
                 )}
-                value={password}
+                value={Constants['password']}
               />
             )}
           </>
@@ -339,10 +346,16 @@ const LoginScreen = props => {
               let error = null;
               try {
                 console.log('Start ON_CHECK:0 SET_VARIABLE');
-                setEmail(email);
+                setGlobalVariableValue({
+                  key: 'email',
+                  value: Constants['email'],
+                });
                 console.log('Complete ON_CHECK:0 SET_VARIABLE');
                 console.log('Start ON_CHECK:1 SET_VARIABLE');
-                setPassword(password);
+                setGlobalVariableValue({
+                  key: 'password',
+                  value: Constants['password'],
+                });
                 console.log('Complete ON_CHECK:1 SET_VARIABLE');
               } catch (err) {
                 console.error(err);
@@ -381,8 +394,8 @@ const LoginScreen = props => {
                 try {
                   const loginResponse = (
                     await cotruckLoginPOST.mutateAsync({
-                      email: email,
-                      password: password,
+                      email: Constants['email'],
+                      password: Constants['password'],
                       user_type: 'OWNER',
                     })
                   )?.json;
@@ -412,10 +425,12 @@ const LoginScreen = props => {
                     key: 'OWNER_INFO',
                     value: data,
                   });
-                  navigation.navigate('BottomTabNavigator', {
+                  if (navigation.canGoBack()) {
+                    navigation.popToTop();
+                  }
+                  navigation.replace('BottomTabNavigator', {
                     screen: 'HomeScreen',
                   });
-                  console.log(token);
                 } catch (err) {
                   console.error(err);
                 }

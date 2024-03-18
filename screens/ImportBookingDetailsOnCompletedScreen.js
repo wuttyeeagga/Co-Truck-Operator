@@ -92,12 +92,13 @@ const ImportBookingDetailsOnCompletedScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
+        {/* Booking Detail */}
         <CotruckApi.FetchBookingDetailPOST
           book_truck_id={props.route?.params?.book_truck_id ?? ''}
           handlers={{
-            onData: fetchData => {
+            onData: bookingDetailData => {
               try {
-                console.log(fetchData);
+                console.log(bookingDetailData);
               } catch (err) {
                 console.error(err);
               }
@@ -105,7 +106,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
           }}
         >
           {({ loading, error, data, refetchBookingDetail }) => {
-            const fetchData = data?.json;
+            const bookingDetailData = data?.json;
             if (loading) {
               return (
                 <>
@@ -154,7 +155,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {fetchData?.message}
+                    {bookingDetailData?.message}
                   </Text>
                 </View>
               );
@@ -190,7 +191,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   >
                     {'Booking ID : '}
-                    {fetchData?.data?.book_truck_id}
+                    {bookingDetailData?.data?.book_truck_id}
                   </Text>
                   {/* Status */}
                   <Text
@@ -210,7 +211,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   >
                     {'Status : '}
-                    {fetchData?.data?.status}
+                    {bookingDetailData?.data?.status}
                   </Text>
                 </View>
                 {/* Paid Status View */}
@@ -239,7 +240,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     )}
                   >
                     {'Payment Status : '}
-                    {fetchData?.data?.paid_status}
+                    {bookingDetailData?.data?.paid_status}
                   </Text>
                 </View>
                 {/* Booking Info Row */}
@@ -273,7 +274,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         <Image
                           resizeMode={'cover'}
                           source={{
-                            uri: `${fetchData?.data?.shipper_info?.user_image}`,
+                            uri: `${bookingDetailData?.data?.shipper_info?.user_image}`,
                           }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
@@ -310,7 +311,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.shipper_info?.name}
+                          {bookingDetailData?.data?.shipper_info?.name}
                         </Text>
                         {/* Mobile */}
                         <Text
@@ -324,7 +325,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.shipper_info?.mobile}
+                          {bookingDetailData?.data?.shipper_info?.mobile}
                         </Text>
                       </View>
                     </View>
@@ -341,7 +342,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         onPress={() => {
                           try {
                             Linking.openURL(
-                              `tel:${fetchData?.data?.shipper_info?.mobile}`
+                              `tel:${bookingDetailData?.data?.shipper_info?.mobile}`
                             );
                           } catch (err) {
                             console.error(err);
@@ -398,7 +399,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         <Image
                           resizeMode={'cover'}
                           source={{
-                            uri: `${fetchData?.data?.driver_info?.user_image}`,
+                            uri: `${bookingDetailData?.data?.driver_info?.user_image}`,
                           }}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
@@ -435,7 +436,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.driver_info?.name}
+                          {bookingDetailData?.data?.driver_info?.name}
                         </Text>
                         {/* Driver Mobile */}
                         <Text
@@ -449,7 +450,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.driver_info?.mobile}
+                          {bookingDetailData?.data?.driver_info?.mobile}
                         </Text>
                       </View>
                     </View>
@@ -466,7 +467,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         onPress={() => {
                           try {
                             Linking.openURL(
-                              `tel:${fetchData?.data?.driver_info?.mobile}`
+                              `tel:${bookingDetailData?.data?.driver_info?.mobile}`
                             );
                           } catch (err) {
                             console.error(err);
@@ -524,7 +525,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.pickup_location}
+                      {bookingDetailData?.data?.pickup_location}
                     </Text>
                   </View>
                   {/* Icon View */}
@@ -569,7 +570,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.drop_location}
+                      {bookingDetailData?.data?.drop_location}
                     </Text>
                   </View>
                   {/* Icon View */}
@@ -614,7 +615,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.data?.depot_location}
+                      {bookingDetailData?.data?.depot_location}
                     </Text>
                   </View>
                 </View>
@@ -706,15 +707,15 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.pickup_date?.split(' ')[0]}{' '}
+                          {bookingDetailData?.data?.pickup_date?.split(' ')[0]}{' '}
                           {
-                            fetchData?.data?.pickup_date
+                            bookingDetailData?.data?.pickup_date
                               ?.split(' ')[1]
                               ?.split(':')[0]
                           }
                           {':'}
                           {
-                            fetchData?.data?.pickup_date
+                            bookingDetailData?.data?.pickup_date
                               ?.split(' ')[1]
                               ?.split(':')[1]
                           }
@@ -807,7 +808,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.pickup_address}
+                          {bookingDetailData?.data?.pickup_address}
                         </Text>
                       </View>
                     </View>
@@ -897,7 +898,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.drop_address}
+                          {bookingDetailData?.data?.drop_address}
                         </Text>
                       </View>
                     </View>
@@ -987,7 +988,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.booking_type}
+                          {bookingDetailData?.data?.booking_type}
                         </Text>
                       </View>
                     </View>
@@ -1077,7 +1078,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.vehicle_type}
+                          {bookingDetailData?.data?.vehicle_type}
                         </Text>
                       </View>
                     </View>
@@ -1167,7 +1168,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.material_type}
+                          {bookingDetailData?.data?.material_type}
                         </Text>
                       </View>
                     </View>
@@ -1257,7 +1258,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.load_weight}
+                          {bookingDetailData?.data?.load_weight}
                         </Text>
                       </View>
                     </View>
@@ -1347,7 +1348,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.no_of_truck}
+                          {bookingDetailData?.data?.no_of_truck}
                         </Text>
                       </View>
                     </View>
@@ -1437,8 +1438,178 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?.data?.product_category}
+                          {bookingDetailData?.data?.product_category}
                         </Text>
+                      </View>
+                    </View>
+                    <Divider
+                      color={theme.colors['Tab_Divider']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { height: 2, marginTop: 5 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                  {/* Proof Of Delivery */}
+                  <View>
+                    {/* Row View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          marginBottom: 10,
+                          marginTop: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Proof Of Delivery */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Proof Of Delivery */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Proof Of Delivery - 1'}
+                        </Text>
+                      </View>
+                      {/* Icon View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['Light']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={16}
+                        />
+                      </View>
+                      {/* Proof Of Delivery View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Image
+                          resizeMode={'cover'}
+                          source={{
+                            uri: `${bookingDetailData?.data?.reached_image}`,
+                          }}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.ImageStyles(theme)['Image 3'],
+                              { marginLeft: 10 }
+                            ),
+                            dimensions.width
+                          )}
+                        />
+                      </View>
+                    </View>
+                    <Divider
+                      color={theme.colors['Tab_Divider']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.DividerStyles(theme)['Divider'],
+                          { height: 2, marginTop: 5 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                  {/* Proof Of Delivery 2 */}
+                  <View>
+                    {/* Row View */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          marginBottom: 10,
+                          marginTop: 10,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Proof Of Delivery */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Proof Of Delivery 2 */}
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['Text 3'],
+                              {
+                                color: theme.colors['CoTruckBlack'],
+                                fontSize: 16,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Proof Of Delivery - 2\n'}
+                        </Text>
+                      </View>
+                      {/* Icon View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '5%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Icon
+                          color={theme.colors['Light']}
+                          name={'Entypo/dots-two-vertical'}
+                          size={16}
+                        />
+                      </View>
+                      {/* Proof Of Delivery View */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: '45%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Image
+                          resizeMode={'cover'}
+                          source={{
+                            uri: `${bookingDetailData?.data?.reached_image_two}`,
+                          }}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.ImageStyles(theme)['Image 3'],
+                              { marginLeft: 10 }
+                            ),
+                            dimensions.width
+                          )}
+                        />
                       </View>
                     </View>
                     <Divider
@@ -1467,12 +1638,13 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                 >
                   {/* Invoice */}
                   <>
-                    {!(fetchData?.data?.inv_status === false) ? null : (
+                    {!(bookingDetailData?.data?.inv_status === false) ? null : (
                       <Button
                         onPress={() => {
                           try {
                             navigation.navigate('InvoiceScreen', {
-                              book_truck_id: fetchData?.data?.book_truck_id,
+                              book_truck_id:
+                                bookingDetailData?.data?.book_truck_id,
                             });
                           } catch (err) {
                             console.error(err);
@@ -1492,7 +1664,7 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                 </View>
                 {/* Complete Button View */}
                 <>
-                  {fetchData?.data?.complete_booking ? null : (
+                  {bookingDetailData?.data?.complete_booking ? null : (
                     <View
                       style={StyleSheet.applyWidth(
                         {
@@ -1506,7 +1678,9 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                     >
                       {/* Complete all ride */}
                       <>
-                        {!(fetchData?.data?.paid_status === 'PAID') ? null : (
+                        {!(
+                          bookingDetailData?.data?.paid_status === 'PAID'
+                        ) ? null : (
                           <Button
                             onPress={() => {
                               const handler = async () => {
@@ -1515,7 +1689,8 @@ const ImportBookingDetailsOnCompletedScreen = props => {
                                     await cotruckCompleteBookingPOST.mutateAsync(
                                       {
                                         book_truck_id:
-                                          fetchData?.data?.book_truck_id,
+                                          bookingDetailData?.data
+                                            ?.book_truck_id,
                                         operator_id: Constants['AUTH_OWNER_ID'],
                                       }
                                     )

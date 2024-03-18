@@ -27,6 +27,7 @@ const ImportNewTripPendingScreen = props => {
   const Variables = Constants;
   const [addOnAmount, setAddOnAmount] = React.useState(0);
   const [availabilityTruck, setAvailabilityTruck] = React.useState(0);
+  const [baseCharges, setBaseCharges] = React.useState(0);
   const [chargesOptions, setChargesOptions] = React.useState([]);
   const [chooseDriverOptions, setChooseDriverOptions] = React.useState([]);
   const [extraAmount, setExtraAmount] = React.useState(0);
@@ -36,9 +37,8 @@ const ImportNewTripPendingScreen = props => {
     []
   );
   const [selectDriver, setSelectDriver] = React.useState([]);
-  const [subTotal, setSubTotal] = React.useState(0);
   const [textInputValue, setTextInputValue] = React.useState('');
-  const [totalPrice, setTotalPrice] = React.useState('');
+  const [totalCharges, setTotalCharges] = React.useState('');
   const [truckNumbers, setTruckNumbers] = React.useState(0);
   const addExtraToTotal = (a, b) => {
     const d = a + b;
@@ -70,8 +70,8 @@ const ImportNewTripPendingScreen = props => {
               try {
                 const DRIVERS = fetchData?.data?.drivers;
                 setChooseDriverOptions(DRIVERS);
-                setSubTotal((fetchData?.data?.sub_total).toString());
-                setTotalPrice((fetchData?.data?.total_price).toString());
+                setBaseCharges((fetchData?.data?.sub_total).toString());
+                setTotalCharges((fetchData?.data?.total_price).toString());
               } catch (err) {
                 console.error(err);
               }
@@ -147,7 +147,7 @@ const ImportNewTripPendingScreen = props => {
                 <View>
                   {/* Locations View */}
                   <View>
-                    {/* Ride Zone */}
+                    {/* Route */}
                     <Text
                       accessible={true}
                       allowFontScaling={true}
@@ -164,7 +164,7 @@ const ImportNewTripPendingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {'Ride Zone'}
+                      {'Route'}
                     </Text>
                     {/* Row Wrapper */}
                     <View
@@ -757,7 +757,7 @@ const ImportNewTripPendingScreen = props => {
                       }
                     }}
                     options={fetchData?.data?.drivers}
-                    placeholder={'Choose Driver'}
+                    placeholder={'Truck Number'}
                     placeholderTextColor={theme.colors['TextPlaceholder']}
                     rightIconName={'AntDesign/caretdown'}
                     selectedIconColor={theme.colors.strong}
@@ -770,7 +770,7 @@ const ImportNewTripPendingScreen = props => {
                     type={'solid'}
                     value={selectDriver}
                   />
-                  {/* Sub Total */}
+                  {/* Base Charges */}
                   <View>
                     <View
                       style={StyleSheet.applyWidth(
@@ -778,7 +778,7 @@ const ImportNewTripPendingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Sub Total */}
+                      {/* Base Charges */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -794,7 +794,7 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Sub Total'}
+                        {'Base Charges'}
                       </Text>
                     </View>
                     {/* View 2 */}
@@ -804,15 +804,15 @@ const ImportNewTripPendingScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {/* Sub Toal Input */}
+                      {/* Base Charges Input */}
                       <TextInput
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
                         editable={false}
-                        onChangeText={newSubToalInputValue => {
+                        onChangeText={newBaseChargesInputValue => {
                           try {
-                            setSubTotal(newSubToalInputValue);
+                            setBaseCharges(newBaseChargesInputValue);
                           } catch (err) {
                             console.error(err);
                           }
@@ -832,7 +832,7 @@ const ImportNewTripPendingScreen = props => {
                           ),
                           dimensions.width
                         )}
-                        value={subTotal}
+                        value={baseCharges}
                       />
                     </View>
                   </View>
@@ -890,16 +890,16 @@ const ImportNewTripPendingScreen = props => {
                               const qwerqwer = valuetH3yI2lk;
                               const valueeiBeF7mh =
                                 (fetchData?.data?.total_price).toString();
-                              setTotalPrice(valueeiBeF7mh);
+                              setTotalCharges(valueeiBeF7mh);
                               const qwer = valueeiBeF7mh;
                             } else {
                               const results = addExtraToTotal(
                                 parseInt(ewer, 10),
-                                parseInt(subTotal, 10)
+                                parseInt(baseCharges, 10)
                               );
 
                               const value4us9u2aL = results.toString();
-                              setTotalPrice(value4us9u2aL);
+                              setTotalCharges(value4us9u2aL);
                               const asdf = value4us9u2aL;
                             }
                           } catch (err) {
@@ -925,15 +925,16 @@ const ImportNewTripPendingScreen = props => {
                       />
                     </View>
                   </View>
-                  {/* Total Price */}
+                  {/* Total Charges */}
                   <View>
+                    {/* Total Charges View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { margin: 10, marginBottom: 0 },
                         dimensions.width
                       )}
                     >
-                      {/* Total Price */}
+                      {/* Total Charges */}
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -949,25 +950,25 @@ const ImportNewTripPendingScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'Total Price'}
+                        {'Total Charges'}
                       </Text>
                     </View>
-                    {/* View 2 */}
+                    {/* Total Charges View */}
                     <View
                       style={StyleSheet.applyWidth(
                         { margin: 10, marginTop: 0 },
                         dimensions.width
                       )}
                     >
-                      {/* Total Price Input */}
+                      {/* Total Charges Input */}
                       <TextInput
                         allowFontScaling={true}
                         autoCapitalize={'none'}
                         changeTextDelay={500}
                         editable={false}
-                        onChangeText={newTotalPriceInputValue => {
+                        onChangeText={newTotalChargesInputValue => {
                           try {
-                            setTotalPrice(newTotalPriceInputValue);
+                            setTotalCharges(newTotalChargesInputValue);
                           } catch (err) {
                             console.error(err);
                           }
@@ -987,7 +988,7 @@ const ImportNewTripPendingScreen = props => {
                           ),
                           dimensions.width
                         )}
-                        value={totalPrice}
+                        value={totalCharges}
                       />
                     </View>
                   </View>
@@ -1035,10 +1036,10 @@ const ImportNewTripPendingScreen = props => {
                       onPress={() => {
                         const handler = async () => {
                           try {
-                            if (chooseDriverOptions?.length === '') {
+                            if (selectDriver?.length === 0) {
                               showAlertUtil({
                                 title: 'Message',
-                                message: 'Drivers and Trucks are not enough.',
+                                message: 'Please choose truck number',
                                 buttonText: undefined,
                               });
                             } else {
@@ -1047,7 +1048,7 @@ const ImportNewTripPendingScreen = props => {
                                   addon_amount: addOnAmount,
                                   booking_id: fetchData?.data?.book_truck_id,
                                   driver_ids: selectDriver,
-                                  final_total: totalPrice,
+                                  final_total: totalCharges,
                                   operator_id: Constants['AUTH_OWNER_ID'],
                                   qty: fetchData?.data?.no_of_truck,
                                   sub_total: fetchData?.data?.sub_total,
@@ -1063,7 +1064,7 @@ const ImportNewTripPendingScreen = props => {
                               navigation.navigate('BottomTabNavigator', {
                                 screen: 'HomeScreen',
                               });
-                              console.log(results, selectDriver);
+                              console.log(results);
                             }
                           } catch (err) {
                             console.error(err);

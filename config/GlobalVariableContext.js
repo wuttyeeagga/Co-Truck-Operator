@@ -15,8 +15,10 @@ export const DeviceVariables = {
   ],
   OWNER_INFO: '',
   confirmPwdShown: false,
+  email: '',
   newPwdShown: false,
   oldPwdShown: false,
+  password: '',
   showPassword: false,
   vehicleTypeOptions:
     '[{label:"20ft Container Truck",value:8}, {label:"40ft Container Truck",value:9}]',

@@ -491,7 +491,8 @@ const AddNewVehicleScreen = props => {
               try {
                 const Response = (
                   await cotruckAddNewVehiclePOST.mutateAsync({
-                    operator_id: 125,
+                    // already fixed static data 
+                    operator_id: Constants['AUTH_OWNER_ID'],
                     reg_certificate: RCImage,
                     reg_no: noOfReg,
                     vehicle_id: vehicleType,

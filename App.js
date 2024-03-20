@@ -1,21 +1,30 @@
-import * as React from 'react';
-import * as Notifications from 'expo-notifications';
-import * as SplashScreen from 'expo-splash-screen';
+import * as React from "react";
+import * as Notifications from "expo-notifications";
+import * as SplashScreen from "expo-splash-screen";
 import {
   SafeAreaProvider,
   initialWindowMetrics,
-} from 'react-native-safe-area-context';
-import { View, Text, ActivityIndicator, AppState } from 'react-native';
-import { Provider as ThemeProvider } from '@draftbit/ui';
-import { QueryClient, QueryClientProvider } from 'react-query';
+} from "react-native-safe-area-context";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  AppState,
+  PermissionsAndroid,
+  Alert,
+} from "react-native";
+import { Provider as ThemeProvider } from "@draftbit/ui";
+import { QueryClient, QueryClientProvider } from "react-query";
+import messaging from "@react-native-firebase/messaging";
 
-import AppNavigator from './AppNavigator';
-import Draftbit from './themes/Draftbit.js';
-import cacheAssetsAsync from './config/cacheAssetsAsync';
-import { GlobalVariableProvider } from './config/GlobalVariableContext';
-import { useFonts } from 'expo-font';
-import Fonts from './config/Fonts.js';
+import AppNavigator from "./AppNavigator";
+import Draftbit from "./themes/Draftbit.js";
+import cacheAssetsAsync from "./config/cacheAssetsAsync";
+import { GlobalVariableProvider } from "./config/GlobalVariableContext";
+import { useFonts } from "expo-font";
+import Fonts from "./config/Fonts.js";
 SplashScreen.preventAutoHideAsync();
+PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -30,6 +39,53 @@ const queryClient = new QueryClient();
 const App = () => {
   const [areAssetsCached, setAreAssetsCached] = React.useState(false);
 
+  const NotificationListener = () => {
+    // Assume a message-notification contains a "type" property in the data payload of the screen to open
+    messaging().onNotificationOpenedApp((remoteMessage) => {
+      console.log(
+        "Notification caused app to open from background state:",
+        remoteMessage.notification
+      );
+    });
+
+    // Check whether an initial notification is available
+    messaging()
+      .getInitialNotification()
+      .then((remoteMessage) => {
+        if (remoteMessage) {
+          console.log(
+            "Notification caused app to open from quit state:",
+            remoteMessage.notification
+          );
+        }
+      });
+
+    // Register background handler
+    messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+      console.log(
+        "Message handled in the background!",
+        remoteMessage.notification.title
+      );
+      Alert.alert(
+        remoteMessage.notification.title,
+        remoteMessage.notification.body
+      );
+    });
+
+    messaging().onMessage(async (remoteMessage) => {
+      // console.log("notification on foreground state....", remoteMessage);
+      // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      Alert.alert(
+        remoteMessage.notification.title,
+        remoteMessage.notification.body
+      );
+    });
+  };
+
+  React.useEffect(() => {
+    NotificationListener();
+  }, []);
+
   const [fontsLoaded] = useFonts({
     Inter_500Medium: Fonts.Inter_500Medium,
     Inter_400Regular: Fonts.Inter_400Regular,
@@ -42,10 +98,10 @@ const App = () => {
 
   const appState = React.useRef(AppState.currentState);
 
-  const handleAppStateChange = nextAppState => {
+  const handleAppStateChange = (nextAppState) => {
     if (
       appState?.current?.match(/inactive|background/) &&
-      nextAppState === 'active'
+      nextAppState === "active"
     ) {
       // reset any badges once the user re-enters the app
       Notifications.setBadgeCountAsync(0);
@@ -56,7 +112,7 @@ const App = () => {
 
   React.useEffect(() => {
     const appStateSubscription = AppState.addEventListener(
-      'change',
+      "change",
       handleAppStateChange
     );
 

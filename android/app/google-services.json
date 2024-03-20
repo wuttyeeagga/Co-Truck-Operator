@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "698643338967",
+    "project_id": "cotruck-operator-bfb78",
+    "storage_bucket": "cotruck-operator-bfb78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698643338967:android:599ed29011b7531607c292",
+        "android_client_info": {
+          "package_name": "com.cotruck.operator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-S0-qyultoV8d2kVDQLi9DOsOEDfV8q8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

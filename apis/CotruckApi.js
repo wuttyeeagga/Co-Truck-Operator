@@ -1,16 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   useQuery,
   useMutation,
   useIsFetching,
   useQueryClient,
-} from 'react-query';
-import useFetch from 'react-fetch-hook';
-import { useIsFocused } from '@react-navigation/native';
-import { handleResponse, isOkStatus } from '../utils/handleRestApiResponse';
-import usePrevious from '../utils/usePrevious';
-import encodeQueryParam from '../utils/encodeQueryParam';
-import * as GlobalVariables from '../config/GlobalVariableContext';
+} from "react-query";
+import useFetch from "react-fetch-hook";
+import { useIsFocused } from "@react-navigation/native";
+import { handleResponse, isOkStatus } from "../utils/handleRestApiResponse";
+import usePrevious from "../utils/usePrevious";
+import encodeQueryParam from "../utils/encodeQueryParam";
+import * as GlobalVariables from "../config/GlobalVariableContext";
 
 export const acceptNewTripPOST = (
   Constants,
@@ -36,12 +36,12 @@ export const acceptNewTripPOST = (
       addon_amount: addon_amount,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useAcceptNewTripPOST = (
   initialArgs = {},
@@ -50,16 +50,17 @@ export const useAcceptNewTripPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => acceptNewTripPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      acceptNewTripPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('New Leads', previousValue);
+          return queryClient.setQueryData("New Leads", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('New Lead');
-        queryClient.invalidateQueries('New Leads');
+        queryClient.invalidateQueries("New Lead");
+        queryClient.invalidateQueries("New Leads");
       },
     }
   );
@@ -108,7 +109,7 @@ export const FetchAcceptNewTripPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -145,12 +146,12 @@ export const addNewDriverPOST = (
       driver_license_no: driver_license_no,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useAddNewDriverPOST = (
   initialArgs = {},
@@ -159,16 +160,17 @@ export const useAddNewDriverPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => addNewDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      addNewDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Driver', previousValue);
+          return queryClient.setQueryData("Driver", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Driver');
-        queryClient.invalidateQueries('Drivers');
+        queryClient.invalidateQueries("Driver");
+        queryClient.invalidateQueries("Drivers");
       },
     }
   );
@@ -223,7 +225,7 @@ export const FetchAddNewDriverPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -234,27 +236,27 @@ export const addNewLeadPOST = (Constants, { id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/add-new-lead`, {
     body: JSON.stringify({ id: id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useAddNewLeadPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => addNewLeadPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => addNewLeadPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -289,7 +291,7 @@ export const FetchAddNewLeadPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -329,24 +331,24 @@ export const addNewUserPOST = (
       terms: terms,
       user_type: user_type,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useAddNewUserPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => addNewUserPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => addNewUserPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -405,7 +407,7 @@ export const FetchAddNewUserPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -434,12 +436,12 @@ export const addNewVehiclePOST = (
       vehicle_image: vehicle_image,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useAddNewVehiclePOST = (
   initialArgs = {},
@@ -448,16 +450,17 @@ export const useAddNewVehiclePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => addNewVehiclePOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      addNewVehiclePOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Vehicle', previousValue);
+          return queryClient.setQueryData("Vehicle", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Vehicle');
-        queryClient.invalidateQueries('Vehicles');
+        queryClient.invalidateQueries("Vehicle");
+        queryClient.invalidateQueries("Vehicles");
       },
     }
   );
@@ -504,7 +507,7 @@ export const FetchAddNewVehiclePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -519,12 +522,12 @@ export const bookingDetailPOST = (
   fetch(`https://dev.cotruck.co/index.php/api/operator/booking-detail`, {
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useBookingDetailPOST = (
   initialArgs = {},
@@ -533,16 +536,17 @@ export const useBookingDetailPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => bookingDetailPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      bookingDetailPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Activity', previousValue);
+          return queryClient.setQueryData("Activity", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Activity');
-        queryClient.invalidateQueries('Activities');
+        queryClient.invalidateQueries("Activity");
+        queryClient.invalidateQueries("Activities");
       },
     }
   );
@@ -577,7 +581,7 @@ export const FetchBookingDetailPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -596,12 +600,12 @@ export const bookingListPOST = (
       booking_status: booking_status,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useBookingListPOST = (
   initialArgs = {},
@@ -610,16 +614,16 @@ export const useBookingListPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => bookingListPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => bookingListPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Activity', previousValue);
+          return queryClient.setQueryData("Activity", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Activity');
-        queryClient.invalidateQueries('Activities');
+        queryClient.invalidateQueries("Activity");
+        queryClient.invalidateQueries("Activities");
       },
     }
   );
@@ -656,7 +660,7 @@ export const FetchBookingListPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -675,12 +679,12 @@ export const bookingList$Confirmed$POST = (
       booking_status: booking_status,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useBookingList$Confirmed$POST = (
   initialArgs = {},
@@ -689,7 +693,7 @@ export const useBookingList$Confirmed$POST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       bookingList$Confirmed$POST(
         Constants,
         { ...initialArgs, ...args },
@@ -698,12 +702,12 @@ export const useBookingList$Confirmed$POST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Activity', previousValue);
+          return queryClient.setQueryData("Activity", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Activity');
-        queryClient.invalidateQueries('Activities');
+        queryClient.invalidateQueries("Activity");
+        queryClient.invalidateQueries("Activities");
       },
     }
   );
@@ -740,7 +744,7 @@ export const FetchBookingList$Confirmed$POST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -765,12 +769,12 @@ export const bookingList$PAID$POST = (
       paid_status: paid_status,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useBookingList$PAID$POST = (
   initialArgs = {},
@@ -779,17 +783,17 @@ export const useBookingList$PAID$POST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       bookingList$PAID$POST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Activity', previousValue);
+          return queryClient.setQueryData("Activity", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Activity');
-        queryClient.invalidateQueries('Activities');
+        queryClient.invalidateQueries("Activity");
+        queryClient.invalidateQueries("Activities");
       },
     }
   );
@@ -827,7 +831,7 @@ export const FetchBookingList$PAID$POST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -841,9 +845,9 @@ export const bookingSummaryAllPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/booking-summary-all`, {
     body: JSON.stringify({ id: id, user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useBookingSummaryAllPOST = (
   initialArgs = {},
@@ -852,17 +856,17 @@ export const useBookingSummaryAllPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       bookingSummaryAllPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -898,7 +902,7 @@ export const FetchBookingSummaryAllPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -913,12 +917,12 @@ export const bookingSummaryDetailPOST = (
   fetch(`https://dev.cotruck.co/index.php/api/booking/summary/detail`, {
     body: JSON.stringify({ id: id, user_id: user_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useBookingSummaryDetailPOST = (
   initialArgs = {},
@@ -927,7 +931,7 @@ export const useBookingSummaryDetailPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       bookingSummaryDetailPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -936,12 +940,12 @@ export const useBookingSummaryDetailPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -977,7 +981,7 @@ export const FetchBookingSummaryDetailPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -996,9 +1000,9 @@ export const bookingSummarySinglePOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/booking-summary-single`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useBookingSummarySinglePOST = (
   initialArgs = {},
@@ -1007,7 +1011,7 @@ export const useBookingSummarySinglePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       bookingSummarySinglePOST(
         Constants,
         { ...initialArgs, ...args },
@@ -1016,12 +1020,12 @@ export const useBookingSummarySinglePOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -1056,7 +1060,7 @@ export const FetchBookingSummarySinglePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1070,14 +1074,14 @@ export const FetchBookingSummarySinglePOST = ({
 
 export const categoryChargesPOST = (Constants, _args, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/category-charges`, {
-    body: JSON.stringify({ key: 'value' }),
+    body: JSON.stringify({ key: "value" }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useCategoryChargesPOST = (
   initialArgs = {},
@@ -1086,17 +1090,17 @@ export const useCategoryChargesPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       categoryChargesPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('New Leads', previousValue);
+          return queryClient.setQueryData("New Leads", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('New Lead');
-        queryClient.invalidateQueries('New Leads');
+        queryClient.invalidateQueries("New Lead");
+        queryClient.invalidateQueries("New Leads");
       },
     }
   );
@@ -1130,7 +1134,7 @@ export const FetchCategoryChargesPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1149,27 +1153,27 @@ export const changePwdPOST = (
       new_password: new_password,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useChangePwdPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => changePwdPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => changePwdPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('change password', previousValue);
+          return queryClient.setQueryData("change password", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('change password');
-        queryClient.invalidateQueries('change passwords');
+        queryClient.invalidateQueries("change password");
+        queryClient.invalidateQueries("change passwords");
       },
     }
   );
@@ -1206,7 +1210,7 @@ export const FetchChangePwdPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1217,12 +1221,12 @@ export const companyInformationPOST = (Constants, { id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/get-company-info`, {
     body: JSON.stringify({ operator_id: id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useCompanyInformationPOST = (
   initialArgs = {},
@@ -1231,17 +1235,17 @@ export const useCompanyInformationPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       companyInformationPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Profile', previousValue);
+          return queryClient.setQueryData("Profile", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Profile');
-        queryClient.invalidateQueries('Profiles');
+        queryClient.invalidateQueries("Profile");
+        queryClient.invalidateQueries("Profiles");
       },
     }
   );
@@ -1276,7 +1280,7 @@ export const FetchCompanyInformationPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1294,12 +1298,12 @@ export const completeBookingPOST = (
       book_truck_id: book_truck_id,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useCompleteBookingPOST = (
   initialArgs = {},
@@ -1308,17 +1312,17 @@ export const useCompleteBookingPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       completeBookingPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('New Leads', previousValue);
+          return queryClient.setQueryData("New Leads", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('New Lead');
-        queryClient.invalidateQueries('New Leads');
+        queryClient.invalidateQueries("New Lead");
+        queryClient.invalidateQueries("New Leads");
       },
     }
   );
@@ -1354,7 +1358,7 @@ export const FetchCompleteBookingPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1365,12 +1369,12 @@ export const deleteDriverPOST = (Constants, { driver_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/delete-driver`, {
     body: JSON.stringify({ driver_id: driver_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useDeleteDriverPOST = (
   initialArgs = {},
@@ -1379,16 +1383,17 @@ export const useDeleteDriverPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => deleteDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      deleteDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Driver', previousValue);
+          return queryClient.setQueryData("Driver", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Driver');
-        queryClient.invalidateQueries('Drivers');
+        queryClient.invalidateQueries("Driver");
+        queryClient.invalidateQueries("Drivers");
       },
     }
   );
@@ -1423,7 +1428,7 @@ export const FetchDeleteDriverPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1432,10 +1437,10 @@ export const FetchDeleteDriverPOST = ({
 
 export const distanceCostPOST = (Constants, _args, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/distance-cost`, {
-    body: JSON.stringify({ key: 'value' }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    body: JSON.stringify({ key: "value" }),
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useDistanceCostPOST = (
   initialArgs = {},
@@ -1444,16 +1449,17 @@ export const useDistanceCostPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => distanceCostPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      distanceCostPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -1487,7 +1493,7 @@ export const FetchDistanceCostPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1501,9 +1507,9 @@ export const driverBookingOngoingStatusPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/driver/booking/ongoing-status`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useDriverBookingOngoingStatusPOST = (
   initialArgs = {},
@@ -1512,7 +1518,7 @@ export const useDriverBookingOngoingStatusPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       driverBookingOngoingStatusPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -1521,12 +1527,12 @@ export const useDriverBookingOngoingStatusPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -1561,7 +1567,7 @@ export const FetchDriverBookingOngoingStatusPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1577,12 +1583,12 @@ export const driverDetailPOST = (Constants, { driver_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/driver-detail`, {
     body: JSON.stringify({ driver_id: driver_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useDriverDetailPOST = (
   initialArgs = {},
@@ -1591,16 +1597,17 @@ export const useDriverDetailPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => driverDetailPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      driverDetailPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Driver', previousValue);
+          return queryClient.setQueryData("Driver", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Driver');
-        queryClient.invalidateQueries('Drivers');
+        queryClient.invalidateQueries("Driver");
+        queryClient.invalidateQueries("Drivers");
       },
     }
   );
@@ -1635,7 +1642,7 @@ export const FetchDriverDetailPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1645,9 +1652,9 @@ export const FetchDriverDetailPOST = ({
 export const driverJobListPOST = (Constants, { user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/driver/job/list`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useDriverJobListPOST = (
   initialArgs = {},
@@ -1656,16 +1663,17 @@ export const useDriverJobListPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => driverJobListPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      driverJobListPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -1700,7 +1708,7 @@ export const FetchDriverJobListPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1715,12 +1723,12 @@ export const driverList$ALL$POST = (
   fetch(`https://dev.cotruck.co/index.php/api/operator/driver-list`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useDriverList$ALL$POST = (
   initialArgs = {},
@@ -1729,17 +1737,17 @@ export const useDriverList$ALL$POST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       driverList$ALL$POST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Driver', previousValue);
+          return queryClient.setQueryData("Driver", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Driver');
-        queryClient.invalidateQueries('Drivers');
+        queryClient.invalidateQueries("Driver");
+        queryClient.invalidateQueries("Drivers");
       },
     }
   );
@@ -1774,7 +1782,7 @@ export const FetchDriverList$ALL$POST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1792,12 +1800,12 @@ export const driverList$AVAILABLE$POST = (
       driver_status: driver_status,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useDriverList$AVAILABLE$POST = (
   initialArgs = {},
@@ -1806,7 +1814,7 @@ export const useDriverList$AVAILABLE$POST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       driverList$AVAILABLE$POST(
         Constants,
         { ...initialArgs, ...args },
@@ -1815,12 +1823,12 @@ export const useDriverList$AVAILABLE$POST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Driver', previousValue);
+          return queryClient.setQueryData("Driver", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Driver');
-        queryClient.invalidateQueries('Drivers');
+        queryClient.invalidateQueries("Driver");
+        queryClient.invalidateQueries("Drivers");
       },
     }
   );
@@ -1856,7 +1864,7 @@ export const FetchDriverList$AVAILABLE$POST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1879,12 +1887,12 @@ export const driverList$Pending$POST = (
       driver_status: driver_status,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useDriverList$Pending$POST = (
   initialArgs = {},
@@ -1893,17 +1901,17 @@ export const useDriverList$Pending$POST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       driverList$Pending$POST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Driver', previousValue);
+          return queryClient.setQueryData("Driver", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Driver');
-        queryClient.invalidateQueries('Drivers');
+        queryClient.invalidateQueries("Driver");
+        queryClient.invalidateQueries("Drivers");
       },
     }
   );
@@ -1939,7 +1947,7 @@ export const FetchDriverList$Pending$POST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -1955,12 +1963,12 @@ export const editProfilePOST = (Constants, { user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/get-user`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useEditProfilePOST = (
   initialArgs = {},
@@ -1969,16 +1977,16 @@ export const useEditProfilePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => editProfilePOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => editProfilePOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Profile', previousValue);
+          return queryClient.setQueryData("Profile", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Profile');
-        queryClient.invalidateQueries('Profiles');
+        queryClient.invalidateQueries("Profile");
+        queryClient.invalidateQueries("Profiles");
       },
     }
   );
@@ -2013,7 +2021,7 @@ export const FetchEditProfilePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2023,24 +2031,24 @@ export const FetchEditProfilePOST = ({
 export const editUserPOST = (Constants, { user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/edit-user`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useEditUserPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => editUserPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => editUserPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -2075,7 +2083,7 @@ export const FetchEditUserPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2085,9 +2093,9 @@ export const FetchEditUserPOST = ({
 export const finishedRidePOST = (Constants, { id, owner_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/finished-ride`, {
     body: JSON.stringify({ id: id, owner_id: owner_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useFinishedRidePOST = (
   initialArgs = {},
@@ -2096,16 +2104,17 @@ export const useFinishedRidePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => finishedRidePOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      finishedRidePOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -2141,7 +2150,7 @@ export const FetchFinishedRidePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2152,27 +2161,27 @@ export const forgotPwdPOST = (Constants, { mobile }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/forgot-pwd`, {
     body: JSON.stringify({ mobile: mobile }),
     headers: {
-      Accept: 'application/json',
-      Auhtorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Auhtorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useForgotPwdPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => forgotPwdPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => forgotPwdPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Forgot', previousValue);
+          return queryClient.setQueryData("Forgot", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Forgot');
-        queryClient.invalidateQueries('Forgots');
+        queryClient.invalidateQueries("Forgot");
+        queryClient.invalidateQueries("Forgots");
       },
     }
   );
@@ -2207,7 +2216,7 @@ export const FetchForgotPwdPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2222,12 +2231,12 @@ export const generatedInvoicesPOST = (
   fetch(`https://dev.cotruck.co/index.php/api/operator/generated-invoices`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useGeneratedInvoicesPOST = (
   initialArgs = {},
@@ -2236,17 +2245,17 @@ export const useGeneratedInvoicesPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       generatedInvoicesPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('System', previousValue);
+          return queryClient.setQueryData("System", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('System');
-        queryClient.invalidateQueries('Systems');
+        queryClient.invalidateQueries("System");
+        queryClient.invalidateQueries("Systems");
       },
     }
   );
@@ -2281,7 +2290,7 @@ export const FetchGeneratedInvoicesPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2296,13 +2305,13 @@ export const getDriverLocationsPOST = (
   fetch(`https://dev.cotruck.co/index.php/api/driver-live-track`, {
     body: JSON.stringify({ driver_job_id: driver_job_id }),
     headers: {
-      Accept: 'application/json',
+      Accept: "application/json",
       Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM2MDJkMWQwMmM3Nzk2MDI3MGZmNWVhY2RjY2ZkZGRhNWZkYmRjOTUxOTIyZTEwY2I0OWM4ZjMzOWJkZTYzZTBkOGMyYmQ1NDkxY2NkMDg2In0.eyJhdWQiOiIxIiwianRpIjoiMzYwMmQxZDAyYzc3OTYwMjcwZmY1ZWFjZGNjZmRkZGE1ZmRiZGM5NTE5MjJlMTBjYjQ5YzhmMzM5YmRlNjNlMGQ4YzJiZDU0OTFjY2QwODYiLCJpYXQiOjE3MDcxMjYzNDEsIm5iZiI6MTcwNzEyNjM0MSwiZXhwIjoxNzM4NzQ4NzQxLCJzdWIiOiIyMTMiLCJzY29wZXMiOltdfQ.YNtWy6AQoaGxJcmcl8Nqinc0P7UL-ikmNo9rKva5lg3qf0_t4vZwTd5MGBNvS1vzwOZMADnxBv5dwYW1x7B6YiK-sufEa7OHn7MFYpaLmLuruQAaKqJ44U4ODThSeMt90EbcExJ_x4U-KnjN_v4aunjz6b0BW5dStgc5aYBniRZ6vVP8A51pg95v9VpuRznQ2g1im8JZzw3QrWj_lO8O7Ym5cSxb5A6XnVxXhrbHqXZmhZUgBkzfRY5J8MYb_QY7PBBJ4p4Ck7s6Gy5mTmgh9-CbFvHMpDtaSk-gWjbAfr0QW9mCSaBImMQMsBw5XBhoIEj-EyTxDh1ZI9r95nARhhfYA-3Yfk0rzL6b8P8_zFf0dDrRlxgLahcghTMPMARLsnyftKw5g2goWno8-y_m5Ue7a3OjvtFu0PVKIdMz_em7iVXCE9hdx0kLARKjvcmPzeyXWpa-yDlX5zHAY1pDdLdBywFAC5ARo0edvb2up46lYkvbAf7MQ0wZlhALQeuShh0ksWk2p3lfk0Drd-vZxaRZDX0StotktQpGOXVyc1Vf-qkdLIkXJX5tAukoWQOC8Xp0DErpwfg4Gzl_T9qswGLhWeYax3vvzLGNaUKVRAhLnatCJ4zIrIbQyRh0nNOPQyCe9LQHQPBj6puvnx7nMHBXi-U1bHI5d2bvl1F0nQI',
-      'Content-Type': 'application/json',
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM2MDJkMWQwMmM3Nzk2MDI3MGZmNWVhY2RjY2ZkZGRhNWZkYmRjOTUxOTIyZTEwY2I0OWM4ZjMzOWJkZTYzZTBkOGMyYmQ1NDkxY2NkMDg2In0.eyJhdWQiOiIxIiwianRpIjoiMzYwMmQxZDAyYzc3OTYwMjcwZmY1ZWFjZGNjZmRkZGE1ZmRiZGM5NTE5MjJlMTBjYjQ5YzhmMzM5YmRlNjNlMGQ4YzJiZDU0OTFjY2QwODYiLCJpYXQiOjE3MDcxMjYzNDEsIm5iZiI6MTcwNzEyNjM0MSwiZXhwIjoxNzM4NzQ4NzQxLCJzdWIiOiIyMTMiLCJzY29wZXMiOltdfQ.YNtWy6AQoaGxJcmcl8Nqinc0P7UL-ikmNo9rKva5lg3qf0_t4vZwTd5MGBNvS1vzwOZMADnxBv5dwYW1x7B6YiK-sufEa7OHn7MFYpaLmLuruQAaKqJ44U4ODThSeMt90EbcExJ_x4U-KnjN_v4aunjz6b0BW5dStgc5aYBniRZ6vVP8A51pg95v9VpuRznQ2g1im8JZzw3QrWj_lO8O7Ym5cSxb5A6XnVxXhrbHqXZmhZUgBkzfRY5J8MYb_QY7PBBJ4p4Ck7s6Gy5mTmgh9-CbFvHMpDtaSk-gWjbAfr0QW9mCSaBImMQMsBw5XBhoIEj-EyTxDh1ZI9r95nARhhfYA-3Yfk0rzL6b8P8_zFf0dDrRlxgLahcghTMPMARLsnyftKw5g2goWno8-y_m5Ue7a3OjvtFu0PVKIdMz_em7iVXCE9hdx0kLARKjvcmPzeyXWpa-yDlX5zHAY1pDdLdBywFAC5ARo0edvb2up46lYkvbAf7MQ0wZlhALQeuShh0ksWk2p3lfk0Drd-vZxaRZDX0StotktQpGOXVyc1Vf-qkdLIkXJX5tAukoWQOC8Xp0DErpwfg4Gzl_T9qswGLhWeYax3vvzLGNaUKVRAhLnatCJ4zIrIbQyRh0nNOPQyCe9LQHQPBj6puvnx7nMHBXi-U1bHI5d2bvl1F0nQI",
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useGetDriverLocationsPOST = (
   initialArgs = {},
@@ -2311,17 +2320,17 @@ export const useGetDriverLocationsPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       getDriverLocationsPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('live track', previousValue);
+          return queryClient.setQueryData("live track", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('live track');
-        queryClient.invalidateQueries('live tracks');
+        queryClient.invalidateQueries("live track");
+        queryClient.invalidateQueries("live tracks");
       },
     }
   );
@@ -2356,7 +2365,7 @@ export const FetchGetDriverLocationsPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2371,12 +2380,12 @@ export const getIdentifyProofPOST = (
   fetch(`https://dev.cotruck.co/index.php/api/operator/identification-proofs`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useGetIdentifyProofPOST = (
   initialArgs = {},
@@ -2385,17 +2394,17 @@ export const useGetIdentifyProofPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       getIdentifyProofPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('identify', previousValue);
+          return queryClient.setQueryData("identify", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('identify');
-        queryClient.invalidateQueries('identifies');
+        queryClient.invalidateQueries("identify");
+        queryClient.invalidateQueries("identifies");
       },
     }
   );
@@ -2430,7 +2439,7 @@ export const FetchGetIdentifyProofPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2444,9 +2453,9 @@ export const getOwnerDriverListPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner-driver-all-lists`, {
     body: JSON.stringify({ owner_id: owner_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useGetOwnerDriverListPOST = (
   initialArgs = {},
@@ -2455,17 +2464,17 @@ export const useGetOwnerDriverListPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       getOwnerDriverListPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -2500,7 +2509,7 @@ export const FetchGetOwnerDriverListPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2514,9 +2523,9 @@ export const getOwnerVehicleAllListPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner-vehicle-all-lists`, {
     body: JSON.stringify({ owner_id: owner_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useGetOwnerVehicleAllListPOST = (
   initialArgs = {},
@@ -2525,7 +2534,7 @@ export const useGetOwnerVehicleAllListPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       getOwnerVehicleAllListPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -2534,12 +2543,12 @@ export const useGetOwnerVehicleAllListPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -2574,7 +2583,7 @@ export const FetchGetOwnerVehicleAllListPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2589,9 +2598,9 @@ export const FetchGetOwnerVehicleAllListPOST = ({
 export const identityEditPOST = (Constants, { user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/identity-edit`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useIdentityEditPOST = (
   initialArgs = {},
@@ -2600,16 +2609,17 @@ export const useIdentityEditPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => identityEditPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      identityEditPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -2644,7 +2654,7 @@ export const FetchIdentityEditPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2661,13 +2671,13 @@ export const invoiceGenerateIndexPOST = (
     {
       body: JSON.stringify({ operator_id: operator_id }),
       headers: {
-        Accept: 'application/json',
-        Authorization: Constants['AUTH_BEAR_TOKEN'],
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        Authorization: Constants["AUTH_BEAR_TOKEN"],
+        "Content-Type": "application/json",
       },
-      method: 'POST',
+      method: "POST",
     }
-  ).then(res => handleResponse(res, handlers));
+  ).then((res) => handleResponse(res, handlers));
 
 export const useInvoiceGenerateIndexPOST = (
   initialArgs = {},
@@ -2676,7 +2686,7 @@ export const useInvoiceGenerateIndexPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       invoiceGenerateIndexPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -2685,12 +2695,12 @@ export const useInvoiceGenerateIndexPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('System', previousValue);
+          return queryClient.setQueryData("System", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('System');
-        queryClient.invalidateQueries('Systems');
+        queryClient.invalidateQueries("System");
+        queryClient.invalidateQueries("Systems");
       },
     }
   );
@@ -2725,7 +2735,7 @@ export const FetchInvoiceGenerateIndexPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2741,27 +2751,27 @@ export const logOutPOST = (Constants, { id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/logout`, {
     body: JSON.stringify({ user_id: id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useLogOutPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => logOutPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => logOutPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('login', previousValue);
+          return queryClient.setQueryData("login", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('login');
-        queryClient.invalidateQueries('logins');
+        queryClient.invalidateQueries("login");
+        queryClient.invalidateQueries("logins");
       },
     }
   );
@@ -2796,7 +2806,7 @@ export const FetchLogOutPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2805,7 +2815,7 @@ export const FetchLogOutPOST = ({
 
 export const loginPOST = (
   Constants,
-  { email, password, user_type },
+  { email, password, user_type, fcm_token },
   handlers = {}
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/login`, {
@@ -2813,25 +2823,31 @@ export const loginPOST = (
       email: email,
       password: password,
       user_type: user_type,
+      fcm_token: fcm_token,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useLoginPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => loginPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      loginPOST(
+        Constants,
+        { ...initialArgs, ...args, fcm_token: args.fcm_token },
+        handlers
+      ),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('login', previousValue);
+          return queryClient.setQueryData("login", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('login');
-        queryClient.invalidateQueries('logins');
+        queryClient.invalidateQueries("login");
+        queryClient.invalidateQueries("logins");
       },
     }
   );
@@ -2868,7 +2884,7 @@ export const FetchLoginPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -2904,24 +2920,24 @@ export const newBidPOST = (
       location: location,
       vehicelgroup: vehicelgroup,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useNewBidPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => newBidPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => newBidPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -2976,7 +2992,7 @@ export const FetchNewBidPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3038,9 +3054,9 @@ export const newBookingTruckPOST = (
       depot_contact_mobile: depot_contact_mobile,
       comment: comment,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useNewBookingTruckPOST = (
   initialArgs = {},
@@ -3049,17 +3065,17 @@ export const useNewBookingTruckPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       newBookingTruckPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('bookingTruck', previousValue);
+          return queryClient.setQueryData("bookingTruck", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('bookingTruck');
-        queryClient.invalidateQueries('bookingTrucks');
+        queryClient.invalidateQueries("bookingTruck");
+        queryClient.invalidateQueries("bookingTrucks");
       },
     }
   );
@@ -3140,7 +3156,7 @@ export const FetchNewBookingTruckPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3175,27 +3191,27 @@ export const newDriverPOST = (
       pwd: pwd,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useNewDriverPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => newDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => newDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -3248,7 +3264,7 @@ export const FetchNewDriverPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3259,27 +3275,27 @@ export const newLeadsPOST = (Constants, { booking_type, id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/new-lead-list`, {
     body: JSON.stringify({ operator_id: id, booking_type: booking_type }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useNewLeadsPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => newLeadsPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => newLeadsPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('operator', previousValue);
+          return queryClient.setQueryData("operator", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('operator');
-        queryClient.invalidateQueries('operators');
+        queryClient.invalidateQueries("operator");
+        queryClient.invalidateQueries("operators");
       },
     }
   );
@@ -3315,7 +3331,7 @@ export const FetchNewLeadsPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3334,12 +3350,12 @@ export const newLeads$Pending$POST = (
       owner_status: owner_status,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useNewLeads$Pending$POST = (
   initialArgs = {},
@@ -3348,17 +3364,17 @@ export const useNewLeads$Pending$POST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       newLeads$Pending$POST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('operator', previousValue);
+          return queryClient.setQueryData("operator", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('operator');
-        queryClient.invalidateQueries('operators');
+        queryClient.invalidateQueries("operator");
+        queryClient.invalidateQueries("operators");
       },
     }
   );
@@ -3395,7 +3411,7 @@ export const FetchNewLeads$Pending$POST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3410,12 +3426,12 @@ export const newLeadsDetailsPOST = (
   fetch(`https://dev.cotruck.co/index.php/api/operator/lead-detail`, {
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useNewLeadsDetailsPOST = (
   initialArgs = {},
@@ -3424,17 +3440,17 @@ export const useNewLeadsDetailsPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       newLeadsDetailsPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('operator', previousValue);
+          return queryClient.setQueryData("operator", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('operator');
-        queryClient.invalidateQueries('operators');
+        queryClient.invalidateQueries("operator");
+        queryClient.invalidateQueries("operators");
       },
     }
   );
@@ -3469,7 +3485,7 @@ export const FetchNewLeadsDetailsPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3480,12 +3496,12 @@ export const notificationsPOST = (Constants, { user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/notifications`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useNotificationsPOST = (
   initialArgs = {},
@@ -3494,16 +3510,17 @@ export const useNotificationsPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => notificationsPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      notificationsPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('notification', previousValue);
+          return queryClient.setQueryData("notification", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('notification');
-        queryClient.invalidateQueries('notifications');
+        queryClient.invalidateQueries("notification");
+        queryClient.invalidateQueries("notifications");
       },
     }
   );
@@ -3538,7 +3555,7 @@ export const FetchNotificationsPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3553,12 +3570,12 @@ export const operatorVehicleListPOST = (
   fetch(`https://dev.cotruck.co/index.php/api/operator/vehicle-list`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOperatorVehicleListPOST = (
   initialArgs = {},
@@ -3567,17 +3584,17 @@ export const useOperatorVehicleListPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       operatorVehicleListPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Vehicle', previousValue);
+          return queryClient.setQueryData("Vehicle", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Vehicle');
-        queryClient.invalidateQueries('Vehicles');
+        queryClient.invalidateQueries("Vehicle");
+        queryClient.invalidateQueries("Vehicles");
       },
     }
   );
@@ -3612,7 +3629,7 @@ export const FetchOperatorVehicleListPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3635,12 +3652,12 @@ export const operatorVehicleList$available$POST = (
       vehicle_status: vehicle_status,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOperatorVehicleList$available$POST = (
   initialArgs = {},
@@ -3649,7 +3666,7 @@ export const useOperatorVehicleList$available$POST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       operatorVehicleList$available$POST(
         Constants,
         { ...initialArgs, ...args },
@@ -3658,12 +3675,12 @@ export const useOperatorVehicleList$available$POST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Vehicle', previousValue);
+          return queryClient.setQueryData("Vehicle", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Vehicle');
-        queryClient.invalidateQueries('Vehicles');
+        queryClient.invalidateQueries("Vehicle");
+        queryClient.invalidateQueries("Vehicles");
       },
     }
   );
@@ -3699,7 +3716,7 @@ export const FetchOperatorVehicleList$available$POST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3718,9 +3735,9 @@ export const ownerActiveCheckPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner-activecheck`, {
     body: JSON.stringify({ user_id: user_id, status: status }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerActiveCheckPOST = (
   initialArgs = {},
@@ -3729,17 +3746,17 @@ export const useOwnerActiveCheckPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerActiveCheckPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -3775,7 +3792,7 @@ export const FetchOwnerActiveCheckPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3789,9 +3806,9 @@ export const ownerBookStatusRejectPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner/bookstatus/reject`, {
     body: JSON.stringify({ user_id: user_id, id: id, reason: reason }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerBookStatusRejectPOST = (
   initialArgs = {},
@@ -3800,7 +3817,7 @@ export const useOwnerBookStatusRejectPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerBookStatusRejectPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -3809,12 +3826,12 @@ export const useOwnerBookStatusRejectPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -3851,7 +3868,7 @@ export const FetchOwnerBookStatusRejectPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3876,9 +3893,9 @@ export const ownerBookStatusUpdatePOST = (
       status: status,
       driver_id: driver_id,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerBookStatusUpdatePOST = (
   initialArgs = {},
@@ -3887,7 +3904,7 @@ export const useOwnerBookStatusUpdatePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerBookStatusUpdatePOST(
         Constants,
         { ...initialArgs, ...args },
@@ -3896,12 +3913,12 @@ export const useOwnerBookStatusUpdatePOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -3940,7 +3957,7 @@ export const FetchOwnerBookStatusUpdatePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -3959,9 +3976,9 @@ export const ownerBookingOngoingStatusPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner/booking/ongoing-status`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerBookingOngoingStatusPOST = (
   initialArgs = {},
@@ -3970,7 +3987,7 @@ export const useOwnerBookingOngoingStatusPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerBookingOngoingStatusPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -3979,12 +3996,12 @@ export const useOwnerBookingOngoingStatusPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -4019,7 +4036,7 @@ export const FetchOwnerBookingOngoingStatusPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4038,9 +4055,9 @@ export const ownerDriverListViewPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner-driverlist-viw`, {
     body: JSON.stringify({ owner_id: owner_id, id: id, user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerDriverListViewPOST = (
   initialArgs = {},
@@ -4049,17 +4066,17 @@ export const useOwnerDriverListViewPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerDriverListViewPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -4096,7 +4113,7 @@ export const FetchOwnerDriverListViewPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4115,9 +4132,9 @@ export const ownerPutOngoingStatusPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner/booking/ongoing-status`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerPutOngoingStatusPOST = (
   initialArgs = {},
@@ -4126,7 +4143,7 @@ export const useOwnerPutOngoingStatusPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerPutOngoingStatusPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -4135,12 +4152,12 @@ export const useOwnerPutOngoingStatusPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -4175,7 +4192,7 @@ export const FetchOwnerPutOngoingStatusPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4189,10 +4206,10 @@ export const FetchOwnerPutOngoingStatusPOST = ({
 
 export const ownerUpdateStatusListPOST = (Constants, _args, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner-updatestatus-list`, {
-    body: JSON.stringify({ key: 'value' }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    body: JSON.stringify({ key: "value" }),
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerUpdateStatusListPOST = (
   initialArgs = {},
@@ -4201,7 +4218,7 @@ export const useOwnerUpdateStatusListPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerUpdateStatusListPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -4210,12 +4227,12 @@ export const useOwnerUpdateStatusListPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -4249,7 +4266,7 @@ export const FetchOwnerUpdateStatusListPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4268,9 +4285,9 @@ export const ownerVehicleListAllPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner-vechiclelist/all`, {
     body: JSON.stringify({ owner_id: owner_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerVehicleListAllPOST = (
   initialArgs = {},
@@ -4279,17 +4296,17 @@ export const useOwnerVehicleListAllPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerVehicleListAllPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -4324,7 +4341,7 @@ export const FetchOwnerVehicleListAllPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4348,9 +4365,9 @@ export const ownerVehicleListUpdatePOST = (
       registr_number: registr_number,
       vehicle_type: vehicle_type,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerVehicleListUpdatePOST = (
   initialArgs = {},
@@ -4359,7 +4376,7 @@ export const useOwnerVehicleListUpdatePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerVehicleListUpdatePOST(
         Constants,
         { ...initialArgs, ...args },
@@ -4368,12 +4385,12 @@ export const useOwnerVehicleListUpdatePOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -4411,7 +4428,7 @@ export const FetchOwnerVehicleListUpdatePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4430,9 +4447,9 @@ export const ownerVehicleListViewPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/owner-vechiclelist-viw`, {
     body: JSON.stringify({ owner_id: owner_id, id: id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useOwnerVehicleListViewPOST = (
   initialArgs = {},
@@ -4441,7 +4458,7 @@ export const useOwnerVehicleListViewPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       ownerVehicleListViewPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -4450,12 +4467,12 @@ export const useOwnerVehicleListViewPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -4491,7 +4508,7 @@ export const FetchOwnerVehicleListViewPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4507,12 +4524,12 @@ export const paymentDetailUserPOST = (Constants, { id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/payment/detail/user`, {
     body: JSON.stringify({ id: id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const usePaymentDetailUserPOST = (
   initialArgs = {},
@@ -4521,17 +4538,17 @@ export const usePaymentDetailUserPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       paymentDetailUserPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -4566,7 +4583,7 @@ export const FetchPaymentDetailUserPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4575,15 +4592,15 @@ export const FetchPaymentDetailUserPOST = ({
 
 export const preferredPathsPOST = (Constants, _args, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/locations`, {
-    body: JSON.stringify({ key: 'value' }),
+    body: JSON.stringify({ key: "value" }),
     headers: {
-      Accept: 'application/json',
+      Accept: "application/json",
       Authorization:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBmYWQzMzM5YjJmZjgxN2Q3YWZkOGI0ZDYzZDgwY2VhM2NjMTE3ZGIyNzhmMzY1YzIzMDUxMjRiMjU1ODYxNjQwNzUwYmY4Y2UzMTlkZTY2In0.eyJhdWQiOiIxIiwianRpIjoiMGZhZDMzMzliMmZmODE3ZDdhZmQ4YjRkNjNkODBjZWEzY2MxMTdkYjI3OGYzNjVjMjMwNTEyNGIyNTU4NjE2NDA3NTBiZjhjZTMxOWRlNjYiLCJpYXQiOjE3MTAzMDAxMjcsIm5iZiI6MTcxMDMwMDEyNywiZXhwIjoxNzQxODM2MTI3LCJzdWIiOiIyODkiLCJzY29wZXMiOltdfQ.BZoAUaHVzRdENpWkgq8CWnNVrbxTeACd439pHeNBzboT6b9aL4QIOPcqBjC2bjSkGOEXofb5ue7FUq5ZcdRoIfj02SqwaCAe5Wej7569lFgfDaOOVMGTPGaess8WUJNZFwIqGI48MiEqZxUhHnXR07DO5q2NJZR6jG3jeAysFnxWnj65gD9XLLKCJrhPU5B37A6UmN4EtJ3dDL4YrXBaO7OQ3-ZGr9TKnJa4wUpnhIlXd_Dxm3izCM_OSvQGQO8R6byuKM7JIlMjbs1CRf3-g78Hm0AJtzPSmWtSfYWAhaAc7qbYHCVDCw3nC_0rNjC9T4b9X9apEePIOwsTtC5y_sncs6jiS7nbnwP7cenGhjYzRy2yajg8_pQSrYibtLp9AoVhJhYYeufixfbs8RgrAGvHJuatX7yB-vD2nztzeCBENqCC4MZpBfDA2mcDudhzvlKioZLl-L4eYoO_a4aa-MLwAsDGyPBtxXZsn950-YPhRRBuLAVw-PJapit3AlTZ7B-T-kybCrk6mSC-JEDWKCt0TvpCwQdtkWZdGXmrIzJR0EAGc92dWwGU51LzIZcJEV3x93edZHV8da5hOpyFf0aDtoucqXsk_2HpzNpPblpuy7ePoY_Gvx2VK1ukTh6YeeR8-PoW2k0nobnRiZKCm7QxZgPidJQDXq7PTcHfZ5Y',
-      'Content-Type': 'application/json',
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBmYWQzMzM5YjJmZjgxN2Q3YWZkOGI0ZDYzZDgwY2VhM2NjMTE3ZGIyNzhmMzY1YzIzMDUxMjRiMjU1ODYxNjQwNzUwYmY4Y2UzMTlkZTY2In0.eyJhdWQiOiIxIiwianRpIjoiMGZhZDMzMzliMmZmODE3ZDdhZmQ4YjRkNjNkODBjZWEzY2MxMTdkYjI3OGYzNjVjMjMwNTEyNGIyNTU4NjE2NDA3NTBiZjhjZTMxOWRlNjYiLCJpYXQiOjE3MTAzMDAxMjcsIm5iZiI6MTcxMDMwMDEyNywiZXhwIjoxNzQxODM2MTI3LCJzdWIiOiIyODkiLCJzY29wZXMiOltdfQ.BZoAUaHVzRdENpWkgq8CWnNVrbxTeACd439pHeNBzboT6b9aL4QIOPcqBjC2bjSkGOEXofb5ue7FUq5ZcdRoIfj02SqwaCAe5Wej7569lFgfDaOOVMGTPGaess8WUJNZFwIqGI48MiEqZxUhHnXR07DO5q2NJZR6jG3jeAysFnxWnj65gD9XLLKCJrhPU5B37A6UmN4EtJ3dDL4YrXBaO7OQ3-ZGr9TKnJa4wUpnhIlXd_Dxm3izCM_OSvQGQO8R6byuKM7JIlMjbs1CRf3-g78Hm0AJtzPSmWtSfYWAhaAc7qbYHCVDCw3nC_0rNjC9T4b9X9apEePIOwsTtC5y_sncs6jiS7nbnwP7cenGhjYzRy2yajg8_pQSrYibtLp9AoVhJhYYeufixfbs8RgrAGvHJuatX7yB-vD2nztzeCBENqCC4MZpBfDA2mcDudhzvlKioZLl-L4eYoO_a4aa-MLwAsDGyPBtxXZsn950-YPhRRBuLAVw-PJapit3AlTZ7B-T-kybCrk6mSC-JEDWKCt0TvpCwQdtkWZdGXmrIzJR0EAGc92dWwGU51LzIZcJEV3x93edZHV8da5hOpyFf0aDtoucqXsk_2HpzNpPblpuy7ePoY_Gvx2VK1ukTh6YeeR8-PoW2k0nobnRiZKCm7QxZgPidJQDXq7PTcHfZ5Y",
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const usePreferredPathsPOST = (
   initialArgs = {},
@@ -4592,17 +4609,17 @@ export const usePreferredPathsPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       preferredPathsPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Profile', previousValue);
+          return queryClient.setQueryData("Profile", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Profile');
-        queryClient.invalidateQueries('Profiles');
+        queryClient.invalidateQueries("Profile");
+        queryClient.invalidateQueries("Profiles");
       },
     }
   );
@@ -4636,7 +4653,7 @@ export const FetchPreferredPathsPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4651,12 +4668,12 @@ export const reasonForCancelPOST = (
   fetch(`https://dev.cotruck.co/index.php/api/booking-cancel`, {
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useReasonForCancelPOST = (
   initialArgs = {},
@@ -4665,17 +4682,17 @@ export const useReasonForCancelPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       reasonForCancelPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Reason Cancel', previousValue);
+          return queryClient.setQueryData("Reason Cancel", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Reason Cancel');
-        queryClient.invalidateQueries('Reason Cancels');
+        queryClient.invalidateQueries("Reason Cancel");
+        queryClient.invalidateQueries("Reason Cancels");
       },
     }
   );
@@ -4710,7 +4727,7 @@ export const FetchReasonForCancelPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4766,24 +4783,24 @@ export const registerPOST = (
       preferred_paths: paths,
       vehicle_remark: vehicle_reamark,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useRegisterPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => registerPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => registerPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('register', previousValue);
+          return queryClient.setQueryData("register", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('register');
-        queryClient.invalidateQueries('registers');
+        queryClient.invalidateQueries("register");
+        queryClient.invalidateQueries("registers");
       },
     }
   );
@@ -4858,7 +4875,7 @@ export const FetchRegisterPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4878,12 +4895,12 @@ export const rejectNewLeadPOST = (
       cancel_reason: reason,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useRejectNewLeadPOST = (
   initialArgs = {},
@@ -4892,16 +4909,17 @@ export const useRejectNewLeadPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => rejectNewLeadPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      rejectNewLeadPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('New Leads', previousValue);
+          return queryClient.setQueryData("New Leads", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('New Lead');
-        queryClient.invalidateQueries('New Leads');
+        queryClient.invalidateQueries("New Lead");
+        queryClient.invalidateQueries("New Leads");
       },
     }
   );
@@ -4939,7 +4957,7 @@ export const FetchRejectNewLeadPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -4953,9 +4971,9 @@ export const requestBookingTruckPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/request-booking-truck`, {
     body: JSON.stringify({ user_id: user_id, book_id: book_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useRequestBookingTruckPOST = (
   initialArgs = {},
@@ -4964,17 +4982,17 @@ export const useRequestBookingTruckPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       requestBookingTruckPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -5010,7 +5028,7 @@ export const FetchRequestBookingTruckPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5025,24 +5043,24 @@ export const FetchRequestBookingTruckPOST = ({
 export const resendOTPPOST = (Constants, { user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/resend-otp`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useResendOTPPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => resendOTPPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => resendOTPPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('OTP', previousValue);
+          return queryClient.setQueryData("OTP", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('OTP');
-        queryClient.invalidateQueries('OTPS');
+        queryClient.invalidateQueries("OTP");
+        queryClient.invalidateQueries("OTPS");
       },
     }
   );
@@ -5077,7 +5095,7 @@ export const FetchResendOTPPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5095,9 +5113,9 @@ export const resetPasswordPOST = (
       password: password,
       confirm_password: confirm_password,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useResetPasswordPOST = (
   initialArgs = {},
@@ -5106,16 +5124,17 @@ export const useResetPasswordPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => resetPasswordPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      resetPasswordPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Forgot', previousValue);
+          return queryClient.setQueryData("Forgot", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Forgot');
-        queryClient.invalidateQueries('Forgots');
+        queryClient.invalidateQueries("Forgot");
+        queryClient.invalidateQueries("Forgots");
       },
     }
   );
@@ -5152,7 +5171,7 @@ export const FetchResetPasswordPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5170,24 +5189,24 @@ export const resetPwdPOST = (
       password: password,
       confirm_password: confirm_password,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useResetPwdPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => resetPwdPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => resetPwdPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -5224,7 +5243,7 @@ export const FetchResetPwdPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5242,9 +5261,9 @@ export const shipperCancleReasonPOST = (
       book_id: book_id,
       cancel_reason: cancel_reason,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useShipperCancleReasonPOST = (
   initialArgs = {},
@@ -5253,17 +5272,17 @@ export const useShipperCancleReasonPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       shipperCancleReasonPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -5300,7 +5319,7 @@ export const FetchShipperCancleReasonPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5316,12 +5335,12 @@ export const systemChargesPOST = (Constants, { operator_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/system_charges`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useSystemChargesPOST = (
   initialArgs = {},
@@ -5330,16 +5349,17 @@ export const useSystemChargesPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => systemChargesPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      systemChargesPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('System', previousValue);
+          return queryClient.setQueryData("System", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('System');
-        queryClient.invalidateQueries('Systems');
+        queryClient.invalidateQueries("System");
+        queryClient.invalidateQueries("Systems");
       },
     }
   );
@@ -5374,7 +5394,7 @@ export const FetchSystemChargesPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5394,12 +5414,12 @@ export const updateBookedDriverPOST = (
       shipperId: shipperID,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateBookedDriverPOST = (
   initialArgs = {},
@@ -5408,17 +5428,17 @@ export const useUpdateBookedDriverPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       updateBookedDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Change Driver', previousValue);
+          return queryClient.setQueryData("Change Driver", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Change Driver');
-        queryClient.invalidateQueries('Change Drivers');
+        queryClient.invalidateQueries("Change Driver");
+        queryClient.invalidateQueries("Change Drivers");
       },
     }
   );
@@ -5456,7 +5476,7 @@ export const FetchUpdateBookedDriverPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5494,9 +5514,9 @@ export const updateBookingTruckPOST = (
       pickup_date: pickup_date,
       id: id,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateBookingTruckPOST = (
   initialArgs = {},
@@ -5505,17 +5525,17 @@ export const useUpdateBookingTruckPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       updateBookingTruckPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -5572,7 +5592,7 @@ export const FetchUpdateBookingTruckPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5609,12 +5629,12 @@ export const updateDriverPOST = (
       nrc_back: nrc_back,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateDriverPOST = (
   initialArgs = {},
@@ -5623,16 +5643,17 @@ export const useUpdateDriverPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => updateDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      updateDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Driver', previousValue);
+          return queryClient.setQueryData("Driver", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Driver');
-        queryClient.invalidateQueries('Drivers');
+        queryClient.invalidateQueries("Driver");
+        queryClient.invalidateQueries("Drivers");
       },
     }
   );
@@ -5687,7 +5708,7 @@ export const FetchUpdateDriverPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5707,9 +5728,9 @@ export const updateIdentifyProofPOST = (
       license_back: license_back,
       user_id: user_id,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateIdentifyProofPOST = (
   initialArgs = {},
@@ -5718,17 +5739,17 @@ export const useUpdateIdentifyProofPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       updateIdentifyProofPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -5767,7 +5788,7 @@ export const FetchUpdateIdentifyProofPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5782,24 +5803,24 @@ export const FetchUpdateIdentifyProofPOST = ({
 export const updateOTPPOST = (Constants, { otp, user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/update-otp`, {
     body: JSON.stringify({ user_id: user_id, otp: otp }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateOTPPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => updateOTPPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => updateOTPPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -5835,7 +5856,7 @@ export const FetchUpdateOTPPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5856,9 +5877,9 @@ export const updateOwnerDriverPOST = (
       mobile: mobile,
       pwd: pwd,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateOwnerDriverPOST = (
   initialArgs = {},
@@ -5867,17 +5888,17 @@ export const useUpdateOwnerDriverPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       updateOwnerDriverPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -5917,7 +5938,7 @@ export const FetchUpdateOwnerDriverPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -5945,9 +5966,9 @@ export const updateOwnerVehiclePOST = (
       vehicle_name: vehicle_name,
       capacity: capacity,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateOwnerVehiclePOST = (
   initialArgs = {},
@@ -5956,17 +5977,17 @@ export const useUpdateOwnerVehiclePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       updateOwnerVehiclePOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -6013,7 +6034,7 @@ export const FetchUpdateOwnerVehiclePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6027,9 +6048,9 @@ export const updateTermsCondsPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/vehicle-groups`, {
     body: JSON.stringify({ vehicle_groups: vehicle_groups, display: display }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateTermsCondsPOST = (
   initialArgs = {},
@@ -6038,17 +6059,17 @@ export const useUpdateTermsCondsPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       updateTermsCondsPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -6084,7 +6105,7 @@ export const FetchUpdateTermsCondsPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6121,27 +6142,27 @@ export const updateUserPOST = (
       preferred_paths: paths,
     }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateUserPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => updateUserPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => updateUserPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Profile', previousValue);
+          return queryClient.setQueryData("Profile", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Profile');
-        queryClient.invalidateQueries('Profiles');
+        queryClient.invalidateQueries("Profile");
+        queryClient.invalidateQueries("Profiles");
       },
     }
   );
@@ -6196,7 +6217,7 @@ export const FetchUpdateUserPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6224,9 +6245,9 @@ export const updateVehiclePOST = (
       update_status: update_status,
       user_id: user_id,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateVehiclePOST = (
   initialArgs = {},
@@ -6235,16 +6256,17 @@ export const useUpdateVehiclePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => updateVehiclePOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      updateVehiclePOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -6291,7 +6313,7 @@ export const FetchUpdateVehiclePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6319,9 +6341,9 @@ export const updateVehicleEditPOST = (
       vehicle_type: vehicle_type,
       operator_truck_image: operator_truck_image,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateVehicleEditPOST = (
   initialArgs = {},
@@ -6330,17 +6352,17 @@ export const useUpdateVehicleEditPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       updateVehicleEditPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -6387,7 +6409,7 @@ export const FetchUpdateVehicleEditPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6410,13 +6432,13 @@ export const updateIdentificationPOST = (
         driving_license_front: dl_fron,
       }),
       headers: {
-        Accept: 'application/json',
-        Authorization: Constants['AUTH_BEAR_TOKEN'],
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        Authorization: Constants["AUTH_BEAR_TOKEN"],
+        "Content-Type": "application/json",
       },
-      method: 'POST',
+      method: "POST",
     }
-  ).then(res => handleResponse(res, handlers));
+  ).then((res) => handleResponse(res, handlers));
 
 export const useUpdateIdentificationPOST = (
   initialArgs = {},
@@ -6425,7 +6447,7 @@ export const useUpdateIdentificationPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       updateIdentificationPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -6434,12 +6456,12 @@ export const useUpdateIdentificationPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('identify', previousValue);
+          return queryClient.setQueryData("identify", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('identify');
-        queryClient.invalidateQueries('identifies');
+        queryClient.invalidateQueries("identify");
+        queryClient.invalidateQueries("identifies");
       },
     }
   );
@@ -6478,7 +6500,7 @@ export const FetchUpdateIdentificationPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6497,9 +6519,9 @@ export const userBookingOngoingStatusPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/user/booking/ongoing-status`, {
     body: JSON.stringify({ user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUserBookingOngoingStatusPOST = (
   initialArgs = {},
@@ -6508,7 +6530,7 @@ export const useUserBookingOngoingStatusPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       userBookingOngoingStatusPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -6517,12 +6539,12 @@ export const useUserBookingOngoingStatusPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -6557,7 +6579,7 @@ export const FetchUserBookingOngoingStatusPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6600,9 +6622,9 @@ export const userBookingRegPOST = (
       vehicle_type: vehicle_type,
       vech_id: vech_id,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUserBookingRegPOST = (
   initialArgs = {},
@@ -6611,17 +6633,17 @@ export const useUserBookingRegPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       userBookingRegPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -6678,7 +6700,7 @@ export const FetchUserBookingRegPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6704,9 +6726,9 @@ export const userLocationCheckPOST = (
       drop_location: drop_location,
       vech_id: vech_id,
     }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUserLocationCheckPOST = (
   initialArgs = {},
@@ -6715,17 +6737,17 @@ export const useUserLocationCheckPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       userLocationCheckPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -6770,7 +6792,7 @@ export const FetchUserLocationCheckPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6781,12 +6803,12 @@ export const vehicleDetailPOST = (Constants, { vehicle_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/vehicle-detail`, {
     body: JSON.stringify({ vehicle_id: vehicle_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useVehicleDetailPOST = (
   initialArgs = {},
@@ -6795,16 +6817,17 @@ export const useVehicleDetailPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => vehicleDetailPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      vehicleDetailPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Vehicle', previousValue);
+          return queryClient.setQueryData("Vehicle", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Vehicle');
-        queryClient.invalidateQueries('Vehicles');
+        queryClient.invalidateQueries("Vehicle");
+        queryClient.invalidateQueries("Vehicles");
       },
     }
   );
@@ -6839,7 +6862,7 @@ export const FetchVehicleDetailPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6848,10 +6871,10 @@ export const FetchVehicleDetailPOST = ({
 
 export const vehicleGroupPOST = (Constants, _args, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/vehicle-groups`, {
-    body: JSON.stringify({ key: 'value' }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    body: JSON.stringify({ key: "value" }),
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useVehicleGroupPOST = (
   initialArgs = {},
@@ -6860,16 +6883,17 @@ export const useVehicleGroupPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => vehicleGroupPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) =>
+      vehicleGroupPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -6903,7 +6927,7 @@ export const FetchVehicleGroupPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6912,10 +6936,10 @@ export const FetchVehicleGroupPOST = ({
 
 export const vehicleTypeListPOST = (Constants, _args, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/vehicles`, {
-    body: JSON.stringify({ key: 'value' }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    body: JSON.stringify({ key: "value" }),
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useVehicleTypeListPOST = (
   initialArgs = {},
@@ -6924,17 +6948,17 @@ export const useVehicleTypeListPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       vehicleTypeListPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Vehicle', previousValue);
+          return queryClient.setQueryData("Vehicle", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Vehicle');
-        queryClient.invalidateQueries('Vehicles');
+        queryClient.invalidateQueries("Vehicle");
+        queryClient.invalidateQueries("Vehicles");
       },
     }
   );
@@ -6968,7 +6992,7 @@ export const FetchVehicleTypeListPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -6978,24 +7002,24 @@ export const FetchVehicleTypeListPOST = ({
 export const verifyOTPPOST = (Constants, { otp, user_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/verify-otp`, {
     body: JSON.stringify({ user_id: user_id, otp: otp }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useVerifyOTPPOST = (initialArgs = {}, { handlers = {} } = {}) => {
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => verifyOTPPOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => verifyOTPPOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('OTP', previousValue);
+          return queryClient.setQueryData("OTP", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('OTP');
-        queryClient.invalidateQueries('OTPS');
+        queryClient.invalidateQueries("OTP");
+        queryClient.invalidateQueries("OTPS");
       },
     }
   );
@@ -7031,7 +7055,7 @@ export const FetchVerifyOTPPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -7042,12 +7066,12 @@ export const viewInvoicePOST = (Constants, { book_truck_id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/operator/view-invoice`, {
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
-      Accept: 'application/json',
-      Authorization: Constants['AUTH_BEAR_TOKEN'],
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useViewInvoicePOST = (
   initialArgs = {},
@@ -7056,16 +7080,16 @@ export const useViewInvoicePOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args => viewInvoicePOST(Constants, { ...initialArgs, ...args }, handlers),
+    (args) => viewInvoicePOST(Constants, { ...initialArgs, ...args }, handlers),
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('Invoice', previousValue);
+          return queryClient.setQueryData("Invoice", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('Invoice');
-        queryClient.invalidateQueries('Invoices');
+        queryClient.invalidateQueries("Invoice");
+        queryClient.invalidateQueries("Invoices");
       },
     }
   );
@@ -7100,7 +7124,7 @@ export const FetchViewInvoicePOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -7110,9 +7134,9 @@ export const FetchViewInvoicePOST = ({
 export const waitingBookingSummaryPOST = (Constants, { id }, handlers = {}) =>
   fetch(`https://dev.cotruck.co/index.php/api/booking-summary`, {
     body: JSON.stringify({ id: id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useWaitingBookingSummaryPOST = (
   initialArgs = {},
@@ -7121,7 +7145,7 @@ export const useWaitingBookingSummaryPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       waitingBookingSummaryPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -7130,12 +7154,12 @@ export const useWaitingBookingSummaryPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -7170,7 +7194,7 @@ export const FetchWaitingBookingSummaryPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);
@@ -7189,9 +7213,9 @@ export const waitingBookingSummaryAllOwnerPOST = (
 ) =>
   fetch(`https://dev.cotruck.co/index.php/api/waiting/bookingsummary/owner`, {
     body: JSON.stringify({ id: id, user_id: user_id }),
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(res => handleResponse(res, handlers));
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useWaitingBookingSummaryAllOwnerPOST = (
   initialArgs = {},
@@ -7200,7 +7224,7 @@ export const useWaitingBookingSummaryAllOwnerPOST = (
   const queryClient = useQueryClient();
   const Constants = GlobalVariables.useValues();
   return useMutation(
-    args =>
+    (args) =>
       waitingBookingSummaryAllOwnerPOST(
         Constants,
         { ...initialArgs, ...args },
@@ -7209,12 +7233,12 @@ export const useWaitingBookingSummaryAllOwnerPOST = (
     {
       onError: (err, variables, { previousValue }) => {
         if (previousValue) {
-          return queryClient.setQueryData('test', previousValue);
+          return queryClient.setQueryData("test", previousValue);
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries('test');
-        queryClient.invalidateQueries('tests');
+        queryClient.invalidateQueries("test");
+        queryClient.invalidateQueries("tests");
       },
     }
   );
@@ -7250,7 +7274,7 @@ export const FetchWaitingBookingSummaryAllOwnerPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);

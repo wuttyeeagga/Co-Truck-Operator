@@ -1,10 +1,10 @@
-import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as CotruckApi from '../apis/CotruckApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
+import React from "react";
+import * as GlobalStyles from "../GlobalStyles.js";
+import * as CotruckApi from "../apis/CotruckApi.js";
+import * as GlobalVariables from "../config/GlobalVariableContext";
+import Breakpoints from "../utils/Breakpoints";
+import * as StyleSheet from "../utils/StyleSheet";
+import useWindowDimensions from "../utils/useWindowDimensions";
 import {
   Button,
   IconButton,
@@ -12,18 +12,18 @@ import {
   Surface,
   Touchable,
   withTheme,
-} from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
+} from "@draftbit/ui";
+import { useIsFocused } from "@react-navigation/native";
 import {
   ActivityIndicator,
   FlatList,
   ScrollView,
   Text,
   View,
-} from 'react-native';
-import { Fetch } from 'react-request';
+} from "react-native";
+import { Fetch } from "react-request";
 
-const ManageVehicleScreen = props => {
+const ManageVehicleScreen = (props) => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -39,9 +39,9 @@ const ManageVehicleScreen = props => {
       <View
         style={StyleSheet.applyWidth(
           {
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-around',
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-around",
             marginTop: 20,
           },
           dimensions.width
@@ -49,14 +49,14 @@ const ManageVehicleScreen = props => {
       >
         <View
           style={StyleSheet.applyWidth(
-            { alignItems: 'center', flexDirection: 'row' },
+            { alignItems: "center", flexDirection: "row" },
             dimensions.width
           )}
         >
           {/* Back Button */}
           <IconButton
-            color={theme.colors['CoTruckBlack']}
-            icon={'MaterialIcons/arrow-back-ios'}
+            color={theme.colors["CoTruckBlack"]}
+            icon={"MaterialIcons/arrow-back-ios"}
             onPress={() => {
               try {
                 navigation.goBack();
@@ -71,46 +71,46 @@ const ManageVehicleScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                color: theme.colors['CoTruckBlack'],
-                fontFamily: 'System',
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
+                color: theme.colors["CoTruckBlack"],
+                fontFamily: "System",
                 fontSize: 20,
-                fontWeight: '400',
+                fontWeight: "400",
               }),
               dimensions.width
             )}
           >
-            {'Manage Vehicle'}
+            {"Manage Vehicle"}
           </Text>
         </View>
         {/* Add New */}
         <Button
           onPress={() => {
             try {
-              navigation.navigate('AddNewVehicleScreen');
+              navigation.navigate("AddNewVehicleScreen");
             } catch (err) {
               console.error(err);
             }
           }}
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)["Button"], {
               fontSize: 12,
-              textAlign: 'right',
+              textAlign: "right",
             }),
             dimensions.width
           )}
-          title={'Add New'}
+          title={"Add New"}
         />
       </View>
 
       <ScrollView
         bounces={true}
-        keyboardShouldPersistTaps={'never'}
+        keyboardShouldPersistTaps={"never"}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
         <CotruckApi.FetchOperatorVehicleListPOST
-          operator_id={Constants['AUTH_OWNER_ID']}
+          operator_id={Constants["AUTH_OWNER_ID"]}
         >
           {({ loading, error, data, refetchOperatorVehicleList }) => {
             const fetchData = data?.json;
@@ -121,9 +121,9 @@ const ManageVehicleScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
+                        alignItems: "center",
                         flex: 1,
-                        justifyContent: 'center',
+                        justifyContent: "center",
                       },
                       dimensions.width
                     )}
@@ -131,12 +131,12 @@ const ManageVehicleScreen = props => {
                     {/* loading */}
                     <ActivityIndicator
                       animating={true}
-                      color={theme.colors['Primary']}
+                      color={theme.colors["Primary"]}
                       hidesWhenStopped={true}
-                      size={'large'}
+                      size={"large"}
                       style={StyleSheet.applyWidth(
                         GlobalStyles.ActivityIndicatorStyles(theme)[
-                          'Activity Indicator'
+                          "Activity Indicator"
                         ],
                         dimensions.width
                       )}
@@ -153,9 +153,9 @@ const ManageVehicleScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
+                        alignItems: "center",
                         flex: 1,
-                        justifyContent: 'center',
+                        justifyContent: "center",
                       },
                       dimensions.width
                     )}
@@ -166,7 +166,7 @@ const ManageVehicleScreen = props => {
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          GlobalStyles.TextStyles(theme)["Text 2"],
                           { fontSize: 16 }
                         ),
                         dimensions.width
@@ -182,14 +182,14 @@ const ManageVehicleScreen = props => {
             return (
               <FlatList
                 contentContainerStyle={StyleSheet.applyWidth(
-                  { flexDirection: 'column' },
+                  { flexDirection: "column" },
                   dimensions.width
                 )}
                 data={fetchData?.data}
                 keyExtractor={(listData, index) =>
                   listData?.id ?? listData?.uuid ?? index.toString()
                 }
-                listKey={'1MYH0n2p'}
+                listKey={"1MYH0n2p"}
                 numColumns={1}
                 onEndReachedThreshold={0.5}
                 renderItem={({ item, index }) => {
@@ -198,9 +198,9 @@ const ManageVehicleScreen = props => {
                     <Touchable
                       onPress={() => {
                         try {
-                          navigation.navigate('VehicleDetailsScreen', {
+                          navigation.navigate("VehicleDetailsScreen", {
                             vehicle_status: listData?.status_of_vechile,
-                            id: listData?.id,
+                            id: listData?.value,
                           });
                         } catch (err) {
                           console.error(err);
@@ -210,10 +210,10 @@ const ManageVehicleScreen = props => {
                       <Surface
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
-                            GlobalStyles.SurfaceStyles(theme)['Surface'],
+                            GlobalStyles.SurfaceStyles(theme)["Surface"],
                             {
-                              alignItems: 'stretch',
-                              flexDirection: 'column',
+                              alignItems: "stretch",
+                              flexDirection: "column",
                               margin: 20,
                               padding: 10,
                             }
@@ -224,9 +224,9 @@ const ManageVehicleScreen = props => {
                         <View
                           style={StyleSheet.applyWidth(
                             {
-                              alignItems: 'center',
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
+                              alignItems: "center",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
                             },
                             dimensions.width
                           )}
@@ -238,7 +238,7 @@ const ManageVehicleScreen = props => {
                               allowFontScaling={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  GlobalStyles.TextStyles(theme)["Text 2"],
                                   { margin: 10 }
                                 ),
                                 dimensions.width
@@ -252,7 +252,7 @@ const ManageVehicleScreen = props => {
                               allowFontScaling={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['Text 2'],
+                                  GlobalStyles.TextStyles(theme)["Text 2"],
                                   { margin: 10 }
                                 ),
                                 dimensions.width
@@ -267,12 +267,12 @@ const ManageVehicleScreen = props => {
                             allowFontScaling={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['Text 2'],
+                                GlobalStyles.TextStyles(theme)["Text 2"],
                                 {
-                                  color: theme.colors['CoTruckPending'],
-                                  fontFamily: 'System',
+                                  color: theme.colors["CoTruckPending"],
+                                  fontFamily: "System",
                                   fontSize: 14,
-                                  fontWeight: '400',
+                                  fontWeight: "400",
                                   margin: 10,
                                 }
                               ),

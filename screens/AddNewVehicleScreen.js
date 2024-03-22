@@ -1,12 +1,12 @@
-import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as CotruckApi from '../apis/CotruckApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import openImagePickerUtil from '../utils/openImagePicker';
-import showAlertUtil from '../utils/showAlert';
-import useWindowDimensions from '../utils/useWindowDimensions';
+import React from "react";
+import * as GlobalStyles from "../GlobalStyles.js";
+import * as CotruckApi from "../apis/CotruckApi.js";
+import * as GlobalVariables from "../config/GlobalVariableContext";
+import Breakpoints from "../utils/Breakpoints";
+import * as StyleSheet from "../utils/StyleSheet";
+import openImagePickerUtil from "../utils/openImagePicker";
+import showAlertUtil from "../utils/showAlert";
+import useWindowDimensions from "../utils/useWindowDimensions";
 import {
   Button,
   Icon,
@@ -15,11 +15,11 @@ import {
   TextInput,
   Touchable,
   withTheme,
-} from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
-import { Image, Text, View } from 'react-native';
+} from "@draftbit/ui";
+import { useIsFocused } from "@react-navigation/native";
+import { Image, Text, View } from "react-native";
 
-const AddNewVehicleScreen = props => {
+const AddNewVehicleScreen = (props) => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -30,12 +30,12 @@ const AddNewVehicleScreen = props => {
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [isRCUpload, setIsRCUpload] = React.useState(false);
   const [isVehicleInsurance, setIsVehicleInsurance] = React.useState(false);
-  const [noOfReg, setNoOfReg] = React.useState('');
-  const [textInputValue, setTextInputValue] = React.useState('');
+  const [noOfReg, setNoOfReg] = React.useState("");
+  const [textInputValue, setTextInputValue] = React.useState("");
   const [uploadVehicleImage, setUploadVehicleImage] = React.useState(false);
   const [vehicleImage, setVehicleImage] = React.useState({});
-  const [vehicleType, setVehicleType] = React.useState('');
-  const [vehicleTypeList, setVehicleTypeList] = React.useState('');
+  const [vehicleType, setVehicleType] = React.useState("");
+  const [vehicleTypeList, setVehicleTypeList] = React.useState("");
   const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
   const cotruckAddNewVehiclePOST = CotruckApi.useAddNewVehiclePOST();
   const isFocused = useIsFocused();
@@ -65,8 +65,8 @@ const AddNewVehicleScreen = props => {
       <View
         style={StyleSheet.applyWidth(
           {
-            alignItems: 'center',
-            flexDirection: 'row',
+            alignItems: "center",
+            flexDirection: "row",
             marginLeft: 20,
             marginTop: 20,
           },
@@ -86,7 +86,7 @@ const AddNewVehicleScreen = props => {
               }
             }}
           >
-            <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
+            <Icon name={"MaterialIcons/arrow-back-ios"} size={30} />
           </Touchable>
         </View>
         {/* Title View */}
@@ -98,16 +98,16 @@ const AddNewVehicleScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-                color: theme.colors['CoTruckBlack'],
-                fontFamily: 'System',
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 3"], {
+                color: theme.colors["CoTruckBlack"],
+                fontFamily: "System",
                 fontSize: 20,
-                fontWeight: '400',
+                fontWeight: "400",
               }),
               dimensions.width
             )}
           >
-            {'Add New Vehicle'}
+            {"Add New Vehicle"}
           </Text>
         </View>
       </View>
@@ -122,9 +122,9 @@ const AddNewVehicleScreen = props => {
           dropDownBorderWidth={1}
           dropDownTextColor={theme.colors.strong}
           iconSize={24}
-          leftIconMode={'inset'}
-          mode={'dropdown'}
-          onValueChange={newChooseVehicleTypeValue => {
+          leftIconMode={"inset"}
+          mode={"dropdown"}
+          onValueChange={(newChooseVehicleTypeValue) => {
             try {
               setVehicleType(newChooseVehicleTypeValue);
             } catch (err) {
@@ -132,15 +132,23 @@ const AddNewVehicleScreen = props => {
             }
           }}
           options={vehicleTypeList}
-          placeholder={'Choose Type of Vehicle'}
+          placeholder={"Choose Type of Vehicle"}
           selectedIconColor={theme.colors.strong}
-          selectedIconName={'Feather/check'}
+          selectedIconName={"Feather/check"}
           selectedIconSize={20}
           style={StyleSheet.applyWidth(
-            { borderRadius: 12, height: 48, margin: 10, padding: 8 },
+            {
+              borderRadius: 12,
+              height: 48,
+              margin: 10,
+              paddingBottom: 8,
+              paddingLeft: 0,
+              paddingRight: 8,
+              paddingTop: 8,
+            },
             dimensions.width
           )}
-          type={'solid'}
+          type={"solid"}
           value={vehicleType}
         />
         {/* Registration View */}
@@ -148,22 +156,22 @@ const AddNewVehicleScreen = props => {
           {/* No of Reg */}
           <TextInput
             allowFontScaling={true}
-            autoCapitalize={'none'}
+            autoCapitalize={"none"}
             changeTextDelay={500}
-            onChangeText={newNoOfRegValue => {
+            onChangeText={(newNoOfRegValue) => {
               try {
                 setNoOfReg(newNoOfRegValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Registration No.'}
-            placeholderTextColor={theme.colors['text placeholder']}
+            placeholder={"Registration No."}
+            placeholderTextColor={theme.colors["text placeholder"]}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
-                GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                GlobalStyles.TextInputStyles(theme)["Text Input 3"],
                 {
-                  borderColor: theme.colors['Light'],
+                  borderColor: theme.colors["Light"],
                   borderRadius: 12,
                   height: 48,
                   margin: 10,
@@ -182,13 +190,13 @@ const AddNewVehicleScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
                 margin: 10,
               }),
               dimensions.width
             )}
           >
-            {'1.  Upload Registration Certificate (RC)'}
+            {"1.  Upload Registration Certificate (RC)"}
           </Text>
           {/* Image View */}
           <>
@@ -196,19 +204,19 @@ const AddNewVehicleScreen = props => {
               <View
                 style={StyleSheet.applyWidth(
                   {
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    alignItems: "center",
+                    justifyContent: "center",
                     margin: 10,
                   },
                   dimensions.width
                 )}
               >
                 <Image
-                  resizeMode={'cover'}
+                  resizeMode={"cover"}
                   source={{ uri: `${RCImage}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
-                      GlobalStyles.ImageStyles(theme)['Image 3'],
+                      GlobalStyles.ImageStyles(theme)["Image 3"],
                       { borderRadius: 8, height: 150, width: 150 }
                     ),
                     dimensions.width
@@ -223,7 +231,7 @@ const AddNewVehicleScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
+                    mediaTypes: "All",
                     allowsEditing: false,
                     quality: 0.2,
                   });
@@ -241,11 +249,11 @@ const AddNewVehicleScreen = props => {
             <View
               style={StyleSheet.applyWidth(
                 {
-                  alignItems: 'center',
+                  alignItems: "center",
                   borderRadius: 8,
-                  borderStyle: 'dashed',
+                  borderStyle: "dashed",
                   borderWidth: 1,
-                  justifyContent: 'center',
+                  justifyContent: "center",
                   margin: 20,
                   padding: 20,
                 },
@@ -253,7 +261,7 @@ const AddNewVehicleScreen = props => {
               )}
             >
               <Icon
-                name={'AntDesign/pluscircle'}
+                name={"AntDesign/pluscircle"}
                 size={24}
                 style={StyleSheet.applyWidth(
                   {
@@ -269,11 +277,11 @@ const AddNewVehicleScreen = props => {
                 accessible={true}
                 allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  GlobalStyles.TextStyles(theme)['Text 2'],
+                  GlobalStyles.TextStyles(theme)["Text 2"],
                   dimensions.width
                 )}
               >
-                {'Upload Image'}
+                {"Upload Image"}
               </Text>
             </View>
           </Touchable>
@@ -285,13 +293,13 @@ const AddNewVehicleScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
                 margin: 10,
               }),
               dimensions.width
             )}
           >
-            {'2.  Upload Vehicle Insurance'}
+            {"2.  Upload Vehicle Insurance"}
           </Text>
           {/* Image View */}
           <>
@@ -299,19 +307,19 @@ const AddNewVehicleScreen = props => {
               <View
                 style={StyleSheet.applyWidth(
                   {
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    alignItems: "center",
+                    justifyContent: "center",
                     margin: 10,
                   },
                   dimensions.width
                 )}
               >
                 <Image
-                  resizeMode={'cover'}
+                  resizeMode={"cover"}
                   source={{ uri: `${InsuranceImage}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
-                      GlobalStyles.ImageStyles(theme)['Image 3'],
+                      GlobalStyles.ImageStyles(theme)["Image 3"],
                       { borderRadius: 8, height: 150, width: 150 }
                     ),
                     dimensions.width
@@ -326,7 +334,7 @@ const AddNewVehicleScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'All',
+                    mediaTypes: "All",
                     allowsEditing: false,
                     quality: 0.2,
                   });
@@ -344,11 +352,11 @@ const AddNewVehicleScreen = props => {
             <View
               style={StyleSheet.applyWidth(
                 {
-                  alignItems: 'center',
+                  alignItems: "center",
                   borderRadius: 8,
-                  borderStyle: 'dashed',
+                  borderStyle: "dashed",
                   borderWidth: 1,
-                  justifyContent: 'center',
+                  justifyContent: "center",
                   margin: 20,
                   padding: 20,
                 },
@@ -356,7 +364,7 @@ const AddNewVehicleScreen = props => {
               )}
             >
               <Icon
-                name={'AntDesign/pluscircle'}
+                name={"AntDesign/pluscircle"}
                 size={24}
                 style={StyleSheet.applyWidth(
                   {
@@ -372,11 +380,11 @@ const AddNewVehicleScreen = props => {
                 accessible={true}
                 allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  GlobalStyles.TextStyles(theme)['Text 2'],
+                  GlobalStyles.TextStyles(theme)["Text 2"],
                   dimensions.width
                 )}
               >
-                {'Upload Image'}
+                {"Upload Image"}
               </Text>
             </View>
           </Touchable>
@@ -388,13 +396,13 @@ const AddNewVehicleScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
                 margin: 10,
               }),
               dimensions.width
             )}
           >
-            {'3.  Upload Vehicle Image'}
+            {"3.  Upload Vehicle Image"}
           </Text>
           {/* Image View */}
           <>
@@ -402,19 +410,19 @@ const AddNewVehicleScreen = props => {
               <View
                 style={StyleSheet.applyWidth(
                   {
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    alignItems: "center",
+                    justifyContent: "center",
                     margin: 10,
                   },
                   dimensions.width
                 )}
               >
                 <Image
-                  resizeMode={'cover'}
+                  resizeMode={"cover"}
                   source={{ uri: `${vehicleImage}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
-                      GlobalStyles.ImageStyles(theme)['Image 3'],
+                      GlobalStyles.ImageStyles(theme)["Image 3"],
                       { borderRadius: 8, height: 150, width: 150 }
                     ),
                     dimensions.width
@@ -429,7 +437,7 @@ const AddNewVehicleScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'Images',
+                    mediaTypes: "Images",
                     allowsEditing: false,
                     quality: 0.2,
                   });
@@ -447,11 +455,11 @@ const AddNewVehicleScreen = props => {
             <View
               style={StyleSheet.applyWidth(
                 {
-                  alignItems: 'center',
+                  alignItems: "center",
                   borderRadius: 8,
-                  borderStyle: 'dashed',
+                  borderStyle: "dashed",
                   borderWidth: 1,
-                  justifyContent: 'center',
+                  justifyContent: "center",
                   margin: 20,
                   padding: 20,
                 },
@@ -459,7 +467,7 @@ const AddNewVehicleScreen = props => {
               )}
             >
               <Icon
-                name={'AntDesign/pluscircle'}
+                name={"AntDesign/pluscircle"}
                 size={24}
                 style={StyleSheet.applyWidth(
                   {
@@ -475,11 +483,11 @@ const AddNewVehicleScreen = props => {
                 accessible={true}
                 allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  GlobalStyles.TextStyles(theme)['Text 2'],
+                  GlobalStyles.TextStyles(theme)["Text 2"],
                   dimensions.width
                 )}
               >
-                {'Upload Image'}
+                {"Upload Image"}
               </Text>
             </View>
           </Touchable>
@@ -489,10 +497,25 @@ const AddNewVehicleScreen = props => {
           onPress={() => {
             const handler = async () => {
               try {
+                if (vehicleType === "") {
+                  showAlertUtil({
+                    title: "Message",
+                    message: "Please Choose Vehicle Type",
+                  });
+                  return;
+                }
+
+                if (noOfReg === "") {
+                  showAlertUtil({
+                    title: "Message",
+                    message: "Please Enter Registration Number",
+                  });
+                  return;
+                }
                 const Response = (
                   await cotruckAddNewVehiclePOST.mutateAsync({
-                    // already fixed static data 
-                    operator_id: Constants['AUTH_OWNER_ID'],
+                    // already fixed static data
+                    operator_id: Constants["AUTH_OWNER_ID"],
                     reg_certificate: RCImage,
                     reg_no: noOfReg,
                     vehicle_id: vehicleType,
@@ -503,13 +526,13 @@ const AddNewVehicleScreen = props => {
                 const message = Response?.message;
 
                 showAlertUtil({
-                  title: 'Message',
+                  title: "Message",
                   message: message,
                   buttonText: undefined,
                 });
 
-                navigation.navigate('BottomTabNavigator', {
-                  screen: 'SettingsScreen',
+                navigation.navigate("BottomTabNavigator", {
+                  screen: "SettingsScreen",
                 });
                 console.log(Response);
               } catch (err) {
@@ -519,12 +542,12 @@ const AddNewVehicleScreen = props => {
             handler();
           }}
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)["Button"], {
               margin: 20,
             }),
             dimensions.width
           )}
-          title={'Add Vehicle'}
+          title={"Add Vehicle"}
         />
       </View>
     </ScreenContainer>

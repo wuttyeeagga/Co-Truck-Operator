@@ -1,12 +1,12 @@
-import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as CotruckApi from '../apis/CotruckApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import selectFileUtil from '../utils/selectFile';
-import showAlertUtil from '../utils/showAlert';
-import useWindowDimensions from '../utils/useWindowDimensions';
+import React from "react";
+import * as GlobalStyles from "../GlobalStyles.js";
+import * as CotruckApi from "../apis/CotruckApi.js";
+import * as GlobalVariables from "../config/GlobalVariableContext";
+import Breakpoints from "../utils/Breakpoints";
+import * as StyleSheet from "../utils/StyleSheet";
+import selectFileUtil from "../utils/selectFile";
+import showAlertUtil from "../utils/showAlert";
+import useWindowDimensions from "../utils/useWindowDimensions";
 import {
   Button,
   Divider,
@@ -18,32 +18,32 @@ import {
   TextInput,
   Touchable,
   withTheme,
-} from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
-import { Text, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+} from "@draftbit/ui";
+import { useIsFocused } from "@react-navigation/native";
+import { Text, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const RegisterScreen = props => {
+const RegisterScreen = (props) => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const [agentLicenseFile, setAgentLicenseFile] = React.useState([]);
-  const [agentName, setAgentName] = React.useState('');
-  const [companyName, setCompanyName] = React.useState('');
-  const [companyPhone, setCompanyPhone] = React.useState('');
-  const [companyRegNo, setCompanyRegNo] = React.useState('');
+  const [agentName, setAgentName] = React.useState("");
+  const [companyName, setCompanyName] = React.useState("");
+  const [companyPhone, setCompanyPhone] = React.useState("");
+  const [companyRegNo, setCompanyRegNo] = React.useState("");
   const [companyRegisterFile, setCompanyRegisterFile] = React.useState([]);
-  const [contactEmail, setContactEmail] = React.useState('');
-  const [contactName, setContactName] = React.useState('');
-  const [contactPhone, setContactPhone] = React.useState('');
-  const [contactPwd, setContactPwd] = React.useState('');
+  const [contactEmail, setContactEmail] = React.useState("");
+  const [contactName, setContactName] = React.useState("");
+  const [contactPhone, setContactPhone] = React.useState("");
+  const [contactPwd, setContactPwd] = React.useState("");
   const [isAgentFile, setIsAgentFile] = React.useState(false);
   const [isCompanyFile, setIsCompanyFile] = React.useState(false);
   const [isPwdShown, setIsPwdShown] = React.useState(false);
   const [pathsOptions, setPathsOptions] = React.useState([]);
   const [preferPaths, setPreferPaths] = React.useState([]);
-  const [referCode, setReferCode] = React.useState('');
+  const [referCode, setReferCode] = React.useState("");
   const [pickerValue, setPickerValue] = React.useState(undefined);
   const cotruckPreferredPathsPOST = CotruckApi.usePreferredPathsPOST();
   const cotruckRegisterPOST = CotruckApi.useRegisterPOST();
@@ -71,14 +71,14 @@ const RegisterScreen = props => {
       hasTopSafeArea={false}
       scrollable={false}
       style={StyleSheet.applyWidth(
-        { backgroundColor: theme.colors['Surface'] },
+        { backgroundColor: theme.colors["Surface"] },
         dimensions.width
       )}
     >
       {/* Header */}
       <View
         style={StyleSheet.applyWidth(
-          { alignItems: 'center', flexDirection: 'row', margin: 20 },
+          { alignItems: "center", flexDirection: "row", margin: 20 },
           dimensions.width
         )}
       >
@@ -95,7 +95,7 @@ const RegisterScreen = props => {
               }
             }}
           >
-            <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
+            <Icon name={"MaterialIcons/arrow-back-ios"} size={30} />
           </Touchable>
         </View>
         {/* Title View */}
@@ -107,29 +107,29 @@ const RegisterScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-                color: theme.colors['CoTruckBlack'],
-                fontFamily: 'System',
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 3"], {
+                color: theme.colors["CoTruckBlack"],
+                fontFamily: "System",
                 fontSize: 20,
-                fontWeight: '400',
+                fontWeight: "400",
               }),
               dimensions.width
             )}
           >
-            {'Create an account'}
+            {"Create an account"}
           </Text>
         </View>
       </View>
 
       <KeyboardAwareScrollView
-        keyboardShouldPersistTaps={'never'}
+        keyboardShouldPersistTaps={"never"}
         showsVerticalScrollIndicator={true}
       >
         {/* Company Details */}
         <View
           style={StyleSheet.applyWidth(
             {
-              backgroundColor: 'rgba(0, 0, 0, 0)',
+              backgroundColor: "rgba(0, 0, 0, 0)",
               margin: 10,
               paddingBottom: 20,
             },
@@ -140,8 +140,8 @@ const RegisterScreen = props => {
           <Text
             style={StyleSheet.applyWidth(
               {
-                color: theme.colors['CoTruckBlack'],
-                fontFamily: 'Inter_600SemiBold',
+                color: theme.colors["CoTruckBlack"],
+                fontFamily: "Inter_600SemiBold",
                 fontSize: 16,
                 marginLeft: 20,
                 opacity: 1,
@@ -149,30 +149,30 @@ const RegisterScreen = props => {
               dimensions.width
             )}
           >
-            {'Step 1 of 4 - Company Information'}
+            {"Step 1 of 4 - Company Information"}
           </Text>
           {/* Company Name  */}
           <TextInput
-            autoCapitalize={'none'}
-            onChangeText={newCompanyNameValue => {
+            autoCapitalize={"none"}
+            onChangeText={(newCompanyNameValue) => {
               try {
                 setCompanyName(newCompanyNameValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Company Name'}
-            placeholderTextColor={theme.colors['TextPlaceholder']}
+            placeholder={"Company Name"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: "rgba(0, 0, 0, 0)",
                 borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
+                borderColor: theme.colors["Light"],
                 borderLeftWidth: 1,
                 borderRadius: 12,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
+                fontFamily: "Inter_400Regular",
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
@@ -186,28 +186,28 @@ const RegisterScreen = props => {
           />
           {/* Company Phone */}
           <TextInput
-            autoCapitalize={'none'}
-            keyboardType={'numeric'}
+            autoCapitalize={"none"}
+            keyboardType={"numeric"}
             maxLength={11}
-            onChangeText={newCompanyPhoneValue => {
+            onChangeText={(newCompanyPhoneValue) => {
               try {
                 setCompanyPhone(newCompanyPhoneValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Company Phone (09xxxxxxxxx)'}
-            placeholderTextColor={theme.colors['TextPlaceholder']}
+            placeholder={"Company Phone (09xxxxxxxxx)"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: "rgba(0, 0, 0, 0)",
                 borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
+                borderColor: theme.colors["Light"],
                 borderLeftWidth: 1,
                 borderRadius: 12,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
+                fontFamily: "Inter_400Regular",
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
@@ -221,27 +221,27 @@ const RegisterScreen = props => {
           />
           {/* Company Registration Number */}
           <TextInput
-            autoCapitalize={'none'}
+            autoCapitalize={"none"}
             maxLength={9}
-            onChangeText={newCompanyRegistrationNumberValue => {
+            onChangeText={(newCompanyRegistrationNumberValue) => {
               try {
                 setCompanyRegNo(newCompanyRegistrationNumberValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Company Registration Number'}
-            placeholderTextColor={theme.colors['TextPlaceholder']}
+            placeholder={"Company Registration Number"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: "rgba(0, 0, 0, 0)",
                 borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
+                borderColor: theme.colors["Light"],
                 borderLeftWidth: 1,
                 borderRadius: 12,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
+                fontFamily: "Inter_400Regular",
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
@@ -262,13 +262,13 @@ const RegisterScreen = props => {
                 accessible={true}
                 allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
                     margin: 10,
                   }),
                   dimensions.width
                 )}
               >
-                {'Company Registration Document'}
+                {"Company Registration Document"}
               </Text>
             </View>
             {/* Upload Registration File */}
@@ -277,34 +277,34 @@ const RegisterScreen = props => {
                 <Pressable
                   onPress={() => {
                     const handler = async () => {
-                      console.log('Upload Registration File ON_PRESS Start');
+                      console.log("Upload Registration File ON_PRESS Start");
                       let error = null;
                       try {
-                        console.log('Start ON_PRESS:0 SELECT_FILE');
+                        console.log("Start ON_PRESS:0 SELECT_FILE");
                         const fileResults = await selectFileUtil({
                           returnNameAndValue: true,
                         });
-                        console.log('Complete ON_PRESS:0 SELECT_FILE', {
+                        console.log("Complete ON_PRESS:0 SELECT_FILE", {
                           fileResults,
                         });
-                        console.log('Start ON_PRESS:1 SET_VARIABLE');
+                        console.log("Start ON_PRESS:1 SET_VARIABLE");
                         const value3VKbOGFQ = fileResults;
                         setCompanyRegisterFile(value3VKbOGFQ);
                         const file = value3VKbOGFQ;
-                        console.log('Complete ON_PRESS:1 SET_VARIABLE');
-                        console.log('Start ON_PRESS:2 SET_VARIABLE');
+                        console.log("Complete ON_PRESS:1 SET_VARIABLE");
+                        console.log("Start ON_PRESS:2 SET_VARIABLE");
                         setIsCompanyFile(true);
-                        console.log('Complete ON_PRESS:2 SET_VARIABLE');
-                        console.log('Start ON_PRESS:3 CONSOLE_LOG');
+                        console.log("Complete ON_PRESS:2 SET_VARIABLE");
+                        console.log("Start ON_PRESS:3 CONSOLE_LOG");
                         console.log(fileResults);
-                        console.log('Complete ON_PRESS:3 CONSOLE_LOG');
+                        console.log("Complete ON_PRESS:3 CONSOLE_LOG");
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;
                       }
                       console.log(
-                        'Upload Registration File ON_PRESS Complete',
-                        error ? { error } : 'no error'
+                        "Upload Registration File ON_PRESS Complete",
+                        error ? { error } : "no error"
                       );
                     };
                     handler();
@@ -313,12 +313,12 @@ const RegisterScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
-                        borderColor: theme.colors['Light'],
+                        alignItems: "center",
+                        borderColor: theme.colors["Light"],
                         borderRadius: 12,
-                        borderStyle: 'dashed',
+                        borderStyle: "dashed",
                         borderWidth: 1,
-                        justifyContent: 'center',
+                        justifyContent: "center",
                         margin: 20,
                         padding: 20,
                       },
@@ -327,8 +327,8 @@ const RegisterScreen = props => {
                   >
                     {/* Plus Icon */}
                     <Icon
-                      color={theme.colors['CoTruckBlack']}
-                      name={'AntDesign/pluscircle'}
+                      color={theme.colors["CoTruckBlack"]}
+                      name={"AntDesign/pluscircle"}
                       size={24}
                     />
                     {/* Upload */}
@@ -336,11 +336,11 @@ const RegisterScreen = props => {
                       accessible={true}
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        GlobalStyles.TextStyles(theme)["Text 2"],
                         dimensions.width
                       )}
                     >
-                      {'Upload'}
+                      {"Upload"}
                     </Text>
                   </View>
                 </Pressable>
@@ -351,22 +351,22 @@ const RegisterScreen = props => {
               {!isCompanyFile ? null : (
                 <Pressable
                   onPress={() => {
-                    console.log('Registration File Value ON_PRESS Start');
+                    console.log("Registration File Value ON_PRESS Start");
                     let error = null;
                     try {
-                      console.log('Start ON_PRESS:0 SET_VARIABLE');
+                      console.log("Start ON_PRESS:0 SET_VARIABLE");
                       setIsCompanyFile(false);
-                      console.log('Complete ON_PRESS:0 SET_VARIABLE');
-                      console.log('Start ON_PRESS:1 CONSOLE_LOG');
+                      console.log("Complete ON_PRESS:0 SET_VARIABLE");
+                      console.log("Start ON_PRESS:1 CONSOLE_LOG");
                       console.log();
-                      console.log('Complete ON_PRESS:1 CONSOLE_LOG');
+                      console.log("Complete ON_PRESS:1 CONSOLE_LOG");
                     } catch (err) {
                       console.error(err);
                       error = err.message ?? err;
                     }
                     console.log(
-                      'Registration File Value ON_PRESS Complete',
-                      error ? { error } : 'no error'
+                      "Registration File Value ON_PRESS Complete",
+                      error ? { error } : "no error"
                     );
                   }}
                 >
@@ -374,12 +374,12 @@ const RegisterScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
-                        borderColor: theme.colors['Light'],
+                        alignItems: "center",
+                        borderColor: theme.colors["Light"],
                         borderRadius: 12,
-                        borderStyle: 'dashed',
+                        borderStyle: "dashed",
                         borderWidth: 1,
-                        justifyContent: 'center',
+                        justifyContent: "center",
                         margin: 20,
                         padding: 20,
                       },
@@ -391,7 +391,7 @@ const RegisterScreen = props => {
                       accessible={true}
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        GlobalStyles.TextStyles(theme)["Text 2"],
                         dimensions.width
                       )}
                     >
@@ -411,13 +411,13 @@ const RegisterScreen = props => {
                 accessible={true}
                 allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
                     margin: 10,
                   }),
                   dimensions.width
                 )}
               >
-                {'Agent License Document'}
+                {"Agent License Document"}
               </Text>
             </View>
             {/* Upload Agent License */}
@@ -426,29 +426,29 @@ const RegisterScreen = props => {
                 <Pressable
                   onPress={() => {
                     const handler = async () => {
-                      console.log('Upload Agent License ON_PRESS Start');
+                      console.log("Upload Agent License ON_PRESS Start");
                       let error = null;
                       try {
-                        console.log('Start ON_PRESS:0 SELECT_FILE');
+                        console.log("Start ON_PRESS:0 SELECT_FILE");
                         const fileResults = await selectFileUtil({
                           returnNameAndValue: true,
                         });
-                        console.log('Complete ON_PRESS:0 SELECT_FILE', {
+                        console.log("Complete ON_PRESS:0 SELECT_FILE", {
                           fileResults,
                         });
-                        console.log('Start ON_PRESS:1 SET_VARIABLE');
+                        console.log("Start ON_PRESS:1 SET_VARIABLE");
                         setAgentLicenseFile(fileResults);
-                        console.log('Complete ON_PRESS:1 SET_VARIABLE');
-                        console.log('Start ON_PRESS:2 SET_VARIABLE');
+                        console.log("Complete ON_PRESS:1 SET_VARIABLE");
+                        console.log("Start ON_PRESS:2 SET_VARIABLE");
                         setIsAgentFile(true);
-                        console.log('Complete ON_PRESS:2 SET_VARIABLE');
+                        console.log("Complete ON_PRESS:2 SET_VARIABLE");
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;
                       }
                       console.log(
-                        'Upload Agent License ON_PRESS Complete',
-                        error ? { error } : 'no error'
+                        "Upload Agent License ON_PRESS Complete",
+                        error ? { error } : "no error"
                       );
                     };
                     handler();
@@ -457,12 +457,12 @@ const RegisterScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
-                        borderColor: theme.colors['Light'],
+                        alignItems: "center",
+                        borderColor: theme.colors["Light"],
                         borderRadius: 12,
-                        borderStyle: 'dashed',
+                        borderStyle: "dashed",
                         borderWidth: 1,
-                        justifyContent: 'center',
+                        justifyContent: "center",
                         margin: 20,
                         padding: 20,
                       },
@@ -471,8 +471,8 @@ const RegisterScreen = props => {
                   >
                     {/* Plus Icon */}
                     <Icon
-                      color={theme.colors['CoTruckBlack']}
-                      name={'AntDesign/pluscircle'}
+                      color={theme.colors["CoTruckBlack"]}
+                      name={"AntDesign/pluscircle"}
                       size={24}
                     />
                     {/* Upload */}
@@ -480,11 +480,11 @@ const RegisterScreen = props => {
                       accessible={true}
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        GlobalStyles.TextStyles(theme)["Text 2"],
                         dimensions.width
                       )}
                     >
-                      {'Upload'}
+                      {"Upload"}
                     </Text>
                   </View>
                 </Pressable>
@@ -495,31 +495,31 @@ const RegisterScreen = props => {
               {!isAgentFile ? null : (
                 <Pressable
                   onPress={() => {
-                    console.log('License View ON_PRESS Start');
+                    console.log("License View ON_PRESS Start");
                     let error = null;
                     try {
-                      console.log('Start ON_PRESS:0 SET_VARIABLE');
+                      console.log("Start ON_PRESS:0 SET_VARIABLE");
                       setIsAgentFile(false);
-                      console.log('Complete ON_PRESS:0 SET_VARIABLE');
+                      console.log("Complete ON_PRESS:0 SET_VARIABLE");
                     } catch (err) {
                       console.error(err);
                       error = err.message ?? err;
                     }
                     console.log(
-                      'License View ON_PRESS Complete',
-                      error ? { error } : 'no error'
+                      "License View ON_PRESS Complete",
+                      error ? { error } : "no error"
                     );
                   }}
                 >
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
-                        borderColor: theme.colors['Light'],
+                        alignItems: "center",
+                        borderColor: theme.colors["Light"],
                         borderRadius: 12,
-                        borderStyle: 'dashed',
+                        borderStyle: "dashed",
                         borderWidth: 1,
-                        justifyContent: 'center',
+                        justifyContent: "center",
                         margin: 20,
                         padding: 20,
                       },
@@ -531,7 +531,7 @@ const RegisterScreen = props => {
                       accessible={true}
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        GlobalStyles.TextStyles(theme)["Text 2"],
                         dimensions.width
                       )}
                     >
@@ -544,26 +544,26 @@ const RegisterScreen = props => {
           </View>
           {/* Agent Name */}
           <TextInput
-            autoCapitalize={'none'}
-            onChangeText={newAgentNameValue => {
+            autoCapitalize={"none"}
+            onChangeText={(newAgentNameValue) => {
               try {
                 setAgentName(newAgentNameValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Agent Name'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholder={"Agent Name"}
+            placeholderTextColor={theme.colors["Light"]}
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: "rgba(0, 0, 0, 0)",
                 borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
+                borderColor: theme.colors["Light"],
                 borderLeftWidth: 1,
                 borderRadius: 12,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
+                fontFamily: "Inter_400Regular",
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
@@ -577,14 +577,14 @@ const RegisterScreen = props => {
           />
           <MultiSelectPicker
             autoDismissKeyboard={true}
-            dropDownBackgroundColor={theme.colors['Surface']}
+            dropDownBackgroundColor={theme.colors["Surface"]}
             dropDownBorderColor={theme.colors.divider}
             dropDownBorderRadius={8}
             dropDownBorderWidth={1}
             dropDownTextColor={theme.colors.strong}
             iconSize={24}
-            leftIconMode={'inset'}
-            onValueChange={newMultiSelectPickerValue => {
+            leftIconMode={"inset"}
+            onValueChange={(newMultiSelectPickerValue) => {
               const pickerValue = newMultiSelectPickerValue;
               try {
                 setPreferPaths(newMultiSelectPickerValue);
@@ -593,9 +593,9 @@ const RegisterScreen = props => {
               }
             }}
             options={pathsOptions}
-            placeholder={'Choose preferred paths'}
+            placeholder={"Choose preferred paths"}
             selectedIconColor={theme.colors.strong}
-            selectedIconName={'Feather/check'}
+            selectedIconName={"Feather/check"}
             selectedIconSize={20}
             style={StyleSheet.applyWidth(
               {
@@ -609,13 +609,13 @@ const RegisterScreen = props => {
               },
               dimensions.width
             )}
-            type={'solid'}
+            type={"solid"}
             value={preferPaths}
           />
           <Divider
             color={theme.colors.divider}
             style={StyleSheet.applyWidth(
-              GlobalStyles.DividerStyles(theme)['Divider'],
+              GlobalStyles.DividerStyles(theme)["Divider"],
               dimensions.width
             )}
           />
@@ -624,8 +624,8 @@ const RegisterScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                fontFamily: 'Inter_600SemiBold',
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
+                fontFamily: "Inter_600SemiBold",
                 fontSize: 16,
                 marginBottom: 10,
                 marginLeft: 20,
@@ -634,30 +634,30 @@ const RegisterScreen = props => {
               dimensions.width
             )}
           >
-            {'Contact Person Details'}
+            {"Contact Person Details"}
           </Text>
           {/* Contact Name */}
           <TextInput
-            autoCapitalize={'none'}
-            onChangeText={newContactNameValue => {
+            autoCapitalize={"none"}
+            onChangeText={(newContactNameValue) => {
               try {
                 setContactName(newContactNameValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Name'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholder={"Name"}
+            placeholderTextColor={theme.colors["Light"]}
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: "rgba(0, 0, 0, 0)",
                 borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
+                borderColor: theme.colors["Light"],
                 borderLeftWidth: 1,
                 borderRadius: 12,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
+                fontFamily: "Inter_400Regular",
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
@@ -671,26 +671,26 @@ const RegisterScreen = props => {
           />
           {/* Contact Email */}
           <TextInput
-            autoCapitalize={'none'}
-            onChangeText={newContactEmailValue => {
+            autoCapitalize={"none"}
+            onChangeText={(newContactEmailValue) => {
               try {
                 setContactEmail(newContactEmailValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Email'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholder={"Email"}
+            placeholderTextColor={theme.colors["Light"]}
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: "rgba(0, 0, 0, 0)",
                 borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
+                borderColor: theme.colors["Light"],
                 borderLeftWidth: 1,
                 borderRadius: 12,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
+                fontFamily: "Inter_400Regular",
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
@@ -704,28 +704,28 @@ const RegisterScreen = props => {
           />
           {/* Contact Phone */}
           <TextInput
-            autoCapitalize={'none'}
-            keyboardType={'numeric'}
+            autoCapitalize={"none"}
+            keyboardType={"numeric"}
             maxLength={11}
-            onChangeText={newContactPhoneValue => {
+            onChangeText={(newContactPhoneValue) => {
               try {
                 setContactPhone(newContactPhoneValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Mobile Number (09xxxxxxxxx)'}
-            placeholderTextColor={theme.colors['TextPlaceholder']}
+            placeholder={"Mobile Number (09xxxxxxxxx)"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: "rgba(0, 0, 0, 0)",
                 borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
+                borderColor: theme.colors["Light"],
                 borderLeftWidth: 1,
                 borderRadius: 12,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
+                fontFamily: "Inter_400Regular",
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
@@ -742,27 +742,27 @@ const RegisterScreen = props => {
             <>
               {isPwdShown ? null : (
                 <TextInput
-                  autoCapitalize={'none'}
-                  onChangeText={newContactPasswordValue => {
+                  autoCapitalize={"none"}
+                  onChangeText={(newContactPasswordValue) => {
                     try {
                       setContactPwd(newContactPasswordValue);
                     } catch (err) {
                       console.error(err);
                     }
                   }}
-                  placeholder={'Password'}
-                  placeholderTextColor={theme.colors['Light']}
+                  placeholder={"Password"}
+                  placeholderTextColor={theme.colors["Light"]}
                   secureTextEntry={true}
                   style={StyleSheet.applyWidth(
                     {
-                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      backgroundColor: "rgba(0, 0, 0, 0)",
                       borderBottomWidth: 1,
-                      borderColor: theme.colors['Light'],
+                      borderColor: theme.colors["Light"],
                       borderLeftWidth: 1,
                       borderRadius: 12,
                       borderRightWidth: 1,
                       borderTopWidth: 1,
-                      fontFamily: 'Inter_400Regular',
+                      fontFamily: "Inter_400Regular",
                       height: 48,
                       margin: 20,
                       paddingBottom: 8,
@@ -780,27 +780,27 @@ const RegisterScreen = props => {
             <>
               {!isPwdShown ? null : (
                 <TextInput
-                  autoCapitalize={'none'}
-                  onChangeText={newContactPassword2Value => {
+                  autoCapitalize={"none"}
+                  onChangeText={(newContactPassword2Value) => {
                     try {
                       setContactPwd(newContactPassword2Value);
                     } catch (err) {
                       console.error(err);
                     }
                   }}
-                  placeholder={'Password'}
-                  placeholderTextColor={theme.colors['Light']}
+                  placeholder={"Password"}
+                  placeholderTextColor={theme.colors["Light"]}
                   secureTextEntry={false}
                   style={StyleSheet.applyWidth(
                     {
-                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      backgroundColor: "rgba(0, 0, 0, 0)",
                       borderBottomWidth: 1,
-                      borderColor: theme.colors['Light'],
+                      borderColor: theme.colors["Light"],
                       borderLeftWidth: 1,
                       borderRadius: 12,
                       borderRightWidth: 1,
                       borderTopWidth: 1,
-                      fontFamily: 'Inter_400Regular',
+                      fontFamily: "Inter_400Regular",
                       height: 48,
                       margin: 20,
                       paddingBottom: 8,
@@ -818,8 +818,8 @@ const RegisterScreen = props => {
             <>
               {isPwdShown ? null : (
                 <IconButton
-                  color={theme.colors['CoTruckBlack']}
-                  icon={'Ionicons/ios-eye-off-outline'}
+                  color={theme.colors["CoTruckBlack"]}
+                  icon={"Ionicons/ios-eye-off-outline"}
                   onPress={() => {
                     try {
                       setIsPwdShown(!isPwdShown);
@@ -829,7 +829,7 @@ const RegisterScreen = props => {
                   }}
                   size={32}
                   style={StyleSheet.applyWidth(
-                    { position: 'absolute', right: 30, top: 27 },
+                    { position: "absolute", right: 30, top: 27 },
                     dimensions.width
                   )}
                 />
@@ -839,8 +839,8 @@ const RegisterScreen = props => {
             <>
               {!isPwdShown ? null : (
                 <IconButton
-                  color={theme.colors['CoTruckBlack']}
-                  icon={'Ionicons/ios-eye-outline'}
+                  color={theme.colors["CoTruckBlack"]}
+                  icon={"Ionicons/ios-eye-outline"}
                   onPress={() => {
                     try {
                       setIsPwdShown(!isPwdShown);
@@ -850,7 +850,7 @@ const RegisterScreen = props => {
                   }}
                   size={32}
                   style={StyleSheet.applyWidth(
-                    { position: 'absolute', right: 30, top: 27 },
+                    { position: "absolute", right: 30, top: 27 },
                     dimensions.width
                   )}
                 />
@@ -859,26 +859,26 @@ const RegisterScreen = props => {
           </View>
           {/* Referral Code */}
           <TextInput
-            autoCapitalize={'none'}
-            onChangeText={newReferralCodeValue => {
+            autoCapitalize={"none"}
+            onChangeText={(newReferralCodeValue) => {
               try {
                 setReferCode(newReferralCodeValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Enter Referral Code (Optional)'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholder={"Enter Referral Code (Optional)"}
+            placeholderTextColor={theme.colors["Light"]}
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: "rgba(0, 0, 0, 0)",
                 borderBottomWidth: 1,
-                borderColor: theme.colors['Light'],
+                borderColor: theme.colors["Light"],
                 borderLeftWidth: 1,
                 borderRadius: 12,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
-                fontFamily: 'Inter_400Regular',
+                fontFamily: "Inter_400Regular",
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
@@ -893,34 +893,50 @@ const RegisterScreen = props => {
           {/* Next */}
           <Button
             onPress={() => {
-              try {
-                navigation.navigate('SignUpIdentityProofScreen', {
-                  comp_name: companyName,
-                  comp_phone: companyPhone,
-                  comp_regi: companyRegNo,
-                  agent_name: agentName,
-                  prefer_paths: preferPaths,
-                  email: contactEmail,
-                  mobile: contactPhone,
-                  password: contactPwd,
-                  refer_code: referCode,
-                  name: contactName,
-                  agent_license_file: agentLicenseFile,
-                  company_file: companyRegisterFile,
-                });
-              } catch (err) {
-                console.error(err);
-              }
+              const handler = () => {
+                try {
+                  if (companyName === "") {
+                    showAlertUtil({
+                      title: "Alert",
+                      message: "Please enter Company Name",
+                      buttonText: undefined,
+                    });
+
+                    if (companyName === "") {
+                      return;
+                    }
+                  } else {
+                  }
+
+                  navigation.navigate("SignUpIdentityProofScreen", {
+                    comp_name: companyName,
+                    comp_phone: companyPhone,
+                    comp_regi: companyRegNo,
+                    agent_name: agentName,
+                    prefer_paths: preferPaths,
+                    email: contactEmail,
+                    mobile: contactPhone,
+                    password: contactPwd,
+                    refer_code: referCode,
+                    name: contactName,
+                    agent_license_file: agentLicenseFile,
+                    company_file: companyRegisterFile,
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
+              };
+              handler();
             }}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+              StyleSheet.compose(GlobalStyles.ButtonStyles(theme)["Button"], {
                 borderRadius: 12,
                 height: 48,
                 margin: 20,
               }),
               dimensions.width
             )}
-            title={'Next'}
+            title={"Next"}
           />
         </View>
       </KeyboardAwareScrollView>

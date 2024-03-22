@@ -46,6 +46,7 @@ const ImportNewTripPendingScreen = props => {
   };
   const cotruckAcceptNewTripPOST = CotruckApi.useAcceptNewTripPOST();
 
+
   return (
     <ScreenContainer
       hasBottomSafeArea={true}
@@ -67,6 +68,7 @@ const ImportNewTripPendingScreen = props => {
           book_truck_id={props.route?.params?.book_truck_id ?? ''}
           handlers={{
             onData: fetchData => {
+              console.log("===>", fetchData?.data?.drivers);
               try {
                 const DRIVERS = fetchData?.data?.drivers;
                 setChooseDriverOptions(DRIVERS);
@@ -733,6 +735,7 @@ const ImportNewTripPendingScreen = props => {
                       </View>
                     </View>
                   </View>
+
                   {/* Choose Driver */}
                   <MultiSelectPicker
                     autoDismissKeyboard={true}
@@ -770,6 +773,8 @@ const ImportNewTripPendingScreen = props => {
                     type={'solid'}
                     value={selectDriver}
                   />
+
+
                   {/* Base Charges */}
                   <View>
                     <View

@@ -216,8 +216,8 @@ export default function RootAppNavigator() {
       linking={LinkingConfiguration}
     >
       <Stack.Navigator
-        initialRouteName="AddNewVehicleScreen"
-        // initialRouteName="AuthNavigator"
+        // initialRouteName="AddNewVehicleScreen"
+        initialRouteName="AuthNavigator"
         screenOptions={({ navigation }) => ({
           headerRight: ({ tintColor }) => (
             <View style={[styles.headerContainer, styles.headerContainerRight]}>

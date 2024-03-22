@@ -1,12 +1,12 @@
-import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as CotruckApi from '../apis/CotruckApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Images from '../config/Images';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import openImagePickerUtil from '../utils/openImagePicker';
-import useWindowDimensions from '../utils/useWindowDimensions';
+import React from "react";
+import * as GlobalStyles from "../GlobalStyles.js";
+import * as CotruckApi from "../apis/CotruckApi.js";
+import * as GlobalVariables from "../config/GlobalVariableContext";
+import Images from "../config/Images";
+import Breakpoints from "../utils/Breakpoints";
+import * as StyleSheet from "../utils/StyleSheet";
+import openImagePickerUtil from "../utils/openImagePicker";
+import useWindowDimensions from "../utils/useWindowDimensions";
 import {
   Button,
   Icon,
@@ -16,39 +16,39 @@ import {
   TextInput,
   Touchable,
   withTheme,
-} from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Fetch } from 'react-request';
+} from "@draftbit/ui";
+import { useIsFocused } from "@react-navigation/native";
+import { ActivityIndicator, Image, Text, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Fetch } from "react-request";
 
-const EditProfileScreen = props => {
+const EditProfileScreen = (props) => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const [agentLicense, setAgentLicense] = React.useState('wee112');
+  const [agentLicense, setAgentLicense] = React.useState("wee112");
   const [certificateImage, setCertificateImage] = React.useState({});
-  const [companyName, setCompanyName] = React.useState('BAN NA BAN WA');
-  const [companyPhone, setCompanyPhone] = React.useState('09782100468');
+  const [companyName, setCompanyName] = React.useState("BAN NA BAN WA");
+  const [companyPhone, setCompanyPhone] = React.useState("09782100468");
   const [contactPersonEmail, setContactPersonEmail] =
-    React.useState('wee@gmail.com');
-  const [contactPersonName, setContactPersonName] = React.useState('wee');
+    React.useState("wee@gmail.com");
+  const [contactPersonName, setContactPersonName] = React.useState("wee");
   const [contactPersonPhoneNumber, setContactPersonPhoneNumber] =
-    React.useState('097882100468');
+    React.useState("097882100468");
   const [datePickerValue, setDatePickerValue] = React.useState(new Date());
   const [isShown, setIsShown] = React.useState(false);
   const [multiSelectPickerValue, setMultiSelectPickerValue] = React.useState(
     []
   );
-  const [numberInputValue, setNumberInputValue] = React.useState('');
+  const [numberInputValue, setNumberInputValue] = React.useState("");
   const [preferredPathsOptions, setPreferredPathsOptions] = React.useState([]);
   const [registerNumber, setRegisterNumber] = React.useState(872100);
-  const [textAreaValue, setTextAreaValue] = React.useState('');
-  const [textAreaValue2, setTextAreaValue2] = React.useState('');
-  const [textInputValue, setTextInputValue] = React.useState('');
-  const [textInputValue2, setTextInputValue2] = React.useState('');
-  const [textInputValue3, setTextInputValue3] = React.useState('');
+  const [textAreaValue, setTextAreaValue] = React.useState("");
+  const [textAreaValue2, setTextAreaValue2] = React.useState("");
+  const [textInputValue, setTextInputValue] = React.useState("");
+  const [textInputValue2, setTextInputValue2] = React.useState("");
+  const [textInputValue3, setTextInputValue3] = React.useState("");
   const [userImage, setUserImage] = React.useState({});
   const [pickerValue, setPickerValue] = React.useState(undefined);
   const cotruckPreferredPathsPOST = CotruckApi.usePreferredPathsPOST();
@@ -80,7 +80,7 @@ const EditProfileScreen = props => {
       {/* My Header */}
       <View
         style={StyleSheet.applyWidth(
-          { alignItems: 'center', flexDirection: 'row', margin: 20 },
+          { alignItems: "center", flexDirection: "row", margin: 20 },
           dimensions.width
         )}
       >
@@ -94,31 +94,31 @@ const EditProfileScreen = props => {
           }}
           style={StyleSheet.applyWidth({ marginLeft: 10 }, dimensions.width)}
         >
-          <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
+          <Icon name={"MaterialIcons/arrow-back-ios"} size={30} />
         </Touchable>
         {/* Title */}
         <Text
           accessible={true}
           allowFontScaling={true}
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+            StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text"], {
               fontSize: 20,
               marginLeft: 10,
             }),
             dimensions.width
           )}
         >
-          {'Edit Profile'}
+          {"Edit Profile"}
         </Text>
       </View>
 
       <KeyboardAwareScrollView
-        keyboardShouldPersistTaps={'never'}
+        keyboardShouldPersistTaps={"never"}
         showsVerticalScrollIndicator={true}
         style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
         contentContainerStyle={StyleSheet.applyWidth(
           {
-            justifyContent: 'space-between',
+            justifyContent: "space-between",
             paddingBottom: 20,
             paddingLeft: 20,
             paddingRight: 20,
@@ -130,7 +130,7 @@ const EditProfileScreen = props => {
         <View>
           <CotruckApi.FetchEditProfilePOST
             handlers={{
-              onData: fetchData => {
+              onData: (fetchData) => {
                 try {
                   setCompanyName(fetchData?.data?.comp_name);
                   setCompanyPhone(fetchData?.data?.comp_number);
@@ -145,7 +145,7 @@ const EditProfileScreen = props => {
                 }
               },
             }}
-            user_id={Constants['AUTH_OWNER_ID']}
+            user_id={Constants["AUTH_OWNER_ID"]}
           >
             {({ loading, error, data, refetchEditProfile }) => {
               const fetchData = data?.json;
@@ -156,21 +156,21 @@ const EditProfileScreen = props => {
                     <View
                       style={StyleSheet.applyWidth(
                         {
-                          alignItems: 'center',
+                          alignItems: "center",
                           flex: 1,
-                          justifyContent: 'center',
+                          justifyContent: "center",
                         },
                         dimensions.width
                       )}
                     >
                       <ActivityIndicator
                         animating={true}
-                        color={theme.colors['Primary']}
+                        color={theme.colors["Primary"]}
                         hidesWhenStopped={true}
-                        size={'large'}
+                        size={"large"}
                         style={StyleSheet.applyWidth(
                           GlobalStyles.ActivityIndicatorStyles(theme)[
-                            'Activity Indicator'
+                            "Activity Indicator"
                           ],
                           dimensions.width
                         )}
@@ -189,7 +189,7 @@ const EditProfileScreen = props => {
                         accessible={true}
                         allowFontScaling={true}
                         style={StyleSheet.applyWidth(
-                          GlobalStyles.TextStyles(theme)['Text 2'],
+                          GlobalStyles.TextStyles(theme)["Text 2"],
                           dimensions.width
                         )}
                       >
@@ -218,18 +218,18 @@ const EditProfileScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { alignItems: 'center' },
+                          { alignItems: "center" },
                           dimensions.width
                         )}
                       >
                         <Image
-                          resizeMode={'cover'}
+                          resizeMode={"cover"}
                           source={{ uri: `${userImage}` }}
                           style={StyleSheet.applyWidth(
                             {
                               borderRadius: 55,
                               height: 110,
-                              position: 'absolute',
+                              position: "absolute",
                               top: 5,
                               width: 110,
                             },
@@ -243,7 +243,7 @@ const EditProfileScreen = props => {
                             const handler = async () => {
                               try {
                                 const image = await openImagePickerUtil({
-                                  mediaTypes: 'Images',
+                                  mediaTypes: "Images",
                                   allowsEditing: false,
                                   quality: 0.2,
                                 });
@@ -257,7 +257,7 @@ const EditProfileScreen = props => {
                           }}
                         >
                           <Image
-                            resizeMode={'cover'}
+                            resizeMode={"cover"}
                             source={Images.EditProfile}
                             style={StyleSheet.applyWidth(
                               { height: 137, width: 120 },
@@ -271,25 +271,25 @@ const EditProfileScreen = props => {
                     <View>
                       {/* Company Name */}
                       <TextInput
-                        autoCapitalize={'none'}
-                        onChangeText={newCompanyNameValue => {
+                        autoCapitalize={"none"}
+                        onChangeText={(newCompanyNameValue) => {
                           try {
                             setCompanyName(newCompanyNameValue);
                           } catch (err) {
                             console.error(err);
                           }
                         }}
-                        placeholder={'Company Name'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
+                        placeholder={"Company Name"}
+                        placeholderTextColor={theme.colors["TextPlaceholder"]}
                         style={StyleSheet.applyWidth(
                           {
                             borderBottomWidth: 1,
-                            borderColor: theme.colors['Light'],
+                            borderColor: theme.colors["Light"],
                             borderLeftWidth: 1,
                             borderRadius: 12,
                             borderRightWidth: 1,
                             borderTopWidth: 1,
-                            fontFamily: 'Inter_400Regular',
+                            fontFamily: "Inter_400Regular",
                             height: 48,
                             margin: 10,
                             paddingBottom: 8,
@@ -306,25 +306,26 @@ const EditProfileScreen = props => {
                     <View>
                       {/* Company Phone */}
                       <TextInput
-                        autoCapitalize={'none'}
-                        onChangeText={newCompanyPhoneValue => {
+                        keyboardType="numeric"
+                        autoCapitalize={"none"}
+                        onChangeText={(newCompanyPhoneValue) => {
                           try {
                             setCompanyPhone(newCompanyPhoneValue);
                           } catch (err) {
                             console.error(err);
                           }
                         }}
-                        placeholder={'Company Phone Number'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
+                        placeholder={"Company Phone Number"}
+                        placeholderTextColor={theme.colors["TextPlaceholder"]}
                         style={StyleSheet.applyWidth(
                           {
                             borderBottomWidth: 1,
-                            borderColor: theme.colors['Light'],
+                            borderColor: theme.colors["Light"],
                             borderLeftWidth: 1,
                             borderRadius: 12,
                             borderRightWidth: 1,
                             borderTopWidth: 1,
-                            fontFamily: 'Inter_400Regular',
+                            fontFamily: "Inter_400Regular",
                             height: 48,
                             margin: 10,
                             marginTop: 8,
@@ -341,10 +342,10 @@ const EditProfileScreen = props => {
                     {/* Company Registration Number */}
                     <View>
                       {/* Company Registration Number */}
-                      <NumberInput
+                      <TextInput
                         allowFontScaling={true}
                         changeTextDelay={500}
-                        onChangeText={newCompanyRegistrationNumberValue => {
+                        onChangeText={(newCompanyRegistrationNumberValue) => {
                           try {
                             setRegisterNumber(
                               newCompanyRegistrationNumberValue
@@ -353,15 +354,15 @@ const EditProfileScreen = props => {
                             console.error(err);
                           }
                         }}
-                        placeholder={'Company Registration Number'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
+                        placeholder={"Company Registration Number"}
+                        placeholderTextColor={theme.colors["TextPlaceholder"]}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.NumberInputStyles(theme)[
-                              'Number Input'
+                              "Number Input"
                             ],
                             {
-                              borderColor: theme.colors['Light'],
+                              borderColor: theme.colors["Light"],
                               borderRadius: 12,
                               height: 48,
                               margin: 10,
@@ -378,22 +379,22 @@ const EditProfileScreen = props => {
                       {/* Agent License */}
                       <TextInput
                         allowFontScaling={true}
-                        autoCapitalize={'none'}
+                        autoCapitalize={"none"}
                         changeTextDelay={500}
-                        onChangeText={newAgentLicenseValue => {
+                        onChangeText={(newAgentLicenseValue) => {
                           try {
                             setAgentLicense(newAgentLicenseValue);
                           } catch (err) {
                             console.error(err);
                           }
                         }}
-                        placeholder={'Agent License'}
-                        placeholderTextColor={theme.colors['TextPlaceholder']}
+                        placeholder={"Agent License"}
+                        placeholderTextColor={theme.colors["TextPlaceholder"]}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
-                            GlobalStyles.TextInputStyles(theme)['Text Input'],
+                            GlobalStyles.TextInputStyles(theme)["Text Input"],
                             {
-                              borderColor: theme.colors['Light'],
+                              borderColor: theme.colors["Light"],
                               borderRadius: 12,
                               height: 48,
                               margin: 10,
@@ -415,8 +416,8 @@ const EditProfileScreen = props => {
                     dropDownBorderWidth={1}
                     dropDownTextColor={theme.colors.strong}
                     iconSize={24}
-                    leftIconMode={'inset'}
-                    onValueChange={newChoosePreferredPathsValue => {
+                    leftIconMode={"inset"}
+                    onValueChange={(newChoosePreferredPathsValue) => {
                       const pickerValue = newChoosePreferredPathsValue;
                       try {
                         setMultiSelectPickerValue(newChoosePreferredPathsValue);
@@ -425,13 +426,13 @@ const EditProfileScreen = props => {
                       }
                     }}
                     options={preferredPathsOptions}
-                    placeholder={'Choose preferred paths'}
+                    placeholder={"Choose preferred paths"}
                     selectedIconColor={theme.colors.strong}
-                    selectedIconName={'Feather/check'}
+                    selectedIconName={"Feather/check"}
                     selectedIconSize={20}
                     style={StyleSheet.applyWidth(
                       {
-                        borderColor: theme.colors['Light'],
+                        borderColor: theme.colors["Light"],
                         borderRadius: 12,
                         margin: 10,
                         paddingBottom: 8,
@@ -441,7 +442,7 @@ const EditProfileScreen = props => {
                       },
                       dimensions.width
                     )}
-                    type={'solid'}
+                    type={"solid"}
                     value={multiSelectPickerValue}
                   />
                   {/* Sub Titl3 */}
@@ -450,40 +451,40 @@ const EditProfileScreen = props => {
                     allowFontScaling={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['Text'],
+                        GlobalStyles.TextStyles(theme)["Text"],
                         {
-                          fontFamily: 'System',
+                          fontFamily: "System",
                           fontSize: 16,
-                          fontWeight: '600',
+                          fontWeight: "600",
                           margin: 10,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'Contact Person Details'}
+                    {"Contact Person Details"}
                   </Text>
                   {/* Contact Person Name */}
                   <View>
                     {/* Contact Person Name */}
                     <TextInput
                       allowFontScaling={true}
-                      autoCapitalize={'none'}
+                      autoCapitalize={"none"}
                       changeTextDelay={500}
-                      onChangeText={newContactPersonNameValue => {
+                      onChangeText={(newContactPersonNameValue) => {
                         try {
                           setContactPersonName(newContactPersonNameValue);
                         } catch (err) {
                           console.error(err);
                         }
                       }}
-                      placeholder={'Enter a value...'}
-                      placeholderTextColor={theme.colors['TextPlaceholder']}
+                      placeholder={"Contact Person Name"}
+                      placeholderTextColor={theme.colors["TextPlaceholder"]}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.TextInputStyles(theme)['Text Input'],
+                          GlobalStyles.TextInputStyles(theme)["Text Input"],
                           {
-                            borderColor: theme.colors['Light'],
+                            borderColor: theme.colors["Light"],
                             borderRadius: 12,
                             height: 48,
                             margin: 10,
@@ -500,22 +501,22 @@ const EditProfileScreen = props => {
                     {/* Contact Person Email */}
                     <TextInput
                       allowFontScaling={true}
-                      autoCapitalize={'none'}
+                      autoCapitalize={"none"}
                       changeTextDelay={500}
-                      onChangeText={newContactPersonEmailValue => {
+                      onChangeText={(newContactPersonEmailValue) => {
                         try {
                           setContactPersonEmail(newContactPersonEmailValue);
                         } catch (err) {
                           console.error(err);
                         }
                       }}
-                      placeholder={'Enter a value...'}
-                      placeholderTextColor={theme.colors['TextPlaceholder']}
+                      placeholder={"Contact Person Email"}
+                      placeholderTextColor={theme.colors["TextPlaceholder"]}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.TextInputStyles(theme)['Text Input'],
+                          GlobalStyles.TextInputStyles(theme)["Text Input"],
                           {
-                            borderColor: theme.colors['Light'],
+                            borderColor: theme.colors["Light"],
                             borderRadius: 12,
                             height: 48,
                             margin: 12,
@@ -531,10 +532,11 @@ const EditProfileScreen = props => {
                   <View>
                     {/* Contact Person Phone */}
                     <TextInput
+                      keyboardType="numeric"
                       allowFontScaling={true}
-                      autoCapitalize={'none'}
+                      autoCapitalize={"none"}
                       changeTextDelay={500}
-                      onChangeText={newContactPersonPhoneValue => {
+                      onChangeText={(newContactPersonPhoneValue) => {
                         try {
                           setContactPersonPhoneNumber(
                             newContactPersonPhoneValue
@@ -543,13 +545,13 @@ const EditProfileScreen = props => {
                           console.error(err);
                         }
                       }}
-                      placeholder={'Enter a value...'}
-                      placeholderTextColor={theme.colors['TextPlaceholder']}
+                      placeholder={"Contact Person Phone"}
+                      placeholderTextColor={theme.colors["TextPlaceholder"]}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.TextInputStyles(theme)['Text Input'],
+                          GlobalStyles.TextInputStyles(theme)["Text Input"],
                           {
-                            borderColor: theme.colors['Light'],
+                            borderColor: theme.colors["Light"],
                             borderRadius: 12,
                             height: 48,
                             margin: 10,
@@ -576,11 +578,11 @@ const EditProfileScreen = props => {
                               name: contactPersonName,
                               paths: multiSelectPickerValue,
                               register_number: registerNumber,
-                              user_id: Constants['AUTH_OWNER_ID'],
+                              user_id: Constants["AUTH_OWNER_ID"],
                               user_image: userImage,
                             })
                           )?.json;
-                          navigation.navigate('CompanyInformationScreen');
+                          navigation.navigate("CompanyInformationScreen");
                           console.log(results);
                         } catch (err) {
                           console.error(err);
@@ -590,12 +592,12 @@ const EditProfileScreen = props => {
                     }}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
-                        GlobalStyles.ButtonStyles(theme)['Button'],
+                        GlobalStyles.ButtonStyles(theme)["Button"],
                         { borderRadius: 12, height: 48, margin: 10 }
                       ),
                       dimensions.width
                     )}
-                    title={'Update Profile'}
+                    title={"Update Profile"}
                   />
                 </View>
               );

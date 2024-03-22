@@ -20,7 +20,7 @@ import {
   withTheme,
 } from "@draftbit/ui";
 import { useIsFocused } from "@react-navigation/native";
-import { Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const RegisterScreen = (props) => {
@@ -161,7 +161,7 @@ const RegisterScreen = (props) => {
                 console.error(err);
               }
             }}
-            placeholder={"Company Name"}
+            placeholder={"Company Name * "}
             placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
@@ -196,7 +196,7 @@ const RegisterScreen = (props) => {
                 console.error(err);
               }
             }}
-            placeholder={"Company Phone (09xxxxxxxxx)"}
+            placeholder={"Company Phone (09xxxxxxxxx) * "}
             placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
@@ -230,7 +230,7 @@ const RegisterScreen = (props) => {
                 console.error(err);
               }
             }}
-            placeholder={"Company Registration Number"}
+            placeholder={"Company Registration Number * "}
             placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
@@ -268,7 +268,7 @@ const RegisterScreen = (props) => {
                   dimensions.width
                 )}
               >
-                {"Company Registration Document"}
+                {"Company Registration Document * "}
               </Text>
             </View>
             {/* Upload Registration File */}
@@ -417,7 +417,7 @@ const RegisterScreen = (props) => {
                   dimensions.width
                 )}
               >
-                {"Agent License Document"}
+                {"Agent License Document * "}
               </Text>
             </View>
             {/* Upload Agent License */}
@@ -552,8 +552,8 @@ const RegisterScreen = (props) => {
                 console.error(err);
               }
             }}
-            placeholder={"Agent Name"}
-            placeholderTextColor={theme.colors["Light"]}
+            placeholder={"Agent Name * "}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: "rgba(0, 0, 0, 0)",
@@ -593,7 +593,8 @@ const RegisterScreen = (props) => {
               }
             }}
             options={pathsOptions}
-            placeholder={"Choose preferred paths"}
+            placeholder={"Choose preferred paths *"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             selectedIconColor={theme.colors.strong}
             selectedIconName={"Feather/check"}
             selectedIconSize={20}
@@ -603,7 +604,7 @@ const RegisterScreen = (props) => {
                 height: 48,
                 margin: 20,
                 paddingBottom: 8,
-                paddingLeft: 12,
+                paddingLeft: 0,
                 paddingRight: 8,
                 paddingTop: 8,
               },
@@ -634,7 +635,7 @@ const RegisterScreen = (props) => {
               dimensions.width
             )}
           >
-            {"Contact Person Details"}
+            {"Contact Person Details *"}
           </Text>
           {/* Contact Name */}
           <TextInput
@@ -646,8 +647,8 @@ const RegisterScreen = (props) => {
                 console.error(err);
               }
             }}
-            placeholder={"Name"}
-            placeholderTextColor={theme.colors["Light"]}
+            placeholder={"Name *"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: "rgba(0, 0, 0, 0)",
@@ -679,8 +680,8 @@ const RegisterScreen = (props) => {
                 console.error(err);
               }
             }}
-            placeholder={"Email"}
-            placeholderTextColor={theme.colors["Light"]}
+            placeholder={"Email *"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: "rgba(0, 0, 0, 0)",
@@ -714,7 +715,7 @@ const RegisterScreen = (props) => {
                 console.error(err);
               }
             }}
-            placeholder={"Mobile Number (09xxxxxxxxx)"}
+            placeholder={"Mobile Number (09xxxxxxxxx) *"}
             placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               {
@@ -750,8 +751,8 @@ const RegisterScreen = (props) => {
                       console.error(err);
                     }
                   }}
-                  placeholder={"Password"}
-                  placeholderTextColor={theme.colors["Light"]}
+                  placeholder={"Password *"}
+                  placeholderTextColor={theme.colors["TextPlaceholder"]}
                   secureTextEntry={true}
                   style={StyleSheet.applyWidth(
                     {
@@ -788,8 +789,8 @@ const RegisterScreen = (props) => {
                       console.error(err);
                     }
                   }}
-                  placeholder={"Password"}
-                  placeholderTextColor={theme.colors["Light"]}
+                  placeholder={"Password *"}
+                  placeholderTextColor={theme.colors["TextPlaceholder"]}
                   secureTextEntry={false}
                   style={StyleSheet.applyWidth(
                     {
@@ -895,17 +896,104 @@ const RegisterScreen = (props) => {
             onPress={() => {
               const handler = () => {
                 try {
+                  // check company name
                   if (companyName === "") {
                     showAlertUtil({
-                      title: "Alert",
+                      title: "Message",
                       message: "Please enter Company Name",
                       buttonText: undefined,
                     });
+                    return;
+                  }
 
-                    if (companyName === "") {
-                      return;
-                    }
-                  } else {
+                  // check company phone
+                  if (companyPhone === "") {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please enter Company Phone",
+                    });
+                    return;
+                  }
+
+                  // check company register number
+                  if (companyRegNo === "") {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please enter Company Registration Number",
+                    });
+                    return;
+                  }
+
+                  // check company register file
+                  if (companyRegisterFile.length === 0) {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please upload Company Registration File",
+                    });
+                    return;
+                  }
+
+                  // agent license file
+                  if (agentLicenseFile.length === 0) {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please upload Agent License Document",
+                    });
+                    return;
+                  }
+
+                  // check agent name
+                  if (agentName === "") {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please enter Agent Name",
+                    });
+                    return;
+                  }
+
+                  // check preferPaths
+                  if (preferPaths.length === 0) {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please choose Preferred Paths",
+                    });
+                    return;
+                  }
+
+                  // check contact name
+                  if (contactName === "") {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please enter Contact Name",
+                    });
+                    return;
+                  }
+
+                  // check email
+                  if (contactEmail === "") {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please enter Contact Email",
+                    });
+                    return;
+                  }
+
+                  // check phone
+                  if (contactPhone === "") {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please enter Contact Phone",
+                    });
+                    return;
+                  }
+
+                  // check pwd
+                  if (contactPwd === "") {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please enter Password",
+                    });
+                    return;
                   }
 
                   navigation.navigate("SignUpIdentityProofScreen", {

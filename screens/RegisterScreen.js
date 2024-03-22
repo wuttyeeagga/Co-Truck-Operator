@@ -910,7 +910,7 @@ const RegisterScreen = (props) => {
                   if (companyPhone === "") {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please enter Company Phone",
+                      message: "Please Enter Company Phone",
                     });
                     return;
                   }
@@ -919,7 +919,7 @@ const RegisterScreen = (props) => {
                   if (companyRegNo === "") {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please enter Company Registration Number",
+                      message: "Please Enter Company Registration Number",
                     });
                     return;
                   }
@@ -928,7 +928,7 @@ const RegisterScreen = (props) => {
                   if (companyRegisterFile.length === 0) {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please upload Company Registration File",
+                      message: "Please Upload Company Registration File",
                     });
                     return;
                   }
@@ -937,7 +937,7 @@ const RegisterScreen = (props) => {
                   if (agentLicenseFile.length === 0) {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please upload Agent License Document",
+                      message: "Please Upload Agent License Document",
                     });
                     return;
                   }
@@ -946,7 +946,7 @@ const RegisterScreen = (props) => {
                   if (agentName === "") {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please enter Agent Name",
+                      message: "Please Enter Agent Name",
                     });
                     return;
                   }
@@ -955,7 +955,7 @@ const RegisterScreen = (props) => {
                   if (preferPaths.length === 0) {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please choose Preferred Paths",
+                      message: "Please Choose Preferred Paths",
                     });
                     return;
                   }
@@ -964,7 +964,7 @@ const RegisterScreen = (props) => {
                   if (contactName === "") {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please enter Contact Name",
+                      message: "Please Enter Contact Name",
                     });
                     return;
                   }
@@ -973,7 +973,7 @@ const RegisterScreen = (props) => {
                   if (contactEmail === "") {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please enter Contact Email",
+                      message: "Please Enter Contact Email",
                     });
                     return;
                   }
@@ -982,7 +982,7 @@ const RegisterScreen = (props) => {
                   if (contactPhone === "") {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please enter Contact Phone",
+                      message: "Please Enter Contact Phone",
                     });
                     return;
                   }
@@ -991,7 +991,7 @@ const RegisterScreen = (props) => {
                   if (contactPwd === "") {
                     showAlertUtil({
                       title: "Message",
-                      message: "Please enter Password",
+                      message: "Please Enter Password",
                     });
                     return;
                   }

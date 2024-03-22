@@ -1,11 +1,11 @@
-import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as CotruckApi from '../apis/CotruckApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import openImagePickerUtil from '../utils/openImagePicker';
-import useWindowDimensions from '../utils/useWindowDimensions';
+import React from "react";
+import * as GlobalStyles from "../GlobalStyles.js";
+import * as CotruckApi from "../apis/CotruckApi.js";
+import * as GlobalVariables from "../config/GlobalVariableContext";
+import Breakpoints from "../utils/Breakpoints";
+import * as StyleSheet from "../utils/StyleSheet";
+import openImagePickerUtil from "../utils/openImagePicker";
+import useWindowDimensions from "../utils/useWindowDimensions";
 import {
   Button,
   Icon,
@@ -14,11 +14,12 @@ import {
   TextInput,
   Touchable,
   withTheme,
-} from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
-import { Image, Text, View } from 'react-native';
+} from "@draftbit/ui";
+import { useIsFocused } from "@react-navigation/native";
+import { Image, Text, View } from "react-native";
+import showAlertUtil from "../utils/showAlert.js";
 
-const SignUpVehicleProofScreen = props => {
+const SignUpVehicleProofScreen = (props) => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -27,13 +28,13 @@ const SignUpVehicleProofScreen = props => {
   const [isNRCUpload, setIsNRCUpload] = React.useState(false);
   const [vehicleInsuranceImage, setVehicleInsuranceImage] = React.useState({});
   const [vehicleRCImage, setVehicleRCImage] = React.useState({});
-  const [vehicleRegNo, setVehicleRegNo] = React.useState('');
-  const [vehicleRemark, setVehicleRemark] = React.useState('');
-  const [vehicleType, setVehicleType] = React.useState('');
-  const [vehicleTypeList, setVehicleTypeList] = React.useState('');
+  const [vehicleRegNo, setVehicleRegNo] = React.useState("");
+  const [vehicleRemark, setVehicleRemark] = React.useState("");
+  const [vehicleType, setVehicleType] = React.useState("");
+  const [vehicleTypeList, setVehicleTypeList] = React.useState("");
   const [vehicleTypeOptions, setVehicleTypeOptions] = React.useState([
-    { label: '20ft Container Truck', value: 8 },
-    { label: '40ft Container Truck', value: 9 },
+    { label: "20ft Container Truck", value: 8 },
+    { label: "40ft Container Truck", value: 9 },
   ]);
   const cotruckVehicleTypeListPOST = CotruckApi.useVehicleTypeListPOST();
   const isFocused = useIsFocused();
@@ -51,8 +52,8 @@ const SignUpVehicleProofScreen = props => {
         setVehicleTypeList(valueNFLO2wkt);
         const asdf = valueNFLO2wkt;
         console.log(
-          props.route?.params?.certificate ?? '',
-          props.route?.params?.agent_license ?? ''
+          props.route?.params?.certificate ?? "",
+          props.route?.params?.agent_license ?? ""
         );
       } catch (err) {
         console.error(err);
@@ -71,8 +72,8 @@ const SignUpVehicleProofScreen = props => {
       <View
         style={StyleSheet.applyWidth(
           {
-            alignItems: 'center',
-            flexDirection: 'row',
+            alignItems: "center",
+            flexDirection: "row",
             marginLeft: 20,
             marginTop: 20,
           },
@@ -92,7 +93,7 @@ const SignUpVehicleProofScreen = props => {
               }
             }}
           >
-            <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
+            <Icon name={"MaterialIcons/arrow-back-ios"} size={30} />
           </Touchable>
         </View>
         {/* Title View */}
@@ -103,16 +104,16 @@ const SignUpVehicleProofScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-                color: theme.colors['CoTruckBlack'],
-                fontFamily: 'System',
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 3"], {
+                color: theme.colors["CoTruckBlack"],
+                fontFamily: "System",
                 fontSize: 20,
-                fontWeight: '400',
+                fontWeight: "400",
               }),
               dimensions.width
             )}
           >
-            {'Create an account'}
+            {"Create an account"}
           </Text>
         </View>
       </View>
@@ -125,16 +126,16 @@ const SignUpVehicleProofScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                color: theme.colors['CoTruckBlack'],
-                fontFamily: 'System',
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
+                color: theme.colors["CoTruckBlack"],
+                fontFamily: "System",
                 fontSize: 16,
-                fontWeight: '400',
+                fontWeight: "400",
               }),
               dimensions.width
             )}
           >
-            {'Step 3 of 4 - Update Vehicle'}
+            {"Step 3 of 4 - Update Vehicle"}
           </Text>
         </View>
         {/* Choose Vehicle */}
@@ -146,9 +147,9 @@ const SignUpVehicleProofScreen = props => {
           dropDownBorderWidth={1}
           dropDownTextColor={theme.colors.strong}
           iconSize={24}
-          leftIconMode={'inset'}
-          mode={'dropdown'}
-          onValueChange={newChooseVehicleValue => {
+          leftIconMode={"inset"}
+          mode={"dropdown"}
+          onValueChange={(newChooseVehicleValue) => {
             try {
               setVehicleType(newChooseVehicleValue);
             } catch (err) {
@@ -156,10 +157,10 @@ const SignUpVehicleProofScreen = props => {
             }
           }}
           options={vehicleTypeOptions}
-          placeholder={'Choose Vehicle'}
-          placeholderTextColor={theme.colors['TextPlaceholder']}
+          placeholder={"Choose Vehicle *"}
+          placeholderTextColor={theme.colors["TextPlaceholder"]}
           selectedIconColor={theme.colors.strong}
-          selectedIconName={'Feather/check'}
+          selectedIconName={"Feather/check"}
           selectedIconSize={20}
           style={StyleSheet.applyWidth(
             {
@@ -172,7 +173,7 @@ const SignUpVehicleProofScreen = props => {
             },
             dimensions.width
           )}
-          type={'solid'}
+          type={"solid"}
           value={vehicleType}
         />
         {/* Regostration View */}
@@ -182,32 +183,32 @@ const SignUpVehicleProofScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TextStyles(theme)['Text 2'],
+              GlobalStyles.TextStyles(theme)["Text 2"],
               dimensions.width
             )}
           >
-            {'Registration Number'}
+            {"Registration Number"}
           </Text>
           {/* Registration Number Input */}
           <TextInput
             allowFontScaling={true}
-            autoCapitalize={'none'}
+            autoCapitalize={"none"}
             changeTextDelay={500}
-            onChangeText={newRegistrationNumberInputValue => {
+            onChangeText={(newRegistrationNumberInputValue) => {
               try {
                 setVehicleRegNo(newRegistrationNumberInputValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Registration Number'}
-            placeholderTextColor={theme.colors['Light']}
+            placeholder={"Registration Number *"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             spellcheck={true}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
-                GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                GlobalStyles.TextInputStyles(theme)["Text Input 3"],
                 {
-                  borderColor: theme.colors['Light'],
+                  borderColor: theme.colors["Light"],
                   height: 48,
                   margin: 20,
                   paddingLeft: 12,
@@ -225,13 +226,13 @@ const SignUpVehicleProofScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
                 margin: 10,
               }),
               dimensions.width
             )}
           >
-            {'Upload Registration Certificate'}
+            {"Upload Registration Certificate *"}
           </Text>
           {/* Image View */}
           <>
@@ -239,19 +240,19 @@ const SignUpVehicleProofScreen = props => {
               <View
                 style={StyleSheet.applyWidth(
                   {
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    alignItems: "center",
+                    justifyContent: "center",
                     margin: 10,
                   },
                   dimensions.width
                 )}
               >
                 <Image
-                  resizeMode={'cover'}
+                  resizeMode={"cover"}
                   source={{ uri: `${vehicleRCImage}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
-                      GlobalStyles.ImageStyles(theme)['Image 3'],
+                      GlobalStyles.ImageStyles(theme)["Image 3"],
                       { borderRadius: 8, height: 150, width: 150 }
                     ),
                     dimensions.width
@@ -266,7 +267,7 @@ const SignUpVehicleProofScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'Images',
+                    mediaTypes: "Images",
                     allowsEditing: false,
                     quality: 0.2,
                     allowsMultipleSelection: false,
@@ -288,11 +289,11 @@ const SignUpVehicleProofScreen = props => {
             <View
               style={StyleSheet.applyWidth(
                 {
-                  alignItems: 'center',
+                  alignItems: "center",
                   borderRadius: 8,
-                  borderStyle: 'dashed',
+                  borderStyle: "dashed",
                   borderWidth: 1,
-                  justifyContent: 'center',
+                  justifyContent: "center",
                   margin: 20,
                   padding: 20,
                 },
@@ -300,7 +301,7 @@ const SignUpVehicleProofScreen = props => {
               )}
             >
               <Icon
-                name={'AntDesign/pluscircle'}
+                name={"AntDesign/pluscircle"}
                 size={24}
                 style={StyleSheet.applyWidth(
                   {
@@ -316,11 +317,11 @@ const SignUpVehicleProofScreen = props => {
                 accessible={true}
                 allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  GlobalStyles.TextStyles(theme)['Text 2'],
+                  GlobalStyles.TextStyles(theme)["Text 2"],
                   dimensions.width
                 )}
               >
-                {'Upload Image'}
+                {"Upload Image"}
               </Text>
             </View>
           </Touchable>
@@ -332,13 +333,13 @@ const SignUpVehicleProofScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
                 margin: 10,
               }),
               dimensions.width
             )}
           >
-            {'Upload Vehicle Insurance'}
+            {"Upload Vehicle Insurance *"}
           </Text>
           {/* Image View */}
           <>
@@ -346,19 +347,19 @@ const SignUpVehicleProofScreen = props => {
               <View
                 style={StyleSheet.applyWidth(
                   {
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    alignItems: "center",
+                    justifyContent: "center",
                     margin: 10,
                   },
                   dimensions.width
                 )}
               >
                 <Image
-                  resizeMode={'cover'}
+                  resizeMode={"cover"}
                   source={{ uri: `${vehicleInsuranceImage}` }}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
-                      GlobalStyles.ImageStyles(theme)['Image 3'],
+                      GlobalStyles.ImageStyles(theme)["Image 3"],
                       { borderRadius: 8, height: 150, width: 150 }
                     ),
                     dimensions.width
@@ -373,7 +374,7 @@ const SignUpVehicleProofScreen = props => {
               const handler = async () => {
                 try {
                   const results = await openImagePickerUtil({
-                    mediaTypes: 'Images',
+                    mediaTypes: "Images",
                     allowsEditing: false,
                     quality: 0.2,
                     allowsMultipleSelection: false,
@@ -392,11 +393,11 @@ const SignUpVehicleProofScreen = props => {
             <View
               style={StyleSheet.applyWidth(
                 {
-                  alignItems: 'center',
+                  alignItems: "center",
                   borderRadius: 8,
-                  borderStyle: 'dashed',
+                  borderStyle: "dashed",
                   borderWidth: 1,
-                  justifyContent: 'center',
+                  justifyContent: "center",
                   margin: 20,
                   padding: 20,
                 },
@@ -404,7 +405,7 @@ const SignUpVehicleProofScreen = props => {
               )}
             >
               <Icon
-                name={'AntDesign/pluscircle'}
+                name={"AntDesign/pluscircle"}
                 size={24}
                 style={StyleSheet.applyWidth(
                   {
@@ -421,11 +422,11 @@ const SignUpVehicleProofScreen = props => {
                 accessible={true}
                 allowFontScaling={true}
                 style={StyleSheet.applyWidth(
-                  GlobalStyles.TextStyles(theme)['Text 2'],
+                  GlobalStyles.TextStyles(theme)["Text 2"],
                   dimensions.width
                 )}
               >
-                {'Upload Image'}
+                {"Upload Image"}
               </Text>
             </View>
           </Touchable>
@@ -437,8 +438,8 @@ const SignUpVehicleProofScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                color: theme.colors['CoTruckBlack'],
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
+                color: theme.colors["CoTruckBlack"],
                 fontSize: 16,
                 margin: 20,
                 marginBottom: 0,
@@ -447,27 +448,27 @@ const SignUpVehicleProofScreen = props => {
               dimensions.width
             )}
           >
-            {'Vehicle Remark'}
+            {"Vehicle Remark *"}
           </Text>
           {/* Vehicle Remark */}
           <TextInput
             allowFontScaling={true}
-            autoCapitalize={'none'}
+            autoCapitalize={"none"}
             changeTextDelay={500}
-            onChangeText={newVehicleRemarkValue => {
+            onChangeText={(newVehicleRemarkValue) => {
               try {
                 setVehicleRemark(newVehicleRemarkValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Vehicle Remark'}
-            placeholderTextColor={theme.colors['TextPlaceholder']}
+            placeholder={"Vehicle Remark *"}
+            placeholderTextColor={theme.colors["TextPlaceholder"]}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
-                GlobalStyles.TextInputStyles(theme)['Text Input 3'],
+                GlobalStyles.TextInputStyles(theme)["Text Input 3"],
                 {
-                  borderColor: theme.colors['Light'],
+                  borderColor: theme.colors["Light"],
                   borderRadius: 12,
                   height: 48,
                   margin: 20,
@@ -482,41 +483,89 @@ const SignUpVehicleProofScreen = props => {
         {/* Next */}
         <Button
           onPress={() => {
-            try {
-              navigation.navigate('TermsInRegisterScreen', {
-                comp_name: props.route?.params?.comp_name ?? '',
-                comp_phone: props.route?.params?.comp_phone ?? '',
-                comp_reg_no: props.route?.params?.comp_regi ?? '',
-                certificate: props.route?.params?.certificate ?? '',
-                agent_license: props.route?.params?.agent_license ?? '',
-                agent_name: props.route?.params?.agent_name ?? '',
-                name: props.route?.params?.name ?? '',
-                email: props.route?.params?.email ?? '',
-                password: props.route?.params?.password ?? '',
-                mobile: props.route?.params?.mobile ?? '',
-                referral_code: props.route?.params?.refer_code ?? '',
-                nrc_front: props.route?.params?.NRC ?? '',
-                nrc_back: props.route?.params?.NRC_back ?? '',
-                vehicle_type: vehicleType,
-                vehicle_reg_no: vehicleRegNo,
-                vehicle_reg_certificate: vehicleRCImage,
-                vehicle_insurance: vehicleInsuranceImage,
-                preferred_paths: props.route?.params?.prefer_paths ?? '',
-                vehicle_remark: vehicleRemark,
-              });
-            } catch (err) {
-              console.error(err);
-            }
+            const handler = () => {
+              try {
+                // check vehicle type
+                if (vehicleType === "") {
+                  showAlertUtil({
+                    title: "Message",
+                    message: "Please Choose Vehicle Type",
+                  });
+                  return;
+                }
+
+                // check registration number
+                if (vehicleRegNo === "") {
+                  showAlertUtil({
+                    title: "Message",
+                    message: "Please Enter Registraion Number",
+                  });
+                  return;
+                }
+
+                // check vehicle registraion certificate
+                if (Object.keys(vehicleRCImage).length === 0) {
+                  showAlertUtil({
+                    title: "Message",
+                    message: "Please Upload Registration Certificate",
+                  });
+                  return;
+                }
+
+                // check vehicle insurance image
+                if (Object.keys(vehicleInsuranceImage).length === 0) {
+                  showAlertUtil({
+                    title: "Message",
+                    message: "Please Upload Vehicle Insurance Image",
+                  });
+                  return;
+                }
+
+                // check vehicle remark
+                if (vehicleRemark === "") {
+                  showAlertUtil({
+                    title: "Message",
+                    message: "Please Enter Vehicle Remark",
+                  });
+                  return;
+                }
+
+                navigation.navigate("TermsInRegisterScreen", {
+                  comp_name: props.route?.params?.comp_name ?? "",
+                  comp_phone: props.route?.params?.comp_phone ?? "",
+                  comp_reg_no: props.route?.params?.comp_regi ?? "",
+                  certificate: props.route?.params?.certificate ?? "",
+                  agent_license: props.route?.params?.agent_license ?? "",
+                  agent_name: props.route?.params?.agent_name ?? "",
+                  name: props.route?.params?.name ?? "",
+                  email: props.route?.params?.email ?? "",
+                  password: props.route?.params?.password ?? "",
+                  mobile: props.route?.params?.mobile ?? "",
+                  referral_code: props.route?.params?.refer_code ?? "",
+                  nrc_front: props.route?.params?.NRC ?? "",
+                  nrc_back: props.route?.params?.NRC_back ?? "",
+                  vehicle_type: vehicleType,
+                  vehicle_reg_no: vehicleRegNo,
+                  vehicle_reg_certificate: vehicleRCImage,
+                  vehicle_insurance: vehicleInsuranceImage,
+                  preferred_paths: props.route?.params?.prefer_paths ?? "",
+                  vehicle_remark: vehicleRemark,
+                });
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
           }}
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+            StyleSheet.compose(GlobalStyles.ButtonStyles(theme)["Button"], {
               borderRadius: 12,
               height: 48,
               margin: 20,
             }),
             dimensions.width
           )}
-          title={'Next'}
+          title={"Next"}
         />
       </View>
     </ScreenContainer>

@@ -1,9 +1,9 @@
-import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import openImagePickerUtil from '../utils/openImagePicker';
-import useWindowDimensions from '../utils/useWindowDimensions';
+import React from "react";
+import * as GlobalStyles from "../GlobalStyles.js";
+import Breakpoints from "../utils/Breakpoints";
+import * as StyleSheet from "../utils/StyleSheet";
+import openImagePickerUtil from "../utils/openImagePicker";
+import useWindowDimensions from "../utils/useWindowDimensions";
 import {
   Button,
   Divider,
@@ -11,35 +11,37 @@ import {
   ScreenContainer,
   Touchable,
   withTheme,
-} from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
-import { Image, ScrollView, Text, View } from 'react-native';
+} from "@draftbit/ui";
+import { useIsFocused } from "@react-navigation/native";
+import { Image, ScrollView, Text, View } from "react-native";
+import showAlertUtil from "../utils/showAlert.js";
 
-const SignUpIdentityProofScreen = props => {
+const SignUpIdentityProofScreen = (props) => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const [dlBack, setDlBack] = React.useState({});
-  const [dlFront, setDlFront] = React.useState({});
-  const [isDLBack, setIsDLBack] = React.useState(false);
-  const [isDLFront, setIsDLFront] = React.useState(false);
+  // const [dlBack, setDlBack] = React.useState({});
+  // const [dlFront, setDlFront] = React.useState({});
+  // const [isDLBack, setIsDLBack] = React.useState(false);
+  // const [isDLFront, setIsDLFront] = React.useState(false);
   const [isNRCBack, setIsNRCBack] = React.useState(false);
   const [isNRCFront, setIsNRCFront] = React.useState(false);
   const [nrcBack, setNrcBack] = React.useState({});
   const [nrcFront, setNrcFront] = React.useState({});
-  const isFocused = useIsFocused();
-  React.useEffect(() => {
-    try {
-      if (!isFocused) {
-        return;
-      }
-      console.log(
-        props.route?.params?.company_file ?? '',
-        props.route?.params?.agent_license_file ?? ''
-      );
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isFocused]);
+  // const isFocused = useIsFocused();
+
+  // React.useEffect(() => {
+  //   try {
+  //     if (!isFocused) {
+  //       return;
+  //     }
+  //     console.log(
+  //       props.route?.params?.company_file ?? "",
+  //       props.route?.params?.agent_license_file ?? ""
+  //     );
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -51,8 +53,8 @@ const SignUpIdentityProofScreen = props => {
       <View
         style={StyleSheet.applyWidth(
           {
-            alignItems: 'center',
-            flexDirection: 'row',
+            alignItems: "center",
+            flexDirection: "row",
             marginLeft: 20,
             marginTop: 20,
           },
@@ -72,7 +74,7 @@ const SignUpIdentityProofScreen = props => {
               }
             }}
           >
-            <Icon name={'MaterialIcons/arrow-back-ios'} size={30} />
+            <Icon name={"MaterialIcons/arrow-back-ios"} size={30} />
           </Touchable>
         </View>
         {/* Title View */}
@@ -83,16 +85,16 @@ const SignUpIdentityProofScreen = props => {
             accessible={true}
             allowFontScaling={true}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 3'], {
-                color: theme.colors['CoTruckBlack'],
-                fontFamily: 'System',
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 3"], {
+                color: theme.colors["CoTruckBlack"],
+                fontFamily: "System",
                 fontSize: 20,
-                fontWeight: '400',
+                fontWeight: "400",
               }),
               dimensions.width
             )}
           >
-            {'Create an account'}
+            {"Create an account"}
           </Text>
         </View>
       </View>
@@ -111,16 +113,16 @@ const SignUpIdentityProofScreen = props => {
               accessible={true}
               allowFontScaling={true}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
-                  color: theme.colors['CoTruckBlack'],
-                  fontFamily: 'System',
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
+                  color: theme.colors["CoTruckBlack"],
+                  fontFamily: "System",
                   fontSize: 16,
-                  fontWeight: '400',
+                  fontWeight: "400",
                 }),
                 dimensions.width
               )}
             >
-              {'Step 2 of 4 - Identify Proof'}
+              {"Step 2 of 4 - Identify Proof"}
             </Text>
           </View>
           {/* NRC Container */}
@@ -130,7 +132,7 @@ const SignUpIdentityProofScreen = props => {
               accessible={true}
               allowFontScaling={true}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text 2'], {
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)["Text 2"], {
                   margin: 10,
                 }),
                 dimensions.width
@@ -156,19 +158,19 @@ const SignUpIdentityProofScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                         margin: 10,
                       },
                       dimensions.width
                     )}
                   >
                     <Image
-                      resizeMode={'cover'}
+                      resizeMode={"cover"}
                       source={{ uri: `${nrcFront}` }}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.ImageStyles(theme)['Image 3'],
+                          GlobalStyles.ImageStyles(theme)["Image 3"],
                           { borderRadius: 8, height: 150, width: 150 }
                         ),
                         dimensions.width
@@ -186,7 +188,7 @@ const SignUpIdentityProofScreen = props => {
                     const handler = async () => {
                       try {
                         const results = await openImagePickerUtil({
-                          mediaTypes: 'Images',
+                          mediaTypes: "Images",
                           allowsEditing: false,
                           quality: 0.2,
                           allowsMultipleSelection: false,
@@ -205,11 +207,11 @@ const SignUpIdentityProofScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
+                        alignItems: "center",
                         borderRadius: 8,
-                        borderStyle: 'dashed',
+                        borderStyle: "dashed",
                         borderWidth: 1,
-                        justifyContent: 'center',
+                        justifyContent: "center",
                         margin: 20,
                         padding: 20,
                       },
@@ -217,7 +219,7 @@ const SignUpIdentityProofScreen = props => {
                     )}
                   >
                     <Icon
-                      name={'AntDesign/pluscircle'}
+                      name={"AntDesign/pluscircle"}
                       size={24}
                       style={StyleSheet.applyWidth(
                         {
@@ -233,21 +235,21 @@ const SignUpIdentityProofScreen = props => {
                       accessible={true}
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        GlobalStyles.TextStyles(theme)["Text 2"],
                         dimensions.width
                       )}
                     >
-                      {'Upload Image'}
+                      {"Upload NRC Front *"}
                     </Text>
                   </View>
                 </Touchable>
               )}
             </>
             <Divider
-              color={theme.colors['Light']}
+              color={theme.colors["Light"]}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
-                  GlobalStyles.DividerStyles(theme)['Divider'],
+                  GlobalStyles.DividerStyles(theme)["Divider"],
                   {
                     marginBottom: 5,
                     marginLeft: 10,
@@ -274,19 +276,19 @@ const SignUpIdentityProofScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                         margin: 10,
                       },
                       dimensions.width
                     )}
                   >
                     <Image
-                      resizeMode={'cover'}
+                      resizeMode={"cover"}
                       source={{ uri: `${nrcBack}` }}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.ImageStyles(theme)['Image 3'],
+                          GlobalStyles.ImageStyles(theme)["Image 3"],
                           { borderRadius: 8, height: 150, width: 150 }
                         ),
                         dimensions.width
@@ -304,7 +306,7 @@ const SignUpIdentityProofScreen = props => {
                     const handler = async () => {
                       try {
                         const results = await openImagePickerUtil({
-                          mediaTypes: 'Images',
+                          mediaTypes: "Images",
                           allowsEditing: false,
                           quality: 0.2,
                           allowsMultipleSelection: false,
@@ -323,11 +325,11 @@ const SignUpIdentityProofScreen = props => {
                   <View
                     style={StyleSheet.applyWidth(
                       {
-                        alignItems: 'center',
+                        alignItems: "center",
                         borderRadius: 8,
-                        borderStyle: 'dashed',
+                        borderStyle: "dashed",
                         borderWidth: 1,
-                        justifyContent: 'center',
+                        justifyContent: "center",
                         margin: 20,
                         padding: 20,
                       },
@@ -335,7 +337,7 @@ const SignUpIdentityProofScreen = props => {
                     )}
                   >
                     <Icon
-                      name={'AntDesign/pluscircle'}
+                      name={"AntDesign/pluscircle"}
                       size={24}
                       style={StyleSheet.applyWidth(
                         {
@@ -351,11 +353,11 @@ const SignUpIdentityProofScreen = props => {
                       accessible={true}
                       allowFontScaling={true}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['Text 2'],
+                        GlobalStyles.TextStyles(theme)["Text 2"],
                         dimensions.width
                       )}
                     >
-                      {'Upload Image'}
+                      {"Upload NRC Back *"}
                     </Text>
                   </View>
                 </Touchable>
@@ -365,34 +367,57 @@ const SignUpIdentityProofScreen = props => {
           {/* Next */}
           <Button
             onPress={() => {
-              try {
-                navigation.navigate('SignUpVehicleProofScreen', {
-                  comp_phone: props.route?.params?.comp_phone ?? '',
-                  comp_regi: props.route?.params?.comp_regi ?? '',
-                  certificate: props.route?.params?.company_file ?? '',
-                  agent_license: props.route?.params?.agent_license_file ?? '',
-                  agent_name: props.route?.params?.agent_name ?? '',
-                  prefer_paths: props.route?.params?.prefer_paths ?? '',
-                  mobile: props.route?.params?.mobile ?? '',
-                  email: props.route?.params?.email ?? '',
-                  refer_code: props.route?.params?.refer_code ?? '',
-                  NRC: nrcFront,
-                  NRC_back: nrcBack,
-                  name: props.route?.params?.name ?? '',
-                  comp_name: props.route?.params?.comp_name ?? '',
-                  password: props.route?.params?.password ?? '',
-                });
-              } catch (err) {
-                console.error(err);
-              }
+              const handler = () => {
+                try {
+                  // back
+                  if (Object.keys(nrcFront).length === 0) {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please Upload NRC Front Image",
+                      buttonText: undefined,
+                    });
+                    return;
+                  }
+                  // front
+                  if (Object.keys(nrcBack).length === 0) {
+                    showAlertUtil({
+                      title: "Message",
+                      message: "Please Upload NRC Back Image",
+                      buttonText: undefined,
+                    });
+                    return;
+                  }
+
+                  navigation.navigate("SignUpVehicleProofScreen", {
+                    comp_phone: props.route?.params?.comp_phone ?? "",
+                    comp_regi: props.route?.params?.comp_regi ?? "",
+                    certificate: props.route?.params?.company_file ?? "",
+                    agent_license:
+                      props.route?.params?.agent_license_file ?? "",
+                    agent_name: props.route?.params?.agent_name ?? "",
+                    prefer_paths: props.route?.params?.prefer_paths ?? "",
+                    mobile: props.route?.params?.mobile ?? "",
+                    email: props.route?.params?.email ?? "",
+                    refer_code: props.route?.params?.refer_code ?? "",
+                    NRC: nrcFront,
+                    NRC_back: nrcBack,
+                    name: props.route?.params?.name ?? "",
+                    comp_name: props.route?.params?.comp_name ?? "",
+                    password: props.route?.params?.password ?? "",
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
+              };
+              handler();
             }}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+              StyleSheet.compose(GlobalStyles.ButtonStyles(theme)["Button"], {
                 margin: 20,
               }),
               dimensions.width
             )}
-            title={'Next'}
+            title={"Next"}
           />
         </View>
       </ScrollView>

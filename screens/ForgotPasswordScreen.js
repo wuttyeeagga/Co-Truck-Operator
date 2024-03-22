@@ -121,7 +121,7 @@ const ForgotPasswordScreen = props => {
           {/* Mobile Number */}
           <TextInput
             editable={true}
-            keyboardType={'phone-pad'}
+            keyboardType={'numeric'}
             maxLength={12}
             onChangeText={newMobileNumberValue => {
               try {

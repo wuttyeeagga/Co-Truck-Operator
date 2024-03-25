@@ -65,6 +65,7 @@ import SystemChargesScreen from "./screens/SystemChargesScreen";
 import SystemInvoicesViewScreen from "./screens/SystemInvoicesViewScreen";
 import TermsInRegisterScreen from "./screens/TermsInRegisterScreen";
 import VehicleDetailsScreen from "./screens/VehicleDetailsScreen";
+import NoInternetScreen from "./screens/NoInternetScreen.js";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -462,6 +463,13 @@ export default function RootAppNavigator() {
           component={EditDriverScreen}
           options={({ navigation }) => ({
             title: "Edit Driver",
+          })}
+        />
+        <Stack.Screen
+          name="NoInternetScreen"
+          component={NoInternetScreen}
+          options={({ navigation }) => ({
+            title: "No Internet",
           })}
         />
         <Stack.Screen

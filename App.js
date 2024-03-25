@@ -86,6 +86,18 @@ const App = () => {
     NotificationListener();
   }, []);
 
+  // React.useEffect(() => {
+  //   const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
+  //     const conn = state.isConnected; //boolean value whether internet connected or not
+  //     console.log("Connection type", state.type); //gives the connection type
+  //     !conn ? alert("No Internet Connection!") : null; //alert if internet not connected
+  //   });
+
+  //   console.log("asdf ==>", "hihi");
+
+  //   return () => removeNetInfoSubscription();
+  // });
+
   const [fontsLoaded] = useFonts({
     Inter_500Medium: Fonts.Inter_500Medium,
     Inter_400Regular: Fonts.Inter_400Regular,

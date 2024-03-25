@@ -19,8 +19,6 @@ import {
 import { Image, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import messaging from "@react-native-firebase/messaging";
-import NetInfo from "@react-native-community/netinfo";
-import NoInternetScreen from "./NoInternetScreen.js";
 
 const LoginScreen = (props) => {
   const { theme, navigation } = props;
@@ -55,21 +53,6 @@ const LoginScreen = (props) => {
     requestUserPermission();
     getToken();
   }, []);
-
-  React.useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
-      const conn = state.isConnected; //boolean value whether internet connected or not
-      console.log("Connection type", state.type); //gives the connection type
-      !conn
-        ? (alert("No Internet Connection!"),
-          navigation.navigate(NoInternetScreen))
-        : null; //alert if internet not connected
-    });
-
-    console.log("asdf ==>", "hihi");
-
-    return () => removeNetInfoSubscription();
-  });
 
   return (
     <ScreenContainer

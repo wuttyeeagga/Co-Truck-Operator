@@ -16,6 +16,7 @@ import {
 import { Provider as ThemeProvider } from "@draftbit/ui";
 import { QueryClient, QueryClientProvider } from "react-query";
 import messaging from "@react-native-firebase/messaging";
+import NetInfo from "@react-native-community/netinfo";
 
 import AppNavigator from "./AppNavigator";
 import Draftbit from "./themes/Draftbit.js";
@@ -23,6 +24,7 @@ import cacheAssetsAsync from "./config/cacheAssetsAsync";
 import { GlobalVariableProvider } from "./config/GlobalVariableContext";
 import { useFonts } from "expo-font";
 import Fonts from "./config/Fonts.js";
+
 SplashScreen.preventAutoHideAsync();
 PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
 
@@ -38,6 +40,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [areAssetsCached, setAreAssetsCached] = React.useState(false);
+  const [connected, setConnected] = React.useState(false);
 
   const NotificationListener = () => {
     // Assume a message-notification contains a "type" property in the data payload of the screen to open
@@ -73,8 +76,6 @@ const App = () => {
     });
 
     messaging().onMessage(async (remoteMessage) => {
-      // console.log("notification on foreground state....", remoteMessage);
-      // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
       Alert.alert(
         remoteMessage.notification.title,
         remoteMessage.notification.body
@@ -86,17 +87,16 @@ const App = () => {
     NotificationListener();
   }, []);
 
-  // React.useEffect(() => {
-  //   const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
-  //     const conn = state.isConnected; //boolean value whether internet connected or not
-  //     console.log("Connection type", state.type); //gives the connection type
-  //     !conn ? alert("No Internet Connection!") : null; //alert if internet not connected
-  //   });
+  React.useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
+      const conn = state.isConnected; //boolean value whether internet connected or not
+      console.log("Connection type", state.isConnected); //gives the connection type
+      setConnected(conn);
+      !conn ? alert("No Internet Connection!") : null; //alert if internet not connected
+    });
 
-  //   console.log("asdf ==>", "hihi");
-
-  //   return () => removeNetInfoSubscription();
-  // });
+    return () => removeNetInfoSubscription();
+  });
 
   const [fontsLoaded] = useFonts({
     Inter_500Medium: Fonts.Inter_500Medium,
@@ -156,6 +156,21 @@ const App = () => {
 
   if (!isReady) {
     return null;
+  }
+
+  if (!connected) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#fff",
+        }}
+      >
+        <Text>There is no internet connections !!!</Text>
+      </View>
+    );
   }
 
   return (

@@ -90,7 +90,7 @@ const App = () => {
   React.useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
       const conn = state.isConnected; //boolean value whether internet connected or not
-      console.log("Connection type", state.isConnected); //gives the connection type
+      // console.log("Connection type", state.isConnected); //gives the connection type
       setConnected(conn);
       !conn ? alert("No Internet Connection!") : null; //alert if internet not connected
     });

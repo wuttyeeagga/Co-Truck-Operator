@@ -32,7 +32,7 @@ const ExportLiveTrackScreen = props => {
         }
         console.log('Start ON_SCREEN_FOCUS:0 GET_LOCATION');
         const MYLOCATION = await getLocationUtil();
-        console.log('Complete ON_SCREEN_FOCUS:0 GET_LOCATION', { MYLOCATION });
+        // console.log('Complete ON_SCREEN_FOCUS:0 GET_LOCATION', { MYLOCATION });
         console.log('Start ON_SCREEN_FOCUS:1 UPDATE_MAP_LOCATION');
         mapViewmdiy2cOMRef.current.animateToLocation({
           latitude: MYLOCATION?.latitude,
@@ -44,10 +44,10 @@ const ExportLiveTrackScreen = props => {
         setMyLocation(MYLOCATION);
         console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
         console.log('Start ON_SCREEN_FOCUS:3 CONSOLE_LOG');
-        console.log(
-          props.route?.params?.driver_lat ?? '',
-          props.route?.params?.driver_long ?? ''
-        );
+        // console.log(
+        //   props.route?.params?.driver_lat ?? '',
+        //   props.route?.params?.driver_long ?? ''
+        // );
         console.log('Complete ON_SCREEN_FOCUS:3 CONSOLE_LOG');
       } catch (err) {
         console.error(err);

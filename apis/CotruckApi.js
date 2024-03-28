@@ -11,6 +11,7 @@ import { handleResponse, isOkStatus } from "../utils/handleRestApiResponse";
 import usePrevious from "../utils/usePrevious";
 import encodeQueryParam from "../utils/encodeQueryParam";
 import * as GlobalVariables from "../config/GlobalVariableContext";
+import { BASE_URL } from "./api_endpoint";
 
 export const acceptNewTripPOST = (
   Constants,
@@ -25,7 +26,7 @@ export const acceptNewTripPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/accept-booking`, {
+  fetch(`${BASE_URL}/operator/accept-booking`, {
     body: JSON.stringify({
       booking_id: booking_id,
       qty: qty,
@@ -132,7 +133,7 @@ export const addNewDriverPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/add-driver`, {
+  fetch(`${BASE_URL}/operator/add-driver`, {
     body: JSON.stringify({
       operator_id: operator_id,
       name: name,
@@ -233,7 +234,7 @@ export const FetchAddNewDriverPOST = ({
 };
 
 export const addNewLeadPOST = (Constants, { id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/add-new-lead`, {
+  fetch(`${BASE_URL}/add-new-lead`, {
     body: JSON.stringify({ id: id }),
     headers: {
       Accept: "application/json",
@@ -316,7 +317,7 @@ export const addNewUserPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/add/new/user`, {
+  fetch(`${BASE_URL}/add/new/user`, {
     body: JSON.stringify({
       first_name: first_name,
       email: email,
@@ -426,7 +427,7 @@ export const addNewVehiclePOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/add-vehicle`, {
+  fetch(`${BASE_URL}/operator/add-vehicle`, {
     body: JSON.stringify({
       operator_id: operator_id,
       vehicle_id: vehicle_id,
@@ -519,7 +520,7 @@ export const bookingDetailPOST = (
   { book_truck_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/booking-detail`, {
+  fetch(`${BASE_URL}/operator/booking-detail`, {
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: "application/json",
@@ -593,7 +594,7 @@ export const bookingListPOST = (
   { booking_status, booking_type, operator },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/booking-list`, {
+  fetch(`${BASE_URL}/operator/booking-list`, {
     body: JSON.stringify({
       operator_id: operator,
       booking_type: booking_type,
@@ -672,7 +673,7 @@ export const bookingList$Confirmed$POST = (
   { booking_status, booking_type, operator },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/booking-list`, {
+  fetch(`${BASE_URL}/operator/booking-list`, {
     body: JSON.stringify({
       operator_id: operator,
       booking_type: booking_type,
@@ -761,7 +762,7 @@ export const bookingList$PAID$POST = (
   { booking_status, booking_type, operator, paid_status },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/booking-list`, {
+  fetch(`${BASE_URL}/operator/booking-list`, {
     body: JSON.stringify({
       operator_id: operator,
       booking_type: booking_type,
@@ -843,7 +844,7 @@ export const bookingSummaryAllPOST = (
   { id, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/booking-summary-all`, {
+  fetch(`${BASE_URL}/booking-summary-all`, {
     body: JSON.stringify({ id: id, user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -914,7 +915,7 @@ export const bookingSummaryDetailPOST = (
   { id, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/booking/summary/detail`, {
+  fetch(`${BASE_URL}/booking/summary/detail`, {
     body: JSON.stringify({ id: id, user_id: user_id }),
     headers: {
       Accept: "application/json",
@@ -998,7 +999,7 @@ export const bookingSummarySinglePOST = (
   { user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/booking-summary-single`, {
+  fetch(`${BASE_URL}/booking-summary-single`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -1073,7 +1074,7 @@ export const FetchBookingSummarySinglePOST = ({
 };
 
 export const categoryChargesPOST = (Constants, _args, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/category-charges`, {
+  fetch(`${BASE_URL}/category-charges`, {
     body: JSON.stringify({ key: "value" }),
     headers: {
       Accept: "application/json",
@@ -1146,7 +1147,7 @@ export const changePwdPOST = (
   { new_password, old_password, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/change-pwd`, {
+  fetch(`${BASE_URL}/change-pwd`, {
     body: JSON.stringify({
       user_id: user_id,
       old_password: old_password,
@@ -1218,7 +1219,7 @@ export const FetchChangePwdPOST = ({
 };
 
 export const companyInformationPOST = (Constants, { id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/get-company-info`, {
+  fetch(`${BASE_URL}/operator/get-company-info`, {
     body: JSON.stringify({ operator_id: id }),
     headers: {
       Accept: "application/json",
@@ -1292,7 +1293,7 @@ export const completeBookingPOST = (
   { book_truck_id, operator_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/complete-booking`, {
+  fetch(`${BASE_URL}/operator/complete-booking`, {
     body: JSON.stringify({
       operator_id: operator_id,
       book_truck_id: book_truck_id,
@@ -1366,7 +1367,7 @@ export const FetchCompleteBookingPOST = ({
 };
 
 export const deleteDriverPOST = (Constants, { driver_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/delete-driver`, {
+  fetch(`${BASE_URL}/operator/delete-driver`, {
     body: JSON.stringify({ driver_id: driver_id }),
     headers: {
       Accept: "application/json",
@@ -1436,7 +1437,7 @@ export const FetchDeleteDriverPOST = ({
 };
 
 export const distanceCostPOST = (Constants, _args, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/distance-cost`, {
+  fetch(`${BASE_URL}/distance-cost`, {
     body: JSON.stringify({ key: "value" }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -1505,7 +1506,7 @@ export const driverBookingOngoingStatusPOST = (
   { user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/driver/booking/ongoing-status`, {
+  fetch(`${BASE_URL}/driver/booking/ongoing-status`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -1580,7 +1581,7 @@ export const FetchDriverBookingOngoingStatusPOST = ({
 };
 
 export const driverDetailPOST = (Constants, { driver_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/driver-detail`, {
+  fetch(`${BASE_URL}/operator/driver-detail`, {
     body: JSON.stringify({ driver_id: driver_id }),
     headers: {
       Accept: "application/json",
@@ -1650,7 +1651,7 @@ export const FetchDriverDetailPOST = ({
 };
 
 export const driverJobListPOST = (Constants, { user_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/driver/job/list`, {
+  fetch(`${BASE_URL}/driver/job/list`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -1720,7 +1721,7 @@ export const driverList$ALL$POST = (
   { operator_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/driver-list`, {
+  fetch(`${BASE_URL}/operator/driver-list`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
       Accept: "application/json",
@@ -1794,7 +1795,7 @@ export const driverList$AVAILABLE$POST = (
   { driver_status, operator_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/driver-list`, {
+  fetch(`${BASE_URL}/operator/driver-list`, {
     body: JSON.stringify({
       operator_id: operator_id,
       driver_status: driver_status,
@@ -1881,7 +1882,7 @@ export const driverList$Pending$POST = (
   { driver_status, operator_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/driver-list`, {
+  fetch(`${BASE_URL}/operator/driver-list`, {
     body: JSON.stringify({
       operator_id: operator_id,
       driver_status: driver_status,
@@ -1960,7 +1961,7 @@ export const FetchDriverList$Pending$POST = ({
 };
 
 export const editProfilePOST = (Constants, { user_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/get-user`, {
+  fetch(`${BASE_URL}/get-user`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: {
       Accept: "application/json",
@@ -2029,7 +2030,7 @@ export const FetchEditProfilePOST = ({
 };
 
 export const editUserPOST = (Constants, { user_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/edit-user`, {
+  fetch(`${BASE_URL}/edit-user`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -2091,7 +2092,7 @@ export const FetchEditUserPOST = ({
 };
 
 export const finishedRidePOST = (Constants, { id, owner_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/finished-ride`, {
+  fetch(`${BASE_URL}/finished-ride`, {
     body: JSON.stringify({ id: id, owner_id: owner_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -2158,7 +2159,7 @@ export const FetchFinishedRidePOST = ({
 };
 
 export const forgotPwdPOST = (Constants, { mobile }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/forgot-pwd`, {
+  fetch(`${BASE_URL}/forgot-pwd`, {
     body: JSON.stringify({ mobile: mobile }),
     headers: {
       Accept: "application/json",
@@ -2228,7 +2229,7 @@ export const generatedInvoicesPOST = (
   { operator_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/generated-invoices`, {
+  fetch(`${BASE_URL}/operator/generated-invoices`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
       Accept: "application/json",
@@ -2302,7 +2303,7 @@ export const getDriverLocationsPOST = (
   { driver_job_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/driver-live-track`, {
+  fetch(`${BASE_URL}/driver-live-track`, {
     body: JSON.stringify({ driver_job_id: driver_job_id }),
     headers: {
       Accept: "application/json",
@@ -2377,7 +2378,7 @@ export const getIdentifyProofPOST = (
   { operator_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/identification-proofs`, {
+  fetch(`${BASE_URL}/operator/identification-proofs`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
       Accept: "application/json",
@@ -2451,7 +2452,7 @@ export const getOwnerDriverListPOST = (
   { owner_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-driver-all-lists`, {
+  fetch(`${BASE_URL}/owner-driver-all-lists`, {
     body: JSON.stringify({ owner_id: owner_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -2521,7 +2522,7 @@ export const getOwnerVehicleAllListPOST = (
   { owner_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-vehicle-all-lists`, {
+  fetch(`${BASE_URL}/owner-vehicle-all-lists`, {
     body: JSON.stringify({ owner_id: owner_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -2596,7 +2597,7 @@ export const FetchGetOwnerVehicleAllListPOST = ({
 };
 
 export const identityEditPOST = (Constants, { user_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/identity-edit`, {
+  fetch(`${BASE_URL}/identity-edit`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -2666,18 +2667,15 @@ export const invoiceGenerateIndexPOST = (
   { operator_id },
   handlers = {}
 ) =>
-  fetch(
-    `https://dev.cotruck.co/index.php/api/operator/invoice_generate_index`,
-    {
-      body: JSON.stringify({ operator_id: operator_id }),
-      headers: {
-        Accept: "application/json",
-        Authorization: Constants["AUTH_BEAR_TOKEN"],
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    }
-  ).then((res) => handleResponse(res, handlers));
+  fetch(`${BASE_URL}/operator/invoice_generate_index`, {
+    body: JSON.stringify({ operator_id: operator_id }),
+    headers: {
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useInvoiceGenerateIndexPOST = (
   initialArgs = {},
@@ -2748,7 +2746,7 @@ export const FetchInvoiceGenerateIndexPOST = ({
 };
 
 export const logOutPOST = (Constants, { id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/logout`, {
+  fetch(`${BASE_URL}/logout`, {
     body: JSON.stringify({ user_id: id }),
     headers: {
       Accept: "application/json",
@@ -2818,7 +2816,7 @@ export const loginPOST = (
   { email, password, user_type, fcm_token },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/login`, {
+  fetch(`${BASE_URL}/login`, {
     body: JSON.stringify({
       email: email,
       password: password,
@@ -2907,7 +2905,7 @@ export const newBidPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/new-bid`, {
+  fetch(`${BASE_URL}/new-bid`, {
     body: JSON.stringify({
       user_id: user_id,
       from: from,
@@ -3028,7 +3026,7 @@ export const newBookingTruckPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/new-booking-truck`, {
+  fetch(`${BASE_URL}/new-booking-truck`, {
     body: JSON.stringify({
       user_id: user_id,
       pickup_location_id: pickup_location_id,
@@ -3178,7 +3176,7 @@ export const newDriverPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/new-driver`, {
+  fetch(`${BASE_URL}/new-driver`, {
     body: JSON.stringify({
       owner_id: owner_id,
       vehicle_id: vehicle_id,
@@ -3272,7 +3270,7 @@ export const FetchNewDriverPOST = ({
 };
 
 export const newLeadsPOST = (Constants, { booking_type, id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/new-lead-list`, {
+  fetch(`${BASE_URL}/operator/new-lead-list`, {
     body: JSON.stringify({ operator_id: id, booking_type: booking_type }),
     headers: {
       Accept: "application/json",
@@ -3343,7 +3341,7 @@ export const newLeads$Pending$POST = (
   { booking_type, id, owner_status },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/new-lead-list`, {
+  fetch(`${BASE_URL}/operator/new-lead-list`, {
     body: JSON.stringify({
       operator_id: id,
       booking_type: booking_type,
@@ -3423,7 +3421,7 @@ export const newLeadsDetailsPOST = (
   { book_truck_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/lead-detail`, {
+  fetch(`${BASE_URL}/operator/lead-detail`, {
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: "application/json",
@@ -3493,7 +3491,7 @@ export const FetchNewLeadsDetailsPOST = ({
 };
 
 export const notificationsPOST = (Constants, { user_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/notifications`, {
+  fetch(`${BASE_URL}/notifications`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: {
       Accept: "application/json",
@@ -3567,7 +3565,7 @@ export const operatorVehicleListPOST = (
   { operator_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/vehicle-list`, {
+  fetch(`${BASE_URL}/operator/vehicle-list`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
       Accept: "application/json",
@@ -3646,7 +3644,7 @@ export const operatorVehicleList$available$POST = (
   { operator_id, vehicle_status },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/vehicle-list`, {
+  fetch(`${BASE_URL}/operator/vehicle-list`, {
     body: JSON.stringify({
       operator_id: operator_id,
       vehicle_status: vehicle_status,
@@ -3733,7 +3731,7 @@ export const ownerActiveCheckPOST = (
   { status, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-activecheck`, {
+  fetch(`${BASE_URL}/owner-activecheck`, {
     body: JSON.stringify({ user_id: user_id, status: status }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -3804,7 +3802,7 @@ export const ownerBookStatusRejectPOST = (
   { id, reason, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner/bookstatus/reject`, {
+  fetch(`${BASE_URL}/owner/bookstatus/reject`, {
     body: JSON.stringify({ user_id: user_id, id: id, reason: reason }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -3885,7 +3883,7 @@ export const ownerBookStatusUpdatePOST = (
   { driver_id, id, qty, status, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-bookstatus-update`, {
+  fetch(`${BASE_URL}/owner-bookstatus-update`, {
     body: JSON.stringify({
       user_id: user_id,
       id: id,
@@ -3974,7 +3972,7 @@ export const ownerBookingOngoingStatusPOST = (
   { user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner/booking/ongoing-status`, {
+  fetch(`${BASE_URL}/owner/booking/ongoing-status`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -4053,7 +4051,7 @@ export const ownerDriverListViewPOST = (
   { id, owner_id, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-driverlist-viw`, {
+  fetch(`${BASE_URL}/owner-driverlist-viw`, {
     body: JSON.stringify({ owner_id: owner_id, id: id, user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -4130,7 +4128,7 @@ export const ownerPutOngoingStatusPOST = (
   { user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner/booking/ongoing-status`, {
+  fetch(`${BASE_URL}/owner/booking/ongoing-status`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -4205,7 +4203,7 @@ export const FetchOwnerPutOngoingStatusPOST = ({
 };
 
 export const ownerUpdateStatusListPOST = (Constants, _args, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-updatestatus-list`, {
+  fetch(`${BASE_URL}/owner-updatestatus-list`, {
     body: JSON.stringify({ key: "value" }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -4283,7 +4281,7 @@ export const ownerVehicleListAllPOST = (
   { owner_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-vechiclelist/all`, {
+  fetch(`${BASE_URL}/owner-vechiclelist/all`, {
     body: JSON.stringify({ owner_id: owner_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -4358,7 +4356,7 @@ export const ownerVehicleListUpdatePOST = (
   { id, registr_number, user_id, vehicle_type },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-vechiclelist-update`, {
+  fetch(`${BASE_URL}/owner-vechiclelist-update`, {
     body: JSON.stringify({
       user_id: user_id,
       id: id,
@@ -4445,7 +4443,7 @@ export const ownerVehicleListViewPOST = (
   { id, owner_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/owner-vechiclelist-viw`, {
+  fetch(`${BASE_URL}/owner-vechiclelist-viw`, {
     body: JSON.stringify({ owner_id: owner_id, id: id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -4521,7 +4519,7 @@ export const FetchOwnerVehicleListViewPOST = ({
 };
 
 export const paymentDetailUserPOST = (Constants, { id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/payment/detail/user`, {
+  fetch(`${BASE_URL}/payment/detail/user`, {
     body: JSON.stringify({ id: id }),
     headers: {
       Accept: "application/json",
@@ -4591,7 +4589,7 @@ export const FetchPaymentDetailUserPOST = ({
 };
 
 export const preferredPathsPOST = (Constants, _args, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/locations`, {
+  fetch(`${BASE_URL}/locations`, {
     body: JSON.stringify({ key: "value" }),
     headers: {
       Accept: "application/json",
@@ -4665,7 +4663,7 @@ export const reasonForCancelPOST = (
   { book_truck_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/booking-cancel`, {
+  fetch(`${BASE_URL}/booking-cancel`, {
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: "application/json",
@@ -4760,7 +4758,7 @@ export const registerPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator-register`, {
+  fetch(`${BASE_URL}/operator-register`, {
     body: JSON.stringify({
       comp_name: comp_name,
       comp_phone: comp_phone,
@@ -4887,7 +4885,7 @@ export const rejectNewLeadPOST = (
   { booking_id, cancel_id, operator_id, reason },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/reject-booking`, {
+  fetch(`${BASE_URL}/operator/reject-booking`, {
     body: JSON.stringify({
       operator_id: operator_id,
       booking_id: booking_id,
@@ -4969,7 +4967,7 @@ export const requestBookingTruckPOST = (
   { book_id, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/request-booking-truck`, {
+  fetch(`${BASE_URL}/request-booking-truck`, {
     body: JSON.stringify({ user_id: user_id, book_id: book_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -5041,7 +5039,7 @@ export const FetchRequestBookingTruckPOST = ({
 };
 
 export const resendOTPPOST = (Constants, { user_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/resend-otp`, {
+  fetch(`${BASE_URL}/resend-otp`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -5107,7 +5105,7 @@ export const resetPasswordPOST = (
   { confirm_password, password, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/reset-pwd`, {
+  fetch(`${BASE_URL}/reset-pwd`, {
     body: JSON.stringify({
       user_id: user_id,
       password: password,
@@ -5183,7 +5181,7 @@ export const resetPwdPOST = (
   { confirm_password, password, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/reset-pwd`, {
+  fetch(`${BASE_URL}/reset-pwd`, {
     body: JSON.stringify({
       user_id: user_id,
       password: password,
@@ -5255,7 +5253,7 @@ export const shipperCancleReasonPOST = (
   { book_id, cancel_reason, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/shipper-cancel-reason`, {
+  fetch(`${BASE_URL}/shipper-cancel-reason`, {
     body: JSON.stringify({
       user_id: user_id,
       book_id: book_id,
@@ -5332,7 +5330,7 @@ export const FetchShipperCancleReasonPOST = ({
 };
 
 export const systemChargesPOST = (Constants, { operator_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/system_charges`, {
+  fetch(`${BASE_URL}/operator/system_charges`, {
     body: JSON.stringify({ operator_id: operator_id }),
     headers: {
       Accept: "application/json",
@@ -5406,7 +5404,7 @@ export const updateBookedDriverPOST = (
   { bookingId, new_driver, old_driver, shipperID },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/update_booked_drivers`, {
+  fetch(`${BASE_URL}/operator/update_booked_drivers`, {
     body: JSON.stringify({
       old_driver: old_driver,
       new_driver: new_driver,
@@ -5500,7 +5498,7 @@ export const updateBookingTruckPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/update-booking-truck`, {
+  fetch(`${BASE_URL}/update-booking-truck`, {
     body: JSON.stringify({
       pickup_point_location: pickup_point_location,
       pickup_contact_name: pickup_contact_name,
@@ -5615,7 +5613,7 @@ export const updateDriverPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/update-driver`, {
+  fetch(`${BASE_URL}/operator/update-driver`, {
     body: JSON.stringify({
       driver_id: driver_id,
       operator_id: operator_id,
@@ -5720,7 +5718,7 @@ export const updateIdentifyProofPOST = (
   { adhar_back, adhar_image, license_back, license_image, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/update-identity-proof`, {
+  fetch(`${BASE_URL}/update-identity-proof`, {
     body: JSON.stringify({
       adhar_image: adhar_image,
       license_image: license_image,
@@ -5801,7 +5799,7 @@ export const FetchUpdateIdentifyProofPOST = ({
 };
 
 export const updateOTPPOST = (Constants, { otp, user_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/update-otp`, {
+  fetch(`${BASE_URL}/update-otp`, {
     body: JSON.stringify({ user_id: user_id, otp: otp }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -5868,7 +5866,7 @@ export const updateOwnerDriverPOST = (
   { driver_uniq_id, mobile, name, owner_id, pwd, vehicle_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/update-owner-driver`, {
+  fetch(`${BASE_URL}/update-owner-driver`, {
     body: JSON.stringify({
       driver_uniq_id: driver_uniq_id,
       vehicle_id: vehicle_id,
@@ -5957,7 +5955,7 @@ export const updateOwnerVehiclePOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/update-owner-vehicle`, {
+  fetch(`${BASE_URL}/update-owner-vehicle`, {
     body: JSON.stringify({
       owner_vehicle_unique_id: owner_vehicle_unique_id,
       vehicle_id: vehicle_id,
@@ -6046,7 +6044,7 @@ export const updateTermsCondsPOST = (
   { display, vehicle_groups },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/vehicle-groups`, {
+  fetch(`${BASE_URL}/vehicle-groups`, {
     body: JSON.stringify({ vehicle_groups: vehicle_groups, display: display }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -6128,7 +6126,7 @@ export const updateUserPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/update-user`, {
+  fetch(`${BASE_URL}/update-user`, {
     body: JSON.stringify({
       user_id: user_id,
       comp_name: comp_name,
@@ -6236,7 +6234,7 @@ export const updateVehiclePOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/update-vechicle`, {
+  fetch(`${BASE_URL}/update-vechicle`, {
     body: JSON.stringify({
       registr_number: registr_number,
       vehicle_type: vehicle_type,
@@ -6332,7 +6330,7 @@ export const updateVehicleEditPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/update-echicleedit`, {
+  fetch(`${BASE_URL}/update-echicleedit`, {
     body: JSON.stringify({
       user_id: user_id,
       registr_number: registr_number,
@@ -6421,24 +6419,21 @@ export const updateIdentificationPOST = (
   { dl_back, dl_fron, nrc_back, nrc_front, operator_id },
   handlers = {}
 ) =>
-  fetch(
-    `https://dev.cotruck.co/index.php/api/operator/update-identification-proofs`,
-    {
-      body: JSON.stringify({
-        operator_id: operator_id,
-        nrc_front: nrc_front,
-        nrc_back: nrc_back,
-        driving_license_back: dl_back,
-        driving_license_front: dl_fron,
-      }),
-      headers: {
-        Accept: "application/json",
-        Authorization: Constants["AUTH_BEAR_TOKEN"],
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    }
-  ).then((res) => handleResponse(res, handlers));
+  fetch(`${BASE_URL}/operator/update-identification-proofs`, {
+    body: JSON.stringify({
+      operator_id: operator_id,
+      nrc_front: nrc_front,
+      nrc_back: nrc_back,
+      driving_license_back: dl_back,
+      driving_license_front: dl_fron,
+    }),
+    headers: {
+      Accept: "application/json",
+      Authorization: Constants["AUTH_BEAR_TOKEN"],
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  }).then((res) => handleResponse(res, handlers));
 
 export const useUpdateIdentificationPOST = (
   initialArgs = {},
@@ -6517,7 +6512,7 @@ export const userBookingOngoingStatusPOST = (
   { user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/user/booking/ongoing-status`, {
+  fetch(`${BASE_URL}/user/booking/ongoing-status`, {
     body: JSON.stringify({ user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -6608,7 +6603,7 @@ export const userBookingRegPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/user-booking-reg`, {
+  fetch(`${BASE_URL}/user-booking-reg`, {
     body: JSON.stringify({
       user_id: user_id,
       pickup_location_id: pickup_location_id,
@@ -6718,7 +6713,7 @@ export const userLocationCheckPOST = (
   },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/user/location/check`, {
+  fetch(`${BASE_URL}/user/location/check`, {
     body: JSON.stringify({
       pickup_location_id: pickup_location_id,
       drop_location_id: drop_location_id,
@@ -6800,7 +6795,7 @@ export const FetchUserLocationCheckPOST = ({
 };
 
 export const vehicleDetailPOST = (Constants, { vehicle_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/vehicle-detail`, {
+  fetch(`${BASE_URL}/operator/vehicle-detail`, {
     body: JSON.stringify({ vehicle_id: vehicle_id }),
     headers: {
       Accept: "application/json",
@@ -6870,7 +6865,7 @@ export const FetchVehicleDetailPOST = ({
 };
 
 export const vehicleGroupPOST = (Constants, _args, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/vehicle-groups`, {
+  fetch(`${BASE_URL}/vehicle-groups`, {
     body: JSON.stringify({ key: "value" }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -6935,7 +6930,7 @@ export const FetchVehicleGroupPOST = ({
 };
 
 export const vehicleTypeListPOST = (Constants, _args, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/vehicles`, {
+  fetch(`${BASE_URL}/vehicles`, {
     body: JSON.stringify({ key: "value" }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -7000,7 +6995,7 @@ export const FetchVehicleTypeListPOST = ({
 };
 
 export const verifyOTPPOST = (Constants, { otp, user_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/verify-otp`, {
+  fetch(`${BASE_URL}/verify-otp`, {
     body: JSON.stringify({ user_id: user_id, otp: otp }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -7063,7 +7058,7 @@ export const FetchVerifyOTPPOST = ({
 };
 
 export const viewInvoicePOST = (Constants, { book_truck_id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/operator/view-invoice`, {
+  fetch(`${BASE_URL}/operator/view-invoice`, {
     body: JSON.stringify({ book_truck_id: book_truck_id }),
     headers: {
       Accept: "application/json",
@@ -7132,7 +7127,7 @@ export const FetchViewInvoicePOST = ({
 };
 
 export const waitingBookingSummaryPOST = (Constants, { id }, handlers = {}) =>
-  fetch(`https://dev.cotruck.co/index.php/api/booking-summary`, {
+  fetch(`${BASE_URL}/booking-summary`, {
     body: JSON.stringify({ id: id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",
@@ -7211,7 +7206,7 @@ export const waitingBookingSummaryAllOwnerPOST = (
   { id, user_id },
   handlers = {}
 ) =>
-  fetch(`https://dev.cotruck.co/index.php/api/waiting/bookingsummary/owner`, {
+  fetch(`${BASE_URL}/waiting/bookingsummary/owner`, {
     body: JSON.stringify({ id: id, user_id: user_id }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     method: "POST",

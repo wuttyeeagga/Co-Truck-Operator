@@ -1,10 +1,10 @@
-import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as CotruckApi from '../apis/CotruckApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
+import React from "react";
+import * as GlobalStyles from "../GlobalStyles.js";
+import * as CotruckApi from "../apis/CotruckApi.js";
+import * as GlobalVariables from "../config/GlobalVariableContext";
+import Breakpoints from "../utils/Breakpoints";
+import * as StyleSheet from "../utils/StyleSheet";
+import useWindowDimensions from "../utils/useWindowDimensions";
 import {
   AccordionGroup,
   Icon,
@@ -13,18 +13,19 @@ import {
   TabViewItem,
   Touchable,
   withTheme,
-} from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
+} from "@draftbit/ui";
+import { useIsFocused } from "@react-navigation/native";
 import {
   ActivityIndicator,
   FlatList,
   ScrollView,
   Text,
   View,
-} from 'react-native';
-import { Fetch } from 'react-request';
+} from "react-native";
+import { Fetch } from "react-request";
+import moment from "moment";
 
-const HomeScreen = props => {
+const HomeScreen = (props) => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -37,7 +38,7 @@ const HomeScreen = props => {
       hasTopSafeArea={true}
       scrollable={false}
       style={StyleSheet.applyWidth(
-        { backgroundColor: theme.colors['Surface'] },
+        { backgroundColor: theme.colors["Surface"] },
         dimensions.width
       )}
     >
@@ -45,10 +46,10 @@ const HomeScreen = props => {
       <View
         style={StyleSheet.applyWidth(
           {
-            alignItems: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0)',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            flexDirection: "row",
+            justifyContent: "space-between",
             margin: 20,
             marginBottom: 0,
           },
@@ -57,7 +58,7 @@ const HomeScreen = props => {
       >
         <View
           style={StyleSheet.applyWidth(
-            { alignItems: 'center', flexDirection: 'row' },
+            { alignItems: "center", flexDirection: "row" },
             dimensions.width
           )}
         >
@@ -69,13 +70,13 @@ const HomeScreen = props => {
               style={StyleSheet.applyWidth(
                 {
                   color: theme.colors.strong,
-                  fontFamily: 'Inter_500Medium',
+                  fontFamily: "Inter_500Medium",
                   fontSize: 17,
                 },
                 dimensions.width
               )}
             >
-              {'New Leads'}
+              {"New Leads"}
             </Text>
           </View>
         </View>
@@ -83,15 +84,15 @@ const HomeScreen = props => {
         <Touchable
           onPress={() => {
             try {
-              navigation.navigate('NotificationsScreen');
+              navigation.navigate("NotificationsScreen");
             } catch (err) {
               console.error(err);
             }
           }}
         >
           <Icon
-            color={theme.colors['CoTruckGrey']}
-            name={'Ionicons/ios-notifications-outline'}
+            color={theme.colors["CoTruckGrey"]}
+            name={"Ionicons/ios-notifications-outline"}
             size={30}
           />
         </Touchable>
@@ -100,20 +101,20 @@ const HomeScreen = props => {
       <TabView
         activeColor={theme.colors.primary}
         indicatorColor={theme.colors.primary}
-        keyboardDismissMode={'auto'}
+        keyboardDismissMode={"auto"}
         pressColor={theme.colors.primary}
         scrollEnabled={false}
         swipeEnabled={true}
-        tabBarPosition={'top'}
+        tabBarPosition={"top"}
         tabsBackgroundColor={theme.colors.background}
       >
         {/* Import */}
         <TabViewItem
           style={StyleSheet.applyWidth(
-            GlobalStyles.TabViewItemStyles(theme)['Tab View Item'],
+            GlobalStyles.TabViewItemStyles(theme)["Tab View Item"],
             dimensions.width
           )}
-          title={'Import'}
+          title={"Import"}
         >
           <ScrollView
             bounces={true}
@@ -126,9 +127,9 @@ const HomeScreen = props => {
           >
             {/* Import New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
-              booking_type={'Import'}
-              id={Constants['AUTH_OWNER_ID']}
-              owner_status={'PENDING'}
+              booking_type={"Import"}
+              id={Constants["AUTH_OWNER_ID"]}
+              owner_status={"PENDING"}
             >
               {({ loading, error, data, refetchNewLeads$Pending$ }) => {
                 const importNewLeadsData = data?.json;
@@ -137,21 +138,21 @@ const HomeScreen = props => {
                     <View
                       style={StyleSheet.applyWidth(
                         {
-                          alignItems: 'center',
+                          alignItems: "center",
                           flex: 1,
-                          justifyContent: 'center',
+                          justifyContent: "center",
                         },
                         dimensions.width
                       )}
                     >
                       <ActivityIndicator
                         animating={true}
-                        color={theme.colors['Primary']}
+                        color={theme.colors["Primary"]}
                         hidesWhenStopped={true}
-                        size={'large'}
+                        size={"large"}
                         style={StyleSheet.applyWidth(
                           GlobalStyles.ActivityIndicatorStyles(theme)[
-                            'Activity Indicator'
+                            "Activity Indicator"
                           ],
                           dimensions.width
                         )}
@@ -167,9 +168,9 @@ const HomeScreen = props => {
                       <View
                         style={StyleSheet.applyWidth(
                           {
-                            alignItems: 'center',
+                            alignItems: "center",
                             flex: 1,
-                            justifyContent: 'center',
+                            justifyContent: "center",
                           },
                           dimensions.width
                         )}
@@ -180,7 +181,7 @@ const HomeScreen = props => {
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 2'],
+                              GlobalStyles.TextStyles(theme)["Text 2"],
                               { fontSize: 16 }
                             ),
                             dimensions.width
@@ -196,16 +197,31 @@ const HomeScreen = props => {
                 return (
                   <FlatList
                     contentContainerStyle={StyleSheet.applyWidth(
-                      { flexDirection: 'column-reverse' },
+                      { flexDirection: "column-reverse" },
                       dimensions.width
                     )}
                     data={importNewLeadsData?.data}
                     keyExtractor={(listData, index) => listData?.book_truck_id}
-                    listKey={'Or2R6bzt'}
+                    listKey={"Or2R6bzt"}
                     numColumns={1}
                     onEndReachedThreshold={0.5}
                     renderItem={({ item, index }) => {
                       const listData = item;
+
+                      if (listData?.pickup_date) {
+                        const parsedDate = moment(
+                          listData?.pickup_date,
+                          "YYYY-MM-DD HH:mm:ss"
+                        );
+
+                        const formattedDate = parsedDate.format("DD MMM YYYY");
+
+                        // Assign the formatted date back to listData.pickup_date
+                        listData.pickup_date = formattedDate;
+
+                        console.log(listData.pickup_date);
+                      }
+
                       return (
                         <>
                           {/* Import Pickup Date */}
@@ -213,11 +229,12 @@ const HomeScreen = props => {
                             caretSize={24}
                             expanded={true}
                             iconSize={24}
-                            label={listData?.pickup_date?.split(' ')[0]}
+                            // label={listData?.pickup_date?.split(' ')[0]}
+                            label={listData?.pickup_date}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.AccordionGroupStyles(theme)[
-                                  'Accordion'
+                                  "Accordion"
                                 ],
                                 {
                                   marginBottom: 10,
@@ -234,7 +251,7 @@ const HomeScreen = props => {
                               onPress={() => {
                                 try {
                                   navigation.navigate(
-                                    'ImportNewTripPendingScreen',
+                                    "ImportNewTripPendingScreen",
                                     { book_truck_id: listData?.book_truck_id }
                                   );
                                 } catch (err) {
@@ -246,8 +263,8 @@ const HomeScreen = props => {
                               <View
                                 style={StyleSheet.applyWidth(
                                   {
-                                    backgroundColor: theme.colors['Surface'],
-                                    borderColor: theme.colors['Light'],
+                                    backgroundColor: theme.colors["Surface"],
+                                    borderColor: theme.colors["Light"],
                                     borderRadius: 12,
                                     borderWidth: 1,
                                     margin: 10,
@@ -259,8 +276,8 @@ const HomeScreen = props => {
                                 <View
                                   style={StyleSheet.applyWidth(
                                     {
-                                      alignItems: 'center',
-                                      flexDirection: 'row',
+                                      alignItems: "center",
+                                      flexDirection: "row",
                                       margin: 5,
                                     },
                                     dimensions.width
@@ -270,27 +287,30 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        width: '30%',
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: "30%",
                                       },
                                       dimensions.width
                                     )}
                                   >
                                     {/* Pickup  */}
+                                    <Text style={{ fontWeight: "600" }}>
+                                      Pickup
+                                    </Text>
                                     <Text
                                       accessible={true}
                                       allowFontScaling={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
-                                            color: theme.colors['CoTruckBlack'],
+                                            color: theme.colors["CoTruckBlack"],
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
@@ -299,16 +319,17 @@ const HomeScreen = props => {
                                       {listData?.pickup_location}
                                     </Text>
                                   </View>
+
                                   {/* Icon View */}
                                   <View
                                     style={StyleSheet.applyWidth(
-                                      { alignSelf: 'center' },
+                                      { alignSelf: "center" },
                                       dimensions.width
                                     )}
                                   >
                                     <Icon
-                                      color={theme.colors['CoTruckGrey']}
-                                      name={'AntDesign/swap'}
+                                      color={theme.colors["CoTruckGrey"]}
+                                      name={"AntDesign/swap"}
                                       size={20}
                                     />
                                   </View>
@@ -316,26 +337,30 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        width: '30%',
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: "30%",
                                       },
                                       dimensions.width
                                     )}
                                   >
                                     {/* Drop */}
+                                    <Text style={{ fontWeight: "600" }}>
+                                      Drop
+                                    </Text>
                                     <Text
                                       accessible={true}
                                       allowFontScaling={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
-                                            color: theme.colors['CoTruckBlack'],
+                                            color: theme.colors["CoTruckBlack"],
                                             fontSize: 12,
                                             margin: 5,
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
@@ -347,13 +372,13 @@ const HomeScreen = props => {
                                   {/* Icon View */}
                                   <View
                                     style={StyleSheet.applyWidth(
-                                      { alignSelf: 'center' },
+                                      { alignSelf: "center" },
                                       dimensions.width
                                     )}
                                   >
                                     <Icon
-                                      color={theme.colors['CoTruckGrey']}
-                                      name={'AntDesign/swap'}
+                                      color={theme.colors["CoTruckGrey"]}
+                                      name={"AntDesign/swap"}
                                       size={20}
                                     />
                                   </View>
@@ -361,26 +386,30 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        width: '30%',
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: "30%",
                                       },
                                       dimensions.width
                                     )}
                                   >
                                     {/* Depot */}
+                                    <Text style={{ fontWeight: "600" }}>
+                                      Depot
+                                    </Text>
                                     <Text
                                       accessible={true}
                                       allowFontScaling={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
-                                            color: theme.colors['CoTruckBlack'],
+                                            color: theme.colors["CoTruckBlack"],
                                             fontSize: 12,
                                             margin: 5,
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
@@ -390,12 +419,13 @@ const HomeScreen = props => {
                                     </Text>
                                   </View>
                                 </View>
+
                                 {/* Info Row */}
                                 <View
                                   style={StyleSheet.applyWidth(
                                     {
-                                      alignItems: 'center',
-                                      flexDirection: 'row',
+                                      alignItems: "center",
+                                      flexDirection: "row",
                                       margin: 5,
                                     },
                                     dimensions.width
@@ -405,10 +435,10 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        justifyContent: 'center',
-                                        width: '25%',
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        justifyContent: "center",
+                                        width: "25%",
                                       },
                                       dimensions.width
                                     )}
@@ -420,28 +450,30 @@ const HomeScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
                                       )}
                                     >
+                                      Shipper Name {"\n"}
                                       {listData?.shipper_name}
                                     </Text>
                                   </View>
+
                                   {/* Vehicle Type View */}
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        justifyContent: 'center',
-                                        width: '25%',
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        justifyContent: "center",
+                                        width: "25%",
                                       },
                                       dimensions.width
                                     )}
@@ -453,28 +485,32 @@ const HomeScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
                                       )}
                                     >
-                                      {listData?.vehicle_type?.split(' ')[0]}
+                                      {listData?.vehicle_type.split(" ")[0]}
+                                      {"\n"}
+                                      {listData?.vehicle_type.split(" ")[1]}
+                                      {/* {listData?.vehicle_type?.split(" ")[0]} */}
                                     </Text>
                                   </View>
+
                                   {/* No Of Trucks View */}
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        justifyContent: 'center',
-                                        width: '25%',
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        justifyContent: "center",
+                                        width: "25%",
                                       },
                                       dimensions.width
                                     )}
@@ -486,29 +522,30 @@ const HomeScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
                                       )}
                                     >
-                                      {'Truck - '}
+                                      {"Truck # "}
                                       {listData?.no_of_truck}
                                     </Text>
                                   </View>
+
                                   {/* Load Weight View */}
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        justifyContent: 'center',
-                                        width: '25%',
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        justifyContent: "center",
+                                        width: "25%",
                                       },
                                       dimensions.width
                                     )}
@@ -520,21 +557,22 @@ const HomeScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
                                       )}
                                     >
-                                      {listData?.load_weight}
+                                      Weight # {listData?.load_weight}
                                     </Text>
                                   </View>
                                 </View>
+
                                 {/* Status View */}
                                 <View
                                   style={StyleSheet.applyWidth(
@@ -546,10 +584,10 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
+                                        alignItems: "center",
                                         borderRadius: 8,
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-end',
+                                        flexDirection: "row",
+                                        justifyContent: "flex-end",
                                         margin: 10,
                                       },
                                       dimensions.width
@@ -561,17 +599,17 @@ const HomeScreen = props => {
                                       allowFontScaling={true}
                                       style={StyleSheet.applyWidth(
                                         GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
+                                          "Text 2"
                                         ],
                                         dimensions.width
                                       )}
                                     >
-                                      {'Booking Status - '}
+                                      {"Booking Status - "}
                                     </Text>
                                     {/* Accepted */}
                                     <>
                                       {!(
-                                        listData?.owner_status === 'ACCEPTED'
+                                        listData?.owner_status === "ACCEPTED"
                                       ) ? null : (
                                         <Text
                                           accessible={true}
@@ -579,9 +617,9 @@ const HomeScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
-                                                'Text 2'
+                                                "Text 2"
                                               ],
-                                              { color: theme.colors['Success'] }
+                                              { color: theme.colors["Success"] }
                                             ),
                                             dimensions.width
                                           )}
@@ -593,7 +631,7 @@ const HomeScreen = props => {
                                     {/* Pending */}
                                     <>
                                       {!(
-                                        listData?.owner_status === 'PENDING'
+                                        listData?.owner_status === "PENDING"
                                       ) ? null : (
                                         <Text
                                           accessible={true}
@@ -601,12 +639,12 @@ const HomeScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
-                                                'Text 2'
+                                                "Text 2"
                                               ],
                                               {
                                                 color:
                                                   theme.colors[
-                                                    'CoTruckPending'
+                                                    "CoTruckPending"
                                                   ],
                                               }
                                             ),
@@ -620,7 +658,7 @@ const HomeScreen = props => {
                                     {/* Cancelled */}
                                     <>
                                       {!(
-                                        listData?.owner_status === 'CANCELLED'
+                                        listData?.owner_status === "CANCELLED"
                                       ) ? null : (
                                         <Text
                                           accessible={true}
@@ -628,9 +666,9 @@ const HomeScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
-                                                'Text 2'
+                                                "Text 2"
                                               ],
-                                              { color: theme.colors['Error'] }
+                                              { color: theme.colors["Error"] }
                                             ),
                                             dimensions.width
                                           )}
@@ -655,13 +693,14 @@ const HomeScreen = props => {
             </CotruckApi.FetchNewLeads$Pending$POST>
           </ScrollView>
         </TabViewItem>
+
         {/* Export */}
         <TabViewItem
           style={StyleSheet.applyWidth(
-            GlobalStyles.TabViewItemStyles(theme)['Tab View Item'],
+            GlobalStyles.TabViewItemStyles(theme)["Tab View Item"],
             dimensions.width
           )}
-          title={'Export'}
+          title={"Export"}
         >
           <ScrollView
             bounces={true}
@@ -674,9 +713,9 @@ const HomeScreen = props => {
           >
             {/* Export New Leads */}
             <CotruckApi.FetchNewLeads$Pending$POST
-              booking_type={'Export'}
-              id={Constants['AUTH_OWNER_ID']}
-              owner_status={'PENDING'}
+              booking_type={"Export"}
+              id={Constants["AUTH_OWNER_ID"]}
+              owner_status={"PENDING"}
             >
               {({ loading, error, data, refetchNewLeads$Pending$ }) => {
                 const exportNewLeadsData = data?.json;
@@ -685,21 +724,21 @@ const HomeScreen = props => {
                     <View
                       style={StyleSheet.applyWidth(
                         {
-                          alignItems: 'center',
+                          alignItems: "center",
                           flex: 1,
-                          justifyContent: 'center',
+                          justifyContent: "center",
                         },
                         dimensions.width
                       )}
                     >
                       <ActivityIndicator
                         animating={true}
-                        color={theme.colors['Primary']}
+                        color={theme.colors["Primary"]}
                         hidesWhenStopped={true}
-                        size={'large'}
+                        size={"large"}
                         style={StyleSheet.applyWidth(
                           GlobalStyles.ActivityIndicatorStyles(theme)[
-                            'Activity Indicator'
+                            "Activity Indicator"
                           ],
                           dimensions.width
                         )}
@@ -715,9 +754,9 @@ const HomeScreen = props => {
                       <View
                         style={StyleSheet.applyWidth(
                           {
-                            alignItems: 'center',
+                            alignItems: "center",
                             flex: 1,
-                            justifyContent: 'center',
+                            justifyContent: "center",
                           },
                           dimensions.width
                         )}
@@ -728,7 +767,7 @@ const HomeScreen = props => {
                           allowFontScaling={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['Text 2'],
+                              GlobalStyles.TextStyles(theme)["Text 2"],
                               { fontSize: 16 }
                             ),
                             dimensions.width
@@ -744,16 +783,31 @@ const HomeScreen = props => {
                 return (
                   <FlatList
                     contentContainerStyle={StyleSheet.applyWidth(
-                      { flexDirection: 'column-reverse' },
+                      { flexDirection: "column-reverse" },
                       dimensions.width
                     )}
                     data={exportNewLeadsData?.data}
                     keyExtractor={(listData, index) => listData?.book_truck_id}
-                    listKey={'apFzU50P'}
+                    listKey={"apFzU50P"}
                     numColumns={1}
                     onEndReachedThreshold={0.5}
                     renderItem={({ item, index }) => {
                       const listData = item;
+
+                      if (listData?.pickup_date) {
+                        const parsedDate = moment(
+                          listData?.pickup_date,
+                          "YYYY-MM-DD HH:mm:ss"
+                        );
+
+                        const formattedDate = parsedDate.format("DD MMM YYYY");
+
+                        // Assign the formatted date back to listData.pickup_date
+                        listData.pickup_date = formattedDate;
+
+                        console.log(listData.pickup_date);
+                      }
+
                       return (
                         <>
                           {/* Export Pickup Date */}
@@ -761,11 +815,12 @@ const HomeScreen = props => {
                             caretSize={24}
                             expanded={true}
                             iconSize={24}
-                            label={listData?.pickup_date?.split(' ')[0]}
+                            // label={listData?.pickup_date?.split(" ")[0]}
+                            label={listData?.pickup_date}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.AccordionGroupStyles(theme)[
-                                  'Accordion'
+                                  "Accordion"
                                 ],
                                 {
                                   marginBottom: 10,
@@ -782,7 +837,7 @@ const HomeScreen = props => {
                               onPress={() => {
                                 try {
                                   navigation.navigate(
-                                    'ExportNewTripPendingScreen',
+                                    "ExportNewTripPendingScreen",
                                     { book_truck_id: listData?.book_truck_id }
                                   );
                                 } catch (err) {
@@ -794,8 +849,8 @@ const HomeScreen = props => {
                               <View
                                 style={StyleSheet.applyWidth(
                                   {
-                                    backgroundColor: theme.colors['Surface'],
-                                    borderColor: theme.colors['Light'],
+                                    backgroundColor: theme.colors["Surface"],
+                                    borderColor: theme.colors["Light"],
                                     borderRadius: 12,
                                     borderWidth: 1,
                                     margin: 10,
@@ -807,8 +862,8 @@ const HomeScreen = props => {
                                 <View
                                   style={StyleSheet.applyWidth(
                                     {
-                                      alignItems: 'center',
-                                      flexDirection: 'row',
+                                      alignItems: "center",
+                                      flexDirection: "row",
                                       margin: 5,
                                     },
                                     dimensions.width
@@ -818,26 +873,30 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        width: '30%',
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: "30%",
                                       },
                                       dimensions.width
                                     )}
                                   >
                                     {/* Depot */}
+                                    <Text style={{ fontWeight: "600" }}>
+                                      Depot
+                                    </Text>
                                     <Text
                                       accessible={true}
                                       allowFontScaling={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
-                                            color: theme.colors['CoTruckBlack'],
+                                            color: theme.colors["CoTruckBlack"],
                                             fontSize: 12,
                                             margin: 5,
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
@@ -849,13 +908,13 @@ const HomeScreen = props => {
                                   {/* Icon View */}
                                   <View
                                     style={StyleSheet.applyWidth(
-                                      { alignSelf: 'center' },
+                                      { alignSelf: "center" },
                                       dimensions.width
                                     )}
                                   >
                                     <Icon
-                                      color={theme.colors['CoTruckGrey']}
-                                      name={'AntDesign/swap'}
+                                      color={theme.colors["CoTruckGrey"]}
+                                      name={"AntDesign/swap"}
                                       size={20}
                                     />
                                   </View>
@@ -863,27 +922,30 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        width: '30%',
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: "30%",
                                       },
                                       dimensions.width
                                     )}
                                   >
                                     {/* Pickup  */}
+                                    <Text style={{ fontWeight: "600" }}>
+                                      Pickup
+                                    </Text>
                                     <Text
                                       accessible={true}
                                       allowFontScaling={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
-                                            color: theme.colors['CoTruckBlack'],
+                                            color: theme.colors["CoTruckBlack"],
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
@@ -895,13 +957,13 @@ const HomeScreen = props => {
                                   {/* Icon View */}
                                   <View
                                     style={StyleSheet.applyWidth(
-                                      { alignSelf: 'center' },
+                                      { alignSelf: "center" },
                                       dimensions.width
                                     )}
                                   >
                                     <Icon
-                                      color={theme.colors['CoTruckGrey']}
-                                      name={'AntDesign/swap'}
+                                      color={theme.colors["CoTruckGrey"]}
+                                      name={"AntDesign/swap"}
                                       size={20}
                                     />
                                   </View>
@@ -909,26 +971,30 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        width: '30%',
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: "30%",
                                       },
                                       dimensions.width
                                     )}
                                   >
                                     {/* Drop */}
+                                    <Text style={{ fontWeight: "600" }}>
+                                      Drop
+                                    </Text>
                                     <Text
                                       accessible={true}
                                       allowFontScaling={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
-                                            color: theme.colors['CoTruckBlack'],
+                                            color: theme.colors["CoTruckBlack"],
                                             fontSize: 12,
                                             margin: 5,
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
@@ -942,8 +1008,8 @@ const HomeScreen = props => {
                                 <View
                                   style={StyleSheet.applyWidth(
                                     {
-                                      alignItems: 'center',
-                                      flexDirection: 'row',
+                                      alignItems: "center",
+                                      flexDirection: "row",
                                       margin: 5,
                                     },
                                     dimensions.width
@@ -953,10 +1019,10 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        justifyContent: 'center',
-                                        width: '25%',
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        justifyContent: "center",
+                                        width: "25%",
                                       },
                                       dimensions.width
                                     )}
@@ -968,17 +1034,18 @@ const HomeScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
                                       )}
                                     >
+                                      Shipper Name {"\n"}
                                       {listData?.shipper_name}
                                     </Text>
                                   </View>
@@ -986,10 +1053,10 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        justifyContent: 'center',
-                                        width: '25%',
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        justifyContent: "center",
+                                        width: "25%",
                                       },
                                       dimensions.width
                                     )}
@@ -1001,28 +1068,32 @@ const HomeScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
                                       )}
                                     >
-                                      {listData?.vehicle_type?.split(' ')[0]}
+                                      {listData?.vehicle_type.split(" ")[0]}
+                                      {"\n"}
+                                      {listData?.vehicle_type.split(" ")[1]}
+
+                                      {/* {listData?.vehicle_type?.split(" ")[0]} */}
                                     </Text>
                                   </View>
                                   {/* No Of Trucks View */}
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        justifyContent: 'center',
-                                        width: '25%',
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        justifyContent: "center",
+                                        width: "25%",
                                       },
                                       dimensions.width
                                     )}
@@ -1034,18 +1105,18 @@ const HomeScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
                                       )}
                                     >
-                                      {'Truck - '}
+                                      {"Truck # "}
                                       {listData?.no_of_truck}
                                     </Text>
                                   </View>
@@ -1053,10 +1124,10 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        justifyContent: 'center',
-                                        width: '25%',
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        justifyContent: "center",
+                                        width: "25%",
                                       },
                                       dimensions.width
                                     )}
@@ -1068,18 +1139,18 @@ const HomeScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
-                                            'Text 2'
+                                            "Text 2"
                                           ],
                                           {
                                             fontSize: 12,
                                             margin: 5,
-                                            textAlign: 'center',
+                                            textAlign: "center",
                                           }
                                         ),
                                         dimensions.width
                                       )}
                                     >
-                                      {listData?.load_weight}
+                                      Weight # {listData?.load_weight}
                                     </Text>
                                   </View>
                                 </View>
@@ -1093,10 +1164,10 @@ const HomeScreen = props => {
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
-                                        alignItems: 'center',
+                                        alignItems: "center",
                                         borderRadius: 8,
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-end',
+                                        flexDirection: "row",
+                                        justifyContent: "flex-end",
                                         margin: 10,
                                       },
                                       dimensions.width
@@ -1108,17 +1179,17 @@ const HomeScreen = props => {
                                       allowFontScaling={true}
                                       style={StyleSheet.applyWidth(
                                         GlobalStyles.TextStyles(theme)[
-                                          'Text 2'
+                                          "Text 2"
                                         ],
                                         dimensions.width
                                       )}
                                     >
-                                      {'Booking Status - '}
+                                      {"Booking Status - "}
                                     </Text>
                                     {/* Accepted */}
                                     <>
                                       {!(
-                                        listData?.owner_status === 'ACCEPTED'
+                                        listData?.owner_status === "ACCEPTED"
                                       ) ? null : (
                                         <Text
                                           accessible={true}
@@ -1126,9 +1197,9 @@ const HomeScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
-                                                'Text 2'
+                                                "Text 2"
                                               ],
-                                              { color: theme.colors['Success'] }
+                                              { color: theme.colors["Success"] }
                                             ),
                                             dimensions.width
                                           )}
@@ -1140,7 +1211,7 @@ const HomeScreen = props => {
                                     {/* Pending */}
                                     <>
                                       {!(
-                                        listData?.owner_status === 'PENDING'
+                                        listData?.owner_status === "PENDING"
                                       ) ? null : (
                                         <Text
                                           accessible={true}
@@ -1148,12 +1219,12 @@ const HomeScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
-                                                'Text 2'
+                                                "Text 2"
                                               ],
                                               {
                                                 color:
                                                   theme.colors[
-                                                    'CoTruckPending'
+                                                    "CoTruckPending"
                                                   ],
                                               }
                                             ),
@@ -1167,7 +1238,7 @@ const HomeScreen = props => {
                                     {/* Cancelled */}
                                     <>
                                       {!(
-                                        listData?.owner_status === 'CANCELLED'
+                                        listData?.owner_status === "CANCELLED"
                                       ) ? null : (
                                         <Text
                                           accessible={true}
@@ -1175,9 +1246,9 @@ const HomeScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
-                                                'Text 2'
+                                                "Text 2"
                                               ],
-                                              { color: theme.colors['Error'] }
+                                              { color: theme.colors["Error"] }
                                             ),
                                             dimensions.width
                                           )}

@@ -445,6 +445,8 @@ const LoginScreen = (props) => {
                   )?.json;
                   const message = loginResponse?.message;
 
+                  console.log("login response ===>", loginResponse);
+
                   showAlertUtil({
                     title: "Message",
                     message: message,
